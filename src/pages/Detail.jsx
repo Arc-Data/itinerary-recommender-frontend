@@ -1,13 +1,10 @@
 	import React, { useContext, useEffect, useState } from "react";
-	/*Components*/
 	import DetailCard from "../components/DetailCard";
 	import Review from "../components/Review";
-	/*Icon*/
 	import addressIcon from "/images/carbon_location-filled.svg";
 	import timeIcon from "/images/wi_time-4.svg";
 	import money from "/images/fluent_money-20-regular.svg";
 	import bookmarkIcon from "/images/bookmark-icon-4.png";
-	import star from "/images/star.png";
 	import { useParams } from "react-router-dom";
 	import {
 	FaEllipsisH,
@@ -21,38 +18,29 @@
 	import timeToNow from "../utils/timeToNow";
 
 	export default function DetailPage() {
+	const { id } = useParams();
 	const { authTokens, user } = useContext(AuthContext);
 	const [location, setLocation] = useState(null);
-	const { id } = useParams();
 	const [loading, setLoading] = useState(true);
+	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const letter = user.email[0].toUpperCase();
-	// Thumbnail
 	const [selectedImage, setSelectedImage] = useState("");
 	const [images, setImages] = useState(null);
-	// Bookmark
 	const [isBookmarked, setBookmarked] = useState(false);
+	const [editMode, setEditMode] = useState(false);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [totalPages, setTotalPages] = useState(1);
+	const [recommendedLocations, setRecommendedLocations] = useState([]);
+	// contains all the reviews data
+	const [reviewData, setReviewData] = useState([]);
+	// an object that contains the user's review data
+	const [userReview, setUserReview] = useState();
 	// this will be the object to be used when the user does not
 	// have any reviews yet
 	const [formData, setFormData] = useState({
 		comment: "",
 		rating: 0,
 	});
-
-	// an object that contains the user's review data
-	const [userReview, setUserReview] = useState();
-	// contains all the reviews data
-	const [reviewData, setReviewData] = useState([]);
-	
-	const [editMode, setEditMode] = useState(false);
-	const [dropdownOpen, setDropdownOpen] = useState(false);
-
-	const [currentPage, setCurrentPage] = useState(1);
-	const [totalPages, setTotalPages] = useState(1);
-
-	// Recommended location
-	const [recommendedLocations, setRecommendedLocations] = useState([]);
-
-	
 
 	const handleReviewChange = (name, value) => {
 		setFormData((prev) => ({
@@ -61,6 +49,7 @@
 		}));
 	};
 
+	// GET LOCATION DATA
 	useEffect(() => {
 		const getLocationData = async () => {
 		const response = await fetch(
@@ -302,7 +291,7 @@
 	const recommendedCards = recommendedLocations.map((location) => (
 		<DetailCard key={location.id} {...location} />
 	  ));
-
+	  
 	// DROPDOWN
 	const handleEllipsisClick = () => {
 		setDropdownOpen(!dropdownOpen);
@@ -358,10 +347,16 @@
 						</span>
 					</p>
 					<div className="detailPage--rating-category">
-						{[...Array(5)].map((i, index) => (
-						<img key={index} src={star} alt="Star" className="star" />
+						{[...Array(5)].map((star, i) => (
+							<FaStar
+								key={i}
+								className="star"
+								color={
+								i + 1 < location.rating_percentages.average_rating ? "#ffc107" : "#e4e5e9"
+								}
+							/>
 						))}
-						<span> • 4.0 •</span> {/* RATING FOR THE SPOT*/}
+						<span> • {location.rating_percentages.average_rating} <span className="mr5px"> •</span></span>
 						<span className="tags">
 						{location.details.tags.map((tag, index) => (
 							<span key={index} className="tag">
@@ -396,25 +391,33 @@
 					src={selectedImage}
 					alt="Main"
 					/>
-					<div className="detailPage--thumbnail">{thumbnails}</div>
+					<div className="detailPage--thumbnail">
+						{thumbnails}
+					</div>
 				</div>
 			</div>
 		</div>
-
 		<div className="detailPage--popular">
 			<h2>Also Popular with travelers</h2>
-			<div className="detailPage--cards">{recommendedCards}</div>
+			<div className="detailPage--cards">
+				{recommendedCards}
+			</div>
 		</div>
-
 		<div className="detailPage--review">
 			<div className="detailPage--reviews">
 				<h1>Reviews</h1>
 				<div className="detailPage--star">
-					{[...Array(5)].map((i, index) => (
-					<img key={index} src={star} alt="Star" className="star" />
+					{[...Array(5)].map((star, i) => (
+						<FaStar
+							key={i}
+							className="star"
+							color={
+							i + 1 < location.rating_percentages.average_rating ? "#ffc107" : "#e4e5e9"
+							}
+						/>
 					))}
-					<span> • 3 Reviews</span>
-					<span> • 4.0 </span>
+					<span> • {location.rating_percentages.total_reviews} Reviews  <span className="mr5px">•</span></span>
+					<span>{location.rating_percentages.average_rating}</span>
 				</div>
 				<div className="progress--bars">
 					{[1, 2, 3, 4, 5].map((i, index) => (
@@ -427,7 +430,6 @@
 					))}
 				</div>
 			</div>
-
 			<div className="write--review">
 			{userReview ? (
 				<div className="user--reviewContainer">
@@ -436,7 +438,12 @@
 							<div className="user--profile font15">
 								<p>{letter}</p>
 							</div>
-							<p className="user--username  font14">{`${userReview.user.first_name} ${userReview.user.last_name}`}</p>
+							<p className="user--username font14">
+								{`
+								${userReview.user.first_name} 
+								${userReview.user.last_name}
+								`}
+							</p>
 						</div>
 						<div className="d-flexCenter">
 							<div className="detailPage--star j-end">
@@ -464,7 +471,6 @@
 									<div 
 										className="plan--day-dropcontent-item"
 										onClick={deleteReview}>
-										
 										<FaTrash />
 										<p>Delete review</p>
 									</div>

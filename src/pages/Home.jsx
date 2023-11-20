@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
 import Itinerary from "../components/Itinerary";
+import DetailCard from "../components/DetailCard";
+import BookmarkHomepage from "../components/BookmarkHomepage";
 import useItineraryManager from "../hooks/useItineraryManager";
 import useDayManager from "../hooks/useDayManager";
 import dayjs from "dayjs";
@@ -11,11 +13,69 @@ const HomePage = () => {
 	const { itineraries, getItineraries, deleteItinerary } = useItineraryManager(authTokens)
 	const [ selectedDays, setSelectedDays ] = useState([])
 	const { days, error, loading, getActiveTrips, markDaysAsCompleted } = useDayManager(authTokens)
+	const [recommendedLocations, setRecommendedLocations] = useState([]);
+	const [recentBookmarks, setRecentBookmarks] = useState([]);
+	const [recentBookmarksname, setRecentBookmarksname] = useState([]);
+
+	// GET RECOMMENDED LOCATIONS
+	const getRecommendedLocations = async () => {
+		try {
+		  const response = await fetch(
+			`http://127.0.0.1:8000/api/recommendations/homepage/`,
+			{
+			  method: "GET",
+			  headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${authTokens.access}`,
+			  },
+			}
+		  );
+  
+		  if (!response.ok) {
+			throw new Error("Error fetching recommended locations data");
+		  }
+  
+		  const data = await response.json();
+		  setRecommendedLocations(data.recommendations);
+		} catch (error) {
+		  console.error("Error while fetching recommended locations data: ", error);
+		}
+	  };
+
+	// GET RECENT BOOKMARKS
+	const getRecentBookmarks = async () => {
+		try {
+		const response = await fetch(
+			`http://127.0.0.1:8000/api/bookmarks/`,
+			{
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${authTokens.access}`,
+			},
+			}
+		);
+
+		if (!response.ok) {
+			throw new Error("Error fetching recent bookmarks data");
+		}
+
+		const data = await response.json();
+		setRecentBookmarks(data.bookmarks);
+		} catch (error) {
+		console.error("Error while fetching recent bookmarks data: ", error);
+		}
+	};
+	  
 
 	useEffect(() => {
 		getItineraries();
 		getActiveTrips();
+		getRecommendedLocations();
+		getRecentBookmarks();
 	}, [])
+
+
 
 	const toggleDaySelection = (dayId) => {
 		const isSelected = selectedDays.includes(dayId)
@@ -65,6 +125,15 @@ const HomePage = () => {
 		)
 	})
 
+	const recommendedCards = recommendedLocations.map((location) => (
+		<DetailCard key={location.id} {...location} />
+	  ));
+
+	const recentBookmarkCards = recentBookmarks.map((bookmark) => (
+		<BookmarkHomepage key={bookmark.id} {...bookmark} />
+	));
+	
+
 	return (
 		<div className = "home--page-content">
 			<header className="home--banner">
@@ -100,6 +169,16 @@ const HomePage = () => {
 				</div>
 			</div>
 			)}
+			<div className="recommended--locations--bookmarks">
+				<div className="recommended--locations">
+					<h1>Recommended Locations</h1>
+					<div className="detailPage--cards">{recommendedCards}</div>
+				</div>
+				<div className="recent--bookmarks">
+					<h1>Recent Bookmarks</h1>
+					<div className="homepage--bookmarks">{recentBookmarkCards} </div>
+				</div>
+			</div>
 		</div>
 	)
 }
