@@ -221,29 +221,24 @@ export default function DetailPage() {
 	const deleteReview = async () => {
 		try {
 			const response = await fetch(
-			`${backendUrl}/api/location/${id}/reviews/delete/`,
-			{
-				method: "DELETE",
-				headers: {
-				"Content-Type": "application/json",
-				"Authorization": `Bearer ${authTokens.access}`,
-				},
+				`${backendUrl}/api/location/${id}/reviews/delete/`,
+					{
+						method: "DELETE",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": `Bearer ${authTokens.access}`,
+						},
+					}
+				)
+			
+				if (!response.ok) {
+					throw new Error("Error while deleting the review");
+				}
+			
+				setUserReview()
+			} catch (error) {
+				console.error("Error while deleting the review: ", error);
 			}
-			);
-		
-			if (!response.ok) {
-			throw new Error("Error while deleting the review");
-			}
-		
-			console.log("Review deleted successfully");
-			alert(
-			"Review deleted successfully"
-		);
-		window.location.reload();
-		setLoading(true);
-		} catch (error) {
-			console.error("Error while deleting the review: ", error);
-		}
 		};
 
 	// BOOKMARK
