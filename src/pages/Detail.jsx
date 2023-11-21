@@ -164,32 +164,25 @@ export default function DetailPage() {
 	// SUBMIT REVIEW
 	const submitReview = async () => {
 		try {
-		const response = await fetch(
-			`${backendUrl}/api/location/${id}/reviews/create/`,
-			{
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${authTokens.access}`,
-			},
-			body: JSON.stringify(formData),
+			const response = await fetch(
+				`${backendUrl}/api/location/${id}/reviews/create/`,
+				{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${authTokens.access}`,
+				},
+				body: JSON.stringify(formData),
+				}
+			);
+
+			if (!response.ok) {
+				throw new Error(`Error while submitting the review: `);
 			}
-		);
-
-		if (!response.ok) {
-			throw new Error(`Error while submitting the review: `);
-		}
-		const errorData = await response.json();
-
-		console.log("Review submitted successfully");
-		alert(
-			"Review submitted successfully! You can no longer submit reviews for this location."
-		);
-		window.location.reload();
-		setLoading(true);
-		
+			const data = await response.json();
+			setUserReview(data)
 		} catch (error) {
-		console.error("Error while submitting the review: ", error);
+			console.error("Error while submitting the review: ", error);
 		}
 	};
 
