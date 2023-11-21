@@ -35,11 +35,16 @@ export const AuthProvider = ({children}) => {
          
         if(response.status === 200) {
             const userData = jwt_decode(data.access)
+
+            const currentTimeInSeconds = Math.floor(Date.now() / 1000);
+            if (userData.exp && currentTimeInSeconds > userData.exp) {
+                await updateToken();
+            }
+
             setAuthTokens(data)
             setUser(userData)
             setPreferences(userData.set_preferences)
 
-            console.log(userData.set_preferences)
             localStorage.setItem('authTokens', JSON.stringify(data))
             localStorage.setItem('setPreferences', JSON.stringify(userData.set_preferences))
             
@@ -89,6 +94,7 @@ export const AuthProvider = ({children}) => {
     }
 
     const updateToken = async() => {
+        console.log("Runs the backend function")
         const response = await fetch(`${backendUrl}/api/token/refresh/`, {
             method:'POST',
             headers: {
@@ -99,8 +105,7 @@ export const AuthProvider = ({children}) => {
             })
         })
         const data = await response.json()
-
-        console.log()
+        console.log(data)
         
         if(response.status === 200) {
             setAuthTokens(data)
@@ -144,21 +149,33 @@ export const AuthProvider = ({children}) => {
     }
 
     useEffect(() => {
-        if(loading) {
-            updateToken()
-        }
-
-        const fourMinutes = 1000 * 60 * 4
-
-        let interval = setInterval(() => {
-            if(authTokens) {
-                updateToken()
+        const checkTokenExpiryAndRefresh = async () => {
+            if (authTokens) {
+                const currentTimeInSeconds = Math.floor(Date.now() / 1000);
+                const decodedToken = jwt_decode(authTokens.access);
+    
+                // Check if the token is expired or about to expire (e.g., within the next 60 seconds)
+                if (decodedToken.exp && currentTimeInSeconds + 60 > decodedToken.exp) {
+                    try {
+                        await updateToken();
+                    } catch (error) {
+                        console.error('Failed to refresh token:', error);
+                        // Handle the error, such as logging out the user
+                        logoutUser();
+                    }
+                }
             }
-        }, fourMinutes)
 
-        return () => clearInterval(interval)
+            setLoading(false)
+        };
+        
+        checkTokenExpiryAndRefresh();
+        
+        const fourMinutes = 1000 * 60 * 4
+        const intervalId = setInterval(checkTokenExpiryAndRefresh, fourMinutes)
 
-    }, [authTokens, loading])
+        return () => clearInterval(intervalId)
+    }, [authTokens, updateToken, logoutUser])
 
     return(
         <AuthContext.Provider value={contextData}>

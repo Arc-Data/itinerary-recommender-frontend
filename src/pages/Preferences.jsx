@@ -30,10 +30,6 @@ const Preferences = () => {
         '/pref-religion.png',
     ]
 
-    if (user.set_preferences) {
-        return <Navigate to="/home"/>
-    }
-
     const onClick = async (e) => {
         e.preventDefault()
 
