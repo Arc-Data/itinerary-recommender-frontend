@@ -9,7 +9,31 @@ const useBusinessManager = (authTokens) => {
     const [location, setLocation] = useState()
     const [locations, setLocations] = useState([])
     const [requests, setRequests] = useState([])
+    const [ownedLocations, setOwnedLocations] = useState([])
     
+    const getOwnedBusinesses = async () => {
+        setLoading(true) 
+
+        try {
+            const response = await fetch(`${backendUrl}/api/user/business/`, {
+                "method": "GET",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                }
+            })
+
+            const data = await response.json()
+            setOwnedLocations(data)
+        } 
+        catch(error) {
+            console.log("An error occured while getting owned businesses")
+        }
+        finally {
+            setLoading(false)
+        }
+    }
+
     const getApprovalRequests = async () => {
         setLoading(true)
 
@@ -62,8 +86,10 @@ const useBusinessManager = (authTokens) => {
         location,
         locations,
         requests, 
+        ownedLocations,
         getApprovalRequests,
         getAllApprovalRequests,
+        getOwnedBusinesses,
     }
 }
 

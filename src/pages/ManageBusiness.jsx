@@ -3,11 +3,23 @@ import { Link } from "react-router-dom"
 import AuthContext from "../context/AuthContext"
 import { useNavigate } from "react-router-dom"
 import back from "/images/lets-icons_back-light.svg";
-const AddBusiness = () => {
+import SAMPLEIMAGE from "/images/osmenapeak.jpg";
+import {
+	FaTrash,
+	FaPencilAlt,
+	} from "react-icons/fa";
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root');
+
+    // PAPASA NALANG YUNG DATA DITO SAME LANG NAMAN SA DESIGN
+
+const ManageBusiness = () => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
 
     const { authTokens } = useContext(AuthContext)
     const navigate = useNavigate()
+    const [isAddProductModalOpen, setAddProductModalOpen] = useState(false); 
     const [locationData, setLocationData] = useState({
         'name': '',
         'address': '',
@@ -65,6 +77,45 @@ const AddBusiness = () => {
             console.log("Invalid Inputs")
         }
     }
+
+    // MAPPING IF CONNECTED TO BACKEND NIREADY KO LANG PARA MADALI NALANG SAYO 
+
+    // const displayProducts = products && products.map(product => {
+    //     return (
+    //         <tr key={request.id}>
+    //             <td>{product.img}</td>
+    //             <td>{product.name}</td>
+    //             <td>
+    //              
+    //             </td>
+    //             <td>{product.price}</td>
+    //             <td>{product.description}</td>
+    //             <td>
+    //                 <div className="d-flexCenter">
+    //                     <Link to="edit"> {/*NAKA LINK LANG TO SA WALANG KWENTANG PAGE KASI WALA PA FUNCTIONALITY*/}
+    //                         <button 
+    //                             className="business--edit mr10px btn--icon"> {/*FUNCTIONALITY HERE (EDIT) */}
+    //                             <FaPencilAlt />
+    //                         </button>
+    //                     </Link>
+    //                     <button 
+    //                         className="business--delete btn--icon"> {/*FUNCTIONALITY HERE (DELETE) */}
+    //                         <FaTrash />
+    //                     </button>
+    //                 </div>
+    //             </td>
+    //         </tr>
+    //     )   
+    // })
+
+    const openAddProduct = () => {
+        setAddProductModalOpen(true);
+    };
+    
+    const closeAddProduct = () => {
+        setAddProductModalOpen(false);
+    };
+
     
     return (
         <div className="profile--main-container">
@@ -80,8 +131,11 @@ const AddBusiness = () => {
                                     Back
                             </button>
                         </Link>
-        
-                        <div className="business--form-header">General Information</div>
+
+                        <div className="flex">
+                            <div className="business--form-header">Manage Business </div>
+                            <button className="delete--businessBTN"> <FaTrash /> Delete Business</button>
+                        </div>
 
                         <div className="form-group">
                             <label htmlFor="type">Location Type</label>
@@ -189,9 +243,109 @@ const AddBusiness = () => {
                                 link to access instructions.
                             </p>
                         </div>
-                        <div className="d-flexCenter jc-end mt-20px">
-                            <button className="add--business" type="submit">Submit</button>
+
+                        <div className="requests--table">  
+                            <div className="flex-between">
+                                <p className="requests--title bold2">Product & Services</p>
+                                <button className="business--btn" onClick={openAddProduct}>
+                                    <img src="/plus.svg" />
+                                    <p>Add</p>
+                                </button>
+                            </div>
+                            <table>
+                                <thead className="table--th">
+                                    <td></td>
+                                    <td>Name</td>
+                                    <td>Price</td>
+                                    <td>Description</td>
+                                    <td>Action</td>
+                                </thead>
+                                <tbody> {/*STATIC DATA */}
+                                    <tr>
+                                        <td>
+                                            <img 
+                                            src={SAMPLEIMAGE}  
+                                            className="product--services-images"
+                                            alt="SAMPLE"/>
+                                        </td>
+                                        <td>EMMAN MACAYA</td>
+                                        <td>150</td>
+                                        <td>Sobrang Sarap</td>
+                                        <td>
+                                            <div className="d-flexCenter">
+                                                <Link to="edit"> {/*NAKA LINK LANG TO SA WALANG KWENTANG PAGE KASI WALA PA FUNCTIONALITY*/}
+                                                    <button 
+                                                        className="business--edit mr10px btn--icon"> {/*FUNCTIONALITY HERE (EDIT) */}
+                                                        <FaPencilAlt />
+                                                    </button>
+                                                </Link>
+                                                <button 
+                                                    className="business--delete btn--icon"> {/*FUNCTIONALITY HERE (DELETE) */}
+                                                    <FaTrash />
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
+
+                        <Modal
+                            isOpen={isAddProductModalOpen}
+                            onRequestClose={closeAddProduct}
+                            contentLabel="Add Product"
+                            className="addProduct--popup"
+                            overlayClassName="modal-overlay"
+                            >
+                            <div className="modal-header">
+                                <h2>Details</h2>
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="address">Name</label>
+                                <input 
+                                    type="text" 
+                                    name="name" 
+                                    id="name" 
+                                    // value={locationData.address}
+                                    onChange={handleInputChange}
+                                    placeholder="Enter Name" 
+                                    className="business-input"/>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="address">Price</label>
+                                <input 
+                                    type="text" 
+                                    name="price" 
+                                    id="price" 
+                                    // value={locationData.address}
+                                    onChange={handleInputChange}
+                                    placeholder="Enter Price" 
+                                    className="business-input"/>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="address">Description</label>
+                                <textarea 
+                                    type="text" 
+                                    name="description" 
+                                    id="description" 
+                                    // value={locationData.address}
+                                    onChange={handleInputChange}
+                                    placeholder="Enter Description" 
+                                    className="business-input"/>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="address">Product Image</label>
+                                <button className="upload--btn d-flexCenter">
+                                        <img className="upload--icon" src="/upload.svg" />
+                                        <p>Upload</p>
+                                    </button>
+                            </div>
+                            <div className="d-flexCenter jc-end mt-20px">
+                                <button className="add--business" type="submit">Submit</button>
+                            </div>
+                        </Modal>
+            
                     </div>
                 </div>
             </form>
@@ -199,4 +353,4 @@ const AddBusiness = () => {
     )
 }
 
-export default AddBusiness
+export default ManageBusiness

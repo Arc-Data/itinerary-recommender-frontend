@@ -3,8 +3,11 @@ import { Link } from "react-router-dom"
 import AuthContext from "../context/AuthContext"
 import { useNavigate } from "react-router-dom"
 import back from "/images/lets-icons_back-light.svg";
-const AddBusiness = () => {
+const EditBusiness = () => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
+    // SORRY HINDI KO ALAM PANO FUNCTIONALITY NITO ONCE NA PININDOT NIYA YUNG
+    // ICON DAPAT MAEEDIT LANG HINDI KO ALAM YUN SORRY
 
     const { authTokens } = useContext(AuthContext)
     const navigate = useNavigate()
@@ -81,6 +84,7 @@ const AddBusiness = () => {
                             </button>
                         </Link>
         
+                        <button disabled className="request--status">For Approval</button>
                         <div className="business--form-header">General Information</div>
 
                         <div className="form-group">
@@ -199,4 +203,4 @@ const AddBusiness = () => {
     )
 }
 
-export default AddBusiness
+export default EditBusiness
