@@ -7,7 +7,6 @@ import addressIcon from "/images/carbon_location-filled.svg";
 import timeIcon from "/images/wi_time-4.svg";
 import money from "/images/fluent_money-20-regular.svg";
 import bookmarkIcon from "/images/bookmark-icon-4.png";
-import star from "/images/star.png";
 import { useParams } from "react-router-dom";
 import {
 	FaEllipsisH,
@@ -22,39 +21,30 @@ import timeToNow from "../utils/timeToNow";
 
 export default function DetailPage() {
 	const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
-
+	
+	const { id } = useParams()
 	const { authTokens, user } = useContext(AuthContext);
 	const [location, setLocation] = useState(null);
-	const { id } = useParams();
 	const [loading, setLoading] = useState(true);
+	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const letter = user.email[0].toUpperCase();
-	// Thumbnail
 	const [selectedImage, setSelectedImage] = useState("");
 	const [images, setImages] = useState(null);
-	// Bookmark
 	const [isBookmarked, setBookmarked] = useState(false);
+	const [editMode, setEditMode] = useState(false);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [totalPages, setTotalPages] = useState(1);
+	const [recommendedLocations, setRecommendedLocations] = useState([]);
+	// contains all the reviews data
+	const [reviewData, setReviewData] = useState([]);
+	// an object that contains the user's review data
+	const [userReview, setUserReview] = useState();
 	// this will be the object to be used when the user does not
 	// have any reviews yet
 	const [formData, setFormData] = useState({
 		comment: "",
 		rating: 0,
 	});
-
-	// an object that contains the user's review data
-	const [userReview, setUserReview] = useState();
-	// contains all the reviews data
-	const [reviewData, setReviewData] = useState([]);
-
-	const [editMode, setEditMode] = useState(false);
-	const [dropdownOpen, setDropdownOpen] = useState(false);
-
-	const [currentPage, setCurrentPage] = useState(1);
-	const [totalPages, setTotalPages] = useState(1);
-
-	// Recommended location
-	const [recommendedLocations, setRecommendedLocations] = useState([]);
-
-
 
 	const handleReviewChange = (name, value) => {
 		setFormData((prev) => ({
@@ -63,17 +53,41 @@ export default function DetailPage() {
 		}));
 	};
 
-	useEffect(() => {
-		const getLocationData = async () => {
+	// GET RECOMMENDED LOCATIONS
+	const getRecommendedLocations = async () => {
+		try {
+			const response = await fetch(
+			`${backendUrl}/api/recommendations/location/${id}/`,
+			{
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${authTokens.access}`,
+				},
+			}
+			);
+	
+			if (!response.ok) {
+				throw new Error("Error fetching recommended locations data");
+			}
+	
+			const data = await response.json();
+			setRecommendedLocations(data.recommendations);
+		} catch (error) {
+			console.error("Error while fetching recommended locations data: ", error);
+		}
+	};
+
+	const getLocationData = async () => {
 		const response = await fetch(
 			`${backendUrl}/api/location/${id}/`,
 			{
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${authTokens.access}`,
+				"Authorization": `Bearer ${authTokens.access}`,
 			},
-			}
+		}
 		);
 
 		const data = await response.json();
@@ -82,18 +96,20 @@ export default function DetailPage() {
 		setLocation(data);
 		setImages(data.images);
 		setSelectedImage(`${backendUrl}` + data.images[0]);
-		};
+	};
 
-		// GET LOCATION REVIEW
-		const getLocationReviewData = async () => {
+	// GET LOCATION REVIEW
+	const getLocationReviewData = async () => {
+		console.log("This should run")
+
 		const response = await fetch(
 			`${backendUrl}/api/location/${id}/reviews/?page=${currentPage}`,
-			{
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${authTokens.access}`,
-			},
+				{
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${authTokens.access}`,
+				},
 			}
 		);
 
@@ -101,125 +117,124 @@ export default function DetailPage() {
 
 		setReviewData(locationData.results);
 		setTotalPages(Math.ceil(locationData.count / 5)); // Assuming 5 reviews per page
-		};
+	};
 
-		// GET REVIEW OF USER
-		const getReviewData = async () => {
+	// GET REVIEW OF USER
+	const getReviewData = async () => {
+		setUserReview()
+
 		try {
 			const response = await fetch(
-			`${backendUrl}/api/location/${id}/reviews/user/`,
-			{
-				method: "GET",
-				headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${authTokens.access}`,
-				},
-			}
-			);
-			if (!response.ok) {
-			throw new Error("Error fetching user review data");
-			}
-
-			const userReviewData = await response.json();
-			console.log(userReview);
-			setUserReview(userReviewData);
-		} catch (error) {
-			console.error("Error while fetching user review data: ", error);
-		}
-		};
-
-		// GET RECOMMENDED LOCATIONS
-		const getRecommendedLocations = async () => {
-			try {
-				const response = await fetch(
-				`${backendUrl}/api/recommendations/location/${id}/`,
+				`${backendUrl}/api/location/${id}/reviews/user/`,
 				{
 					method: "GET",
 					headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${authTokens.access}`,
+						"Content-Type": "application/json",
+						"Authorization": `Bearer ${authTokens.access}`,
 					},
 				}
-				);
-		
-				if (!response.ok) {
-				throw new Error("Error fetching recommended locations data");
-				}
-		
-				const data = await response.json();
-				setRecommendedLocations(data.recommendations);
-			} catch (error) {
-				console.error("Error while fetching recommended locations data: ", error);
+			)
+
+			if (response.status === 404) {
+				throw new Error("Error fetching user review data");
 			}
-			};
-		
-			
+
+			const data = await response.json();
+			setUserReview(data);
+			setFormData({
+				"comment": data.comment,
+				"rating": data.rating
+			})
+		} 
+		catch (error) {
+			console.error("User has no reviews for this location: ");
+		}
+	};
+
+	// GET LOCATION DATA
+	useEffect(() => {
+		console.log(id)
 		getRecommendedLocations();
 		getReviewData();
-		getLocationReviewData();
 		getLocationData();
-	}, [id, authTokens.access, currentPage]);
+	}, [id]);
+	
+	useEffect(() => {
+		getLocationReviewData();
+	}, [id, currentPage]) 
 
 	// SUBMIT REVIEW
 	const submitReview = async () => {
 		try {
-		const response = await fetch(
-			`${backendUrl}/api/location/${id}/reviews/create/`,
-			{
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${authTokens.access}`,
-			},
-			body: JSON.stringify(formData),
+			const response = await fetch(
+				`${backendUrl}/api/location/${id}/reviews/create/`,
+				{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${authTokens.access}`,
+				},
+				body: JSON.stringify(formData),
+				}
+			);
+
+			console.log(response)
+
+			if (!response.ok) {
+				throw new Error(`Error while submitting the review: `);
 			}
-		);
-
-		if (!response.ok) {
-			throw new Error(`Error while submitting the review: `);
-		}
-		const errorData = await response.json();
-
-		console.log("Review submitted successfully");
-		alert(
-			"Review submitted successfully! You can no longer submit reviews for this location."
-		);
-
-		setLoading(true);
-		window.location.reload();
+			const data = await response.json();
+			setUserReview(data)
 		} catch (error) {
-		console.error("Error while submitting the review: ", error);
+			console.error("Error while submitting the review: ", error);
 		}
 	};
+
+	const handleSubmit = () => {
+		if (userReview) {
+			editReview()
+		} else {
+			submitReview()
+		}
+	}
 
 	// EDIT REVIEW
 	const handleEditReview = () => {
-		setEditMode(true);
-	};
-
-	const saveEditedReview = async () => {
-		try {
-		const response = await fetch(
-			`${backendUrl}/api/location/${id}/reviews/edit/`,
-			{
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${authTokens.access}`,
-			},
-			body: JSON.stringify(formData),
-			}
-		);
-
-		if (!response.ok) {
-			const errorData = await response.json();
-			throw new Error(`Error while updating the review: ${errorData.detail}`);
+		if(dropdownOpen) {
+			setDropdownOpen(false)
 		}
 
-		console.log("Review updated successfully");
-		setEditMode(false);
+		setEditMode(prev => !prev);
+	};
+
+	const editReview = async () => {
+		try {
+			const response = await fetch(
+				`${backendUrl}/api/location/${id}/reviews/edit/`,
+				{
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${authTokens.access}`,
+				},
+				body: JSON.stringify(formData),
+				}
+			);
+
+			if (!response.ok) {
+				throw new Error(`Error while updating the review: ${errorData.detail}`);
+			}
+			
+			const data = await response.json();
+			setUserReview(data)
+			setFormData({
+				"rating": data.rating,
+				"comment": data.comment,
+			})
+
+			setEditMode(false);
 		} catch (error) {
-		console.error("Error while updating the review: ", error);
+			console.error("Error while updating the review: ", error);
 		}
 	};
 
@@ -227,30 +242,28 @@ export default function DetailPage() {
 	const deleteReview = async () => {
 		try {
 			const response = await fetch(
-			`${backendUrl}/api/location/${id}/reviews/delete/`,
-			{
-				method: "DELETE",
-				headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${authTokens.access}`,
-				},
+				`${backendUrl}/api/location/${id}/reviews/delete/`,
+					{
+						method: "DELETE",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": `Bearer ${authTokens.access}`,
+						},
+					}
+				)
+			
+				if (!response.ok) {
+					throw new Error("Error while deleting the review");
+				}
+			
+				setUserReview()
+				setFormData({
+					'rating': 0,
+					'comment': '',
+				})
+			} catch (error) {
+				console.error("Error while deleting the review: ", error);
 			}
-			);
-		
-			if (!response.ok) {
-			throw new Error("Error while deleting the review");
-			}
-		
-			console.log("Review deleted successfully");
-			alert(
-			"Review deleted successfully"
-		);
-
-		setLoading(true);
-		window.location.reload();
-		} catch (error) {
-			console.error("Error while deleting the review: ", error);
-		}
 		};
 
 	// BOOKMARK
@@ -271,7 +284,7 @@ export default function DetailPage() {
 			throw new Error("Error while updating bookmark");
 		}
 		} catch (error) {
-		console.log("Error while updating bookmark: ", error);
+			console.log("Error while updating bookmark: ", error);
 		}
 	};
 
@@ -303,11 +316,13 @@ export default function DetailPage() {
 	// POPULAR LOCATION (DATA)
 	const recommendedCards = recommendedLocations.map((location) => (
 		<DetailCard key={location.id} {...location} />
-		));
+	));
+
+	console.log(location)
 
 	// DROPDOWN
 	const handleEllipsisClick = () => {
-		setDropdownOpen(!dropdownOpen);
+		setDropdownOpen(prev => !prev);
 	};
 
 	//PAGINATION
@@ -360,10 +375,16 @@ export default function DetailPage() {
 						</span>
 					</p>
 					<div className="detailPage--rating-category">
-						{[...Array(5)].map((i, index) => (
-						<img key={index} src={star} alt="Star" className="star" />
+						{[...Array(5)].map((star, i) => (
+							<FaStar
+								key={i}
+								className="star"
+								color={
+								i + 1 < location.rating_percentages.average_rating ? "#ffc107" : "#e4e5e9"
+								}
+							/>
 						))}
-						<span> • 4.0 •</span> {/* RATING FOR THE SPOT*/}
+						<span> • {location.rating_percentages.average_rating} <span className="mr5px"> •</span></span>
 						<span className="tags">
 						{location.details.tags.map((tag, index) => (
 							<span key={index} className="tag">
@@ -398,47 +419,72 @@ export default function DetailPage() {
 					src={selectedImage}
 					alt="Main"
 					/>
-					<div className="detailPage--thumbnail">{thumbnails}</div>
+					<div className="detailPage--thumbnail">
+						{thumbnails}
+					</div>
 				</div>
 			</div>
 		</div>
-
 		<div className="detailPage--popular">
 			<h2>Also Popular with travelers</h2>
-			<div className="detailPage--cards">{recommendedCards}</div>
+			<div className="detailPage--cards">
+				{recommendedCards}
+			</div>
 		</div>
-
 		<div className="detailPage--review">
 			<div className="detailPage--reviews">
 				<h1>Reviews</h1>
 				<div className="detailPage--star">
-					{[...Array(5)].map((i, index) => (
-					<img key={index} src={star} alt="Star" className="star" />
+					{[...Array(5)].map((star, i) => (
+						<FaStar
+							key={i}
+							className="star"
+							color={
+							i + 1 < location.rating_percentages.average_rating ? "#ffc107" : "#e4e5e9"
+							}
+						/>
 					))}
-					<span> • 3 Reviews</span>
-					<span> • 4.0 </span>
+					<span> • {location.rating_percentages.total_reviews} Reviews  <span className="mr5px">•</span></span>
+					<span>{location.rating_percentages.average_rating}</span>
 				</div>
-				<div className="progress--bars">
-					{[1, 2, 3, 4, 5].map((i, index) => (
-					<div key={index} className="progress--bar">
-						<div key={index} className="progress--number">
-						{5 - index}
-						</div>
-						<div className="progress--fill"></div>
-					</div>
-					))}
+				<div className="ratings--container">
+					{[5, 4, 3, 2, 1].map((i, index) => {
+						const style = {
+							"width": `${location.rating_percentages.ratings[index].percentage * 100}%`
+						}
+
+						console.log(style)
+
+						return (
+							<div key={index} className="ratings">
+								<span>{i}</span>
+								<div className="ratings--bar">
+									<div className="ratings--fill" style={style}></div>
+								</div>
+							</div>
+						)
+							// <div key={index} className="progress--bar">
+							// 	<div key={index} className="progress--number">
+							// 	</div>
+							// 	<div className="progress--fill" style={style}></div>
+							// </div>
+					})}
 				</div>
 			</div>
-
 			<div className="write--review">
-			{userReview ? (
+			{userReview && !editMode ? (
 				<div className="user--reviewContainer">
 					<div className="flex mb15px">
 						<div className="d-flexCenter">
 							<div className="user--profile font15">
 								<p>{letter}</p>
 							</div>
-							<p className="user--username  font14">{`${userReview.user.first_name} ${userReview.user.last_name}`}</p>
+							<p className="user--username font14">
+								{`
+								${userReview.user.first_name} 
+								${userReview.user.last_name}
+								`}
+							</p>
 						</div>
 						<div className="d-flexCenter">
 							<div className="detailPage--star j-end">
@@ -466,7 +512,6 @@ export default function DetailPage() {
 									<div 
 										className="plan--day-dropcontent-item"
 										onClick={deleteReview}>
-										
 										<FaTrash />
 										<p>Delete review</p>
 									</div>
@@ -491,7 +536,10 @@ export default function DetailPage() {
 						onChange={(e) => handleReviewChange("comment", e.target.value)}
 					></textarea>
 					<div className="button--stars">
-						<button className="submit--review" onClick={submitReview}>
+						{editMode &&
+						<button className="submit--review" onClick={handleEditReview}>Cancel</button>
+						}
+						<button className="submit--review" onClick={handleSubmit}>
 						Submit Review
 						</button>
 						<div className="detailPage--star">
