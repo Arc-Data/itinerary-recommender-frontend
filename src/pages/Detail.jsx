@@ -7,7 +7,6 @@ import addressIcon from "/images/carbon_location-filled.svg";
 import timeIcon from "/images/wi_time-4.svg";
 import money from "/images/fluent_money-20-regular.svg";
 import bookmarkIcon from "/images/bookmark-icon-4.png";
-import star from "/images/star.png";
 import { useParams } from "react-router-dom";
 import {
 	FaEllipsisH,
@@ -192,8 +191,6 @@ export default function DetailPage() {
 	};
 
 	const handleSubmit = () => {
-		console.log(userReview)
-
 		if (userReview) {
 			editReview()
 		} else {
@@ -287,7 +284,7 @@ export default function DetailPage() {
 			throw new Error("Error while updating bookmark");
 		}
 		} catch (error) {
-		console.log("Error while updating bookmark: ", error);
+			console.log("Error while updating bookmark: ", error);
 		}
 	};
 
@@ -319,7 +316,9 @@ export default function DetailPage() {
 	// POPULAR LOCATION (DATA)
 	const recommendedCards = recommendedLocations.map((location) => (
 		<DetailCard key={location.id} {...location} />
-		));
+	));
+
+	console.log(location)
 
 	// DROPDOWN
 	const handleEllipsisClick = () => {
@@ -448,15 +447,28 @@ export default function DetailPage() {
 					<span> • {location.rating_percentages.total_reviews} Reviews  <span className="mr5px">•</span></span>
 					<span>{location.rating_percentages.average_rating}</span>
 				</div>
-				<div className="progress--bars">
-					{[1, 2, 3, 4, 5].map((i, index) => (
-					<div key={index} className="progress--bar">
-						<div key={index} className="progress--number">
-						{5 - index}
-						</div>
-						<div className="progress--fill"></div>
-					</div>
-					))}
+				<div className="ratings--container">
+					{[5, 4, 3, 2, 1].map((i, index) => {
+						const style = {
+							"width": `${location.rating_percentages.ratings[index].percentage * 100}%`
+						}
+
+						console.log(style)
+
+						return (
+							<div key={index} className="ratings">
+								<span>{i}</span>
+								<div className="ratings--bar">
+									<div className="ratings--fill" style={style}></div>
+								</div>
+							</div>
+						)
+							// <div key={index} className="progress--bar">
+							// 	<div key={index} className="progress--number">
+							// 	</div>
+							// 	<div className="progress--fill" style={style}></div>
+							// </div>
+					})}
 				</div>
 			</div>
 			<div className="write--review">
