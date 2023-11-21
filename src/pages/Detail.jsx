@@ -140,9 +140,12 @@ export default function DetailPage() {
 				throw new Error("Error fetching user review data");
 			}
 
-			const userReviewData = await response.json();
-			console.log(userReviewData)
-			setUserReview(userReviewData);
+			const data = await response.json();
+			setUserReview(data);
+			setFormData({
+				"comment": data.comment,
+				"rating": data.rating
+			})
 		} 
 		catch (error) {
 			console.error("User has no reviews for this location: ");
@@ -170,11 +173,13 @@ export default function DetailPage() {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					Authorization: `Bearer ${authTokens.access}`,
+					"Authorization": `Bearer ${authTokens.access}`,
 				},
 				body: JSON.stringify(formData),
 				}
 			);
+
+			console.log(response)
 
 			if (!response.ok) {
 				throw new Error(`Error while submitting the review: `);
@@ -186,34 +191,53 @@ export default function DetailPage() {
 		}
 	};
 
+	const handleSubmit = () => {
+		console.log(userReview)
+
+		if (userReview) {
+			editReview()
+		} else {
+			submitReview()
+		}
+	}
+
 	// EDIT REVIEW
 	const handleEditReview = () => {
-		setEditMode(true);
-	};
-
-	const saveEditedReview = async () => {
-		try {
-		const response = await fetch(
-			`${backendUrl}/api/location/${id}/reviews/edit/`,
-			{
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${authTokens.access}`,
-			},
-			body: JSON.stringify(formData),
-			}
-		);
-
-		if (!response.ok) {
-			const errorData = await response.json();
-			throw new Error(`Error while updating the review: ${errorData.detail}`);
+		if(dropdownOpen) {
+			setDropdownOpen(false)
 		}
 
-		console.log("Review updated successfully");
-		setEditMode(false);
+		setEditMode(prev => !prev);
+	};
+
+	const editReview = async () => {
+		try {
+			const response = await fetch(
+				`${backendUrl}/api/location/${id}/reviews/edit/`,
+				{
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${authTokens.access}`,
+				},
+				body: JSON.stringify(formData),
+				}
+			);
+
+			if (!response.ok) {
+				throw new Error(`Error while updating the review: ${errorData.detail}`);
+			}
+			
+			const data = await response.json();
+			setUserReview(data)
+			setFormData({
+				"rating": data.rating,
+				"comment": data.comment,
+			})
+
+			setEditMode(false);
 		} catch (error) {
-		console.error("Error while updating the review: ", error);
+			console.error("Error while updating the review: ", error);
 		}
 	};
 
@@ -236,6 +260,10 @@ export default function DetailPage() {
 				}
 			
 				setUserReview()
+				setFormData({
+					'rating': 0,
+					'comment': '',
+				})
 			} catch (error) {
 				console.error("Error while deleting the review: ", error);
 			}
@@ -295,7 +323,7 @@ export default function DetailPage() {
 
 	// DROPDOWN
 	const handleEllipsisClick = () => {
-		setDropdownOpen(!dropdownOpen);
+		setDropdownOpen(prev => !prev);
 	};
 
 	//PAGINATION
@@ -432,7 +460,7 @@ export default function DetailPage() {
 				</div>
 			</div>
 			<div className="write--review">
-			{userReview ? (
+			{userReview && !editMode ? (
 				<div className="user--reviewContainer">
 					<div className="flex mb15px">
 						<div className="d-flexCenter">
@@ -496,7 +524,10 @@ export default function DetailPage() {
 						onChange={(e) => handleReviewChange("comment", e.target.value)}
 					></textarea>
 					<div className="button--stars">
-						<button className="submit--review" onClick={submitReview}>
+						{editMode &&
+						<button className="submit--review" onClick={handleEditReview}>Cancel</button>
+						}
+						<button className="submit--review" onClick={handleSubmit}>
 						Submit Review
 						</button>
 						<div className="detailPage--star">
