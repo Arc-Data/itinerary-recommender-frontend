@@ -4,8 +4,9 @@ import getTimeDetails from "../utils/getTimeDetails";
 import getFeeDetails from "../utils/getFeeDetails";
 
 const LocationItem = ({location}) => {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
     
-    const string = `http://127.0.0.1:8000${location.details.primary_image.replace(/'/g, "\\'")}` 
+    const string = `${backendUrl}${location.details.primary_image.replace(/'/g, "\\'")}` 
 
     const locationImage = {
         backgroundImage: `url(${string})`,

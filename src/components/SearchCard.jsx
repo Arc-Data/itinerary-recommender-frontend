@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom';
 import star from "/images/star.png";
 
 export default function SearchCard (props) {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
+
     return (
         <div className="searchPage--details">  
             <div className="searchPage--picture"> 
-            <Link to={`/location/${props.id}`}> <img className="searchPage--pic" src={`http://127.0.0.1:8000${props.primary_image}`}  /></Link>
+            <Link to={`/location/${props.id}`}> <img className="searchPage--pic" src={`${backendUrl}${props.primary_image}`}  /></Link>
             </div>
             
             <div className="searchPage--info">

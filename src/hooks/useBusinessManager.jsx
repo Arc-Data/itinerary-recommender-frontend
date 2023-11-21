@@ -1,6 +1,8 @@
 import { useState } from "react"
 
 const useBusinessManager = (authTokens) => {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
     const access = String(authTokens.access)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState()
@@ -12,7 +14,7 @@ const useBusinessManager = (authTokens) => {
         setLoading(true)
 
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/location/requests', {
+            const response = await fetch(`${backendUrl}/api/location/requests`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -35,7 +37,7 @@ const useBusinessManager = (authTokens) => {
         setLoading(true)
 
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/requests/', {
+            const response = await fetch(`${backendUrl}/api/requests/`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

@@ -7,15 +7,19 @@ const AuthContext = createContext()
 export default AuthContext;
 
 export const AuthProvider = ({children}) => {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
     const [authTokens, setAuthTokens] = useState(() => localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null)
     const [user, setUser] = useState(() => localStorage.getItem('authTokens') ? jwt_decode(localStorage.getItem('authTokens')) : null)
     const [loading, setLoading] = useState(true)
+    const [preferences, setPreferences] = useState(() => localStorage.getItem('setPreferences') ? 
+        JSON.parse(localStorage.getItem("setPreferences") === "true") : null)
 
     const navigate = useNavigate()
 
     const loginUser = async (e) => {
         e.preventDefault()
-        const response = await fetch('http://127.0.0.1:8000/api/token/', {
+        const response = await fetch(`${backendUrl}/api/token/`, {
             method:'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -26,16 +30,29 @@ export const AuthProvider = ({children}) => {
             })
         })
         const data = await response.json()
+
+        console.log(data)
          
         if(response.status === 200) {
             const userData = jwt_decode(data.access)
             setAuthTokens(data)
             setUser(userData)
+            setPreferences(userData.set_preferences)
+
+            console.log(userData.set_preferences)
             localStorage.setItem('authTokens', JSON.stringify(data))
+            localStorage.setItem('setPreferences', JSON.stringify(userData.set_preferences))
             
+            if(!userData.set_preferences) {
+                console.log("Should have done this")
+            }
+
             if(userData.is_staff) {
                 navigate('/admin')
-            } else {
+            } else if (!userData.set_preferences) {
+                navigate("/preferences")
+            }
+            else {
                 navigate('/home')
             }
         } else {
@@ -44,7 +61,7 @@ export const AuthProvider = ({children}) => {
     }
 
     const registerUser = async (formData) => {
-        const response = await fetch('http://127.0.0.1:8000/api/register/', {
+        const response = await fetch(`${backendUrl}/api/register/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -72,7 +89,7 @@ export const AuthProvider = ({children}) => {
     }
 
     const updateToken = async() => {
-        const response = await fetch('http://127.0.0.1:8000/api/token/refresh/', {
+        const response = await fetch(`${backendUrl}/api/token/refresh/`, {
             method:'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -82,6 +99,8 @@ export const AuthProvider = ({children}) => {
             })
         })
         const data = await response.json()
+
+        console.log()
         
         if(response.status === 200) {
             setAuthTokens(data)
@@ -102,15 +121,15 @@ export const AuthProvider = ({children}) => {
         setAuthTokens(null)
         setUser(null)
         localStorage.removeItem('authTokens')
+        localStorage.removeItem('setPreferences')
         navigate('/')
     }
 
     const userSetPreference = () => {
         if (user) {
-            setUser(prevUser => ({
-                ...prevUser,
-                set_preferences: true
-            }))
+            localStorage.setItem('setPreferences', true)
+            setPreferences(true)
+            navigate("/home")
         }
     }
 
@@ -121,10 +140,10 @@ export const AuthProvider = ({children}) => {
         logoutUser: logoutUser,    
         registerUser: registerUser,
         userSetPreference: userSetPreference,
+        preferences: preferences,
     }
 
     useEffect(() => {
-        
         if(loading) {
             updateToken()
         }

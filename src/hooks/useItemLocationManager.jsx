@@ -1,5 +1,7 @@
 const useItemLocationManager = (authTokens) => {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
     const access = String(authTokens.access)
+
 
     const addItem = async (itemId, dayId, order) => {
         try {
@@ -9,7 +11,7 @@ const useItemLocationManager = (authTokens) => {
                 'order': order
             }
 
-            const response = await fetch("http://127.0.0.1:8000/api/day-item/", {
+            const response = await fetch("${backendUrl}/api/day-item/", {
                 method: "POST",
                 headers: {
                     'Content-Type': "application/json"
@@ -33,7 +35,7 @@ const useItemLocationManager = (authTokens) => {
     const deleteItem = async (id) => {
 
         try {
-            await fetch(`http://127.0.0.1:8000/api/day-item/${id}/delete/`, {
+            await fetch(`${backendUrl}/api/day-item/${id}/delete/`, {
                 method: "DELETE",
                 headers: {
                     'Content-Type': "application/json",
@@ -48,7 +50,7 @@ const useItemLocationManager = (authTokens) => {
 
     const updateItemOrdering = async (locations) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/update-ordering/`, {
+            const response = await fetch(`${backendUrl}/api/update-ordering/`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",

@@ -6,6 +6,8 @@ import StarDefault from "../components/StarDefault"
 import useDayManager from "../hooks/useDayManager"
 
 const Recent = () => {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
     const { authTokens } = useContext(AuthContext)
     const { days, error, loading, getRecentDays, markDayAsComplete } = useDayManager(authTokens)
 
@@ -25,7 +27,7 @@ const Recent = () => {
         return (
             <div key={day.id} className="profile--ratings-item">
                 <Link to={`/profile/rate/${day.id}`}>
-                    <img src={`http://127.0.0.1:8000${day.image}`} width={200} height={100}/>
+                    <img src={`${backendUrl}${day.image}`} width={200} height={100}/>
                 </Link>
                 <div className="profile--ratings-content">
                     <div className="profile--ratings-name">

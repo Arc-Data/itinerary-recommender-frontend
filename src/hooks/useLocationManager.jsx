@@ -1,6 +1,8 @@
 import { useState } from "react"
 
 const useLocationManager = (authTokens) => {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
     const access = String(authTokens.access)
     const [location, setLocation] = useState()
     const [result, setResult] = useState()
@@ -9,7 +11,7 @@ const useLocationManager = (authTokens) => {
 
     const createLocation = async (location) => {
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/location/create/', {
+            const response = await fetch(`${backendUrl}/api/location/create/`, {
                 "method": "POST",
                 "headers": {
                     "Authorization": `Bearer ${access}`,
@@ -29,7 +31,7 @@ const useLocationManager = (authTokens) => {
     const getLocations = async (page, query = "") => {
         setLoading(true)
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/location/paginated/?query=${query}&page=${page}`, {
+            const response = await fetch(`${backendUrl}/api/location/paginated/?query=${query}&page=${page}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -50,7 +52,7 @@ const useLocationManager = (authTokens) => {
     const getLocation = async (id) => {
         setLoading(true)
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/location/${id}`, {
+            const response = await fetch(`${backendUrl}/api/location/${id}`, {
                 "method": "GET",
                 "headers": {
                     "Content-Type": "application/json",
@@ -76,7 +78,7 @@ const useLocationManager = (authTokens) => {
 
     const deleteLocation = async (id) => {
         try {
-            await fetch(`http://127.0.0.1:8000/api/location/${id}/delete/`, {
+            await fetch(`${backendUrl}/api/location/${id}/delete/`, {
                 "method": "DELETE",
                 "headers": {
                     "Content-Type": "application/json",

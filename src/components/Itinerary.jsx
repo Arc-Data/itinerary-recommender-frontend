@@ -5,6 +5,7 @@ import { useState } from "react";
 import ConfirmDelete from "../components/ConfirmDelete";
 
 const Itinerary = ({itinerary, handleDelete}) => {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
     const [ openDelete, setOpenDelete ] = useState(false) 
     
     const toggleDeleteModal = (e) => {
@@ -25,7 +26,7 @@ const Itinerary = ({itinerary, handleDelete}) => {
             <div className="itinerary--image-container">
                 <Link to ={`/plan/${itinerary.id}`}>
                     <img 
-                        src={`http://127.0.0.1:8000${itinerary.image}`} 
+                        src={`${backendUrl}${itinerary.image}`} 
                         height={240}
                         width={270}
                         className="itinerary--image"

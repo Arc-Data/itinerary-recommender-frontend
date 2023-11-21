@@ -6,6 +6,8 @@ import SearchCard from '../components/SearchCard';
 import { useSearchParams } from 'react-router-dom';
 
 const SearchPage = () => {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
     // initially set data to null, should contain an array of data depending on query
     const [locations, setLocations] = useState(null)
     const [searchParams, setSearchParams] = useSearchParams()
@@ -13,7 +15,7 @@ const SearchPage = () => {
 
     useEffect(() => {
         const fetchData = async() => {
-            const response = await fetch(`http://127.0.0.1:8000/api/location/?query=${query}`)  
+            const response = await fetch(`${backendUrl}/api/location/?query=${query}`)  
             const data = await response.json()
             setLocations(data)
         }
