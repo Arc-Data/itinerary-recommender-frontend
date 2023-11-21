@@ -1,15 +1,15 @@
-	import React, { useContext, useEffect, useState } from "react";
-	/*Components*/
-	import DetailCard from "../components/DetailCard";
-	import Review from "../components/Review";
-	/*Icon*/
-	import addressIcon from "/images/carbon_location-filled.svg";
-	import timeIcon from "/images/wi_time-4.svg";
-	import money from "/images/fluent_money-20-regular.svg";
-	import bookmarkIcon from "/images/bookmark-icon-4.png";
-	import star from "/images/star.png";
-	import { useParams } from "react-router-dom";
-	import {
+import React, { useContext, useEffect, useState } from "react";
+/*Components*/
+import DetailCard from "../components/DetailCard";
+import Review from "../components/Review";
+/*Icon*/
+import addressIcon from "/images/carbon_location-filled.svg";
+import timeIcon from "/images/wi_time-4.svg";
+import money from "/images/fluent_money-20-regular.svg";
+import bookmarkIcon from "/images/bookmark-icon-4.png";
+import star from "/images/star.png";
+import { useParams } from "react-router-dom";
+import {
 	FaEllipsisH,
 	FaStar,
 	FaTrash,
@@ -17,10 +17,12 @@
 	FaArrowLeft,
 	FaArrowRight,
 	} from "react-icons/fa";
-	import AuthContext from "../context/AuthContext";
-	import timeToNow from "../utils/timeToNow";
+import AuthContext from "../context/AuthContext";
+import timeToNow from "../utils/timeToNow";
 
-	export default function DetailPage() {
+export default function DetailPage() {
+	const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
 	const { authTokens, user } = useContext(AuthContext);
 	const [location, setLocation] = useState(null);
 	const { id } = useParams();
@@ -42,7 +44,7 @@
 	const [userReview, setUserReview] = useState();
 	// contains all the reviews data
 	const [reviewData, setReviewData] = useState([]);
-	
+
 	const [editMode, setEditMode] = useState(false);
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -52,7 +54,7 @@
 	// Recommended location
 	const [recommendedLocations, setRecommendedLocations] = useState([]);
 
-	
+
 
 	const handleReviewChange = (name, value) => {
 		setFormData((prev) => ({
@@ -64,7 +66,7 @@
 	useEffect(() => {
 		const getLocationData = async () => {
 		const response = await fetch(
-			`http://127.0.0.1:8000/api/location/${id}/`,
+			`${backendUrl}/api/location/${id}/`,
 			{
 			method: "GET",
 			headers: {
@@ -79,13 +81,13 @@
 		setBookmarked(data.details.is_bookmarked);
 		setLocation(data);
 		setImages(data.images);
-		setSelectedImage(`http://127.0.0.1:8000` + data.images[0]);
+		setSelectedImage(`${backendUrl}` + data.images[0]);
 		};
 
 		// GET LOCATION REVIEW
 		const getLocationReviewData = async () => {
 		const response = await fetch(
-			`http://127.0.0.1:8000/api/location/${id}/reviews/?page=${currentPage}`,
+			`${backendUrl}/api/location/${id}/reviews/?page=${currentPage}`,
 			{
 			method: "GET",
 			headers: {
@@ -105,7 +107,7 @@
 		const getReviewData = async () => {
 		try {
 			const response = await fetch(
-			`http://127.0.0.1:8000/api/location/${id}/reviews/user/`,
+			`${backendUrl}/api/location/${id}/reviews/user/`,
 			{
 				method: "GET",
 				headers: {
@@ -129,29 +131,29 @@
 		// GET RECOMMENDED LOCATIONS
 		const getRecommendedLocations = async () => {
 			try {
-			  const response = await fetch(
-				`http://127.0.0.1:8000/api/recommendations/location/${id}/`,
+				const response = await fetch(
+				`${backendUrl}/api/recommendations/location/${id}/`,
 				{
-				  method: "GET",
-				  headers: {
+					method: "GET",
+					headers: {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${authTokens.access}`,
-				  },
+					},
 				}
-			  );
-	  
-			  if (!response.ok) {
+				);
+		
+				if (!response.ok) {
 				throw new Error("Error fetching recommended locations data");
-			  }
-	  
-			  const data = await response.json();
-			  setRecommendedLocations(data.recommendations);
+				}
+		
+				const data = await response.json();
+				setRecommendedLocations(data.recommendations);
 			} catch (error) {
-			  console.error("Error while fetching recommended locations data: ", error);
+				console.error("Error while fetching recommended locations data: ", error);
 			}
-		  };
-	  
-		  
+			};
+		
+			
 		getRecommendedLocations();
 		getReviewData();
 		getLocationReviewData();
@@ -162,7 +164,7 @@
 	const submitReview = async () => {
 		try {
 		const response = await fetch(
-			`http://127.0.0.1:8000/api/location/${id}/reviews/create/`,
+			`${backendUrl}/api/location/${id}/reviews/create/`,
 			{
 			method: "POST",
 			headers: {
@@ -198,7 +200,7 @@
 	const saveEditedReview = async () => {
 		try {
 		const response = await fetch(
-			`http://127.0.0.1:8000/api/location/${id}/reviews/edit/`,
+			`${backendUrl}/api/location/${id}/reviews/edit/`,
 			{
 			method: "PUT",
 			headers: {
@@ -224,38 +226,38 @@
 	// DELETE REVIEW 
 	const deleteReview = async () => {
 		try {
-		  const response = await fetch(
-			`http://127.0.0.1:8000/api/location/${id}/reviews/delete/`,
+			const response = await fetch(
+			`${backendUrl}/api/location/${id}/reviews/delete/`,
 			{
-			  method: "DELETE",
-			  headers: {
+				method: "DELETE",
+				headers: {
 				"Content-Type": "application/json",
 				Authorization: `Bearer ${authTokens.access}`,
-			  },
+				},
 			}
-		  );
-	  
-		  if (!response.ok) {
+			);
+		
+			if (!response.ok) {
 			throw new Error("Error while deleting the review");
-		  }
-	  
-		  console.log("Review deleted successfully");
-		  alert(
+			}
+		
+			console.log("Review deleted successfully");
+			alert(
 			"Review deleted successfully"
 		);
 
 		setLoading(true);
 		window.location.reload();
 		} catch (error) {
-		  console.error("Error while deleting the review: ", error);
+			console.error("Error while deleting the review: ", error);
 		}
-	  };
+		};
 
 	// BOOKMARK
 	const handleBookmarkSave = async (value) => {
 		try {
 		const response = await fetch(
-			`http://127.0.0.1:8000/api/location/${id}/bookmark/`,
+			`${backendUrl}/api/location/${id}/bookmark/`,
 			{
 			method: "POST",
 			headers: {
@@ -292,16 +294,16 @@
 		<img
 		key={index}
 		className="thumbnail"
-		src={`http://127.0.0.1:8000${image}`}
+		src={`${backendUrl}${image}`}
 		alt={`Thumbnail ${index}`}
-		onClick={() => handleThumbnailClick(`http://127.0.0.1:8000${image}`)}
+		onClick={() => handleThumbnailClick(`${backendUrl}${image}`)}
 		/>
 	));
 
 	// POPULAR LOCATION (DATA)
 	const recommendedCards = recommendedLocations.map((location) => (
 		<DetailCard key={location.id} {...location} />
-	  ));
+		));
 
 	// DROPDOWN
 	const handleEllipsisClick = () => {

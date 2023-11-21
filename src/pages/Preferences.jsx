@@ -4,6 +4,8 @@ import { Navigate, useNavigate } from "react-router-dom"
 import PreferenceOption from "../components/PreferenceOption"
 
 const Preferences = () => {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
     const { user, authTokens, userSetPreference } = useContext(AuthContext)
     const [ preferences, setPreferences ] = useState({
         "Art": false,
@@ -28,8 +30,6 @@ const Preferences = () => {
         '/pref-religion.png',
     ]
 
-    console.log(user.set_preferences)
-
     if (user.set_preferences) {
         return <Navigate to="/home"/>
     }
@@ -38,7 +38,7 @@ const Preferences = () => {
         e.preventDefault()
 
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/preferences/`, {
+            const response = await fetch(`${backendUrl}/api/preferences/`, {
                 method: "PATCH",
                 headers: {
                     'Content-Type': "application/json",
@@ -48,6 +48,7 @@ const Preferences = () => {
             })
 
             if (response.ok) {
+                console.log("Triggers")
                 userSetPreference()
             }
         }

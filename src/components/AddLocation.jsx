@@ -9,6 +9,8 @@ import getFeeDetails from "../utils/getFeeDetails"
 import useItemLocationManager from "../hooks/useItemLocationManager"
 
 const AddLocation = ({onClose, locations, setLocations, day, includedLocations, setIncludedLocations, addMarker, deleteMarker}) => {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
     const { authTokens } = useContext(AuthContext)
     const { addItem, deleteItem, updateItemOrdering } = useItemLocationManager(authTokens)
     const [recentlyAddedLocations, setRecentlyAddedLocations] = useState([])
@@ -25,7 +27,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     }
 
     const searchLocations = async (search) => {
-        const response = await fetch(`http://127.0.0.1:8000/api/location/?query=${search}&hide`)
+        const response = await fetch(`${backendUrl}/api/location/?query=${search}&hide`)
         const data = await response.json()
         setSearchData(data)
     }

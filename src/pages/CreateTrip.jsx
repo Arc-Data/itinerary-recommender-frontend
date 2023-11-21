@@ -5,6 +5,8 @@ import AuthContext from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const CreateTrip = () => {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
     const { user, authTokens } = useContext(AuthContext)
     const navigate = useNavigate()
     const [formData, setFormData] = useState({
@@ -34,7 +36,7 @@ const CreateTrip = () => {
 
         try {
             const access = String(authTokens.access)
-            const response = await fetch('http://127.0.0.1:8000/api/itinerary/', {
+            const response = await fetch(`${backendUrl}/api/itinerary/`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

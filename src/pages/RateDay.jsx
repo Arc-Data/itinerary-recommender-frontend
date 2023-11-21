@@ -8,6 +8,8 @@ import useDayManager from "../hooks/useDayManager"
 import StarDefault from "../components/StarDefault"
 
 const RateDay = () => {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
     const { id } = useParams()
     const { authTokens } = useContext(AuthContext)
     const { day, loading, error, getDayRating, markDayAsComplete, updateDayRating } = useDayManager(authTokens)
@@ -33,7 +35,7 @@ const RateDay = () => {
         const closing_time = getTimeDetails(location.closing) 
         return (
             <div key={location.id} location={location} className="add-location-modal--search-item">
-                <img src={`http://127.0.0.1:8000${location.primary_image}`} width={120} height={80}/>
+                <img src={`${backendUrl}${location.primary_image}`} width={120} height={80}/>
                 <div>
                     <Link to={`/location/${location.id}`}>
                     <p className="add-location-modal--title">{location.name}</p>

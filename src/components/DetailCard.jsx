@@ -3,12 +3,14 @@ import { FaStar } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
 export default function DetailCard(props) {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
     return (
         <div className="detailPage--popularCard">
             <div className="card--dest-image">
                 <Link to={`/location/${props.id}`}>
                     <img 
-                    src={`http://127.0.0.1:8000${props.primary_image}`} 
+                    src={`${backendUrl}${props.primary_image}`} 
                     className="card--image" alt="Location" 
                     />
                 </Link>

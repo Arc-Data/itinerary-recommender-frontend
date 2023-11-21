@@ -1,6 +1,8 @@
 import { useState } from "react"
 
 const useItineraryManager = (authTokens) => {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
     const [itineraries, setItineraries] = useState([])
     const [itinerary, setItinerary] = useState()
     const [loading, setLoading] = useState(false)
@@ -12,7 +14,7 @@ const useItineraryManager = (authTokens) => {
         setLoading(true)
 
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/itinerary/${id}/`, {
+            const response = await fetch(`${backendUrl}/api/itinerary/${id}/`, {
                 'method' : 'GET',
                 'headers': {
                     "Content-Type" : "application/json",
@@ -49,7 +51,7 @@ const useItineraryManager = (authTokens) => {
     const getItineraries = async () => {
         setLoading(true)
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/itinerary/list/', {
+            const response = await fetch(`${backendUrl}/api/itinerary/list/`, {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
@@ -73,7 +75,7 @@ const useItineraryManager = (authTokens) => {
     }
 
     const deleteItinerary = async (id) => {
-        await fetch(`http://127.0.0.1:8000/api/itinerary/${id}/delete/`, {
+        await fetch(`${backendUrl}/api/itinerary/${id}/delete/`, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',
@@ -89,7 +91,7 @@ const useItineraryManager = (authTokens) => {
         if (editedName === itinerary.name) return 
 
         try {
-            fetch(`http://127.0.0.1:8000/api/itinerary/${id}/edit/name/`, {
+            fetch(`${backendUrl}/api/itinerary/${id}/edit/name/`, {
                 method: "PATCH",
                 headers: {
                     'Content-Type': "application/json",

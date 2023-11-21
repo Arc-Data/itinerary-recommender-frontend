@@ -1,6 +1,8 @@
 import { useState } from "react"
 
 const useDayManager = (authTokens) => {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
     const access = String(authTokens.access)
     const [ day, setDay ] = useState() 
     const [ days, setDays ] = useState([])
@@ -10,7 +12,7 @@ const useDayManager = (authTokens) => {
     const getDays = async (itinerary_id) => {
         setLoading(true)
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/itinerary/${itinerary_id}/days/`, {
+            const response = await fetch(`${backendUrl}/api/itinerary/${itinerary_id}/days/`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -31,7 +33,7 @@ const useDayManager = (authTokens) => {
 
     const updateDayColor = async (id, color) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/day/${id}/color/`, {
+            const response = await fetch(`${backendUrl}/api/day/${id}/color/`, {
                 "method": "POST",
                 "headers": {
                     'Content-Type': "application/json",
@@ -55,7 +57,7 @@ const useDayManager = (authTokens) => {
 
     const deleteDay = async (id) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/day/${id}/delete/`, {
+            const response = await fetch(`${backendUrl}/api/day/${id}/delete/`, {
                 method: "DELETE",
                 headers: {
                     'Content-Type': "application/json",
@@ -87,7 +89,7 @@ const useDayManager = (authTokens) => {
 
     const markDayAsComplete = async (id) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/day/${id}/complete/`, {
+            const response = await fetch(`${backendUrl}/api/day/${id}/complete/`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -108,7 +110,7 @@ const useDayManager = (authTokens) => {
         setLoading(true)
         
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/day/${id}/detail/`, {
+            const response = await fetch(`${backendUrl}/api/day/${id}/detail/`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -129,7 +131,7 @@ const useDayManager = (authTokens) => {
 
     const getActiveTrips = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/user/active/`, {
+            const response = await fetch(`${backendUrl}/api/user/active/`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -137,7 +139,6 @@ const useDayManager = (authTokens) => {
                 }
             })
 
-            console.log(response)
             const data = await response.json()
             setDays(data)
 
@@ -149,7 +150,7 @@ const useDayManager = (authTokens) => {
 
     const getRecentDays = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/days/completed/`, {
+            const response = await fetch(`${backendUrl}/api/days/completed/`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -168,7 +169,7 @@ const useDayManager = (authTokens) => {
 
     const updateDayRating = async (id, rating) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/day/${id}/rate/`, {
+            const response = await fetch(`${backendUrl}/api/day/${id}/rate/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -187,7 +188,7 @@ const useDayManager = (authTokens) => {
 
     const markDaysAsCompleted = async (dayIds) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/days/complete/`, {
+            const response = await fetch(`${backendUrl}/api/days/complete/`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",

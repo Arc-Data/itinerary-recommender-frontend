@@ -4,6 +4,8 @@ import DatePicker from 'react-datepicker';
 import { useParams } from "react-router-dom";
 
 const DateSettings = ({onClose, updateDays}) => {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
     const [startDate, setStartDate] = useState()
     const [endDate, setEndDate] = useState()
     const [loading, setLoading] = useState(false)
@@ -14,7 +16,7 @@ const DateSettings = ({onClose, updateDays}) => {
         setLoading(true)
     
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/itinerary/${id}/calendar/`, {
+            const response = await fetch(`${backendUrl}/api/itinerary/${id}/calendar/`, {
                 'method': "POST",
                 'headers': {
                     "Content-Type": "application/json",

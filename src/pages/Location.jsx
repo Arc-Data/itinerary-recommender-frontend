@@ -5,6 +5,8 @@ import AuthContext from '../context/AuthContext';
 import useLocationManager from '../hooks/useLocationManager';
 
 function Location() {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
     const authTokens = useContext(AuthContext)
     const { result, error, loading, getLocations } = useLocationManager(authTokens)
     const [currentPage, setCurrentPage] = useState(1)
@@ -13,7 +15,7 @@ function Location() {
             <td>{location.id}</td>
             <td>
                 <img className="location--img" 
-                    src={`http://127.0.0.1:8000${location.primary_image}`}/></td>
+                    src={`${backendUrl}${location.primary_image}`}/></td>
             <td>{location.name}</td>
             <td style={{width: '25%'}}>{location.address}</td>
             <td>

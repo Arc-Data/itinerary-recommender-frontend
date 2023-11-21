@@ -1,6 +1,7 @@
 import { useState } from "react"
 
 const useRecommendationsManager = (authTokens) => {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
     const access = String(authTokens.access)
 
     const [ recommendations, setRecommendations ] = useState()
@@ -12,7 +13,7 @@ const useRecommendationsManager = (authTokens) => {
         setLoading(true)
 
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/recommendations/${id}/apply/`, {
+            const response = await fetch(`${backendUrl}/api/recommendations/${id}/apply/`, {
                 'method' : 'POST',
                 'headers': {
                     "Content-Type" : "application/json",
@@ -40,7 +41,7 @@ const useRecommendationsManager = (authTokens) => {
         setLoading(true)
 
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/recommendations/content/`, {
+            const response = await fetch(`${backendUrl}/api/recommendations/content/`, {
                 'method' : 'GET',
                 'headers': {
                     "Content-Type" : "application/json",

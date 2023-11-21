@@ -3,6 +3,8 @@ import AuthContext from "../context/AuthContext"
 import { useNavigate } from "react-router-dom"
 
 const AddBusiness = () => {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
     const { authTokens } = useContext(AuthContext)
     const navigate = useNavigate()
     const [locationData, setLocationData] = useState({
@@ -35,7 +37,7 @@ const AddBusiness = () => {
 
         if (!checkInvalid()) {
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/location/request/', {
+                const response = await fetch(`${backendUrl}/api/location/request/`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
