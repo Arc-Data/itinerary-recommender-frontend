@@ -678,6 +678,8 @@ input[type="text"] {
     width: 17px; 
     height: 17px; 
     margin-right: 5px;
+    position: relative;
+    top: 3px;
 }
 
 .detailPage--rating-stars {
@@ -1669,7 +1671,7 @@ input[type="text"] {
 
 .homepage--bookmarks{
     height: 300px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .bookmarks--container {
@@ -1695,6 +1697,11 @@ input[type="text"] {
     margin-left: 10px;
     color: #333;
     margin-top: 20px;
+}
+
+.bookmarked--location {
+    width: 80%;
+    margin: 100px auto;
 }
 
 /*FOR IPAD*/

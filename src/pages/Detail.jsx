@@ -22,7 +22,8 @@ import timeToNow from "../utils/timeToNow";
 
 export default function DetailPage() {
 	const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
-
+	
+	const { id } = useParams()
 	const { authTokens, user } = useContext(AuthContext);
 	const [location, setLocation] = useState(null);
 	const [loading, setLoading] = useState(true);
@@ -46,22 +47,6 @@ export default function DetailPage() {
 		rating: 0,
 	});
 
-	// an object that contains the user's review data
-	const [userReview, setUserReview] = useState();
-	// contains all the reviews data
-	const [reviewData, setReviewData] = useState([]);
-
-	const [editMode, setEditMode] = useState(false);
-	const [dropdownOpen, setDropdownOpen] = useState(false);
-
-	const [currentPage, setCurrentPage] = useState(1);
-	const [totalPages, setTotalPages] = useState(1);
-
-	// Recommended location
-	const [recommendedLocations, setRecommendedLocations] = useState([]);
-
-
-
 	const handleReviewChange = (name, value) => {
 		setFormData((prev) => ({
 		...prev,
@@ -69,18 +54,41 @@ export default function DetailPage() {
 		}));
 	};
 
-	// GET LOCATION DATA
-	useEffect(() => {
-		const getLocationData = async () => {
+	// GET RECOMMENDED LOCATIONS
+	const getRecommendedLocations = async () => {
+		try {
+			const response = await fetch(
+			`${backendUrl}/api/recommendations/location/${id}/`,
+			{
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${authTokens.access}`,
+				},
+			}
+			);
+	
+			if (!response.ok) {
+				throw new Error("Error fetching recommended locations data");
+			}
+	
+			const data = await response.json();
+			setRecommendedLocations(data.recommendations);
+		} catch (error) {
+			console.error("Error while fetching recommended locations data: ", error);
+		}
+	};
+
+	const getLocationData = async () => {
 		const response = await fetch(
 			`${backendUrl}/api/location/${id}/`,
 			{
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${authTokens.access}`,
+				"Authorization": `Bearer ${authTokens.access}`,
 			},
-			}
+		}
 		);
 
 		const data = await response.json();
@@ -89,18 +97,18 @@ export default function DetailPage() {
 		setLocation(data);
 		setImages(data.images);
 		setSelectedImage(`${backendUrl}` + data.images[0]);
-		};
+	};
 
-		// GET LOCATION REVIEW
-		const getLocationReviewData = async () => {
+	// GET LOCATION REVIEW
+	const getLocationReviewData = async () => {
 		const response = await fetch(
 			`${backendUrl}/api/location/${id}/reviews/?page=${currentPage}`,
-			{
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${authTokens.access}`,
-			},
+				{
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${authTokens.access}`,
+				},
 			}
 		);
 
@@ -108,64 +116,45 @@ export default function DetailPage() {
 
 		setReviewData(locationData.results);
 		setTotalPages(Math.ceil(locationData.count / 5)); // Assuming 5 reviews per page
-		};
+	};
 
-		// GET REVIEW OF USER
-		const getReviewData = async () => {
+	// GET REVIEW OF USER
+	const getReviewData = async () => {
 		try {
 			const response = await fetch(
 			`${backendUrl}/api/location/${id}/reviews/user/`,
 			{
 				method: "GET",
 				headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${authTokens.access}`,
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${authTokens.access}`,
 				},
 			}
 			);
+			
 			if (!response.ok) {
-			throw new Error("Error fetching user review data");
+				throw new Error("Error fetching user review data");
 			}
 
 			const userReviewData = await response.json();
-			console.log(userReview);
 			setUserReview(userReviewData);
-		} catch (error) {
+		} 
+		catch (error) {
 			console.error("Error while fetching user review data: ", error);
 		}
-		};
+	};
 
-		// GET RECOMMENDED LOCATIONS
-		const getRecommendedLocations = async () => {
-			try {
-				const response = await fetch(
-				`${backendUrl}/api/recommendations/location/${id}/`,
-				{
-					method: "GET",
-					headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${authTokens.access}`,
-					},
-				}
-				);
-		
-				if (!response.ok) {
-				throw new Error("Error fetching recommended locations data");
-				}
-		
-				const data = await response.json();
-				setRecommendedLocations(data.recommendations);
-			} catch (error) {
-				console.error("Error while fetching recommended locations data: ", error);
-			}
-			};
-		
-			
+	// GET LOCATION DATA
+	useEffect(() => {
+		console.log(id)
 		getRecommendedLocations();
 		getReviewData();
-		getLocationReviewData();
 		getLocationData();
-	}, [id, authTokens.access, currentPage]);
+	}, [id]);
+
+	useEffect(() => {
+		getLocationReviewData();
+	}, [currentPage]) 
 
 	// SUBMIT REVIEW
 	const submitReview = async () => {
@@ -191,9 +180,9 @@ export default function DetailPage() {
 		alert(
 			"Review submitted successfully! You can no longer submit reviews for this location."
 		);
-
-		setLoading(true);
 		window.location.reload();
+		setLoading(true);
+		
 		} catch (error) {
 		console.error("Error while submitting the review: ", error);
 		}
@@ -239,7 +228,7 @@ export default function DetailPage() {
 				method: "DELETE",
 				headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${authTokens.access}`,
+				"Authorization": `Bearer ${authTokens.access}`,
 				},
 			}
 			);
@@ -252,9 +241,8 @@ export default function DetailPage() {
 			alert(
 			"Review deleted successfully"
 		);
-
-		setLoading(true);
 		window.location.reload();
+		setLoading(true);
 		} catch (error) {
 			console.error("Error while deleting the review: ", error);
 		}

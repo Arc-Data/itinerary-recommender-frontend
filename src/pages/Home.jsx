@@ -15,10 +15,13 @@ const HomePage = () => {
 	const { days, error, loading, getActiveTrips, markDaysAsCompleted } = useDayManager(authTokens)
 	const [recommendedLocations, setRecommendedLocations] = useState([]);
 	const [recentBookmarks, setRecentBookmarks] = useState([]);
-	const [recentBookmarksname, setRecentBookmarksname] = useState([]);
+
+	console.log("Debug text")
+	console.log(authTokens)
 
 	// GET RECOMMENDED LOCATIONS
 	const getRecommendedLocations = async () => {
+		console.log("Inside recommendations function")
 		try {
 		  const response = await fetch(
 			`http://127.0.0.1:8000/api/recommendations/homepage/`,
@@ -26,16 +29,21 @@ const HomePage = () => {
 			  method: "GET",
 			  headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${authTokens.access}`,
+				"Authorization": `Bearer ${authTokens.access}`,
 			  },
 			}
 		  );
+			console.log("Right after fetch")
+
+
+		  console.log(response)
   
 		  if (!response.ok) {
 			throw new Error("Error fetching recommended locations data");
 		  }
   
 		  const data = await response.json();
+		  console.log(data)
 		  setRecommendedLocations(data.recommendations);
 		} catch (error) {
 		  console.error("Error while fetching recommended locations data: ", error);
@@ -44,6 +52,7 @@ const HomePage = () => {
 
 	// GET RECENT BOOKMARKS
 	const getRecentBookmarks = async () => {
+		console.log("Fetching Bookmarks")
 		try {
 		const response = await fetch(
 			`http://127.0.0.1:8000/api/bookmarks/`,
@@ -51,17 +60,21 @@ const HomePage = () => {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${authTokens.access}`,
+				"Authorization": `Bearer ${authTokens.access}`,
 			},
 			}
 		);
+		console.log("Right after fetching bookmarks")
+
 
 		if (!response.ok) {
 			throw new Error("Error fetching recent bookmarks data");
 		}
 
 		const data = await response.json();
+		console.log(data)
 		setRecentBookmarks(data.bookmarks);
+		console.log(data.bookmarks)
 		} catch (error) {
 		console.error("Error while fetching recent bookmarks data: ", error);
 		}
@@ -176,7 +189,13 @@ const HomePage = () => {
 				</div>
 				<div className="recent--bookmarks">
 					<h1>Recent Bookmarks</h1>
-					<div className="homepage--bookmarks">{recentBookmarkCards} </div>
+					{recentBookmarkCards.length > 0 ? (
+						<div className="homepage--bookmarks">{recentBookmarkCards}</div>
+					) : (
+						<p className="bookmarked--location font14">
+							You haven't bookmarked any locations yet.
+						</p>
+					)}
 				</div>
 			</div>
 		</div>
