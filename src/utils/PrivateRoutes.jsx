@@ -5,7 +5,6 @@ import AuthContext from '../context/AuthContext'
 const PrivateRoutes = () => {
     let { user } = useContext(AuthContext)
     const navigate = useNavigate()
-    console.log(user)
 
     useEffect(() => {
         if (!user) {

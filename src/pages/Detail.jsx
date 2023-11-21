@@ -101,6 +101,8 @@ export default function DetailPage() {
 
 	// GET LOCATION REVIEW
 	const getLocationReviewData = async () => {
+		console.log("This should run")
+
 		const response = await fetch(
 			`${backendUrl}/api/location/${id}/reviews/?page=${currentPage}`,
 				{
@@ -120,27 +122,30 @@ export default function DetailPage() {
 
 	// GET REVIEW OF USER
 	const getReviewData = async () => {
+		setUserReview()
+
 		try {
 			const response = await fetch(
-			`${backendUrl}/api/location/${id}/reviews/user/`,
-			{
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-					"Authorization": `Bearer ${authTokens.access}`,
-				},
-			}
-			);
-			
-			if (!response.ok) {
+				`${backendUrl}/api/location/${id}/reviews/user/`,
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": `Bearer ${authTokens.access}`,
+					},
+				}
+			)
+
+			if (response.status === 404) {
 				throw new Error("Error fetching user review data");
 			}
 
 			const userReviewData = await response.json();
+			console.log(userReviewData)
 			setUserReview(userReviewData);
 		} 
 		catch (error) {
-			console.error("Error while fetching user review data: ", error);
+			console.error("User has no reviews for this location: ");
 		}
 	};
 
@@ -151,10 +156,10 @@ export default function DetailPage() {
 		getReviewData();
 		getLocationData();
 	}, [id]);
-
+	
 	useEffect(() => {
 		getLocationReviewData();
-	}, [currentPage]) 
+	}, [id, currentPage]) 
 
 	// SUBMIT REVIEW
 	const submitReview = async () => {
