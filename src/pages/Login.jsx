@@ -22,7 +22,7 @@ const Login = () => {
                 <Link to="/">
 					<img className="cebu--logo" src="/images/logo.png" alt="LandingPage" />
 				</Link>
-                <h2>Login</h2>
+                <h2 className='heading'>Login</h2>
                 <form className='modal-login-sign-form' onSubmit={(e) => loginUser(e)}>
                     <label>Email:</label>
                     <input type="email" name="email" placeholder="Enter your email" />
@@ -44,10 +44,10 @@ const Login = () => {
                         </button>
                         </div>
                     </label>
-
                     <div className="forgot-password">
-                    <Link to="/forgotpass">Forgot Password</Link>
+                        <Link to="/forgotpass"><h1 className='font-weight-500'>Forgot Password</h1></Link>
                     </div>
+                    
 
                     <button className='button-login-sign'>Login</button>
                     <div className="login-sign-link">

@@ -25,12 +25,12 @@ export default function LandingPage() {
 	return (
 		<div>
 			<Navbar />
-			<div className='hero'>
+			<div className='hero vertical-center'>
 				<div className='title'>
 					<h1>Plan your next trip to Cebu</h1>
 					<p>
-						Discover the best routes, attractions, food places and accommodations for your
-						Cebu trip with CebuRoute's expert guidance.
+						Discover attractions, food places and accommodations for your
+						Cebu trip with CebuRoute's guidance.
 					</p>
 					<button>
 						<Link to="login" className='get--button'>Get Started</Link>

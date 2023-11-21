@@ -53,11 +53,11 @@ const Signup = () => {
                 <Link to="/">
 					<img className="cebu--logo" src="/images/logo.png" alt="LandingPage" />
 				</Link>
-            <h2>Sign Up</h2>
+            <h2 className='heading'>Sign Up</h2>
             <form className='modal-login-sign-form' onSubmit={handleSubmit}>
                 <div className="name-inputs">
                     <div>
-                        <label>First Name:</label>
+                        <label>First Name</label>
                         <input 
                             type="text" 
                             name="firstname" 
@@ -66,7 +66,7 @@ const Signup = () => {
                             onChange={handleInputChange} />
                     </div>
                     <div>
-                        <label>Last Name:</label>
+                        <label>Last Name</label>
                         <input 
                             type="text" 
                             name="lastname" 
@@ -75,47 +75,41 @@ const Signup = () => {
                             onChange={handleInputChange} />
                     </div>
                 </div>
-                <label>Email:</label>
+                <label>Email</label>
                 <input 
                     type="email" 
                     name="email" 
                     placeholder="Enter your email" 
                     value={formData.email}
                     onChange={handleInputChange} />
-                <label>Password:</label>
-                <div>
-                    <input
-                        type={showPassword ? "text" : "password"}
-                        placeholder="Enter your password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleInputChange}
-                    />
-                    <button
-                        type="button"
-                        className={`toggle-password-button ${showPassword ? 'visible' : ''}`}
-                        onClick={togglePasswordVisibility}
-                    >
-                    {showPassword ? "👁️‍🗨️" : "👁"}
-                    </button>
-                </div>
-                <label>
-                Confirm Password:
-                <div>
-                    <input
-                        type={showPassword ? "text" : "password"}
-                        placeholder="Confirm your password"
-                        name="confirm"
-                        value={formData.confirm}
-                        onChange={handleInputChange} />
-                    <button
-                        type="button"
-                        className={`toggle-password-button ${showPassword ? 'visible' : ''}`}
-                        onClick={togglePasswordVisibility}>
-                    {showPassword ? "👁️‍🗨️" : "👁"}
-                    </button>
-                </div>
-                </label>
+                <label>Password</label>
+                <input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Enter your password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                />
+                <button
+                    type="button"
+                    className={`toggle-password-button ${showPassword ? 'visible' : ''}`}
+                    onClick={togglePasswordVisibility}
+                >
+                {showPassword ? "👁️‍🗨️" : "👁"}
+                </button>
+                <label>Confirm Password</label>
+                <input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Confirm your password"
+                    name="confirm"
+                    value={formData.confirm}
+                    onChange={handleInputChange} />
+                <button
+                    type="button"
+                    className={`toggle-password-button ${showPassword ? 'visible' : ''}`}
+                    onClick={togglePasswordVisibility}>
+                {showPassword ? "👁️‍🗨️" : "👁"}
+                </button>
                 <button className='button-login-sign' type="submit">Sign Up</button>
                   <div className="login-sign-link">
                      Already have an account? <Link to="/login">Login</Link>

@@ -11,6 +11,13 @@
 	-webkit-text-size-adjust: 100%;
 }
 
+* {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 16px;
+	box-sizing: border-box;
+    line-height: 1;
+}
+
 input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: none;
     appearance: none;
@@ -22,26 +29,48 @@ h1, p, a {
     margin: 0;
 }
 
-* {
-	box-sizing: border-box;
-    line-height: 1;
-}
-
-button, input {
-    font-family: 'Work Sans', sans-serif;
-}
-
 body {
 	margin: 0;
-	font-family: 'Work Sans', sans-serif;
-    background: #fcfcfc;
+    background: #FEFEFE;
 }
 
-button {
+button, button > a {
     color: #FFFFFF;
+    font-size: clamp(1.125rem, 1rem + 1vw, 1.125rem);
     border: none;
     text-decoration: none;
     cursor: pointer;
+    border-radius: 5px !important;
+}
+button {
+    margin: 10px 0px;
+}
+button:hover {
+    filter: brightness(0.9) !important;
+    transition: filter 0.5s ease; 
+}
+
+.vertical-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.heading {
+    font-size: 30px;
+    color: #000000;
+}
+label, input {
+    font-weight: 500 !important;
+    border-radius: 5px;
+}
+label {
+    color: #333333;
+}
+input {
+    height: 45px;
+    padding: 10px;
+    margin: 5px 0 15px 0;
 }
 
 a:-webkit-any-link {
@@ -49,13 +78,21 @@ a:-webkit-any-link {
     text-decoration: none;
 }
 
+.font-weight-600 {
+    font-weight: 600;
+}
+.font-weight-500 {
+    font-weight: 500;
+}
+
 .bold {
     font-weight: 800;
 }
 
-.bold1 {
+.bold1, .font-weight-400 {
     font-weight: 400;
 }
+
 
 .font10 {
     font-size: 0.625rem; /*  16 pixels = 0.625rem */
@@ -280,25 +317,23 @@ a:-webkit-any-link {
     display: flex;
     background-color: transparent;
     justify-content: space-between;
-    padding: 10px 120px;
+    padding: 10px 110px;
     align-items: center;
     width: 100%;
     z-index: 1000; 
 }
 
 .cebu--route {
-    max-height: 55px;
+    max-height: 50px;
 }
 
 .link--button {
     margin-right: 20px;
-    padding: 0;
-    font-weight: 700;
-    font-size: 12px;
     background-color: transparent;
-    color: white;
-    border: none;
-    cursor: pointer;
+}
+.link--button:hover {
+    color: #184E77;
+    transition: color 0.3s ease;
 }
 
 /* FOOTER */
@@ -355,20 +390,15 @@ a:-webkit-any-link {
 }
 
 .container-form {
-   padding: 60px;
+   padding: 60px 100px;
 }
 
-.container-form > h2 {
-    margin-bottom: 20px;
-    font-weight: 800;
-}
-
-.login-sign-link {
+/* .login-sign-link {
     margin-top: 10px;
     text-align: left;
     font-size: 13px;
     color: gray;
-}
+} */
 
 .login-sign-link a {
     color: #184E77;
@@ -386,27 +416,15 @@ a:-webkit-any-link {
     margin-top: 25px;
 }
 
-.container-form label,
-.container-form label {
-    font-size: 15px;
-    color: gray;
-}
-
-.container-form input,
 .container-form input {
-    padding: 8px;
-    height: 45px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 15px;
+    border: 2px solid #E7E7E7;
     width: 100%;
-    margin-bottom: 10px;
 }
 
 .cebu--logo {
     position: absolute;
     top: 0;
-    margin-top: 10px;
+    margin-top: 50px;
 }
 
 
@@ -426,8 +444,6 @@ a:-webkit-any-link {
 
 .forgot-password a {
     color: #184E77;
-    font-size: 13px;
-    text-decoration: none;
 }
 
 /*MODAL SIGN*/
@@ -455,16 +471,16 @@ input[type="text"] {
     border: none;
     cursor: pointer;
     font-size: 15px;
+    margin: 0;
 }
 
-/*LANDING PAGE- PLAN*/
+/* LANDING PAGE - PLAN */
 .hero {
     background-image: linear-gradient(to left, rgba(0, 0, 0, 0), rgba(0, 0, 0.5, 0.7)), url('/herobackground.jpeg');
     background-position: center top;
     background-size: cover;
-    border-radius: 0 0 50px 50px;
-    height: 700px;
-    padding: clamp(80px, 20vw, 190px) clamp(60px, 10vw, 120px);
+    height: 800px;
+    padding: clamp(60px, 10vw, 120px) 110px;
     color: #FFFFFF;
 }
 .title > h1 {
@@ -478,21 +494,14 @@ input[type="text"] {
     margin: 0 0 20px 0;
 }
 .title > p {
-    font-size: clamp(12px, 5vw, 30px);
-    font-weight: 200;
+    font-size: clamp(12px, 5vw, 25px);
+    font-weight: 300;
 }
 .title > button {
     background-color: #38A3A5;
-    padding: 15px 50px;
-    font-size: 20px;
-    border-radius: 10px;
-    text-decoration: none;
-    margin-top: 20px;
-    color: white;
-}
-
-.get--button {
-    color: white;
+    height: 45px;
+    padding: 10px 50px;
+    margin-top: 30px;
 }
 
 .hero--guide {
