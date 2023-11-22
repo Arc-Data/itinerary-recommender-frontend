@@ -33,11 +33,7 @@ const HomePage = () => {
 			  },
 			}
 		  );
-			console.log("Right after fetch")
 
-
-		  console.log(response)
-  
 		  if (!response.ok) {
 			throw new Error("Error fetching recommended locations data");
 		  }

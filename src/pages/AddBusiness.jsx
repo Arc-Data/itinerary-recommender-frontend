@@ -53,8 +53,6 @@ const AddBusiness = () => {
                     body: JSON.stringify(locationData)
                 })
 
-                console.log(response)
-
                 navigate('/profile/business')
                 
             }
