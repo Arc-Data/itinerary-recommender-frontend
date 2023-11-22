@@ -476,13 +476,12 @@ input[type="text"] {
 .toggle-password-button {
     position: relative;
     float: right;
-    bottom: 40px;
+    bottom: 45px;
     right: 15px;
     background: transparent;
-    color: black;
+    color: #7C7C7C;
     border: none;
     cursor: pointer;
-    font-size: 15px;
     margin: 0;
     height: 0;
 }
