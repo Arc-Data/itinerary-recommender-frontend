@@ -45,10 +45,14 @@ button, button > a {
 button {
     margin: 10px 0px;
     height: 45px;
+    font-size: 16px;
 }
 button:hover {
     filter: brightness(0.9) !important;
     transition: filter 0.5s ease; 
+}
+.btn-icons {
+    margin-right: 10px;
 }
 
 .vertical-center {
@@ -84,6 +88,9 @@ a:-webkit-any-link {
 }
 .font-weight-500 {
     font-weight: 500;
+}
+.font-weight-400 {
+    font-weight: 400;
 }
 
 .bold {
@@ -167,8 +174,7 @@ a:-webkit-any-link {
     top: 0;
     left: 0;
     background-color: #FFFFFF;
-    width: 100%;
-    height:100px;
+    height: 80px;
     border-bottom: 1px solid #e7e7e7;
     z-index: 1000;
 }
@@ -177,15 +183,14 @@ a:-webkit-any-link {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     place-items: center;
-    margin: 0 auto;
+    /* margin: 0 auto; */
     width: 100%;
-    max-width: 1600px;
     padding: 12px 24px;
-    height: 100%
+    height: 100%;
 }
 
 .user--search {
-    display:grid;
+    display: grid;
     place-items: center;
     text-align: center;
     border-radius: 10px;
@@ -193,26 +198,29 @@ a:-webkit-any-link {
 
 
 .search--bar-container {
-    position:relative;
+    position: relative;
 }
 
 .search--icon {
-    position:absolute;
+    position: absolute;
     left: 0;
-    top:50%;
+    top: 50%;
     transform: translate(60%, -50%);
-    height: 24px;
+    height: 20px;
+    margin: 0 5px;
+    color: #E7E7E7;
 }
 
 .search--bar {
     border: none;
     text-indent: 40px;
     width: 600px;
-    margin:0 auto;
-    padding:16px 12px;
-    background-color: #F7F7F7;
-    border-radius: 4px;
-    font-size: 12px;
+    margin: 0 auto;
+    padding: 10px 12px;
+    background-color: #F9F9F9;
+}
+.search--bar::placeholder {
+    color: #7C7C7C;
 }
 
 .error-container {
@@ -260,11 +268,11 @@ a:-webkit-any-link {
     background-color: white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 1;
-    top: 50px; 
-    left: -30px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    width: 90px;
+    top: 55px; 
+    left: -250px;
+    border-radius: 10px;
+    border: 2px solid #E7E7E7;
+    width: auto;
     display: flex;
     flex-direction: column;
 }
@@ -274,35 +282,39 @@ a:-webkit-any-link {
     cursor: pointer;
     color: black;
     font-size: 12px;
-    
+    border-radius: 10px;
 }
 
 .user--dropdown-content > * {
     background: #fff;
     color: black;
     text-align: left;
-    width: 100%;
-    padding: 12px;
-}   
-
-.user--dropdown-content > * {
-    background: #fff;
-    color: black;
-    text-align: left;
-    width: 100%;
-    padding: 12px;
+    padding: 10px;
+    border-radius: 10px;
 }   
 
 .user--dropdown-content > *:hover {
-    background-color: #184E77;
-    color: white;
+    background-color: #F9F9F9;
+}
+
+.user--profile-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+}
+.user--profile > p {
+    color: #FFFFFF;
+}
+.user--logout p {
+    padding: 10px;
+    color: #333;
 }
 
 .user--create-trip {
+    display: flex;
     background-color: #184E77;
     padding: 14px 26px;
-    border-radius: 10px;
-    font-size: 12px;
 }
 
 .user--links {
@@ -311,6 +323,14 @@ a:-webkit-any-link {
     align-items: center;
 }
 
+.user--full_name {
+    color: #333333;
+    font-size: 18px;
+    margin-bottom: 3px;
+}
+.user--email {
+    color: #7C7C7C;
+}
 /*NAVBAR*/
 .navbar {
     position: fixed;
@@ -325,7 +345,7 @@ a:-webkit-any-link {
 }
 
 .cebu--route {
-    max-height: 50px;
+    max-height: 40px;
 }
 
 .link--button {
@@ -1057,16 +1077,16 @@ input[type="text"] {
     display: grid;
     position: relative;
     place-items: center;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     background: #F0C34D;
     cursor: pointer;
-    font-size: 18px;
-   
+    font-size: 30px;
+    margin: 10px;
 }
 
-.user--profile p {
+.user--profile > span {
     position: absolute;
     color: white;
 }
@@ -1127,7 +1147,7 @@ input[type="text"] {
     min-height: 100vh;
     height:100%;
     width:100%;
-    margin: 130px auto;
+    margin: 90px auto;
     color: black;
 }
 
@@ -1925,7 +1945,7 @@ input[type="text"] {
     position: fixed;
     inset: 0;
     width: 100%;
-    height:100%;
+    height: 100%;
     background: rgba(0,0,0,0.5);
     z-index: 10;
 }
@@ -2178,11 +2198,8 @@ input[type="text"] {
 .preferences--overlay {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
     background: rgba(0,0,0,0.5);
     border-radius: 20px;
-    z-index: 2;
     display: grid;
     place-items: center;
 }
@@ -2372,7 +2389,7 @@ input[type="text"] {
 .profile--container {
     margin: 0 auto;
     display: grid;
-    margin-top: 100px;
+    margin-top: 70px;
     grid-template-columns: auto 1fr;
     height: 100%;
     width: 100%;
