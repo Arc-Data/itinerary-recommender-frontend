@@ -11,7 +11,7 @@ const useItemLocationManager = (authTokens) => {
                 'order': order
             }
 
-            const response = await fetch("${backendUrl}/api/day-item/", {
+            const response = await fetch(`${backendUrl}/api/day-item/`, {
                 method: "POST",
                 headers: {
                     'Content-Type': "application/json"
