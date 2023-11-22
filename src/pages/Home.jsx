@@ -9,6 +9,8 @@ import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 
 const HomePage = () => {
+	const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
 	const { authTokens } = useContext(AuthContext)
 	const { itineraries, getItineraries, deleteItinerary } = useItineraryManager(authTokens)
 	const [ selectedDays, setSelectedDays ] = useState([])
@@ -16,15 +18,12 @@ const HomePage = () => {
 	const [recommendedLocations, setRecommendedLocations] = useState([]);
 	const [recentBookmarks, setRecentBookmarks] = useState([]);
 
-	console.log("Debug text")
-	console.log(authTokens)
-
 	// GET RECOMMENDED LOCATIONS
 	const getRecommendedLocations = async () => {
 		console.log("Inside recommendations function")
 		try {
 		  const response = await fetch(
-			`http://127.0.0.1:8000/api/recommendations/homepage/`,
+			`${backendUrl}/api/recommendations/homepage/`,
 			{
 			  method: "GET",
 			  headers: {
@@ -33,11 +32,7 @@ const HomePage = () => {
 			  },
 			}
 		  );
-			console.log("Right after fetch")
 
-
-		  console.log(response)
-  
 		  if (!response.ok) {
 			throw new Error("Error fetching recommended locations data");
 		  }
@@ -54,29 +49,25 @@ const HomePage = () => {
 	const getRecentBookmarks = async () => {
 		console.log("Fetching Bookmarks")
 		try {
-		const response = await fetch(
-			`http://127.0.0.1:8000/api/bookmarks/`,
-			{
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				"Authorization": `Bearer ${authTokens.access}`,
-			},
+			const response = await fetch(
+				`${backendUrl}/api/bookmarks/`,
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": `Bearer ${authTokens.access}`,
+					},
+				}
+			);
+		
+			if (!response.ok) {
+				throw new Error("Error fetching recent bookmarks data");
 			}
-		);
-		console.log("Right after fetching bookmarks")
 
-
-		if (!response.ok) {
-			throw new Error("Error fetching recent bookmarks data");
-		}
-
-		const data = await response.json();
-		console.log(data)
-		setRecentBookmarks(data.bookmarks);
-		console.log(data.bookmarks)
+			const data = await response.json();
+			setRecentBookmarks(data);
 		} catch (error) {
-		console.error("Error while fetching recent bookmarks data: ", error);
+			console.error("Error while fetching recent bookmarks data: ", error);
 		}
 	};
 	  
@@ -142,7 +133,8 @@ const HomePage = () => {
 		<DetailCard key={location.id} {...location} />
 	  ));
 
-	const recentBookmarkCards = recentBookmarks.map((bookmark) => (
+	const recentBookmarkCards = recentBookmarks && recentBookmarks.map(bookmark => (
+		// <div key={bookmark.id}>Something</div>
 		<BookmarkHomepage key={bookmark.id} {...bookmark} />
 	));
 	
@@ -189,7 +181,7 @@ const HomePage = () => {
 				</div>
 				<div className="recent--bookmarks">
 					<h1>Recent Bookmarks</h1>
-					{recentBookmarkCards.length > 0 ? (
+					{recentBookmarks.length > 0 ? (
 						<div className="homepage--bookmarks">{recentBookmarkCards}</div>
 					) : (
 						<p className="bookmarked--location font14">
