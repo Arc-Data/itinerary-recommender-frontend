@@ -26,11 +26,11 @@ const Login = () => {
 				</Link>
                 <h2 className='heading'>Login</h2>
                 <form className='modal-login-sign-form' onSubmit={(e) => loginUser(e)}>
-                    <label>Email:</label>
+                    <label>Email</label>
                     <input type="email" name="email" placeholder="Enter your email" />
 
                     <label>
-                    Password:
+                    Password
                         <div>
                         <input
                             type={showPassword ? "text" : "password"}

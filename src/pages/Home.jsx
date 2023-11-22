@@ -7,6 +7,8 @@ import useItineraryManager from "../hooks/useItineraryManager";
 import useDayManager from "../hooks/useDayManager";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 
 const HomePage = () => {
 	const { authTokens } = useContext(AuthContext)
@@ -150,16 +152,21 @@ const HomePage = () => {
 	return (
 		<div className = "home--page-content">
 			<header className="home--banner">
-				<div className="home--banner-itinerary">
-					<p>You have not created an itinerary yet.</p>
+				<div className="home--banner-itinerary heading2">
+					<div>
+						<p>Start creating your itinerary to Cebu!</p>
+						<Link to="/create">
+							<button className='create-itinerary-btn'><FontAwesomeIcon className='btn-icons' icon={faPenToSquare} />Create now</button>
+						</Link>
+					</div>
 					<img src="/banner-1.jpg" className="banner-img"/>
 				</div>
-				<div className="home--banner-business">
+				<div className="home--banner-business heading3">
 					<p>Promote your food business with CebuRoute</p>
 					<img src="/banner-2.png" className="banner-img" />
 				</div>
-				<div className="home--banner-ai">
-					<p>Try our AI Recommendations Feature while building your itinerary.</p>
+				<div className="home--banner-ai heading3">
+					<p>Try our AI Recommendation Feature while building your itinerary</p>
 					<img src="/banner-3.png" className="banner-img" />
 				</div>
 			</header>
@@ -176,7 +183,7 @@ const HomePage = () => {
 			}
 			{ itineraries && (
 			<div>
-				<p className="home--your-trips">Your trips</p>
+				<p className="heading">Your trips</p>
 				<div className="trips--container">
 					{displayItineraries}
 				</div>
@@ -184,11 +191,11 @@ const HomePage = () => {
 			)}
 			<div className="recommended--locations--bookmarks">
 				<div className="recommended--locations">
-					<h1>Recommended Locations</h1>
+					<h1 className='heading'>Recommended Locations</h1>
 					<div className="detailPage--cards">{recommendedCards}</div>
 				</div>
 				<div className="recent--bookmarks">
-					<h1>Recent Bookmarks</h1>
+					<h1 className='heading4'>Recent Bookmarks</h1>
 					{recentBookmarkCards.length > 0 ? (
 						<div className="homepage--bookmarks">{recentBookmarkCards}</div>
 					) : (

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendar, faClose, faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarDays, faClose, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import ConfirmDelete from "../components/ConfirmDelete";
 
@@ -40,7 +40,7 @@ const Itinerary = ({itinerary, handleDelete}) => {
             <div>
                 <p className="itinerary--title">{itinerary.name}</p>
                 <div className="itinerary--details">
-                    <FontAwesomeIcon icon={faCalendar} />
+                    <FontAwesomeIcon icon={faCalendarDays} />
                     <p>{itinerary.trip_duration }</p>
                 </div>
             </div>

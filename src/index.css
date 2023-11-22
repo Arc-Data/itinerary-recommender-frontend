@@ -64,6 +64,19 @@ button:hover {
 .heading {
     font-size: 30px;
     color: #000000;
+    font-weight: 800;
+}
+.heading2 p {
+    font-size: 23px;
+    font-weight: 700;
+}
+.heading3 p {
+    font-size: 20px;
+    font-weight: 700;
+}
+.heading4 {
+    font-size: 20px;
+    color: #333333;
 }
 label, input {
     font-weight: 500 !important;
@@ -107,7 +120,7 @@ a:-webkit-any-link {
 }
 
 .font15 {
-    font-size: 0.9375rem; /* 15px / 16 = 0.9375rem */
+    font-size: 1.1rem; /* 15px / 16 = 0.9375rem */
 }
 
 .font12 {
@@ -632,7 +645,6 @@ input[type="text"] {
     height: 200px;
     border-radius: 20px;
     object-fit: cover;
-    box-shadow: 0 0 0.5em rgba(0,0,0,0.3);
 }
 
 .card--text {
@@ -722,7 +734,7 @@ input[type="text"] {
     display: flex;
     align-items: center; 
     font-size: 15px;
-    margin: 40px 0 20px;
+    margin: 10px 0;
 }
 
 .star {
@@ -858,6 +870,7 @@ input[type="text"] {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 25px;
+    margin-top: 30px;
 }
 
 .detailPage--popDescription {
@@ -1160,17 +1173,15 @@ input[type="text"] {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: 120px;
-    grid-gap: 20px;
+    grid-gap: 10px;
     color: white;
     border-bottom: 1px solid #e7e7e7;
 }
 
 .home--banner > div {
-    font-size: 22px;
-    font-weight: 700;
     border-radius: 10px;
     display: grid;
-    align-items:center;
+    align-items: center;
     cursor: pointer;
     overflow: hidden;
     display: flex;
@@ -1179,7 +1190,6 @@ input[type="text"] {
 .home--banner > div > p {
     padding: 20px;
 }
-
 .banner-img {
     object-fit: cover;
     width: 260px;
@@ -1187,23 +1197,25 @@ input[type="text"] {
     border-top-left-radius: 25%;
     border-bottom-left-radius: 25%;
 }
-
 .home--banner > div:first-child {
     grid-row: span 2;
     background: #39a3a5;
 }
-
+.home--banner-itinerary > div {
+    display: flex;
+    flex-direction: column;
+    margin: 30px;
+}
+.create-itinerary-btn {
+    background-color: #184E77;
+    width: 200px;
+    margin-top: 20px;
+}
 .home--banner-business {
     background-color: #ED6A5A; 
-}
-  
+} 
 .home--banner-ai {
     background: linear-gradient(270deg, #184E77 0.05%, #38A3A5 36.19%, #57CC99 69.75%, #80ED99 99.18%);
-}
-
-.home--your-trips {
-    font-size: 32px;
-    font-weight: 700;
 }
 
 .trips--container {
@@ -1217,7 +1229,6 @@ input[type="text"] {
 .itinerary--image {
     border-radius: 20px;
     object-fit: cover;
-    box-shadow: 0 0 0.5em rgba(0,0,0,0.3);
 }
 
 .itinerary--image-container {
@@ -1273,6 +1284,7 @@ input[type="text"] {
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 10px;
+    color: #333333;
 }
 
 /* .create {
@@ -1689,47 +1701,43 @@ input[type="text"] {
     border-top: 1px solid #E7E7E7;
 }
 
-.recent--bookmarks > h1 , 
-.recommended--locations  >  h1 {
-    font-size: 23px;
-    margin-bottom: 20px;
-}
-
 .recent--bookmarks {
+    margin-top: 40px;
     margin-left: 30px;
-    text-align: center;
 }
 
 /* BOOKMARK HOMEPAGE */
 
 .homepage--bookmarks{
+    margin-top: 20px;
     height: 300px;
     overflow-y: auto;
 }
 
 .bookmarks--container {
     width: 100%;
-    border: 1px solid #E7E7E7;
+    border: 2px solid #E7E7E7;
     border-radius: 10px;
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     margin-bottom: 10px;
 }
 
 .bookmark--image{
-    width: 35%;
+    width: 60px;
     height: 50px;
     border-radius: 10px 0 0 10px;
     object-fit: cover;
     object-position: center;
 }
-
-.bookmarks--container > span {
-    width: 50%;
-    margin-left: 10px;
+.bookmark--name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 15px;
     color: #333;
-    margin-top: 20px;
+    width: 75%;
 }
 
 .bookmarked--location {

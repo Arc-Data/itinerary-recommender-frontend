@@ -10,7 +10,7 @@ export default function BookmarkHomepage (props) {
                         src={`http://127.0.0.1:8000${props.primary_image}`} 
                         className="bookmark--image" alt="Location" 
                         />
-                    <span className="font10">{props.name}</span>
+                    <span className='bookmark--name font-weight-500'>{props.name}</span>
                 </div> 
             </Link>    
         </div>
