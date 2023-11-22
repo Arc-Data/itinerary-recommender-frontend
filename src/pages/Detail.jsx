@@ -1,13 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 /*Components*/
 import DetailCard from "../components/DetailCard";
 import Review from "../components/Review";
 /*Icon*/
-import addressIcon from "/images/carbon_location-filled.svg";
-import timeIcon from "/images/wi_time-4.svg";
-import money from "/images/fluent_money-20-regular.svg";
-import bookmarkIcon from "/images/bookmark-icon-4.png";
-import { useParams } from "react-router-dom";
 import {
 	FaEllipsisH,
 	FaStar,
@@ -22,6 +18,11 @@ import SpotDetail from "../components/SpotDetail";
 import FoodDetail from "../components/FoodDetail";
 import AccommodationDetail from "../components/AccommodationDetail";
 import useLocationManager from "../hooks/useLocationManager";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { faMap } from '@fortawesome/free-solid-svg-icons';
+import { faClock } from '@fortawesome/free-solid-svg-icons';
+import { faMoneyBills } from '@fortawesome/free-solid-svg-icons';
 
 export default function DetailPage() {
 	const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
@@ -316,33 +317,19 @@ export default function DetailPage() {
 		<div className="detailPage">
 			<div className="detailPage--text">
 				<div className="detailPage--address-time">
-					<h1 className="detailPage--title">{location?.name}</h1>
+					<h1 className="detailPage--title heading6">{location?.name}</h1>
 					<p>
-						{" "}
-						<img className="detailPage--icon" src={addressIcon} />
+						<FontAwesomeIcon className='btn-icons' icon={faMap} />
 						{location?.address}
 					</p>
 					{location.location_type == 1 && 
-					<>
-					<p>
-						{" "}
-						<img className="detailPage--icon" src={timeIcon} />
-						<span>
-						Open at {location?.details.opening_time} | Closes at{" "}
-						{location?.details.closing_time}{" "}
-						</span>
-					</p>
-					<p>
-						{" "}
-						<img className="detailPage--icon" src={money} />
-						<span>
-						Entrance Fee: {location?.details.max_fee}  
-						</span>
-					</p>
+					<>	
+						<p> <FontAwesomeIcon className='btn-icons' icon={faClock} />Opens at {location?.details.opening_time} | Closes at {" "} {location?.details.closing_time}{" "}</p>
+						<p> <FontAwesomeIcon className='btn-icons' icon={faMoneyBills} />Fee: {location?.details.max_fee}</p>
 					</>
 					}
 					<div className="detailPage--rating-category">
-						{[...Array(5)].map((star, i) => (
+						{/* {[...Array(5)].map((star, i) => (
 							<FaStar
 								key={i}
 								className="star"
@@ -350,8 +337,8 @@ export default function DetailPage() {
 								i + 1 < location?.rating_percentages.average_rating ? "#ffc107" : "#e4e5e9"
 								}
 							/>
-						))}
-						<span> • {location?.rating_percentages.average_rating} <span className="mr5px"> •</span></span>
+						))} */}
+						{/* <span> • {location?.rating_percentages.average_rating} <span className="mr5px"> •</span></span> */}
 						{location.location_type === "1" &&
 						<span className="tags">
 						{location?.details.tags.map((tag, index) => (
@@ -367,26 +354,22 @@ export default function DetailPage() {
 					</div>
 				</div>
 				<button
-				className={`detailPage--bookmark ${isBookmarked ? "true" : "false"}`}
-				onClick={toggleBookmark}
-				>
-				<div className="bookmark-content">
-					<img src={bookmarkIcon} alt="Bookmark" />
-					<div className="bookmark-text">Bookmark</div>
-				</div>
+					className={`detailPage--bookmark ${isBookmarked ? "true" : "false"}`}
+					onClick={toggleBookmark} >
+					<FontAwesomeIcon className='bookmark-icon' icon={faBookmark} />
 				</button>
 			</div>
 		<div className="detailPage--sections">
 			<div className="detailPage--about">
-				<h1 className="detailPage--title1">About</h1>
+				<h1 className="heading2">About</h1>
 				<p>{location?.description}</p>
 			</div>
 			<div className="detailPage--pictures">
 				<div className="detailPage--images">
 					<img
-					className="detailPage--main-image"
-					src={selectedImage}
-					alt="Main"
+						className="detailPage--main-image"
+						src={selectedImage}
+						alt="Main"
 					/>
 					<div className="detailPage--thumbnail">
 						{thumbnails}
@@ -407,7 +390,7 @@ export default function DetailPage() {
 
 		<div className="detailPage--review">
 			<div className="detailPage--reviews">
-				<h1>Reviews</h1>
+				<h1 className='heading'>Reviews</h1>
 				<div className="detailPage--star">
 					{[...Array(5)].map((star, i) => (
 						<FaStar
@@ -507,7 +490,7 @@ export default function DetailPage() {
 						<button className="submit--review" onClick={handleEditReview}>Cancel</button>
 						}
 						<button className="submit--review" onClick={handleSubmit}>
-						Submit Review
+							Submit Review
 						</button>
 						<div className="detailPage--star">
 						{[...Array(5)].map((star, i) => {
