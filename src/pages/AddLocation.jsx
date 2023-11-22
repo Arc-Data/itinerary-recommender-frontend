@@ -3,7 +3,6 @@ import image from '/image.png'
 import AuthContext from '../context/AuthContext'
 import useLocationManager from '../hooks/useLocationManager'
 import { useNavigate } from 'react-router-dom'
-
 function AddLocation() {
     const { authTokens } = useContext(AuthContext)
     const [locationData, setLocationData] = useState(
@@ -11,8 +10,13 @@ function AddLocation() {
             type: "",
             name: "",
             address: "",
+            tags: "",
             latitude: "",
             longitude: "",
+            min_fee: "",
+            max_fee: "",
+            opening_time: "",
+            closing_time: "",
             description: ""
         }
     )
@@ -47,8 +51,13 @@ function AddLocation() {
             locationData.type.trim() !== '' &&
             locationData.name.trim() !== '' &&
             locationData.address.trim() !== '' &&
+            locationData.tags.trim() !== '' &&
             locationData.latitude.trim() !== '' &&
             locationData.longitude.trim() !== '' &&
+            locationData.min_fee.trim() !== '' &&
+            locationData.max_fee.trim() !== '' &&
+            locationData.opening_time.trim() !== '' &&
+            locationData.closing_time.trim() !== '' &&
             locationData.description.trim() !== ''
         );
     };
@@ -101,6 +110,16 @@ function AddLocation() {
                             className="styled-input" 
                         />
                     </div>
+                    <div className="input admin--container">
+                            <label htmlFor="tags">Tags</label>
+                            <input
+                                type="text"
+                                onChange={handleChange}
+                                name="tags"
+                                value={locationData.tags}
+                                className="styled-input" 
+                            />
+                    </div>
                     <div className="admin--container">
                         <div className="input admin--container">
                             <label htmlFor="latitude">Latitude</label>
@@ -125,6 +144,50 @@ function AddLocation() {
                             />
                         </div>
                     </div>
+                    <div className="admin--container">
+                        <div className="input admin--container">
+                            <label htmlFor="min_fee">Minimum Fee</label>
+                            <input
+                                type="number"
+                                name="min_fee"
+                                onChange={handleChange}
+                                value={locationData.min_fee}
+                                className="styled-input" 
+                            />
+                        </div>
+                        <div className="input admin--container">
+                            <label htmlFor="max_fee">Maximum Fee</label>
+                            <input
+                                type="number"
+                                name="max_fee"
+                                onChange={handleChange}
+                                value={locationData.max_Fee}
+                                className="styled-input" 
+                            />
+                        </div>
+                     </div>
+                     <div className="admin--container">
+                            <div className="input admin--container">
+                                <label htmlFor="opening">Opening Time</label>
+                                <input
+                                    type="text"
+                                    name="opening_time"
+                                    onChange={handleChange}
+                                    value={locationData.opening_time}
+                                    className="styled-input" 
+                                />
+                            </div>
+                            <div className="input admin--container">
+                                <label htmlFor="closing">Closing Time</label>
+                                <input
+                                    type="text"
+                                    name="closing_time"
+                                    onChange={handleChange}
+                                    value={locationData.closing_time}
+                                    className="styled-input" 
+                                />
+                            </div>
+                        </div>
                     <div className="input admin--container">
                         <label htmlFor="description">Description</label>
                         <textarea

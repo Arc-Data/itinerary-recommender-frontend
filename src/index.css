@@ -2844,12 +2844,14 @@ input[type="text"] {
     background-color: #E86B6B;
     border-radius: 4px;
     cursor: unset;
+    height: 20%;
 }
 
 .view-details {
-    padding: 8px;
+    padding: 5px;
     border-radius: 4px;
     background: #57CC99;
+    height: 30px;
 }
 
 .table--th > td{
@@ -2864,10 +2866,12 @@ input[type="text"] {
 
 .business--delete {
     background: #E86B6B;
+    height: 30px;
 }
 
 .business--edit {
     background: var(--3, #57CC99);
+    height: 30px;
 }
 
 .business--image {
@@ -2894,10 +2898,6 @@ input[type="text"] {
 .business--body{
     gap: 20px;
     margin-bottom: 50px;
-}
-
-.business--name {
-    margin-bottom: 10px;
 }
 
 .view--manage {
@@ -2967,3 +2967,53 @@ input[type="text"] {
     justify-content: center;
     align-items: center;
   }
+
+.edit--location , .header-title, .modal-header {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.approve--modal {
+    width: 500px;
+    padding: 15px;
+}
+
+.business--name{
+    font-size: 25px;
+    margin-top: 10px;
+}
+
+.business--name1{
+    font-size: 25px;
+    margin-top: 10px;
+}
+
+.form-group-result {
+    text-align: start;
+    padding: 15px;
+    border-radius: 10px;
+    background: rgba(231, 231, 231, 0.50);
+}
+
+.BTN14 {
+    height: 50%;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.reject--BTN {
+    background: #E86B6B;
+}
+
+.approve--BTN{
+    background: var(--3, #57CC99);
+    margin-right: 20px;
+}
+
+.approve--BTN > span ,
+.reject--BTN > span {
+    margin-top: 4px;
+}
+

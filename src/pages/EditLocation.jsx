@@ -39,26 +39,13 @@ const DeleteLocation = () => {
             Something wrong occured.
         </div>
     }
+    
 
     return (
         <div className="admin-wrapper">
-            <h1>Edit Location</h1>
-                <div className="input admin--container">
-                    <div className="image--border center input admin--container">
-                        <img src={image} />
-                        <label htmlFor="imgFile"> <a className='choose--file'>Choose file</a> to upload</label>
-                        <input
-                            type="file"
-                            id="imgFile"
-                            name="filename"
-                            accept="image/*"
-                            style={{ display: 'none' }} 
-                        />
-                    </div>
-                </div>
-                <div className="admin--container">
-                    <div className="input admin--container">
-                        <label htmlFor="type">Location Types</label>
+            <h1 className="edit--location">Edit Location</h1>
+                <form className="admin--container">
+                    <div className="input--form">
                         <select
                             value={location?.location_type}
                             name="type"
@@ -69,106 +56,120 @@ const DeleteLocation = () => {
                             <option value="2">Food</option>
                             <option value="3">Accommodation</option>
                         </select>
-                    </div>
-                    <div className="input admin--container">
-                        <label htmlFor="closing">Location Tags</label>
-                        <input
-                            number="text"
-                            name="closing"
-                            value={location?.details.tags}
-                            className="styled-input" 
-                        />
-                    </div>
-                </div>
-                <div className="input admin--container">
-                    <label htmlFor="name">Location Name</label>
-                    <input
-                        type="text"
-                        name="name"
-                        value={location?.name}
-                        className="styled-input" 
-                    />
-                </div>
-                <div className="input admin--container">
-                    <label htmlFor="address">Location Address</label>
-                    <input
-                        type="text"
-                        name="address"
-                        value={location?.address}
-                        className="styled-input" 
-                    />
-                </div>
-                <div className="input admin--container">
-                    <label htmlFor="name">Location Description</label>
-                    <input
-                        type="text"
-                        name="description"
-                        value={location?.description}
-                        className="styled-input" 
-                    />
-                </div>
-                <div className="admin--container">
-                    <div className="input admin--container">
-                        <label htmlFor="min_fee">Minimum Fee</label>
-                        <input
-                            type="number"
-                            name="min_fee"
-                            value={location?.details.min_fee}
-                            className="styled-input" 
-                        />
-                    </div>
-                    <div className="input admin--container">
-                        <label htmlFor="max_fee">Maximum Fee</label>
-                        <input
-                            number="text"
-                            name="max_fee"
-                            value={location?.details.max_fee}
-                            className="styled-input" 
-                        />
-                    </div>
-                    <div className="admin--container">
+
                         <div className="input admin--container">
-                            <label htmlFor="latitude">Latitude</label>
+                            <label htmlFor="name">Location Name</label>
                             <input
-                                type="number"
-                                step="0.000001"
-                                name="latitude"
-                                value={location?.latitude}
+                                type="text"
+                                name="name"
+                                value={location?.name}
                                 className="styled-input" 
                             />
                         </div>
                         <div className="input admin--container">
-                            <label htmlFor="postalCode">Longitude</label>
+                            <label htmlFor="address">Address</label>
                             <input
-                                number="text"
-                                step="0.000001"
-                                name="longitude"
-                                value={location?.longitude}
+                                type="text"
+                            
+                                name="address"
+                                value={location?.address}
                                 className="styled-input" 
                             />
                         </div>
+                        <div className="input admin--container">
+                                <label htmlFor="tags">Tags</label>
+                                <input
+                                    type="text"
+                                
+                                    name="tags"
+                                    value={location?.details.tags}
+                                    className="styled-input" 
+                                />
+                        </div>
+                        <div className="admin--container">
+                            <div className="input admin--container">
+                                <label htmlFor="latitude">Latitude</label>
+                                <input
+                                    type="number"
+                                    step="0.000001"
+                                
+                                    name="latitude"
+                                    value={location?.latitude}
+                                    className="styled-input" 
+                                />
+                            </div>
+                            <div className="input admin--container">
+                                <label htmlFor="postalCode">Longitude</label>
+                                <input
+                                    number="text"
+                                    step="0.000001"
+                                
+                                    name="longitude"
+                                    value={location?.longitude}
+                                    className="styled-input" 
+                                />
+                            </div>
+                        </div>
+                        <div className="admin--container">
+                            <div className="input admin--container">
+                                <label htmlFor="min_fee">Minimum Fee</label>
+                                <input
+                                    type="text"
+                                    name="min_fee"
+                                    value={location?.details.min_fee}
+                                    className="styled-input" 
+                                />
+                            </div>
+                            <div className="input admin--container">
+                                <label htmlFor="max_fee">Maximum Fee</label>
+                                <input
+                                    number="text"
+                                    name="max_fee"
+                                    value={location?.details.max_fee}
+                                    className="styled-input" 
+                                />
+                            </div>
+                        </div>
+                        <div className="admin--container">
+                            <div className="input admin--container">
+                                <label htmlFor="opening">Opening Time</label>
+                                <input
+                                    type="text"
+                                    name="opening_time"
+                                    value={location?.details.opening_time}
+                                    className="styled-input" 
+                                />
+                            </div>
+                            <div className="input admin--container">
+                                <label htmlFor="closing">Closing Time</label>
+                                <input
+                                    type="text"
+                                    name="closing_time"
+                                    value={location?.details.closing_time}
+                                    className="styled-input" 
+                                />
+                            </div>
+                        </div>
+                        <div className="input admin--container">
+                            <label htmlFor="description">Description</label>
+                            <textarea
+                                name="description"
+                                value={location?.description}
+                            />
+                        </div>
                     </div>
-                </div>
-                <div className="admin--container">
-                    <div className="input admin--container">
-                        <label htmlFor="opening">Opening Time</label>
+                    <div className="image--border center admin--container">
+                        <img src={image} />
+                        <label htmlFor="imgFile"> <a className='choose--file'>Choose file</a> to upload</label>
                         <input
-                            type="text"
-                            name="opening"
-                            value={location?.details.opening_time}
-                            className="styled-input" 
+                            type="file"
+                            id="imgFile"
+                            name="filename"
+                            accept="image/*"
+                            style={{ display: 'none' }} // Hide the default file input
                         />
                     </div>
-                    <div className="input admin--container">
-                        <label htmlFor="closing">Closing Time</label>
-                        <input
-                            number="text"
-                            name="closing"
-                            value={location?.details.closing_time}
-                            className="styled-input" 
-                        />
-                    </div>
-                </div>
+                </form>
                 <div className="admin--container">
                     <div className="input admin--container">
                         <button
@@ -183,9 +184,6 @@ const DeleteLocation = () => {
                         </button>
                     </div>
                 </div>
-                
-                    
-                
         </div>
     )
 }

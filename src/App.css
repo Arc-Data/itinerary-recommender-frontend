@@ -132,10 +132,6 @@ table th, table td {
   padding: 10px 20px;
   text-align: center;
 }
-table tr:nth-child(even) {
-  background-color: #E7E7E7; 
-}
-
 .btn.search, .btn.logout, .btn.done {
   background-color: #184E77;
 }
@@ -218,3 +214,4 @@ select {
   left: 0;
   margin-left: 20px;
 }
+

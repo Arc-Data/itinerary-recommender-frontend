@@ -11,8 +11,8 @@ const AddBusiness = () => {
     const [locationData, setLocationData] = useState({
         'name': '',
         'address': '',
-        // 'contact': '',
-        // 'email': '',
+        'contact': '',
+        'email': '',
         // 'website': '',
         'longitude': 0,
         'latitude': 0,
@@ -31,8 +31,8 @@ const AddBusiness = () => {
     const checkInvalid = () => {
         return !locationData.name ||
             !locationData.address ||
-            // !locationData.contact ||
-            // !locationData.email ||
+            !locationData.contact ||
+            !locationData.email ||
             // !locationData.website ||
             locationData.longitude == 0 ||
             locationData.latitude == 0 ||
@@ -121,9 +121,9 @@ const AddBusiness = () => {
                             <label htmlFor="address">Phone Number (optional)</label>
                             <input 
                                 type="text" 
-                                // name="contact" 
-                                // id="contact" 
-                                // value={locationData.contact}
+                                name="contact" 
+                                id="contact" 
+                                value={locationData.contact}
                                 onChange={handleInputChange}
                                 placeholder="Enter Contact Number" 
                                 className="business-input"/>
@@ -132,10 +132,10 @@ const AddBusiness = () => {
                             <label htmlFor="address">Email Address (optional)</label>
                             <input 
                                 type="text" 
-                                // name="email" 
-                                // id="email" 
-                                // value={locationData.email}
-                                // onChange={handleInputChange}
+                                name="email" 
+                                id="email" 
+                                value={locationData.email}
+                                onChange={handleInputChange}
                                 placeholder="Enter Email Address" 
                                 className="business-input"/>
                         </div>
