@@ -1,6 +1,8 @@
 import { useContext, useState } from "react"
 import { Link, Navigate } from 'react-router-dom';
 import AuthContext from "../context/AuthContext"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 /*Images*/
 import herobackground from "/herobackground.jpeg";
 
@@ -95,7 +97,7 @@ const Signup = () => {
                     className={`toggle-password-button ${showPassword ? 'visible' : ''}`}
                     onClick={togglePasswordVisibility}
                 >
-                {showPassword ? "👁️‍🗨️" : "👁"}
+                    {showPassword ? <FontAwesomeIcon icon={faEye} /> : <FontAwesomeIcon icon={faEyeSlash} />}
                 </button>
                 <label>Confirm Password</label>
                 <input
@@ -108,7 +110,7 @@ const Signup = () => {
                     type="button"
                     className={`toggle-password-button ${showPassword ? 'visible' : ''}`}
                     onClick={togglePasswordVisibility}>
-                {showPassword ? "👁️‍🗨️" : "👁"}
+                    {showPassword ? <FontAwesomeIcon icon={faEye} /> : <FontAwesomeIcon icon={faEyeSlash} />}
                 </button>
                 <button className='button-login-sign' type="submit">Sign Up</button>
                   <div className="login-sign-link">
