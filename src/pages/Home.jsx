@@ -65,6 +65,7 @@ const HomePage = () => {
 			}
 
 			const data = await response.json();
+			console.log(data)
 			setRecentBookmarks(data);
 		} catch (error) {
 			console.error("Error while fetching recent bookmarks data: ", error);

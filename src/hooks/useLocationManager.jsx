@@ -7,7 +7,8 @@ const useLocationManager = (authTokens) => {
     const [location, setLocation] = useState()
     const [result, setResult] = useState()
     const [error, setError] = useState(false)
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
+    const [recommendations, setRecommendations] = useState([])
 
     const createLocation = async (location) => {
         try {
@@ -26,6 +27,35 @@ const useLocationManager = (authTokens) => {
             console.log(error)
         }
 
+    }
+
+    const getRecommendedLocations = async (id) => {
+        setLoading(true)
+        try {
+            const response = await fetch(
+                `${backendUrl}/api/recommendations/location/${id}/`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${authTokens.access}`,
+                    },
+                }
+                );
+        
+                if (!response.ok) {
+                    throw new Error("Error fetching recommended locations data");
+                }
+        
+                const data = await response.json();
+                setRecommendations(data.recommendations)
+        }
+        catch(error) {
+            console.log("An error occured while fetching locations")
+        }
+        finally {
+            setLoading(false)
+        }
     }
 
     const getLocations = async (page, query = "") => {
@@ -52,7 +82,7 @@ const useLocationManager = (authTokens) => {
     const getLocation = async (id) => {
         setLoading(true)
         try {
-            const response = await fetch(`${backendUrl}/api/location/${id}`, {
+            const response = await fetch(`${backendUrl}/api/location/${id}/`, {
                 "method": "GET",
                 "headers": {
                     "Content-Type": "application/json",
@@ -68,6 +98,8 @@ const useLocationManager = (authTokens) => {
 
             const data = await response.json()
             setLocation(data)
+            console.log(data)
+            return data
         }
         catch (error) {
             console.log("An error occured")
@@ -93,13 +125,15 @@ const useLocationManager = (authTokens) => {
     
     return {
         location,
+        recommendations,
         result,
         error,
         loading,
         getLocation,
         getLocations,
         createLocation,
-        deleteLocation
+        deleteLocation,
+        getRecommendedLocations,
     }
 }
 
