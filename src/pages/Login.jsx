@@ -1,6 +1,8 @@
 import { useContext, useState } from "react"
 import { Link, Navigate } from 'react-router-dom';
 import AuthContext from "../context/AuthContext"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 import herobackground from "/herobackground.jpeg";
 
@@ -40,7 +42,7 @@ const Login = () => {
                             className={`toggle-password-button ${showPassword ? 'visible' : ''}`}
                             onClick={togglePasswordVisibility}
                         >
-                            {showPassword ? "👁️‍🗨️" : "👁"}
+                            {showPassword ? <FontAwesomeIcon icon={faEye} /> : <FontAwesomeIcon icon={faEyeSlash} />}
                         </button>
                         </div>
                     </label>
