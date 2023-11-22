@@ -85,8 +85,8 @@ const Recent = () => {
 
     return (
         <div className="profile--main-content">
-            <p className="header-title">Your trips</p>
-            <p className="header-subtitle">Recent Activities</p>
+            <p className="header-title heading">Your trips</p>
+            <p className="header-subtitle heading5">Recent Activities</p>
             {loading ?
             <div> Loading days data...</div>
             :

@@ -37,7 +37,7 @@ export default function LandingPage() {
 					</button>
 				</div>
 			</div>
-			<div className="hero--guide">
+			{/* <div className="hero--guide">
 				<h1>How CebuRoute™ Works</h1>
 				<div className="guide--cards">
 					<div className="card">
@@ -60,7 +60,7 @@ export default function LandingPage() {
 				<div className='hero--cards'>
 					{cards}
 				</div>
-			</div>
+			</div> */}
 			<Footer />
 		</div>
 	);

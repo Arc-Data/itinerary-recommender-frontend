@@ -3,7 +3,7 @@ import UserNav from '../components/UserNav'
 import { useContext, useState } from 'react'
 import AuthContext from '../context/AuthContext'
 import AccordionHeader from '../pages/AccordionHeader'
-import { faBookmark, faBusinessTime, faDirections } from '@fortawesome/free-solid-svg-icons'
+import { faBookmark, faBuilding, faRoute } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const ProfileLayout = () => {
@@ -20,42 +20,40 @@ const ProfileLayout = () => {
 			<div className='profile--container'>
 				<div className='profile--sidebar'>
 					<div className='profile--section'>
-						<p className='profile--icon'>{user.email[0].toUpperCase()}</p>
-						<p className="profile--name">{user.full_name}</p>
+						<p className='profile--icon'>{user.full_name[0].toUpperCase()}</p>
+						<p className="profile--name">{user.full_name.toUpperCase()}</p>
 						<p className="profile--email">{user.email}</p>
 					</div>
 					<div className='profile--links-section'>
-						<div className="profile--trips-section">
-								<AccordionHeader 
-									active={openTrips}
-									handleClick={toggleTrips}
-									icon={faDirections}
-									text={"Your Trips"}/>
+							<AccordionHeader 
+								active={openTrips}
+								handleClick={toggleTrips}
+								icon={faRoute}
+								text={"Your Trips"}
+								className='accordion-header-text'
+							/>
 							{openTrips &&
-							<div className='accordion-content accordion-underline'>
+							<div className='accordion-content'>
 								<div>
-									<p></p>
 									<Link to="trips">
-									Itineraries
+										Itineraries
 									</Link>
 								</div>
 								<div>
-									<p></p>
 									<Link to ="rate">
-									Recent
+										Recent
 									</Link>
 								</div>
 							</div>
 							}
-						</div>
 						<Link to = "business">
 							<div className='profile--link'>
-								<img src="/business.svg" alt="" />
+								<FontAwesomeIcon icon={faBuilding} className='btn-icons'/>
 								<p>Business</p>
 							</div>
 						</Link>
 						<div className="profile--link">
-							<FontAwesomeIcon icon={faBookmark} />
+							<FontAwesomeIcon icon={faBookmark} className='btn-icons'/>
 							<p>Bookmarks</p>
 						</div>
 					</div>

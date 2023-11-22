@@ -25,7 +25,7 @@ const FoodDetail = () => {
             setFoodItems(data)
         }
         catch(error) {
-            console.log("error occured while fetching food items")
+            console.log("Error occurred while fetching food items!")
         }
     }
 

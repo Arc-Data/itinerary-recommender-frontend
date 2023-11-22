@@ -30,8 +30,8 @@ const SpotDetail = () => {
 
     return (
         <div className="detailPage--popular">
-			<h2>Also Popular with travelers</h2>
-			<div className="detailPage--cards">
+			<h2 className='heading'>Also Popular with travelers</h2>
+			<div className="detailPage--cards no-margin-top">
 				{recommendedCards}
 			</div>
 		</div>

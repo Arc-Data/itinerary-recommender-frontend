@@ -3,13 +3,8 @@ import useBusinessManager from "../hooks/useBusinessManager"
 import { useContext, useEffect } from "react"
 import AuthContext from "../context/AuthContext"
 import dayjs from "dayjs"
-import {
-	FaTrash,
-	FaPencilAlt,
-	} from "react-icons/fa";
-import eye from "/images/eye.svg";
-import settings from "/images/fluent_settings-20-regular.svg";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const Business = () => {
     const { authTokens } = useContext(AuthContext)
@@ -97,28 +92,25 @@ const Business = () => {
     return (
         <div className="profile--main-content">
             <div className="business--header">
-                <p className="business--title bold2">Business</p>
-            </div>
-            <div className="business--body d-flexCenter flexWrap">
-                {displayBusiness}
+                <p className="header-title heading">Business</p>
             </div>
             <div className="requests--table">  
                 <div className="flex-between">
-                    <p className="requests--title bold2">Application Requests</p>
+                    <p className="requests--title heading2">Application Requests</p>
                     <Link to="add">
                         <button className="business--btn">
-                            <img src="/plus.svg" />
+                        <FontAwesomeIcon className='btn-icons' icon={faPlus} />
                             <p>Add Business</p>
                         </button>
                     </Link>
                 </div>
-                <table>
-                    <thead className="table--th">
-                        <td>Name</td>
-                        <td>Location Type</td>
-                        <td>Date Filled</td>
-                        <td>Status</td>
-                        <td>Action</td>
+                <table className='business--app-table'>
+                    <thead>
+                        <th>Business name</th>
+                        <th>Type</th>
+                        <th>Date filed</th>
+                        <th>Status</th>
+                        <th>Action</th>
                     </thead>
                     <tbody>
                         {displayRequests}
