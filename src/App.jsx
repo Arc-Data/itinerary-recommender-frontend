@@ -27,6 +27,8 @@ import Profile from './pages/Profile';
 import Trips from './pages/Trips';
 import Business from './pages/Business';
 import AddBusiness from './pages/AddBusiness';
+import EditBusiness from './pages/EditBusiness';
+import ManageBusiness from './pages/ManageBusiness';
 import Recent from './pages/Recent';
 import RateDay from './pages/RateDay';
 import Request from './pages/Request';
@@ -57,6 +59,8 @@ function App() {
 						<Route path="/profile/trips" element={<Trips/>} />
 						<Route path="/profile/business" element={<Business/>} />
 						<Route path="/profile/business/add" element={<AddBusiness/>} />
+						<Route path="/profile/business/edit" element={<EditBusiness/>} />
+						<Route path="/profile/business/manage" element={<ManageBusiness/>} />
 						<Route path="/profile/rate" element={<Recent/>} />
 						<Route path="/profile/rate/:id" element={<RateDay />} />
 					</Route>
