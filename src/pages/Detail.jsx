@@ -273,8 +273,6 @@ export default function DetailPage() {
 		return <div>Loading</div>;
 	}
 
-	console.log("location", location)
-
 	const thumbnails = images.map((image, index) => (
 		<img
 		key={index}
