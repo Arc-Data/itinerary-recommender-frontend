@@ -1,6 +1,8 @@
 * {
-    box-sizing: border-box;
-    font-family: 'Work Sans', sans-serif;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 16px;
+  box-sizing: border-box;
+  line-height: 1;
 }
 html, body {
   color: #333333;
@@ -20,33 +22,25 @@ html, body {
 .btn {
   border: none;
   border-radius: 5px;
-  font-size: 13px;
   cursor: pointer;
-  margin: 0 10px 0 0;
+  margin: 5px 10px 0 0;
   color: white;
   width: 120px;
-}
-.admin--search--bar {
-  padding: 8px;
-  width: 100%;
-  border-radius: 5px;
-  border: 1px solid #E7E7E7;
-  background: #F7F7F7;
-  font-size: 15px;
-  text-indent: 40px;
-  margin-right: 25px;
+  height: 45px;
 }
 .center {
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
-.font16{
-  font-size: 16px;
+.font{
   font-style: normal;
   font-weight: 500;
   line-height: 25.5px; 
 }
+
+/* SIDEBAR */
+
 .sidebar {
   border-right: 2px solid #E7E7E7;
   background-color:#091d2c;
@@ -55,9 +49,38 @@ html, body {
   z-index: 1;
   position: fixed;
 }
-.sidebar h1 {
-  padding: 20px;
+.user-icon-circle {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px; 
+  height: 40px;
+  color: white;
+  background-color:#184E77; 
+  border-radius: 50%; 
+  margin: 2px -5px 0 15px;
+}
+.admin--icon {
+  display: flex;
+  text-align: center;
+  background-color: #143b58;
+  color: white;
+  padding: 5px;
+}
+.admin--text {
   font-size: 20px;
+  margin-left: 20px;
+  margin-top: 12px;
+}
+.admin14{
+  color:rgb(247, 177, 98);
+  font-size: 20px;
+}
+.arrow--icon {
+  top: 110px;
+  left: 210px;
+  position: absolute;
+  color:rgb(169, 238, 238);
 }
 .sidebar--menu {
   display: grid;
@@ -95,6 +118,7 @@ html, body {
 }
 .btn.add-location {
   background: var(--2, #38A3A5);
+  width: 15%;
 }
 
 table {
@@ -106,7 +130,7 @@ table {
 }
 table th, table td {
   padding: 10px 20px;
-  text-align: left;
+  text-align: center;
 }
 table tr:nth-child(even) {
   background-color: #E7E7E7; 
@@ -153,47 +177,10 @@ select {
 }
 .users, .locations {
   font-weight: normal;
-  font-size: 14px;
   color: white;
-  font-family: Work Sans;
-  line-height: 25.5px;
+  line-height: 25px;
   margin: 0;
   padding: 0;
-}
-.admin--search--icon{
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  top: 58px;
-  margin-left: 20px;
-}
-.user-icon-circle {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px; 
-  height: 40px;
-  color: white;
-  background-color:#184E77; 
-  border-radius: 50%; 
-  margin: 8px -8px 0 25px;
-}
-.admin--icon {
-  display: flex;
-  text-align: center;
-  background-color: #143b58;
-  color: white;
-}
-.admin14{
-  color:rgb(247, 177, 98);
-  margin-left: -5px;
-  margin-top: 2px;
-}
-.arrow--icon {
-  top: 121px;
-  left: 220px;
-  position: absolute;
-  color:rgb(169, 238, 238);
 }
 .styled-input {
   border-radius: 5px;
@@ -205,4 +192,29 @@ select {
 .choose--file {
   color: var(--1, var(--default-text, #184E77));
   font-weight: 600;
+}
+
+/* LOCATION */
+
+.search--container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.admin--search--bar {
+  margin-right: 10px;
+  height: 45px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #E7E7E7;
+  background: #F7F7F7;
+  text-indent: 40px;
+}
+.admin--search--icon{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 18px;
+  left: 0;
+  margin-left: 20px;
 }

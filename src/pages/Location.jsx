@@ -3,6 +3,11 @@ import searchIcon from '/images/search.png';
 import { useContext, useEffect, useState } from 'react';
 import AuthContext from '../context/AuthContext';
 import useLocationManager from '../hooks/useLocationManager';
+import {
+	FaArrowLeft,
+	FaArrowRight,
+    FaEdit,
+	} from "react-icons/fa";
 
 function Location() {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
@@ -20,7 +25,7 @@ function Location() {
             <td style={{width: '25%'}}>{location.address}</td>
             <td>
                 <Link to={`/admin/location/${location.id}`}>
-                    <button className='plan--btn'>View</button>
+                    <button className='editDeleteLoc--btn'><FaEdit/></button> 
                 </Link>
             </td>
         </tr>
@@ -57,9 +62,11 @@ function Location() {
             buttons.push(
                 <button 
                     key="prev" 
-                    className='plan--btn btn-primary'
+                    id="pagination--button1"
+					className={`plan--btn ${currentPage === 1 ? "" : ""}`}
+                    disabled={currentPage === 1}
                     onClick={() => handlePageChange(currentPage - 1)}>
-                    Previous
+                    <FaArrowLeft />
                 </button>
             );
         }
@@ -68,7 +75,10 @@ function Location() {
             buttons.push(
                 <button 
                     key={page} 
-                    className='plan--btn btn-secondary'
+                    id='pagination--button'
+                    className={`plan--btn ${
+						page === currentPage ? "btn-primary" : "btn-secondary"
+						}`}
                     onClick={() => handlePageChange(page)} disabled={page === currentPage}>
                     {page}
                 </button>
@@ -79,9 +89,11 @@ function Location() {
             buttons.push(
                 <button 
                     key="next" 
-                    className='plan--btn btn-primary'
+                    id="pagination--button1"
+					className={`plan--btn ${currentPage === totalPages ? "" : ""}`}
+                    disabled={currentPage === totalPages}
                     onClick={() => handlePageChange(currentPage + 1)}>
-                    Next
+                    <FaArrowRight />
                 </button>
             );
         }
@@ -103,7 +115,7 @@ function Location() {
 
     return (
         <>
-            <div>
+            <div className='search--container'>
                 <img className='admin--search--icon' src={searchIcon} alt="Search Icon" />
                 <input 
                     type="text"
@@ -132,18 +144,18 @@ function Location() {
             <table>
                 <thead>
                     <tr>
-                        <th className="font16">ID</th>
-                        <th className="font16">Image</th>
-                        <th className="font16">Name</th>
-                        <th className="font16">Address</th>
-                        <th className="font16">Action</th>
+                        <th className="font">ID</th>
+                        <th className="font">Image</th>
+                        <th className="font">Name</th>
+                        <th className="font">Address</th>
+                        <th className="font">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {locationElements}
                 </tbody>
             </table>
-            <div className="pagination-container">{generatePageButtons()}</div>
+            <div className="pagination">{generatePageButtons()}</div>
         </>
     )
 }
