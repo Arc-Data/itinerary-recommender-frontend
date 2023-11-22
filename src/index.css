@@ -513,7 +513,7 @@ input[type="text"] {
     background-image: linear-gradient(to left, rgba(0, 0, 0, 0), rgba(0, 0, 0.5, 0.7)), url('/herobackground.jpeg');
     background-position: center top;
     background-size: cover;
-    height: 800px;
+    height: 100vh;
     padding: clamp(60px, 10vw, 120px) 110px;
     color: #FFFFFF;
 }
@@ -1741,8 +1741,8 @@ input[type="text"] {
 }
 
 .bookmarked--location {
-    width: 80%;
-    margin: 100px auto;
+    color: #7C7C7C;
+    padding-top: 10px;
 }
 
 /*FOR IPAD*/
