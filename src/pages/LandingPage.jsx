@@ -11,6 +11,8 @@ import { Link } from "react-router-dom"
 
 export default function LandingPage() {
 	const { user } = useContext(AuthContext)
+	console.log(import.meta.env.VITE_BACKEND_BASE_URL)
+	console.log(import.meta.env.VITE_MAPTILER_API_KEY)
 
 	if(user) {
 		return (user.is_staff ? <Navigate to = "/admin"/> : <Navigate to ="/home" />)
