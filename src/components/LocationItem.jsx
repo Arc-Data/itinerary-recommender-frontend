@@ -14,9 +14,10 @@ const LocationItem = ({location}) => {
         backgroundPosition: 'center'
     }
 
-    const fee = getFeeDetails(location.details.min_cost, location.details.max_cost)
-    const opening = getTimeDetails(location.details.opening)
-    const closing = getTimeDetails(location.details.closing)
+    const fee = location.details.min_cost && location.details.max_cost 
+        ? getFeeDetails(location.details.min_cost, location.details.max_cost) : 0
+    const opening = location.details.opening ? getTimeDetails(location.details.opening) : 0
+    const closing = location.details.closing ? getTimeDetails(location.details.closing) : 0
 
     return (
         <div className="plan--itinerary-item">
@@ -25,8 +26,20 @@ const LocationItem = ({location}) => {
                 <div className="plan--location-details">
                     <p className="plan--location-name">{location.details.name}</p>
                     <div>
+                        {location.details.location_type === "1" &&
                         <p><FontAwesomeIcon icon={faClock} /> {opening} - {closing}</p>
-                        <p><span className="plan--location-detail">Entrance fee:</span> {fee}</p>
+                        }
+                        
+                        {location.details.location_type === "1" &&
+                        <p>
+                            <span className="plan--location-detail">Entrance fee:</span> {fee}
+                        </p>
+                        }
+                        {location.details.location_type === "2" &&
+                        <p>
+                            <span className="plan--location-detail">Expenses Range:</span> {fee}
+                        </p>
+                        }
                     </div>
                 </div>
             </div>

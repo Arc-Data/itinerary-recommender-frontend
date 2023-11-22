@@ -27,7 +27,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     }
 
     const searchLocations = async (search) => {
-        const response = await fetch(`${backendUrl}/api/location/?query=${search}&hide`)
+        const response = await fetch(`${backendUrl}/api/location/plan/?query=${search}&hide`)
         const data = await response.json()
         setSearchData(data)
     }
@@ -53,9 +53,6 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     }
 
     const handleAddLocation = async (locationId) => {
-        console.log("Pass control to add location", locationId)
-        console.log(locationId)
-
         try {
             const item = await addItem(locationId, day.id, locations.length)
             
@@ -115,10 +112,9 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     useEffect(() => {
         if (searchData) {
             const results = searchData.map(location => {
-                const fee = getFeeDetails(location.fee.min, location.fee.max)
-                const opening_time = getTimeDetails(location.schedule.opening)
-                const closing_time = getTimeDetails(location.schedule.closing) 
-                console.log(location.id)
+                const fee = (location.fee.min && location.fee.max) ? getFeeDetails(location.fee.min, location.fee.max) : 0
+                const opening_time = location.schedule?.opening ? getTimeDetails(location.schedule.opening) : 0
+                const closing_time = location.schedule?.closing ? getTimeDetails(location.schedule.closing) : 0
 
                 return !checkDuplicateLocation(location.id) && (
                     <div key={location.id} location={location} className="add-location-modal--search-item">
