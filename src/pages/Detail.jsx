@@ -18,6 +18,9 @@ import {
 	} from "react-icons/fa";
 import AuthContext from "../context/AuthContext";
 import timeToNow from "../utils/timeToNow";
+import SpotDetail from "../components/SpotDetail";
+import FoodDetail from "../components/FoodDetail";
+import AccommodationDetail from "../components/AccommodationDetail";
 
 export default function DetailPage() {
 	const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
@@ -100,8 +103,6 @@ export default function DetailPage() {
 
 	// GET LOCATION REVIEW
 	const getLocationReviewData = async () => {
-		console.log("This should run")
-
 		const response = await fetch(
 			`${backendUrl}/api/location/${id}/reviews/?page=${currentPage}`,
 				{
@@ -153,7 +154,6 @@ export default function DetailPage() {
 
 	// GET LOCATION DATA
 	useEffect(() => {
-		console.log(id)
 		getRecommendedLocations();
 		getReviewData();
 		getLocationData();
@@ -314,11 +314,6 @@ export default function DetailPage() {
 	));
 
 	// POPULAR LOCATION (DATA)
-	const recommendedCards = recommendedLocations.map((location) => (
-		<DetailCard key={location.id} {...location} />
-	));
-
-	console.log(location)
 
 	// DROPDOWN
 	const handleEllipsisClick = () => {
@@ -425,12 +420,17 @@ export default function DetailPage() {
 				</div>
 			</div>
 		</div>
-		<div className="detailPage--popular">
-			<h2>Also Popular with travelers</h2>
-			<div className="detailPage--cards">
-				{recommendedCards}
-			</div>
-		</div>
+		
+		{location.location_type === "1" && 
+		<SpotDetail recommendations={recommendedLocations}/>
+		}
+		{location.location_type === "2" &&
+		<FoodDetail />
+		}
+		{location.location_type === "3" &&
+		<AccommodationDetail />
+		}
+
 		<div className="detailPage--review">
 			<div className="detailPage--reviews">
 				<h1>Reviews</h1>
@@ -452,8 +452,6 @@ export default function DetailPage() {
 						const style = {
 							"width": `${location.rating_percentages.ratings[index].percentage * 100}%`
 						}
-
-						console.log(style)
 
 						return (
 							<div key={index} className="ratings">
