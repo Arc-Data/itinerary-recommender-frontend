@@ -18,29 +18,36 @@ import {
 	} from "react-icons/fa";
 import AuthContext from "../context/AuthContext";
 import timeToNow from "../utils/timeToNow";
+import SpotDetail from "../components/SpotDetail";
+import FoodDetail from "../components/FoodDetail";
+import AccommodationDetail from "../components/AccommodationDetail";
+import useLocationManager from "../hooks/useLocationManager";
 
 export default function DetailPage() {
 	const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
 	
 	const { id } = useParams()
 	const { authTokens, user } = useContext(AuthContext);
-	const [location, setLocation] = useState(null);
-	const [loading, setLoading] = useState(true);
+	const { 
+		location, 
+		error, 
+		loading, 
+		getLocation 
+	} = useLocationManager(authTokens)
+
 	const [dropdownOpen, setDropdownOpen] = useState(false);
-	const letter = user.email[0].toUpperCase();
 	const [selectedImage, setSelectedImage] = useState("");
-	const [images, setImages] = useState(null);
+	const [images, setImages] = useState([]);
+	const letter = user.email[0].toUpperCase();
 	const [isBookmarked, setBookmarked] = useState(false);
+
 	const [editMode, setEditMode] = useState(false);
+
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
-	const [recommendedLocations, setRecommendedLocations] = useState([]);
-	// contains all the reviews data
+
 	const [reviewData, setReviewData] = useState([]);
-	// an object that contains the user's review data
 	const [userReview, setUserReview] = useState();
-	// this will be the object to be used when the user does not
-	// have any reviews yet
 	const [formData, setFormData] = useState({
 		comment: "",
 		rating: 0,
@@ -53,57 +60,17 @@ export default function DetailPage() {
 		}));
 	};
 
-	// GET RECOMMENDED LOCATIONS
-	const getRecommendedLocations = async () => {
-		try {
-			const response = await fetch(
-			`${backendUrl}/api/recommendations/location/${id}/`,
-			{
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${authTokens.access}`,
-				},
-			}
-			);
-	
-			if (!response.ok) {
-				throw new Error("Error fetching recommended locations data");
-			}
-	
-			const data = await response.json();
-			setRecommendedLocations(data.recommendations);
-		} catch (error) {
-			console.error("Error while fetching recommended locations data: ", error);
-		}
-	};
-
 	const getLocationData = async () => {
-		const response = await fetch(
-			`${backendUrl}/api/location/${id}/`,
-			{
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				"Authorization": `Bearer ${authTokens.access}`,
-			},
-		}
-		);
-
-		const data = await response.json();
-		setLoading(false);
-		setBookmarked(data.details.is_bookmarked);
-		setLocation(data);
+		const data = await getLocation(id)
+		setBookmarked(data.is_bookmarked);
 		setImages(data.images);
 		setSelectedImage(`${backendUrl}` + data.images[0]);
 	};
 
 	// GET LOCATION REVIEW
 	const getLocationReviewData = async () => {
-		console.log("This should run")
-
 		const response = await fetch(
-			`${backendUrl}/api/location/${id}/reviews/?page=${currentPage}`,
+			`${backendUrl}/api/location/${Number(id)}/reviews/?page=${currentPage}`,
 				{
 				method: "GET",
 				headers: {
@@ -140,6 +107,7 @@ export default function DetailPage() {
 			}
 
 			const data = await response.json();
+			console.log("received data", data)
 			setUserReview(data);
 			setFormData({
 				"comment": data.comment,
@@ -153,8 +121,6 @@ export default function DetailPage() {
 
 	// GET LOCATION DATA
 	useEffect(() => {
-		console.log(id)
-		getRecommendedLocations();
 		getReviewData();
 		getLocationData();
 	}, [id]);
@@ -206,6 +172,10 @@ export default function DetailPage() {
 
 		setEditMode(prev => !prev);
 	};
+
+	if (loading) {
+		return (<div>Please wait</div>)
+	}
 
 	const editReview = async () => {
 		try {
@@ -267,22 +237,22 @@ export default function DetailPage() {
 		};
 
 	// BOOKMARK
-	const handleBookmarkSave = async (value) => {
+	const handleBookmarkSave = async () => {
 		try {
-		const response = await fetch(
-			`${backendUrl}/api/location/${id}/bookmark/`,
-			{
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${authTokens.access}`,
-			},
-			}
-		);
+			const response = await fetch(`${backendUrl}/api/location/${id}/bookmark/`, {
+				"method": "POST",
+				"headers": {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${authTokens.access}`,
+				},
+			})
 
-		if (!response.ok) {
-			throw new Error("Error while updating bookmark");
-		}
+			console.log(response)
+
+			if (!response.ok) {
+				throw new Error("Error while updating bookmark");
+			}
+
 		} catch (error) {
 			console.log("Error while updating bookmark: ", error);
 		}
@@ -312,13 +282,6 @@ export default function DetailPage() {
 		onClick={() => handleThumbnailClick(`${backendUrl}${image}`)}
 		/>
 	));
-
-	// POPULAR LOCATION (DATA)
-	const recommendedCards = recommendedLocations.map((location) => (
-		<DetailCard key={location.id} {...location} />
-	));
-
-	console.log(location)
 
 	// DROPDOWN
 	const handleEllipsisClick = () => {
@@ -353,48 +316,54 @@ export default function DetailPage() {
 		<div className="detailPage">
 			<div className="detailPage--text">
 				<div className="detailPage--address-time">
-					<h1 className="detailPage--title">{location.name}</h1>
+					<h1 className="detailPage--title">{location?.name}</h1>
 					<p>
 						{" "}
 						<img className="detailPage--icon" src={addressIcon} />
-						{location.address}
+						{location?.address}
 					</p>
+					{location.location_type == 1 && 
+					<>
 					<p>
 						{" "}
 						<img className="detailPage--icon" src={timeIcon} />
 						<span>
-						Open at {location.details.opening_time} | Closes at{" "}
-						{location.details.closing_time}{" "}
+						Open at {location?.details.opening_time} | Closes at{" "}
+						{location?.details.closing_time}{" "}
 						</span>
 					</p>
 					<p>
 						{" "}
 						<img className="detailPage--icon" src={money} />
 						<span>
-						Entrance Fee: {location.details.max_fee}  
+						Entrance Fee: {location?.details.max_fee}  
 						</span>
 					</p>
+					</>
+					}
 					<div className="detailPage--rating-category">
 						{[...Array(5)].map((star, i) => (
 							<FaStar
 								key={i}
 								className="star"
 								color={
-								i + 1 < location.rating_percentages.average_rating ? "#ffc107" : "#e4e5e9"
+								i + 1 < location?.rating_percentages.average_rating ? "#ffc107" : "#e4e5e9"
 								}
 							/>
 						))}
-						<span> • {location.rating_percentages.average_rating} <span className="mr5px"> •</span></span>
+						<span> • {location?.rating_percentages.average_rating} <span className="mr5px"> •</span></span>
+						{location.location_type === "1" &&
 						<span className="tags">
-						{location.details.tags.map((tag, index) => (
+						{location?.details.tags.map((tag, index) => (
 							<span key={index} className="tag">
 							{tag}
-							{index < location.details.tags.length - 1 && (
+							{index < location?.details.tags.length - 1 && (
 								<span className="tag-separator"> • </span>
 							)}
 							</span>
 						))}
 						</span>
+						}
 					</div>
 				</div>
 				<button
@@ -410,7 +379,7 @@ export default function DetailPage() {
 		<div className="detailPage--sections">
 			<div className="detailPage--about">
 				<h1 className="detailPage--title1">About</h1>
-				<p>{location.description}</p>
+				<p>{location?.description}</p>
 			</div>
 			<div className="detailPage--pictures">
 				<div className="detailPage--images">
@@ -425,12 +394,17 @@ export default function DetailPage() {
 				</div>
 			</div>
 		</div>
-		<div className="detailPage--popular">
-			<h2>Also Popular with travelers</h2>
-			<div className="detailPage--cards">
-				{recommendedCards}
-			</div>
-		</div>
+		
+		{location?.location_type === "1" && 
+		<SpotDetail />
+		}
+		{location?.location_type === "2" &&
+		<FoodDetail />
+		}
+		{location?.location_type === "3" &&
+		<AccommodationDetail />
+		}
+
 		<div className="detailPage--review">
 			<div className="detailPage--reviews">
 				<h1>Reviews</h1>
@@ -440,20 +414,18 @@ export default function DetailPage() {
 							key={i}
 							className="star"
 							color={
-							i + 1 < location.rating_percentages.average_rating ? "#ffc107" : "#e4e5e9"
+							i + 1 < location?.rating_percentages.average_rating ? "#ffc107" : "#e4e5e9"
 							}
 						/>
 					))}
-					<span> • {location.rating_percentages.total_reviews} Reviews  <span className="mr5px">•</span></span>
-					<span>{location.rating_percentages.average_rating}</span>
+					<span> • {location?.rating_percentages.total_reviews} Reviews  <span className="mr5px">•</span></span>
+					<span>{location?.rating_percentages.average_rating}</span>
 				</div>
 				<div className="ratings--container">
 					{[5, 4, 3, 2, 1].map((i, index) => {
 						const style = {
-							"width": `${location.rating_percentages.ratings[index].percentage * 100}%`
+							"width": `${location?.rating_percentages.ratings[index].percentage * 100}%`
 						}
-
-						console.log(style)
 
 						return (
 							<div key={index} className="ratings">
@@ -463,11 +435,6 @@ export default function DetailPage() {
 								</div>
 							</div>
 						)
-							// <div key={index} className="progress--bar">
-							// 	<div key={index} className="progress--number">
-							// 	</div>
-							// 	<div className="progress--fill" style={style}></div>
-							// </div>
 					})}
 				</div>
 			</div>

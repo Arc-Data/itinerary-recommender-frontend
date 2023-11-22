@@ -18,8 +18,6 @@ import { useParams } from "react-router-dom";
 
 const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLocations, setIncludedLocations }) => {
     const { authTokens } = useContext(AuthContext)
-    const { id } = useParams()
-
     const [open, setOpen] = useState(false)
 
     const [locations, setLocations] = useState([])
@@ -100,8 +98,6 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
     }
 
     const itineraryLocations = () => locations.map(location => {
-        console.log(location.id)
-        
         return (
             <LocationItem 
                 key={location.id} 
