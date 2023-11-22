@@ -122,7 +122,7 @@ function Location() {
                     type="button"
                 >
                     <NavLink 
-                        to="/admin/add-location"
+                        to="/admin/location"
                         className="link"
                     >
                         Add Location

@@ -53,6 +53,9 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     }
 
     const handleAddLocation = async (locationId) => {
+        console.log("Pass control to add location", locationId)
+        console.log(locationId)
+
         try {
             const item = await addItem(locationId, day.id, locations.length)
             
@@ -115,6 +118,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                 const fee = getFeeDetails(location.fee.min, location.fee.max)
                 const opening_time = getTimeDetails(location.schedule.opening)
                 const closing_time = getTimeDetails(location.schedule.closing) 
+                console.log(location.id)
 
                 return !checkDuplicateLocation(location.id) && (
                     <div key={location.id} location={location} className="add-location-modal--search-item">

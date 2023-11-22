@@ -65,7 +65,7 @@ const Preferences = () => {
 
     return (
         <div className="preferences">
-            <h1>What are you looking forward to your next trip to Cebu?</h1>
+            <h1 className='heading'>What are you looking forward to your Cebu trip?</h1>
             <p>Select at least two</p>
             <div className="preferences--selection-container">
             {Object.keys(preferences).map((key, index) => (
