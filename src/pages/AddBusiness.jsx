@@ -189,8 +189,22 @@ const AddBusiness = () => {
                                 link to access instructions.
                             </p>
                         </div>
-                        <div className="d-flexCenter jc-end mt-20px">
-                            <button className="add--business" type="submit">Submit</button>
+                    
+                        <div className="flex jc-end mt-20px">
+                            <button className="upload-btn font14">
+                                <img className="upload-icon" src="/upload.svg" alt="Upload Icon" />
+                                <label htmlFor="imgFile" className="choose-file">
+                                    Upload Pictures
+                                </label>
+                                <input
+                                    type="file"
+                                    id="imgFile"
+                                    name="filename"
+                                    accept="image/*"
+                                    style={{ "display": 'none' }}
+                                />
+                            </button>
+                            <button className="add--business font14" type="submit">Submit</button>  
                         </div>
                     </div>
                 </div>

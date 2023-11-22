@@ -192,9 +192,15 @@ const HomePage = () => {
 					{recentBookmarkCards.length > 0 ? (
 						<div className="homepage--bookmarks">{recentBookmarkCards}</div>
 					) : (
-						<p className="bookmarked--location font14">
-							You haven't bookmarked any locations yet.
-						</p>
+						<>
+							<p className="bookmarked--location font14">
+								You haven't bookmarked any locations yet.
+							</p>
+							<Link>
+							<a className="search--bookmark font13">Search Location</a>
+							</Link>
+							
+						</>
 					)}
 				</div>
 			</div>

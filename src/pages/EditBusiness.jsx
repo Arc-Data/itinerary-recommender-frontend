@@ -194,7 +194,7 @@ const EditBusiness = () => {
                             </p>
                         </div>
                         <div className="d-flexCenter jc-end mt-20px">
-                            <button className="add--business" type="submit">Submit</button>
+                            <button className="add--business font14" type="submit">Submit</button>
                         </div>
                     </div>
                 </div>

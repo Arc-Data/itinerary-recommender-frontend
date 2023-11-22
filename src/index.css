@@ -1726,7 +1726,12 @@ input[type="text"] {
 
 .bookmarked--location {
     width: 80%;
-    margin: 100px auto;
+    margin: 100px auto 20px;
+}
+
+.search--bookmark {
+    border-bottom: 1px solid #34A0A4;
+    color: #34A0A4;
 }
 
 /*FOR IPAD*/
@@ -2880,9 +2885,10 @@ input[type="text"] {
 .delete--businessBTN {
     border-radius: 10px;
     background: #F63636;
-    width: 150px;
-    height: 40px;
-    margin-top: 20px;
+    display: flex;
+    text-align: center;
+    padding: 15px;
+    gap: 10px;
 }
 
 .addProduct--popup {
@@ -2896,16 +2902,27 @@ input[type="text"] {
     width: 30%;
 }
 
-.upload--btn {
+.upload-btn {
+    background-color: #38A3A5;
+    color: #fff; 
+    padding: 10px 15px;
+    border: none;
     border-radius: 10px;
-    background: var(--2, #38A3A5);
-    width: 25%;
-    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
-.upload--icon{
-    width: 20px;
-    margin-right: 10px;
+.upload-icon {
+    width: 17px;
+    margin-right: 10px; 
+}
+
+.choose-file {
+    cursor: pointer;
+    color: white;
+    font-size: 14px;
+    margin-bottom: 10px;
 }
 
 .modal-overlay {

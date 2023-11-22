@@ -134,7 +134,7 @@ const ManageBusiness = () => {
 
                         <div className="flex">
                             <div className="business--form-header">Manage Business </div>
-                            <button className="delete--businessBTN"> <FaTrash /> Delete Business</button>
+                            <button className="delete--businessBTN font14"> <FaTrash /> Delete Business</button>
                         </div>
 
                         <div className="form-group">
@@ -334,15 +334,24 @@ const ManageBusiness = () => {
                                     placeholder="Enter Description" 
                                     className="business-input"/>
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="address">Product Image</label>
-                                <button className="upload--btn d-flexCenter">
-                                        <img className="upload--icon" src="/upload.svg" />
-                                        <p>Upload</p>
-                                    </button>
+                            <div className="mt-20px">
+                                <label htmlFor="address">Add Images</label>
+                                <button className="upload-btn font14">
+                                    <img className="upload-icon" src="/upload.svg" alt="Upload Icon" />
+                                    <label htmlFor="imgFile" className="choose-file">
+                                        Upload Pictures
+                                    </label>
+                                    <input
+                                        type="file"
+                                        id="imgFile"
+                                        name="filename"
+                                        accept="image/*"
+                                        style={{ "display": 'none' }}
+                                    />
+                                </button>
                             </div>
                             <div className="d-flexCenter jc-end mt-20px">
-                                <button className="add--business" type="submit">Submit</button>
+                                <button className="add--business font14" type="submit">Submit</button>
                             </div>
                         </Modal>
             
