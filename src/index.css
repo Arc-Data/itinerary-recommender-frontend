@@ -66,7 +66,7 @@ button:hover {
     color: #000000;
     font-weight: 800;
 }
-.heading2 p {
+.heading2, .heading2 p {
     font-size: 23px;
     font-weight: 700;
 }
@@ -77,6 +77,11 @@ button:hover {
 .heading4 {
     font-size: 20px;
     color: #333333;
+}
+.heading5 {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #8C8C8C;
 }
 label, input {
     font-weight: 500 !important;
@@ -1496,36 +1501,36 @@ input[type="text"] {
 }
 
 .accordion-header {
-    border-radius: 10px;
-    padding: 12px 14px;
+    display: flex; 
+    align-items: center; 
+    border-radius: 5px;
     cursor: pointer;
     background-color: transparent;
+    height: 50px;
+    padding: 0 20px;
 }
 
 .accordion-header:hover, .accordion-header.active, .profile--link:hover {
     background: #184e77;
-    color:white;
+    color:#FFFFFF;
 }
 
-.accordion-header, .accordion-content > div {
+.accordion-header {
     display: grid;
     grid-template-columns: 20px 1fr;
     gap: 10px 4px;
-    padding: 14px 12px;
+    padding: 0 20px;
     cursor: pointer;
 }
-
-.accordion-content > div:first-child {
-    margin-top: 20px;
+.accordion-content > div > * {
+    margin-left: 35px;
+    color: #333333;
 }
 
 .accordion-content > div {
     padding: 10px 12px; 
 }
 
-.accordion-underline {
-    text-decoration: underline;
-}
 
 .plan--main-panel {
     height: calc(100vh - 100px);
@@ -2404,16 +2409,19 @@ input[type="text"] {
     max-width: 1600px;
     overflow-x: hidden;
     border: 1px solid #e7e7e7;
-
     min-height: calc(100vh - 100px);
 }
 
+.profile--container > * {
+    font-size: 18px;
+}
+
 .profile--container > div {
-    padding: 20px 24px;
+    padding: 50px 24px;
 }
 
 .profile--sidebar {
-    border-right: 1px solid #e7e7e7;
+    border-right: 2px solid #e7e7e7;
     background: white;
 }
 
@@ -2429,7 +2437,7 @@ input[type="text"] {
 }
 
 .profile--icon {
-    background: yellow;
+    background: #F0C34D;
     color: white;
     width: 50px;
     height: 50px;
@@ -2458,9 +2466,14 @@ input[type="text"] {
     grid-template-columns: auto 1fr;
     align-items: center;
     gap: 4px;
-    padding: 12px 14px;
+    padding: 0 20px;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 5px;
+    height: 50px;
+    color: #333333;
+}
+.profile--link > p {
+    font-size: 16px;
 }
 
 .profile--links-section {
@@ -2727,13 +2740,11 @@ input[type="text"] {
 }
 
 .business--btn {
-    font-size: 16px;
     display: flex;
     align-items: center;
-    gap: 8px;
     background-color: #38A3A5;
     border-radius: 10px;
-    padding: 10px;
+    padding: 10px 20px;
 }
 
 .business--form-section {
@@ -2780,12 +2791,6 @@ input[type="text"] {
     padding: 40px 0;    
 }
 
-.requests--title {
-    color: #333;
-    font-size: 20px;
-    font-weight: 600;
-}
-
 .request--status {
     padding: 8px;
     background-color: #E86B6B;
@@ -2797,4 +2802,10 @@ input[type="text"] {
     padding: 8px;
     border-radius: 4px;
     background: #57CC99;
+}
+
+.business--app-table > thead > th {
+    padding: 15px;
+    background-color: #F1F1F1;
+    border-radius: 5px;
 }

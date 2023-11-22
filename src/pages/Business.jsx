@@ -3,6 +3,8 @@ import useBusinessManager from "../hooks/useBusinessManager"
 import { useContext, useEffect } from "react"
 import AuthContext from "../context/AuthContext"
 import dayjs from "dayjs"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const Business = () => {
     const { authTokens } = useContext(AuthContext)
@@ -35,24 +37,25 @@ const Business = () => {
     return (
         <div className="profile--main-content">
             <div className="business--header">
-                <p className="header-title">Business</p>
+                <p className="header-title heading">Business</p>
             </div>
             <div className="requests--table">  
                 <div className="flex-between">
-                    <p className="requests--title">Application Requests</p>
+                    <p className="requests--title heading2">Application Requests</p>
                     <Link to="add">
                         <button className="business--btn">
-                            <img src="/plus.svg" />
+                        <FontAwesomeIcon className='btn-icons' icon={faPlus} />
                             <p>Add Business</p>
                         </button>
                     </Link>
                 </div>
-                <table>
+                <table className='business--app-table'>
                     <thead>
-                        <th>Name</th>
-                        <th>Location Type</th>
-                        <th>Date Filled</th>
+                        <th>Business name</th>
+                        <th>Type</th>
+                        <th>Date filed</th>
                         <th>Status</th>
+                        <th>Action</th>
                     </thead>
                     <tbody>
                         {displayRequests}

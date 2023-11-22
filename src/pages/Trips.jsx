@@ -30,8 +30,8 @@ const Trips = () => {
 
 	return (
 		<div className="profile--main-content">
-			<p className="header-title">Your trips</p>
-			<p className="header-subtitle">Recent</p>
+			<p className="header-title heading">Your trips</p>
+			<p className="header-subtitle heading5">Itineraries</p>
 			{loading ? 
 			<div>
 				Loading...
