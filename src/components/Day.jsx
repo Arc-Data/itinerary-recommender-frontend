@@ -12,11 +12,9 @@ import Assistant from "./Assistant";
 import Color from "./Color";
 import getFeeDetails from "../utils/getFeeDetails";
 import ConfirmDeleteDay from "./ConfirmDeleteDay";
-import useDayManager from "../hooks/useDayManager";
 import useItemLocationManager from "../hooks/useItemLocationManager";
-import { useParams } from "react-router-dom";
 
-const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLocations, setIncludedLocations }) => {
+const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLocations, setIncludedLocations, increaseEstimatedCost, decreaseEstimatedCost}) => {
     const { authTokens } = useContext(AuthContext)
     const [open, setOpen] = useState(false)
 
@@ -31,13 +29,9 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
     const [openDaySettings, setOpenDaySettings] = useState(false)
     const [openColorModal, setOpenColorModal] = useState(false)
 
-    const [minTotal, setMinTotal] = useState(0)
-    const [maxTotal, setMaxTotal] = useState(0)
     const [costEstimate, setCostEstimate] = useState(0)
 
     const { updateItemOrdering } = useItemLocationManager(authTokens)
-
-    let cost_estimate;
 
     useEffect(() => {
         setLocations(day.itinerary_items)
@@ -158,9 +152,6 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
     useEffect(() => {
         let min = locations.reduce((total, item) => item.details.min_cost + total, 0)
         let max = locations.reduce((total, item) => item.details.max_cost + total, 0)
-        
-        setMinTotal(min)
-        setMaxTotal(max)
 
         const costString = getFeeDetails(min, max)
         setCostEstimate(costString)
@@ -297,7 +288,10 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
                 includedLocations={includedLocations}
                 setIncludedLocations={setIncludedLocations}
                 addMarker={addMarker} 
-                deleteMarker={deleteMarker} />
+                deleteMarker={deleteMarker} 
+                increaseEstimatedCost={increaseEstimatedCost}
+                decreaseEstimatedCost={decreaseEstimatedCost}
+                />
             }
             {openDeleteModal && 
             <ConfirmDeleteItem 
@@ -308,7 +302,10 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
                 setLocations={setLocations} 
                 includedLocations={includedLocations}
                 setIncludedLocations={setIncludedLocations}
-                setItemOrdering={setItemOrdering}/>
+                setItemOrdering={setItemOrdering}
+                updateDays={updateDays}
+                decreaseEstimatedCost={decreaseEstimatedCost}
+                />
             }
             {openAssistantModal &&
             <Assistant 

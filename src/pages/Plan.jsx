@@ -14,6 +14,7 @@ import useMarkerManager from "../hooks/useMarkerManager"
 import Error404 from "../components/Error404"
 import Error403 from "../components/Error403"
 import AccordionHeader from "./AccordionHeader"
+import getFeeDetails from "../utils/getFeeDetails"
 
 const Plan = () => {
 	const { authTokens } = useContext(AuthContext)
@@ -43,16 +44,24 @@ const Plan = () => {
 		loading: daysLoading,
 		error: daysError,
 		days,
+		minCost,
+		maxCost,
 		removeDay,
 		updateDays,
 		updateCalendarDays,
+		updateEstimatedCost,
 		getDays,
+		increaseEstimatedCost,
+		decreaseEstimatedCost,
 	} = useDayManager(authTokens)
 
 	const [isExpenseOpen, setExpenseOpen] = useState(true)
 	const [isItineraryOpen, setItineraryOpen] = useState(true)
 	const [isCalendarOpen, setCalendarOpen] = useState(false)
 	const [editName, setEditName] = useState(false)
+	const [editable, setEditable] = useState(false)
+
+	const [costEstimate, setCostEstimate] = useState(0);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -69,15 +78,35 @@ const Plan = () => {
 	}, [id])
 
 	useEffect(() => {
-		const locations = getMarkersData(days)
-        setIncludedLocations(locations)
+		let min = 0;
+		let max = 0;
+
+		if (days && days.length > 0) {
+			days.forEach((day) => {
+				min += day.itinerary_items.reduce((total, item) => item.details.min_cost + total, 0);
+				max += day.itinerary_items.reduce((total, item) => item.details.max_cost + total, 0);
+			});
+		}
+
+		updateEstimatedCost(min, max)
 	}, [days]) 
+
+	useEffect(() => {
+		const costString = getFeeDetails(minCost, maxCost)
+		setCostEstimate(costString)
+	}, [minCost, maxCost])
+
+	useEffect(() => {
+		const locations = getMarkersData(days)
+		setIncludedLocations(locations)
+	}, [days])
 	
 	useEffect(() => {
 		if (inputRef.current && editName) {
 			inputRef.current.focus();
 		}
 	}, [editName])
+
 	
 	const toggleCalendar = (e) => {
 		if(e) {
@@ -122,8 +151,11 @@ const Plan = () => {
 			addMarker={addMarker}
 			deleteMarker={deleteMarker}
 			includedLocations={includedLocations}
-			setIncludedLocations={setIncludedLocations}/>
-	})
+			setIncludedLocations={setIncludedLocations}
+			increaseEstimatedCost={increaseEstimatedCost}
+			decreaseEstimatedCost={decreaseEstimatedCost}
+			/>
+		})
 
 	const getDayTabs = days && days.map(day => {
 		return (
@@ -214,20 +246,31 @@ const Plan = () => {
 							<div className="plan--expense-form">
 								<div className="form-row">
 									<label htmlFor="number_of_people">Groupsize</label>
+									{editable ?
 									<input 
 										type="number" 
 										name="number_of_people"
 										id="number_of_people"
 										defaultValue={itinerary?.number_of_people}
-									/>	
+									/>
+									:
+									<p>{itinerary?.number_of_people}</p>	
+									}	
 								</div>
 								<div className="form-row">
 									<label htmlFor="budget">Budget <span>(per person)</span></label>
+									{editable ? 
 									<input 
 										type="number" 
 										name="budget" 
 										id="budget"
 										defaultValue={itinerary?.budget}/>							
+									:
+									<p>{itinerary?.budget}</p>
+									}
+								</div>
+								<div className="form-row">
+									Estimated Expenses: {costEstimate}
 								</div>
 							</div>
 						</section>

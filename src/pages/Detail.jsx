@@ -41,7 +41,6 @@ export default function DetailPage() {
 	const [images, setImages] = useState([]);
 	const letter = user.email[0].toUpperCase();
 	const [isBookmarked, setBookmarked] = useState(false);
-
 	const [editMode, setEditMode] = useState(false);
 
 	const [currentPage, setCurrentPage] = useState(1);
@@ -86,9 +85,6 @@ export default function DetailPage() {
 		setReviewData(locationData.results);
 		setTotalPages(Math.ceil(locationData.count / 5)); // Assuming 5 reviews per page
 	};
-
-	console.log(location)
-
 
 	// GET REVIEW OF USER
 	const getReviewData = async () => {
@@ -382,10 +378,10 @@ export default function DetailPage() {
 		</div>
 		
 		{location?.location_type === "1" && 
-		<SpotDetail owner={location.owner}/>
+		<SpotDetail />
 		}
 		{location?.location_type === "2" &&
-		<FoodDetail owner={location.owner} />
+		<FoodDetail isOwnedByUser={location.owner === user.user_id}/>
 		}
 		{location?.location_type === "3" &&
 		<AccommodationDetail />

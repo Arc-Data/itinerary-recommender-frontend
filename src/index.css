@@ -859,8 +859,8 @@ input[type="text"] {
     display: inline-flex;
     flex-direction: column;
     align-items: flex-start;
-    margin: 20px 165px;
 }
+
 .no-margin-top {
     margin-top: 0 !important;
 }
@@ -905,6 +905,18 @@ input[type="text"] {
 .food-place--container {
     padding: 40px;
     background: #ccc;
+    border-radius: 8px;
+}
+
+.food-place--header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.food-place--update-menu {
+    background: #184E77;
+    padding: 12px;
     border-radius: 8px;
 }
 
@@ -1320,9 +1332,9 @@ input[type="text"] {
 }
 
 .create--nav-bar {
-    background:#FFFFFF;
-    padding: 10px;
-    border-bottom: 2px solid #e7e7e7;
+    background:white;
+    padding: 20px 50px;
+    border-bottom: 1px solid #e7e7e7;
 }
 
 .create--main-content {
@@ -1347,34 +1359,38 @@ input[type="text"] {
     font-size: 20px;
 }
 
+.create--form-title {
+    font-size: 35px;
+    font-weight: bold;
+}
+
 .create--form-content {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 20px;
+    grid-gap: 30px;
 }
 
 .form-row {
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: 12px;
 }
 
 .create--form-input {
-    padding: 10px 20px;
-    border: 2px solid #E7E7E7;
-    border-radius: 5px;
+    padding: 14px 30px;
+    font-size: 20px;
+    border: 1px solid #DEDEDE;
+    border-radius: 10px;
+    font-family: 'Work Sans', sans-serif;
 }
-.react-datepicker__close-icon {
-    height: 45px;
-    margin: 5px 15px;
-}
+
 .create--form-button {
     background: #184E77;
     color: white;
-    padding: 14px 20px;
-    width: 140px;
+    padding: 14px 0px;
+    width: 180px;
     border-radius: 10px;
-    height: 45px;
+    font-size:20px;
 }
 
 .create--form-footer {
@@ -1399,8 +1415,9 @@ input[type="text"] {
 
 .create--currency-indicator {
     position: absolute;
-    left: 20px;
-    top: 45%;
+    left:20px;
+    top: 50%;
+    padding: 0px 20px;
     transform: translateY(-50%);
 }
 
@@ -1408,7 +1425,7 @@ input[type="text"] {
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 180px 1fr;
     overflow: hidden;
 }
 
@@ -1433,13 +1450,11 @@ input[type="text"] {
     padding: 12px;
     border-radius: 50%;
     cursor: pointer;
-    border: 2px solid #38A3A5;
-    color: #38A3A5;
-    background: #C7F9CC;
+    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2);
 }
 
 .calendar-icon  {
-    background: #C7F9CC;
+    background: #38A3A5;
     color: white;
     margin-left: 10px;
 }
@@ -1475,11 +1490,17 @@ input[type="text"] {
     border-bottom: 1px solid
 }
 
+.plan--title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #333333;
+}
+
 .plan--expense-form {
+    margin-top: 20px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 40px;
-    margin-top: 5px;
 }
 
 .plan--expense-form span {
@@ -1487,11 +1508,11 @@ input[type="text"] {
 }
 
 .plan--expense-form input {
-    border-radius: 5px;
-    border: 2px solid #E7E7E7;
+    padding: 6px 12px;
+    border-radius: 10px;
+    border: 1px solid #dedede;
     background: #fcfcfc;
     font-size: 16px;
-    padding: 0 20px;
 }
 
 .accordion-header {
@@ -1519,7 +1540,6 @@ input[type="text"] {
 .accordion-content > div > * {
     margin-left: 35px;
     color: #333333;
-    font-weight: 500;
 }
 
 .accordion-content > div {
@@ -1535,7 +1555,7 @@ input[type="text"] {
 }
 
 .plan--main-panel > * {
-    padding: 30px 50px;
+    padding: 40px 48px;
 }
 
 .plan--expense-section {
@@ -1543,7 +1563,7 @@ input[type="text"] {
 }
 
 .plan--itinerary {
-    margin-top: 20px;
+    margin-top: 40px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -1561,8 +1581,9 @@ input[type="text"] {
 }
 
 .plan--btn-container {
-    display: flex;
-    gap: 20px;
+    margin: 40px 0;
+    display:flex;
+    gap:20px;
 }
 
 .plan--btn-list {
@@ -1579,6 +1600,10 @@ input[type="text"] {
 .editDeleteLoc--btn{
     color: #184E77;
     background: none;
+}
+
+.plan--btn:hover {
+    box-shadow: 0 0 0.5em rgba(33, 20, 20, 0.5);
 }
 
 .plan--btn svg {
@@ -1599,9 +1624,7 @@ input[type="text"] {
 .btn-link {
     all: unset;
     cursor: pointer;
-    font-size: 16px;
-    color: #184E77;
-    font-weight: 500;
+    font-size: 18px;
 }
 
 .btn-link:hover {
@@ -1613,7 +1636,6 @@ input[type="text"] {
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-weight: 500;
 }
 
 .assistant--regenerate {
@@ -1743,7 +1765,7 @@ input[type="text"] {
 
 .bookmarked--location {
     width: 80%;
-    margin: 20px 0;
+    margin: 100px auto 20px;
 }
 
 .search--bookmark {
@@ -1785,6 +1807,7 @@ input[type="text"] {
 
 .icon--chevron {
     margin-left: 0.3rem;
+    font-weight: lighter;
 }
 
 .plan--itinerary-day {
@@ -1792,18 +1815,19 @@ input[type="text"] {
     grid-template-columns: 1fr auto;
     align-items: center;
     cursor: pointer;
-    font-size: 25px;
+
+    font-size: 20px;
     color: #333333;
-    font-weight: 600;
+    font-weight: 500;
     background: white;
-    padding: 12px 20px;
-    border-radius: 10px;
-    border: 2px solid #E7E7E7;
+    padding: 12px 18px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 0.2em rgba(0, 0, 0, 0.2);
 }
 
 .plan--itinerary-day:hover {
-    border: 2px solid #38A3A5;
-    transition: border 0.3s ease;
+    border: 1px solid #3498db;
 }
 
 .plan--itinerary-day svg {
@@ -1870,11 +1894,8 @@ input[type="text"] {
 }
 
 .plan--day-details {
-    font-size: 16px;
-    font-weight: 500;
-    color: #7C7C7C;
-    padding-bottom: 10px;
-    margin-left: 25px;
+    font-size: 14px;
+    font-weight: 400;
 }
 
 /* .plan--day-settings:hover {
@@ -1899,12 +1920,10 @@ input[type="text"] {
     grid-template-columns: 1fr auto; 
     gap: 10px;
     justify-content: space-between;
-    align-items: center;
 }
 
-.calendar-icon:hover, .pencil-icon:hover {
-    filter: hue-rotate(180deg);
-    transition: filter 0.3s ease;
+.calendar-icon:hover {
+    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.5);
 }
 
 .calendar-info {
@@ -2835,7 +2854,6 @@ input[type="text"] {
     padding: 5px;
     border-radius: 4px;
     background: #57CC99;
-    height: 30px;
 }
 
 .table--th > td{
@@ -2844,9 +2862,8 @@ input[type="text"] {
 
 .btn--icon  {
     border-radius: 10px;
-    padding: 5px;
+    padding: 8px;
     width: 40px;
-    height: 30px;
 }
 
 .business--delete {
@@ -2954,53 +2971,3 @@ input[type="text"] {
     justify-content: center;
     align-items: center;
   }
-
-  
-.edit--location , .header-title, .modal-header {
-    font-size: 30px;
-    margin-bottom: 20px;
-}
-
-.approve--modal {
-    width: 500px;
-    padding: 15px;
-}
-
-.business--name{
-    font-size: 25px;
-    margin-top: 10px;
-}
-
-.business--name1{
-    font-size: 25px;
-    margin-top: 10px;
-}
-
-.form-group-result {
-    text-align: start;
-    padding: 15px;
-    border-radius: 10px;
-    background: rgba(231, 231, 231, 0.50);
-}
-
-.BTN14 {
-    height: 50%;
-    padding: 10px;
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.reject--BTN {
-    background: #E86B6B;
-}
-
-.approve--BTN{
-    background: var(--3, #57CC99);
-    margin-right: 20px;
-}
-
-.approve--BTN > span ,
-.reject--BTN > span {
-    margin-top: 4px;
-}

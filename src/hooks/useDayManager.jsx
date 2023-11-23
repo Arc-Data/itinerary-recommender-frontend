@@ -8,6 +8,8 @@ const useDayManager = (authTokens) => {
     const [ days, setDays ] = useState([])
     const [ error, setError ] = useState(false) 
     const [ loading, setLoading ] = useState(true) 
+    const [ minCost, setMinCost ] = useState(0)
+    const [ maxCost, setMaxCost ] = useState(0)
 
     const getDays = async (itinerary_id) => {
         setLoading(true)
@@ -205,6 +207,21 @@ const useDayManager = (authTokens) => {
             console.log("An error occured while marking days as completed: ", error)
         }
     }
+
+    const updateEstimatedCost = (min, max) => {
+        setMinCost(min)
+        setMaxCost(max)
+    }
+
+    const increaseEstimatedCost = (min, max) => {
+        setMinCost(prev => prev + min)
+        setMaxCost(prev => prev + max)
+    }
+
+    const decreaseEstimatedCost = (min, max) => {
+        setMinCost(prev => prev - min)
+        setMaxCost(prev => prev - max)
+    }
     
     return {
         day,
@@ -223,6 +240,11 @@ const useDayManager = (authTokens) => {
         updateDayRating,
         getActiveTrips,
         getRecentDays,
+        minCost,
+        maxCost,
+        updateEstimatedCost,
+        increaseEstimatedCost,
+        decreaseEstimatedCost
     }
 }
 
