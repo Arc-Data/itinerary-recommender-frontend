@@ -105,6 +105,7 @@ export const AuthProvider = ({children}) => {
         const data = await response.json()
         
         if(response.status === 200) {
+            console.log("Updated token successfully")
             setAuthTokens(data)
             setUser(jwt_decode(data.access))
             localStorage.setItem('authTokens', JSON.stringify(data))

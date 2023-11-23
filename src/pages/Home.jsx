@@ -40,7 +40,6 @@ const HomePage = () => {
 		  }
   
 		  const data = await response.json();
-		  console.log(data)
 		  setRecommendedLocations(data.recommendations);
 		} catch (error) {
 		  console.error("Error while fetching recommended locations data: ", error);
@@ -67,7 +66,6 @@ const HomePage = () => {
 			}
 
 			const data = await response.json();
-			console.log(data)
 			setRecentBookmarks(data);
 		} catch (error) {
 			console.error("Error while fetching recent bookmarks data: ", error);
