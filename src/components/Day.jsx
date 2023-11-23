@@ -33,8 +33,6 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
 
     const { updateItemOrdering } = useItemLocationManager(authTokens)
 
-    console.log(day)
-
     useEffect(() => {
         setLocations(day.itinerary_items)
     }, [day])

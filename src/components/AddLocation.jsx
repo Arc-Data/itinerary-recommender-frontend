@@ -18,7 +18,8 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     const [openBookmarks, setOpenBookmarks] = useState(false)
     const [searchString, setSearchString] = useState("")
     const [displayedSearchItems, setDisplayedSearchItems] = useState(null)
-
+    const [bookmarked, setBookmarked] = useState([])
+ 
     let debounceTimeout = 2000;
     let timeout;
 
@@ -110,6 +111,27 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                 </div>
             </div>
         )
+    })
+    
+    useEffect(() => {
+        const getBookmarks = async () => {
+            try {
+                const response = await fetch(`${backendUrl}/api/bookmarks/`, {
+                    "method": "GET",
+                    "headers": {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${authTokens.access}`
+                    }
+                })
+                const data = await response.json()
+                setBookmarked(data)
+            }
+            catch(error) {
+                console.log("An error occured while getting user bookmarks")
+            }
+        }
+
+        getBookmarks()
     })
 
     useEffect(() => {
