@@ -79,7 +79,7 @@ const Business = () => {
                         </Link>
                         <button 
                             className="business--delete btn--icon"> {/*FUNCTIONALITY HERE (DELETE) */}
-                            <faTrash />
+                            <FaTrash />
                         </button>
                     </div>
                 </td>
