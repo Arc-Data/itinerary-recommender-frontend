@@ -77,21 +77,36 @@ const CreateTrip = () => {
                             <DatePicker
                                 selected={formData.startDate}
                                 onChange={(date) => handleChange('startDate', date)}
-                                className='create--form-input'
+                                className='create--form-input no-margin-top no-margin-bottom'
                                 dateFormat="yyyy-MM-dd"
                                 isClearable
                                 placeholderText="Select a date"
                                 name="startDate"
                                 id="startDate"
+                                autoComplete="off"
                             />
                         </div>
                         <div className='form-row'>
-                            <label htmlFor="budget" className='create--form-label'>Budget per Person</label>
+                            <label htmlFor="endDate" className='create--form-label'>End Date</label>
+                            <DatePicker
+                                selected={formData.endDate}
+                                onChange={(date) => handleChange('endDate', date)}
+                                className='create--form-input no-margin-top no-margin-bottom datepicker'
+                                dateFormat="yyyy-MM-dd"
+                                isClearable
+                                placeholderText="Select a date"
+                                name="endDate"
+                                id="endDate"
+                                autoComplete="off"
+                            />
+                        </div>
+                        <div className='form-row'>
+                            <label htmlFor="budget" className='create--form-label'>Budget (per person)</label>
                             <div className='create--currency'>
                                 <input
                                     type="number"
                                     name="budget"
-                                    className='create--form-input budget'
+                                    className='create--form-input no-margin-top no-margin-bottom budget'
                                     placeholder="100.00"
                                     value={formData.budget}
                                     onChange={(e) => handleChange('budget', e.target.value)}
@@ -101,24 +116,11 @@ const CreateTrip = () => {
                             </div>
                         </div>
                         <div className='form-row'>
-                            <label htmlFor="endDate" className='create--form-label'>End Date</label>
-                            <DatePicker
-                                selected={formData.endDate}
-                                onChange={(date) => handleChange('endDate', date)}
-                                className='create--form-input'
-                                dateFormat="yyyy-MM-dd"
-                                isClearable
-                                placeholderText="Select a date"
-                                name="endDate"
-                                id="endDate"
-                            />
-                        </div>
-                        <div className='form-row'>
-                            <label htmlFor="numberOfPeople" className='create--form-label'>Number of People</label>
+                            <label htmlFor="numberOfPeople" className='create--form-label'>Group size</label>
                             <input
                                 type="number"
                                 name="numberOfPeople"
-                                className='create--form-input'
+                                className='create--form-input no-margin-top no-margin-bottom'
                                 min="1"
                                 placeholder='1'
                                 value={formData.numberOfPeople}

@@ -864,6 +864,9 @@ input[type="text"] {
 .no-margin-top {
     margin-top: 0 !important;
 }
+.no-margin-bottom {
+    margin-bottom: 0 !important;
+}
 
 .detailPage--cards {
     display: grid;
@@ -1358,10 +1361,10 @@ input[type="text"] {
 
 .create--form-container {
     width: 80%;
-    background:white;
+    background:#FFFFFF;
     border-radius: 50px;
-    border: 1px solid #e7e7e7;
-    padding:95px 73px;
+    border: 2px solid #e7e7e7;
+    padding: 95px 73px;
 }
 
 .create--form {
@@ -1379,30 +1382,34 @@ input[type="text"] {
 .create--form-content {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 30px;
+    grid-gap: 20px;
 }
 
 .form-row {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 5px;
 }
 
 .create--form-input {
-    padding: 14px 30px;
-    font-size: 20px;
-    border: 1px solid #DEDEDE;
-    border-radius: 10px;
-    font-family: 'Work Sans', sans-serif;
+    padding: 10px 20px;
+    border: 2px solid #E7E7E7;
+    border-radius: 5px;
+}
+
+.react-datepicker__close-icon {
+    margin: 0 15px 0 0;
+    padding: 0;
+}
+.react-datepicker__header {
+    background-color: #C7F9CC;
 }
 
 .create--form-button {
     background: #184E77;
     color: white;
-    padding: 14px 0px;
     width: 180px;
-    border-radius: 10px;
-    font-size:20px;
+    border-radius: 5px;
 }
 
 .create--form-footer {
@@ -1427,10 +1434,11 @@ input[type="text"] {
 
 .create--currency-indicator {
     position: absolute;
-    left:20px;
+    left: 20px;
     top: 50%;
-    padding: 0px 20px;
     transform: translateY(-50%);
+    color: #7C7C7C;
+    font-weight: 500;
 }
 
 .plan--layout {
