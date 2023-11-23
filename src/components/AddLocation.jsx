@@ -112,6 +112,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
             </div>
         )
     })
+
     
     useEffect(() => {
         const getBookmarks = async () => {
@@ -132,7 +133,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
         }
 
         getBookmarks()
-    })
+    }, [])
 
     useEffect(() => {
         if (searchData) {

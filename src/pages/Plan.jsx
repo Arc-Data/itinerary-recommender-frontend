@@ -130,8 +130,6 @@ const Plan = () => {
 		setItineraryOpen(prev => !prev)
 	}
 
-	console.log(itinerary)
-
 	const toggleEditName = () => {
 		setEditName(prev => !prev)
 	}
@@ -149,8 +147,6 @@ const Plan = () => {
 		editItineraryName(id)
 		toggleEditName()
 	}
-
-	console.log(editedExpenses)
 
 	const handleSubmit = () => {
 		submitEditedItineraryExpenses(id)
