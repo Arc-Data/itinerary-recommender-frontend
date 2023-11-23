@@ -2767,32 +2767,31 @@ input[type="text"] {
 }
 
 .active--trips-container {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* grid-auto-flow: dense;  */
     gap: 10px;
     padding: 20px 0;
 }
 
 .active--trip-name {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    margin-bottom: 10px;
+    color: #333;
 }
-
-.active--trip-name > input[type=checkbox] {
+.active--trip-date {
+    margin: 10px 0;
+    color: #333;
+}
+/* .active--trip-name > input[type=checkbox] {
     width: 20px;
     height: 20px;
-}
+} */
 
 .active--day-item {
-    display: grid;
-    grid-template-columns: auto 1fr auto auto;
-    gap: 20px;
-    padding: 12px;
+    padding: 16px;
     align-items: center;
-    border: 1px solid #e7e7e7;
+    border: 2px solid #e7e7e7;
     border-radius: 10px;
-    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2);
 }
 
 .active--trip-locations {
@@ -2801,15 +2800,19 @@ input[type="text"] {
 
 .active--trip-btns {
     display: flex;
-    gap: 10px;
+    justify-content: space-between;
+    margin-top: 20px;
 }
-
-.active--trip-view {
-    background: #007bff;
+.active--trip-checkbox {
+    height: 50px;
+    width: 50px;
 }
-
-.active--trip-edit {
-    color: black;
+.active--trip-view, .active--trip-edit {
+    color: #FFFFFF;
+    background-color: #34A0A4;
+    margin: 0 5px;
+    height: 50px;
+    width: 50px;
 }
 
 .active--trip-edit, .active--trip-view {
@@ -2818,14 +2821,12 @@ input[type="text"] {
 }
 
 .active--trip-save {
-    background: #57CC99;
+    background: #184E77;
     margin-top: 20px;
     align-self: flex-end;
     padding: 12px;
     width: 120px;
     border-radius: 10px;
-    opacity: .9;
-    box-shadow: 0 0 1em rgba(0,0,0,0.2);
 }
 
 .active--trip-save:hover {

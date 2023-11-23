@@ -8,7 +8,7 @@ import useDayManager from "../hooks/useDayManager";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
+import { faPenToSquare, faCalendarDays, faEye, faCheck } from '@fortawesome/free-regular-svg-icons';
 
 const HomePage = () => {
 	const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
@@ -103,21 +103,27 @@ const HomePage = () => {
 
 			return (
 				<div key={day.id} className="active--day-item">
-					<div className="active--trip-name">
-						<input 
-							type="checkbox" 
-							checked={selectedDays.includes(day.id)}
-							onChange={() => toggleDaySelection(day.id)}/>
-						<p>{day.name} {dayjs(day.date).format('MMM D, YYYY')}</p>
+					<div>
+						<p className='active--trip-name heading3'>{day.name}</p>
+						<p className='active--trip-date'><FontAwesomeIcon className='btn-icons' icon={faCalendarDays} />{dayjs(day.date).format('MMM D, YYYY')}</p>
 					</div>
 					<div className="active--trip-locations">{locations}</div>
 					<div className="active--trip-btns">
-						<Link to={`/plan/${day.itinerary}`}>
-							<button className="active--trip-edit">Edit</button>
-						</Link>					
-						<Link to={`/profile/rate/${day.id}`}>
-							<button className="active--trip-view">View</button>
-						</Link>
+						<input 
+							type="checkbox" 
+							checked={selectedDays.includes(day.id)}
+							onChange={() => toggleDaySelection(day.id)}
+							className="active--trip-checkbox no-margin-top no-margin-bottom"
+						/>
+						<div>
+							<Link to={`/plan/${day.itinerary}`}>
+								<button className="active--trip-edit"><FontAwesomeIcon icon={faPenToSquare} /></button>
+							</Link>					
+							<Link to={`/profile/rate/${day.id}`}>
+								<button className="active--trip-view"><FontAwesomeIcon icon={faEye} /></button>
+							</Link>
+						</div>
+						
 					</div>
 				</div>
 			)
@@ -163,12 +169,14 @@ const HomePage = () => {
 			</header>
 			{ days.length !== 0 && 
 			<div>
-				<p className="header-title">Active Trips</p>
+				<p className="header-title heading">Active Trips</p>
 				<div className="active--trips-container">
-				{displayActiveTrips()}
-				{selectedDays.length > 0 && 
-				<button className="active--trip-save" onClick={handleMarkDaysAsCompleted}>Save</button>
-				}
+					<div>
+						{displayActiveTrips()}
+						{selectedDays.length > 0 && 
+							<button className="active--trip-save" onClick={handleMarkDaysAsCompleted}><FontAwesomeIcon icon={faCheck} />Mark as done</button>
+						}
+					</div>
 				</div>
 			</div>
 			}
