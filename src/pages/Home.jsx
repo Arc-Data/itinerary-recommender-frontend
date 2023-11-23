@@ -193,11 +193,11 @@ const HomePage = () => {
 						<div className="homepage--bookmarks">{recentBookmarkCards}</div>
 					) : (
 						<>
-							<p className="bookmarked--location font14">
+							<p className="bookmarked--location">
 								You haven't bookmarked any locations yet.
 							</p>
 							<Link>
-							<a className="search--bookmark font13">Search Location</a>
+							<a className="search--bookmark">Search Location</a>
 							</Link>
 							
 						</>

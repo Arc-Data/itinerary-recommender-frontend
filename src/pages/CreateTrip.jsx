@@ -3,6 +3,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'; 
 import AuthContext from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 
 const CreateTrip = () => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
@@ -68,7 +70,7 @@ const CreateTrip = () => {
         <div className="create--main-content">
             <div className="create--form-container">
                 <form className='create--form' onSubmit={handleSubmit}>
-                    <div className='create--form-title'>Trip Details</div>
+                    <div className='create--form-title heading'>Trip Details</div>
                     <div className='create--form-content'>
                         <div className='form-row'>
                             <label htmlFor="startDate" className="create--form-label">Start Date</label>
@@ -95,7 +97,7 @@ const CreateTrip = () => {
                                     onChange={(e) => handleChange('budget', e.target.value)}
                                     id="budget"
                                 />
-                                <div className='create--currency-indicator'>PHP</div>
+                                <div className='create--currency-indicator heading5 no-margin-top'>PHP</div>
                             </div>
                         </div>
                         <div className='form-row'>
@@ -126,7 +128,7 @@ const CreateTrip = () => {
                         </div>
                     </div>
                     <div className='create--form-footer'>
-                        <button className='create--form-button' type="submit">Create</button>
+                        <button className='create--form-button' type="submit"><FontAwesomeIcon className='btn-icons' icon={faPenToSquare} />Create</button>
                     </div>
                 </form>
             </div>
