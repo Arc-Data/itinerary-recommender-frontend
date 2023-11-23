@@ -18,6 +18,7 @@ const SearchPage = () => {
             const response = await fetch(`${backendUrl}/api/location/?query=${query}`)  
             const data = await response.json()
             setLocations(data)
+            console.log(data)
         }
 
         fetchData()

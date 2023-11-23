@@ -1,6 +1,8 @@
 import React from "react"
 import { Link } from 'react-router-dom';
-import star from "/images/star.png";
+import {
+	FaStar,
+	} from "react-icons/fa";
 
 export default function SearchCard (props) {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
@@ -16,10 +18,17 @@ export default function SearchCard (props) {
                 <h2 className="searchPage--info-title">{props.name}</h2>
                 <span className="searchPage--info-address">{props.address}</span>
                 <div className="searchPage--star">
-                    {[...Array(5)].map((i, index) => (
-                        <img key={index} src={star} alt="Star" className="star" />
+                    {[...Array(5)].map((star, i) => (
+                        <FaStar
+                            key={i}
+                            className="star"
+                            color={
+                            i + 1 < props.ratings.average_rating ? "#ffc107" : "#e4e5e9"
+                            }
+                        />
                     ))}
-                    <span className="rating"> • 4.0 {props.rating}</span>
+                    <span className="ratings mr5px"> • {props.ratings.average_rating} </span>
+                    <span> • {props.ratings.total_reviews} reviews </span>
                 </div>
             </div>
         </div>

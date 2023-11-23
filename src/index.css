@@ -1107,6 +1107,21 @@ input[type="text"] {
     margin: 150px auto; 
     width: 60%;
     background-color: #FFFFFF;
+    max-width: 1200px;
+    min-height: 100vh;
+    height:80%;
+}
+
+@media (orientation: landscape) and (min-width: 1520px) {
+    .searchPage--container {
+        min-height: 48vh;
+    }
+}
+
+@media (orientation: landscape) and (min-width: 1720px) {
+    .searchPage--container {
+        min-height: 100vh;
+    }
 }
 
 .searchPage--title {
