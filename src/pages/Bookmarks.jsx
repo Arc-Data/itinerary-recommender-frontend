@@ -42,6 +42,8 @@ const Bookmarks = () => {
         <UserBookmarks key={bookmark.id} {...bookmark} />
     ));
 
+    console.log(recentBookmarkCards)
+
     return (
         <div className="profile--main-content">
             <p className="header-title heading">Your bookmarks</p>

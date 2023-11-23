@@ -137,6 +137,9 @@ table th, table td {
 }
 .location--img {
   width: 140px;
+  height: 100px;  
+  object-fit: cover;
+  object-position: center;
 }
 .input {
   flex-direction: column;

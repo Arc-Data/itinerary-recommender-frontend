@@ -61,7 +61,7 @@ function App() {
 						<Route path="/profile/business" element={<Business/>} />
 						<Route path="/profile/business/add" element={<AddBusiness/>} />
 						<Route path="/profile/business/edit" element={<EditBusiness/>} />
-						<Route path="/profile/business/manage" element={<ManageBusiness/>} />
+						<Route path="/profile/business/manage/:id" element={<ManageBusiness/>} />
 						<Route path="/profile/bookmark" element={<Bookmarks/>} />
 						<Route path="/profile/rate" element={<Recent/>} />
 						<Route path="/profile/rate/:id" element={<RateDay />} />
