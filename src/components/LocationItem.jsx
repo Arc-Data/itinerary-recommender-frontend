@@ -25,9 +25,9 @@ const LocationItem = ({location}) => {
                 <FontAwesomeIcon icon={faLocationDot} className="location-icon" />
                 <div className="plan--location-details">
                     <p className="plan--location-name">{location.details.name}</p>
-                    <div>
+                    <div className="plan--location-info">
                         {location.details.location_type === "1" &&
-                        <p><FontAwesomeIcon icon={faClock} /> {opening} - {closing}</p>
+                        <p><FontAwesomeIcon className='plan--icon-clock' icon={faClock} /> {opening} - {closing}</p>
                         }
                         
                         {location.details.location_type === "1" &&

@@ -27,7 +27,7 @@ const Color = ({onClose, day, updateDays}) => {
     return (
         <Modal onClose={onClose}>
             <div className="color--modal">
-                <p>Pick a color</p>
+                <p className='heading3'>Pick location marker color</p>
                 <div className="color--selection">
                     {colors.map((color, idx) => {
                         const style = {
@@ -45,7 +45,7 @@ const Color = ({onClose, day, updateDays}) => {
                         )
                     })}
                 </div>
-                <div>
+                <div className='color-button-container'>
                     <button 
                         className="assistant--btn btn-secondary" onClick={onClose}>Cancel</button>
                     <button 
