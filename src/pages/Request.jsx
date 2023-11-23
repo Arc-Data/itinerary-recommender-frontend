@@ -6,7 +6,7 @@ import RequestModal from "../components/RequestModal"
 
 const Request = () => {
     const { authTokens } = useContext(AuthContext)
-    const { requests, error, loading, getAllApprovalRequests } = useBusinessManager(authTokens) 
+    const { requests, error, loading, getAllApprovalRequests, approveRequest } = useBusinessManager(authTokens) 
 
     const [isOpenDetails, setOpenDetails] = useState(false)
     const [selectedRequest, setSelectedRequest] = useState()
@@ -61,7 +61,7 @@ const Request = () => {
                 </table>
             </div>
             {isOpenDetails &&
-            <RequestModal onClose={toggleDetails} request={selectedRequest}/>
+            <RequestModal onClose={toggleDetails} request={selectedRequest} approveRequest={approveRequest}/>
             }
         </div>
     )
