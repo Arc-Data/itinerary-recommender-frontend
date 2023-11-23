@@ -8,6 +8,10 @@ const useItineraryManager = (authTokens) => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
     const [editedName, setEditedName] = useState("")
+    const [editedExpenses, setEditedExpenses] = useState({
+        'number_of_people': 1,
+        'budget': '',             
+    })
     const access = String(authTokens.access)
 
     const getItineraryById = async (id) => {
@@ -37,6 +41,10 @@ const useItineraryManager = (authTokens) => {
                 setLoading(false)
                 setItinerary(data)
                 setEditedName(data.name)
+                setEditedExpenses({
+                    'number_of_people': data.number_of_people,
+                    'budget': data.budget,
+                })
                 return data.id
             }
         }
@@ -45,6 +53,30 @@ const useItineraryManager = (authTokens) => {
         }
         finally {
             setLoading(false)
+        }
+    }
+
+    const submitEditedItineraryExpenses = async (id) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/itinerary/${id}/edit/`, {
+                "method": "POST",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                },
+                "body": JSON.stringify(editedExpenses)
+            })
+
+            if(response.ok) {
+                setItinerary(prev => ({
+                    ...prev,
+                    'number_of_people': editedExpenses.number_of_people,
+                    'budget': editedExpenses.budget,
+                }))
+            }
+        }
+        catch(error) {
+            console.log("An error occured")
         }
     }
 
@@ -72,6 +104,14 @@ const useItineraryManager = (authTokens) => {
         finally {
             setLoading(false)
         }
+    }
+
+    const handleEditItinerary = (e) => {
+        const { name, value } = e.target
+        setEditedExpenses(prev => ({
+            ...prev,
+            [name]: value,
+        }))
     }
 
     const deleteItinerary = async (id) => {
@@ -122,14 +162,17 @@ const useItineraryManager = (authTokens) => {
         error,
         loading,
         itinerary,
+        editedExpenses,
         itineraries,
         editedName,
         setEditedName,
         getItineraries,
         getItineraryById,
+        handleEditItinerary,
         editItineraryName,
         deleteItinerary,
         cancelEditName,
+        submitEditedItineraryExpenses,
     }
 }
 

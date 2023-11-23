@@ -29,7 +29,10 @@ const Plan = () => {
 		setEditedName,
 		getItineraryById,
 		editItineraryName,
+		handleEditItinerary,
 		cancelEditName, 
+		editedExpenses,
+		submitEditedItineraryExpenses,
 	} = useItineraryManager(authTokens)
 
 	const inputRef = useRef(null)
@@ -107,7 +110,10 @@ const Plan = () => {
 		}
 	}, [editName])
 
-	
+	const toggleSettings = () => {
+		setEditable(prev => !prev)
+	}
+
 	const toggleCalendar = (e) => {
 		if(e) {
 			e.stopPropagation()
@@ -123,6 +129,8 @@ const Plan = () => {
 	const toggleItinerary = () => {
 		setItineraryOpen(prev => !prev)
 	}
+
+	console.log(itinerary)
 
 	const toggleEditName = () => {
 		setEditName(prev => !prev)
@@ -140,6 +148,13 @@ const Plan = () => {
 	const handleEditName = () => {
 		editItineraryName(id)
 		toggleEditName()
+	}
+
+	console.log(editedExpenses)
+
+	const handleSubmit = () => {
+		submitEditedItineraryExpenses(id)
+		toggleSettings(prev => !prev)
 	}
 
 	const displayDays = days && days.map(day => {
@@ -243,6 +258,7 @@ const Plan = () => {
 					<main className="plan--main-panel">
 						<section className="plan--expense-section">
 							<p className="plan--title heading2">Expenses</p>
+							<button onClick={toggleSettings}>Edit</button>
 							<div className="plan--expense-form">
 								<div className="form-row">
 									<label htmlFor="number_of_people">Groupsize</label>
@@ -251,10 +267,11 @@ const Plan = () => {
 										type="number" 
 										name="number_of_people"
 										id="number_of_people"
-										defaultValue={itinerary?.number_of_people}
+										onChange={handleEditItinerary}
+										defaultValue={editedExpenses?.number_of_people}
 									/>
 									:
-									<p>{itinerary?.number_of_people}</p>	
+									<p>{editedExpenses?.number_of_people}</p>	
 									}	
 								</div>
 								<div className="form-row">
@@ -264,7 +281,8 @@ const Plan = () => {
 										type="number" 
 										name="budget" 
 										id="budget"
-										defaultValue={itinerary?.budget}/>							
+										defaultValue={itinerary?.budget}
+										onChange={handleEditItinerary}/>							
 									:
 									<p>{itinerary?.budget}</p>
 									}
@@ -272,6 +290,12 @@ const Plan = () => {
 								<div className="form-row">
 									Estimated Expenses: {costEstimate}
 								</div>
+								{editable && 
+								<div>
+									<button onClick={toggleSettings}>Cancel</button>
+									<button onClick={handleSubmit}>Save</button>
+								</div>
+								}
 							</div>
 						</section>
 						<section className="plan--itinerary-section">
