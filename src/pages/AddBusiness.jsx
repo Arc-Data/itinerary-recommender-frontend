@@ -165,7 +165,7 @@ const AddBusiness = () => {
                                 <div className="form-group">
                                     <label htmlFor="address">Email Address (optional)</label>
                                     <input 
-                                        type="text" 
+                                        type="email" 
                                         name="email" 
                                         id="email" 
                                         value={locationData.email}
@@ -187,22 +187,22 @@ const AddBusiness = () => {
 
                                 <div className="form-column-group">
                                     <div className="form-group">
-                                        <label htmlFor="address">Longitude</label>
-                                        <input 
-                                            type="number" 
-                                            name="longitude" 
-                                            id="longitude" 
-                                            value={locationData.longitude}
-                                            onChange={handleInputChange}
-                                            className="business-input"/>
-                                    </div>
-                                    <div className="form-group">
                                         <label htmlFor="address">Latitude</label>
                                         <input 
                                             type="number" 
                                             name="latitude" 
                                             id="latitude" 
                                             value={locationData.latitude}
+                                            onChange={handleInputChange}
+                                            className="business-input"/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="address">Longitude</label>
+                                        <input 
+                                            type="number" 
+                                            name="longitude" 
+                                            id="longitude" 
+                                            value={locationData.longitude}
                                             onChange={handleInputChange}
                                             className="business-input"/>
                                     </div>
