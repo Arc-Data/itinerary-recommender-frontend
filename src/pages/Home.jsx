@@ -8,7 +8,7 @@ import useDayManager from "../hooks/useDayManager";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faCalendarDays, faEye, faCheck } from '@fortawesome/free-regular-svg-icons';
+import { faPenToSquare, faCalendarDays, faEye } from '@fortawesome/free-regular-svg-icons';
 
 const HomePage = () => {
 	const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
@@ -174,7 +174,7 @@ const HomePage = () => {
 					<div>
 						{displayActiveTrips()}
 						{selectedDays.length > 0 && 
-							<button className="active--trip-save" onClick={handleMarkDaysAsCompleted}><FontAwesomeIcon icon={faCheck} />Mark as done</button>
+							<button className="active--trip-save" onClick={handleMarkDaysAsCompleted}>Mark as done</button>
 						}
 					</div>
 				</div>
