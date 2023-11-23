@@ -210,7 +210,7 @@ const Plan = () => {
 					</aside>
 					<main className="plan--main-panel">
 						<section className="plan--expense-section">
-							<p className="plan--title">Expenses</p>
+							<p className="plan--title heading2">Expenses</p>
 							<div className="plan--expense-form">
 								<div className="form-row">
 									<label htmlFor="number_of_people">Groupsize</label>
@@ -218,8 +218,8 @@ const Plan = () => {
 										type="number" 
 										name="number_of_people"
 										id="number_of_people"
-										defaultValue={itinerary?.number_of_people}/>
-										
+										defaultValue={itinerary?.number_of_people}
+									/>	
 								</div>
 								<div className="form-row">
 									<label htmlFor="budget">Budget <span>(per person)</span></label>
@@ -252,13 +252,13 @@ const Plan = () => {
 							:
 							<div className="plan--itinerary-header">
 								<div className="plan--itinerary-title">
-									<p className="plan--title">{itinerary?.name}</p>
+									<p className="plan--title heading2">{itinerary?.name}</p>
 								</div>
 								<div className="plan--itinerary-header-icons">
 									<FontAwesomeIcon 
 										icon={faPencilAlt}
 										onClick={toggleEditName} 
-										className=""/>
+										className="pencil-icon"/>
 									<FontAwesomeIcon 
 										className="calendar-icon"
 										onClick={toggleCalendar}

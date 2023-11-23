@@ -1298,9 +1298,9 @@ input[type="text"] {
 }
 
 .create--nav-bar {
-    background:white;
-    padding: 20px 50px;
-    border-bottom: 1px solid #e7e7e7;
+    background:#FFFFFF;
+    padding: 10px;
+    border-bottom: 2px solid #e7e7e7;
 }
 
 .create--main-content {
@@ -1386,7 +1386,7 @@ input[type="text"] {
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: 180px 1fr;
+    grid-template-columns: 200px 1fr;
     overflow: hidden;
 }
 
@@ -1411,11 +1411,13 @@ input[type="text"] {
     padding: 12px;
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2);
+    border: 2px solid #38A3A5;
+    color: #38A3A5;
+    background: #C7F9CC;
 }
 
 .calendar-icon  {
-    background: #38A3A5;
+    background: #C7F9CC;
     color: white;
     margin-left: 10px;
 }
@@ -1451,17 +1453,11 @@ input[type="text"] {
     border-bottom: 1px solid
 }
 
-.plan--title {
-    font-size: 32px;
-    font-weight: 700;
-    color: #333333;
-}
-
 .plan--expense-form {
-    margin-top: 20px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 40px;
+    margin-top: 5px;
 }
 
 .plan--expense-form span {
@@ -1469,11 +1465,11 @@ input[type="text"] {
 }
 
 .plan--expense-form input {
-    padding: 6px 12px;
-    border-radius: 10px;
-    border: 1px solid #dedede;
+    border-radius: 5px;
+    border: 2px solid #E7E7E7;
     background: #fcfcfc;
     font-size: 16px;
+    padding: 0 20px;
 }
 
 .accordion-header {
@@ -1501,6 +1497,7 @@ input[type="text"] {
 .accordion-content > div > * {
     margin-left: 35px;
     color: #333333;
+    font-weight: 500;
 }
 
 .accordion-content > div {
@@ -1516,7 +1513,7 @@ input[type="text"] {
 }
 
 .plan--main-panel > * {
-    padding: 40px 48px;
+    padding: 30px 50px;
 }
 
 .plan--expense-section {
@@ -1524,7 +1521,7 @@ input[type="text"] {
 }
 
 .plan--itinerary {
-    margin-top: 40px;
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -1542,9 +1539,8 @@ input[type="text"] {
 }
 
 .plan--btn-container {
-    margin: 40px 0;
-    display:flex;
-    gap:20px;
+    display: flex;
+    gap: 20px;
 }
 
 .plan--btn-list {
@@ -1561,10 +1557,6 @@ input[type="text"] {
 .editDeleteLoc--btn{
     color: #184E77;
     background: none;
-}
-
-.plan--btn:hover {
-    box-shadow: 0 0 0.5em rgba(33, 20, 20, 0.5);
 }
 
 .plan--btn svg {
@@ -1585,7 +1577,9 @@ input[type="text"] {
 .btn-link {
     all: unset;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 16px;
+    color: #184E77;
+    font-weight: 500;
 }
 
 .btn-link:hover {
@@ -1597,6 +1591,7 @@ input[type="text"] {
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    font-weight: 500;
 }
 
 .assistant--regenerate {
@@ -1768,7 +1763,6 @@ input[type="text"] {
 
 .icon--chevron {
     margin-left: 0.3rem;
-    font-weight: lighter;
 }
 
 .plan--itinerary-day {
@@ -1776,19 +1770,18 @@ input[type="text"] {
     grid-template-columns: 1fr auto;
     align-items: center;
     cursor: pointer;
-
-    font-size: 20px;
+    font-size: 25px;
     color: #333333;
-    font-weight: 500;
+    font-weight: 600;
     background: white;
-    padding: 12px 18px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 0.2em rgba(0, 0, 0, 0.2);
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: 2px solid #E7E7E7;
 }
 
 .plan--itinerary-day:hover {
-    border: 1px solid #3498db;
+    border: 2px solid #38A3A5;
+    transition: border 0.3s ease;
 }
 
 .plan--itinerary-day svg {
@@ -1855,8 +1848,11 @@ input[type="text"] {
 }
 
 .plan--day-details {
-    font-size: 14px;
-    font-weight: 400;
+    font-size: 16px;
+    font-weight: 500;
+    color: #7C7C7C;
+    padding-bottom: 10px;
+    margin-left: 25px;
 }
 
 /* .plan--day-settings:hover {
@@ -1881,10 +1877,12 @@ input[type="text"] {
     grid-template-columns: 1fr auto; 
     gap: 10px;
     justify-content: space-between;
+    align-items: center;
 }
 
-.calendar-icon:hover {
-    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.5);
+.calendar-icon:hover, .pencil-icon:hover {
+    filter: hue-rotate(180deg);
+    transition: filter 0.3s ease;
 }
 
 .calendar-info {
