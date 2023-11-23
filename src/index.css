@@ -2335,7 +2335,7 @@ input[type="text"] {
 }
 
 .assistant > div {
-    padding: 24px 40px;
+    padding: 15px 40px;
 }
 
 .assistant--header {
@@ -2345,12 +2345,11 @@ input[type="text"] {
     color: white;
     display: grid;
     place-items: center;
-    font-size: 14px;
 }
 
 .assistant--header-title {
-    font-weight: 500;
-    font-size: 20px;
+    font-weight: 700;
+    font-size: 23px;
     margin-bottom: 4px;
 }
 
@@ -2358,16 +2357,32 @@ input[type="text"] {
     min-height: 300px;
     height: 100%;
 }
-
+.assistant--option-label {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 15px 0 5px 0;
+    font-size: 16px;
+    gap: 20px;
+    font-weight: 600;
+    color: #184E77;
+}
+.assistant-option {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .assistant--content > p {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     text-align: center;
 }
-
+.regenerate-btn, .regenerate-icon {
+    font-weight: 500;
+    color: #38A3A5;
+}
 .assistant--content-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 20px;
 }
 
 .assistant--date {
@@ -2385,13 +2400,6 @@ input[type="text"] {
     width: 100px;
     padding: 10px 12px;
     cursor: pointer;
-    font-size: 16px;
-    font-weight: 400;
-    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2);
-}
-
-.assistant--btn:hover {
-    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.5);
 }
 
 .assistant--btn:disabled {
@@ -2430,14 +2438,18 @@ input[type="text"] {
 }
 
 .assistant--recommendation-item-title {
-    font-weight: 500;
+    font-weight: 600;
     color: black;
+    font-size: 14px;
 }
 
 .assistant--recommendation-item-content {
     display: flex;
     flex-direction: column;
     gap: 4px;
+}
+.assistant--recommendation-item-content > :not(:first-child) {
+    font-size: 13px;
 }
 
 .assistant--location-icon {

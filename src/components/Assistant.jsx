@@ -3,6 +3,8 @@ import { useContext, useEffect, useState } from "react"
 import AuthContext from "../context/AuthContext"
 import Recommendation from "./Recommendation"
 import useRecommendationsManager from "../hooks/useRecommendationsManager"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 
 const Assistant = ({onClose, day, updateDays}) => {
     const { authTokens } = useContext(AuthContext)
@@ -59,7 +61,12 @@ const Assistant = ({onClose, day, updateDays}) => {
                     <p>Use AI Assistant to generate your itinerary</p>
                 </div>
                 <div className="assistant--content">
-                    <p>Choose 1 from the list genereated. Note that this will replace the itinerary you created in <span className="assistant--date">{formatDate(day.date)}</span>.</p>
+                    <p>Choose 1 from the list generated. Note that this will replace the itinerary you created in <span className="assistant--date">{formatDate(day.date)}</span>.</p>
+                    <div className='assistant--option-label'>
+                        <p className='assistant-option'>Option A</p>
+                        <p className='assistant-option'>Option B</p>
+                        <p className='assistant-option'>Option C</p>
+                    </div>
                         {loading ? 
                         <div> Loading... </div>
                         :
@@ -68,8 +75,8 @@ const Assistant = ({onClose, day, updateDays}) => {
                         </div>
                         }
                     <div className="assistant--regenerate" onClick={handleRegenerate}>
-                        <img src="/reload.svg" alt="" />
-                        <p>Regenerate</p>
+                        <FontAwesomeIcon className='regenerate-icon' icon={faArrowsRotate} />
+                        <p className='regenerate-btn'>Regenerate</p>
                     </div>
                 </div>
                 { !loading &&
