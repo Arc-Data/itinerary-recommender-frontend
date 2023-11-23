@@ -85,13 +85,13 @@ const AddBusiness = () => {
                     body: formData
                 });
 
-                console.log(response)
-
-                // navigate('/profile/business')
+                if(response.ok) {
+                    navigate('/profile/business')
+                }
                 
             }
             catch(error) {
-
+                console.log("An error occured while creating request: ", error)
             }
         } else {
             console.log("Invalid Inputs")
