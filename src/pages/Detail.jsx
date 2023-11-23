@@ -87,6 +87,9 @@ export default function DetailPage() {
 		setTotalPages(Math.ceil(locationData.count / 5)); // Assuming 5 reviews per page
 	};
 
+	console.log(location)
+
+
 	// GET REVIEW OF USER
 	const getReviewData = async () => {
 		setUserReview()
@@ -379,10 +382,10 @@ export default function DetailPage() {
 		</div>
 		
 		{location?.location_type === "1" && 
-		<SpotDetail />
+		<SpotDetail owner={location.owner}/>
 		}
 		{location?.location_type === "2" &&
-		<FoodDetail />
+		<FoodDetail owner={location.owner} />
 		}
 		{location?.location_type === "3" &&
 		<AccommodationDetail />

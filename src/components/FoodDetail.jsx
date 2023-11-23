@@ -8,8 +8,6 @@ const FoodDetail = () => {
     const { id } = useParams()
     const [foodItems, setFoodItems] = useState([])
 
-    console.log(foodItems)
-
     const getFoodItems = async () => {
         try {
             const response = await fetch(`${backendUrl}/api/food/${id}/`, {
@@ -29,12 +27,31 @@ const FoodDetail = () => {
         }
     }
 
+    const displayFoodItems = foodItems && foodItems.map(food => {
+        // id:6
+        // image:"/media/location_food/2PCChickenJoyWDrink.jpg"
+        // item: "2PC Chickenjoy with Drink"
+        return (
+            <div className="food--item" key={food.id}>
+                {food.item}
+            </div>
+        )
+    })
+
     useEffect(() => {
         getFoodItems()
     }, [])
 
     return (
-        <div>FoodDetail</div>
+        <div className="food-place--container">
+            <div className="food-place--header">
+                <p className="heading2">Menu</p>
+                <button>add more items</button>
+            </div>
+            <div className="food-items">
+                {displayFoodItems}
+            </div>
+        </div>
     )
 }
 
