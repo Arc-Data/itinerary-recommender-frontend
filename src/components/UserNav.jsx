@@ -56,7 +56,7 @@ New trip</button>
                         <span>{letter}</span>
                         {dropdown && 
                         <div className="user--dropdown-content">
-                            <Link to="/profile">
+                            <Link to="/profile/trips">
                                 <div className='user--profile-menu'>
                                     <div className='user--profile'>
                                         <p>{letter}</p>
