@@ -33,6 +33,8 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
 
     const { updateItemOrdering } = useItemLocationManager(authTokens)
 
+    console.log(day)
+
     useEffect(() => {
         setLocations(day.itinerary_items)
     }, [day])
@@ -168,10 +170,12 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
                     <FontAwesomeIcon icon={faEllipsis} onClick={toggleDaySettingsClick}/>
                     { openDaySettings && 
                     <div className="plan--day-dropcontent"> 
+                        {!day.completed && 
                         <div className="plan--day-dropcontent-item" onClick={toggleDeleteDayModal}>
                             <FontAwesomeIcon icon={faRemove} />
                             <p>Delete day</p>
                         </div>
+                        }
                         <div className="plan--day-dropcontent-item" onClick={toggleOpenColorModal}>
                             <FontAwesomeIcon icon={faPalette} />
                             <p>Edit color</p>
@@ -243,7 +247,7 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
             </div>
             }
             <div className="plan--btn-container">
-                
+                {!day.completed && 
                 <div className="plan--btn-list">
                     {ordering ? 
                     <>
@@ -276,6 +280,7 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
                     </>
                     }                    
                 </div>
+                }
             </div>
             </>
             }
