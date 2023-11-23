@@ -1265,12 +1265,24 @@ input[type="text"] {
     color: black;
 }
 
-.itinerary--details {
+.itinerary--details , 
+.bookmark--details {
     margin-top: 6px;
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 10px;
     color: #333333;
+}
+
+.bookmark--details  {
+    display: grid;
+    grid-template-columns: 0.5fr 0.5fr;
+    text-align: center;
+}
+
+.bookmark-item {
+    color: #184E77;
+    margin-top: 4px;
 }
 
 /* .create {
@@ -1717,6 +1729,11 @@ input[type="text"] {
     margin: 0 15px;
     color: #333;
     width: 75%;
+}
+
+.bookmark--name1 {
+    text-align: center;
+    margin-bottom: 5px;
 }
 
 .bookmarked--location {
