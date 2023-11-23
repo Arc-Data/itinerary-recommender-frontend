@@ -52,10 +52,12 @@ const ProfileLayout = () => {
 								<p>Business</p>
 							</div>
 						</Link>
-						<div className="profile--link">
-							<FontAwesomeIcon icon={faBookmark} className='btn-icons'/>
-							<p>Bookmarks</p>
-						</div>
+						<Link to = "bookmark">
+							<div className="profile--link">
+								<FontAwesomeIcon icon={faBookmark} className='btn-icons'/>
+								<p>Bookmarks</p>
+							</div>
+						</Link>
 					</div>
 				</div>
 				<Outlet />

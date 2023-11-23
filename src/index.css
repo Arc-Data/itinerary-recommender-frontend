@@ -1299,12 +1299,24 @@ input[type="text"] {
     color: black;
 }
 
-.itinerary--details {
+.itinerary--details , 
+.bookmark--details {
     margin-top: 6px;
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 10px;
     color: #333333;
+}
+
+.bookmark--details  {
+    display: grid;
+    grid-template-columns: 0.5fr 0.5fr;
+    text-align: center;
+}
+
+.bookmark-item {
+    color: #184E77;
+    margin-top: 4px;
 }
 
 /* .create {
@@ -1761,6 +1773,11 @@ input[type="text"] {
     margin: 0 15px;
     color: #333;
     width: 75%;
+}
+
+.bookmark--name1 {
+    text-align: center;
+    margin-bottom: 5px;
 }
 
 .bookmarked--location {
@@ -2971,3 +2988,53 @@ input[type="text"] {
     justify-content: center;
     align-items: center;
   }
+
+  
+.edit--location , .header-title, .modal-header {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.approve--modal {
+    width: 500px;
+    padding: 15px;
+}
+
+.business--name{
+    font-size: 25px;
+    margin-top: 10px;
+}
+
+.business--name1{
+    font-size: 25px;
+    margin-top: 10px;
+}
+
+.form-group-result {
+    text-align: start;
+    padding: 15px;
+    border-radius: 10px;
+    background: rgba(231, 231, 231, 0.50);
+}
+
+.BTN14 {
+    height: 50%;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.reject--BTN {
+    background: #E86B6B;
+}
+
+.approve--BTN{
+    background: var(--3, #57CC99);
+    margin-right: 20px;
+}
+
+.approve--BTN > span ,
+.reject--BTN > span {
+    margin-top: 4px;
+}
