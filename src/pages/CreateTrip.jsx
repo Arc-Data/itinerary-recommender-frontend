@@ -26,6 +26,11 @@ const CreateTrip = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (formData.endDate < formData.startDate) {
+            alert('End date must not be less than start date');
+            return;
+        }
+
         const data = {
             start_date: formData.startDate.toISOString().split('T')[0], 
             budget: parseFloat(formData.budget),

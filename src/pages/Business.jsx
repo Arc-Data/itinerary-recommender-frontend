@@ -18,6 +18,8 @@ const Business = () => {
     const { requests, loading, error, getApprovalRequests, getOwnedBusinesses, ownedLocations} = useBusinessManager(authTokens)
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
     
+    console.log(ownedLocations)
+
     const displayBusiness = ownedLocations && ownedLocations.map(owned => {
         return (
             <div className="business--owned ">
@@ -90,7 +92,6 @@ const Business = () => {
             await getApprovalRequests()
             await getOwnedBusinesses()
         }
-
         fetchData()
     }, [])
 
