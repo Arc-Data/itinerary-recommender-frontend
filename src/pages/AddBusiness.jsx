@@ -3,6 +3,10 @@ import { Link } from "react-router-dom"
 import AuthContext from "../context/AuthContext"
 import { useNavigate } from "react-router-dom"
 import back from "/images/lets-icons_back-light.svg";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
 const AddBusiness = () => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
 
@@ -105,16 +109,13 @@ const AddBusiness = () => {
                     <div className="business--form-section">
                         <Link to="/profile/business">
                             <button className="back--button d-flexCenter">
-                                <img 
-                                    src={back}  
-                                    className=""
-                                    alt="Back"/>
-                                    Back
+                                <FontAwesomeIcon className='btn-icons' icon={faArrowLeft} />
+                                Back
                             </button>
                         </Link>
                         <div className="business--form-content">
                             <div>
-                                <div className="business--form-header">General Information</div>
+                                <div className="heading">General Information</div>
                                 <div className="form-group">
                                     <label htmlFor="type">Location Type</label>
                                     <select 
@@ -122,7 +123,7 @@ const AddBusiness = () => {
                                         id="type" 
                                         value={locationData.type}
                                         onChange={handleInputChange} 
-                                        className="business-input">
+                                        className="business-type">
                                         <option value="" disabled>-- Location Type --</option>
                                         <option value="1">Tourist Spot</option>
                                         <option value="2">Restaurant/Food Establishment</option>
@@ -208,7 +209,7 @@ const AddBusiness = () => {
                                     </div>
                                 </div>
                                 <div>
-                                    <p className="visibility--coordinates font14">
+                                    <p className="visibility--coordinates">
                                         To improve your business's visibility on the site, we require your
                                         coordinates. Please click on the{" "}
                                         <a
@@ -235,10 +236,10 @@ const AddBusiness = () => {
                                     style={{ marginTop: '10px', maxWidth: '100%' }}
                                 />
                                 )}
-                                <div className="upload-btn font14" onClick={handleUploadClick}>
-                                    <img className="upload-icon" src="/upload.svg" alt="Upload Icon" />
+                                <div className="upload-btn" onClick={handleUploadClick}>
+                                    <FontAwesomeIcon className='upload-icon btn-icons' icon={faUpload} />
                                     <label htmlFor="imgFile" className="choose-file">
-                                        Upload Pictures
+                                        Upload image
                                     </label>
                                     <input
                                         type="file"
