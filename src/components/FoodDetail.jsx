@@ -20,6 +20,7 @@ const FoodDetail = ({isOwnedByUser}) => {
 
             const data = await response.json()
             setFoodItems(data)
+            console.log(data)
         }
         catch(error) {
             console.log("Error occurred while fetching food items!")
@@ -32,7 +33,13 @@ const FoodDetail = ({isOwnedByUser}) => {
         // item: "2PC Chickenjoy with Drink"
         return (
             <div className="food--item" key={food.id}>
-                {food.item}
+                <div>
+                    <img className="searchPage--pic" src={`${backendUrl}${food.image}`}  />
+                    <span className="food--item-name font-weight-600">{food.item}</span>
+                </div>
+                <div className="price--container">
+                    <div className="food--item-price">₱{food.price}</div>
+                </div>
             </div>
         )
     })
