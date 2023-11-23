@@ -8,7 +8,6 @@ export default AuthContext;
 
 export const AuthProvider = ({children}) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
-    
 
     const [authTokens, setAuthTokens] = useState(() => localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null)
     const [user, setUser] = useState(() => localStorage.getItem('authTokens') ? jwt_decode(localStorage.getItem('authTokens')) : null)

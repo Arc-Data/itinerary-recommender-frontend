@@ -22,7 +22,7 @@ export default function DetailCard(props) {
                         <FaStar
                             key={i}
                             className="star"
-                            color={i + 1 < props.ratings.average_rating ? "#ffc107" : "#e4e5e9"}
+                            color={i + 1 <= props.ratings.average_rating ? "#ffc107" : "#e4e5e9"}
                         />
                     ))}
                     <span className="tags"> • {props.ratings.average_rating} </span> {/* RATING FOR THE SPOT*/}

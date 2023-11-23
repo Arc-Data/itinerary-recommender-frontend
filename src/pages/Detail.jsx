@@ -397,7 +397,7 @@ export default function DetailPage() {
 							key={i}
 							className="star"
 							color={
-							i + 1 < location?.rating_percentages.average_rating ? "#ffc107" : "#e4e5e9"
+							i + 1 <= location?.rating_percentages.average_rating ? "#ffc107" : "#e4e5e9"
 							}
 						/>
 					))}
@@ -443,7 +443,7 @@ export default function DetailPage() {
 									key={i}
 									className="star"
 									color={
-									i + 1 < userReview.rating ? "#ffc107" : "#e4e5e9"
+									i + 1 <= userReview.rating ? "#ffc107" : "#e4e5e9"
 									}
 								/>
 								))}

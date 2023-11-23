@@ -22,15 +22,17 @@ import CreateTripLayout from './layout/CreateTripLayout';
 import Plan from './pages/Plan';
 import Preferences from './pages/Preferences';
 import AdminRoutes from './utils/AdminRoutes';
-import AdminLocationView from './pages/AdminLocationView';
 import ProfileLayout from './layout/ProfileLayout';
 import Profile from './pages/Profile';
 import Trips from './pages/Trips';
 import Business from './pages/Business';
 import AddBusiness from './pages/AddBusiness';
+import EditBusiness from './pages/EditBusiness';
+import ManageBusiness from './pages/ManageBusiness';
 import Recent from './pages/Recent';
 import RateDay from './pages/RateDay';
 import Request from './pages/Request';
+import EditLocation from './pages/EditLocation';
 	/*css*/
 	
 function App() {
@@ -57,6 +59,8 @@ function App() {
 						<Route path="/profile/trips" element={<Trips/>} />
 						<Route path="/profile/business" element={<Business/>} />
 						<Route path="/profile/business/add" element={<AddBusiness/>} />
+						<Route path="/profile/business/edit" element={<EditBusiness/>} />
+						<Route path="/profile/business/manage" element={<ManageBusiness/>} />
 						<Route path="/profile/rate" element={<Recent/>} />
 						<Route path="/profile/rate/:id" element={<RateDay />} />
 					</Route>
@@ -71,7 +75,7 @@ function App() {
 					<Route path = "/admin/" index element={<Users users={data[0].users}/>} />
 					<Route path="/admin/location" element={<AddLocation/>} />
 					<Route path="/admin/locations" element={<Location/>} />
-					<Route path="/admin/location/:id" element={<AdminLocationView />} />
+					<Route path="/admin/location/:id" element={<EditLocation />} />
 					<Route path="/admin/requests" element={<Request />} />
 				</Route>
 			</Routes>
