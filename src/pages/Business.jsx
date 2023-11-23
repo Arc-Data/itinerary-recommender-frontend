@@ -3,12 +3,14 @@ import useBusinessManager from "../hooks/useBusinessManager"
 import { useContext, useEffect } from "react"
 import AuthContext from "../context/AuthContext"
 import dayjs from "dayjs"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	FaTrash,
 	FaPencilAlt,
 	} from "react-icons/fa";
 import eye from "/images/eye.svg";
 import settings from "/images/fluent_settings-20-regular.svg";
+import { faPlus } from "@fortawesome/free-solid-svg-icons"
 
 
 const Business = () => {
@@ -16,8 +18,6 @@ const Business = () => {
     const { requests, loading, error, getApprovalRequests, getOwnedBusinesses, ownedLocations} = useBusinessManager(authTokens)
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
     
-    console.log(ownedLocations)
-
     const displayBusiness = ownedLocations && ownedLocations.map(owned => {
         return (
             <div className="business--owned ">
@@ -77,7 +77,7 @@ const Business = () => {
                         </Link>
                         <button 
                             className="business--delete btn--icon"> {/*FUNCTIONALITY HERE (DELETE) */}
-                            <FaTrash />
+                            <faTrash />
                         </button>
                     </div>
                 </td>

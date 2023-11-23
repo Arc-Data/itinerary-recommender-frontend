@@ -2744,7 +2744,7 @@ input[type="text"] {
     padding: 10px 20px;
 }
 
-.business--form-section {
+.1section {
     padding: 30px 80px;
 }
 
@@ -2760,6 +2760,13 @@ input[type="text"] {
     background: none;
     color: black;
     margin-left: -50px;
+}
+
+.business--form-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px;
+    gap: 30px;
 }
 
 .back--button > img {
