@@ -1325,38 +1325,34 @@ input[type="text"] {
     font-size: 20px;
 }
 
-.create--form-title {
-    font-size: 35px;
-    font-weight: bold;
-}
-
 .create--form-content {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 30px;
+    grid-gap: 20px;
 }
 
 .form-row {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 0;
 }
 
 .create--form-input {
-    padding: 14px 30px;
-    font-size: 20px;
-    border: 1px solid #DEDEDE;
-    border-radius: 10px;
-    font-family: 'Work Sans', sans-serif;
+    padding: 10px 20px;
+    border: 2px solid #E7E7E7;
+    border-radius: 5px;
 }
-
+.react-datepicker__close-icon {
+    height: 45px;
+    margin: 5px 15px;
+}
 .create--form-button {
     background: #184E77;
     color: white;
-    padding: 14px 0px;
-    width: 180px;
+    padding: 14px 20px;
+    width: 140px;
     border-radius: 10px;
-    font-size:20px;
+    height: 45px;
 }
 
 .create--form-footer {
@@ -1381,9 +1377,8 @@ input[type="text"] {
 
 .create--currency-indicator {
     position: absolute;
-    left:20px;
-    top: 50%;
-    padding: 0px 20px;
+    left: 20px;
+    top: 45%;
     transform: translateY(-50%);
 }
 
@@ -1731,7 +1726,7 @@ input[type="text"] {
 
 .bookmarked--location {
     width: 80%;
-    margin: 100px auto 20px;
+    margin: 20px 0;
 }
 
 .search--bookmark {
