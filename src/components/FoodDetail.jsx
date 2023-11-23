@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router"
 import AuthContext from "../context/AuthContext"
 
-const FoodDetail = () => {
+const FoodDetail = ({isOwnedByUser}) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
     const { authTokens } = useContext(AuthContext)
     const { id } = useParams()
@@ -18,7 +18,6 @@ const FoodDetail = () => {
                 }
             })
 
-            console.log(response)
             const data = await response.json()
             setFoodItems(data)
         }
@@ -46,7 +45,9 @@ const FoodDetail = () => {
         <div className="food-place--container">
             <div className="food-place--header">
                 <p className="heading2">Menu</p>
-                <button>add more items</button>
+                {isOwnedByUser &&
+                <button className="food-place--update-menu" >Update Menu</button>
+                }
             </div>
             <div className="food-items">
                 {displayFoodItems}

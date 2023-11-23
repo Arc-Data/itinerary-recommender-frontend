@@ -3,7 +3,7 @@ import Modal from "./Modal"
 import AuthContext from "../context/AuthContext"
 import useItemLocationManager from "../hooks/useItemLocationManager"
 
-const ConfirmDeleteItem = ({onClose, itemId, deleteMarker, locations, setLocations, includedLocations, setIncludedLocations, setItemOrdering}) => {
+const ConfirmDeleteItem = ({onClose, itemId, deleteMarker, locations, setLocations, includedLocations, setIncludedLocations, setItemOrdering, decreaseEstimatedCost }) => {
     const { authTokens } = useContext(AuthContext)
     const { deleteItem, updateItemOrdering } = useItemLocationManager(authTokens)
 
@@ -23,6 +23,7 @@ const ConfirmDeleteItem = ({onClose, itemId, deleteMarker, locations, setLocatio
             setItemOrdering(updatedLocations)
 
             deleteMarker(item.details.latitude, item.details.longitude)
+            decreaseEstimatedCost(item.details.min_cost, item.details.max_cost)
             onClose()
         }
         catch (error) {

@@ -98,7 +98,6 @@ const useLocationManager = (authTokens) => {
 
             const data = await response.json()
             setLocation(data)
-            console.log(data)
             return data
         }
         catch (error) {

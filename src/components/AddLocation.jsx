@@ -8,7 +8,7 @@ import getTimeDetails from "../utils/getTimeDetails"
 import getFeeDetails from "../utils/getFeeDetails"
 import useItemLocationManager from "../hooks/useItemLocationManager"
 
-const AddLocation = ({onClose, locations, setLocations, day, includedLocations, setIncludedLocations, addMarker, deleteMarker}) => {
+const AddLocation = ({onClose, locations, setLocations, day, includedLocations, setIncludedLocations, addMarker, deleteMarker, increaseEstimatedCost, decreaseEstimatedCost}) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
 
     const { authTokens } = useContext(AuthContext)
@@ -32,18 +32,20 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
         setSearchData(data)
     }
 
-    const handleDeleteLocation = async (itemId, latitude, longitude) => {
+    const handleDeleteLocation = async (location, latitude, longitude) => {
         try {
-            await deleteItem(itemId)
+            await deleteItem(location.id)
+            console.log(location)
     
-            const updatedLocations = locations.filter(i => i.id !== itemId)
-            const updatedIncludedLocations = includedLocations.filter(i => i.id !== itemId)
-            const updatedRecentlyAddedLocations = recentlyAddedLocations.filter(i => i.id !== itemId)
+            const updatedLocations = locations.filter(i => i.id !== location.id)
+            const updatedIncludedLocations = includedLocations.filter(i => i.id !== location.id)
+            const updatedRecentlyAddedLocations = recentlyAddedLocations.filter(i => i.id !== location.id)
     
             setLocations(updatedLocations)
             setIncludedLocations(updatedIncludedLocations)
             setRecentlyAddedLocations(updatedRecentlyAddedLocations)
-    
+            
+            decreaseEstimatedCost(location.details.min_cost, location.details.max_cost)
             updateItemOrdering(updatedLocations)
             deleteMarker(latitude, longitude)
         }
@@ -55,7 +57,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     const handleAddLocation = async (locationId) => {
         try {
             const item = await addItem(locationId, day.id, locations.length)
-            
+
             const arr1 = [...locations, item]
             const arr2 = [...includedLocations, item]
             const arr3 = [...recentlyAddedLocations, item]
@@ -63,6 +65,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
             setLocations(arr1)
             setIncludedLocations(arr2)
             setRecentlyAddedLocations(arr3)
+            increaseEstimatedCost(item.details.min_cost, item.details.max_cost)
 
             addMarker(item.details.latitude, item.details.longitude, day.color)
         }
@@ -103,7 +106,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                     <FontAwesomeIcon 
                         icon={faClose} 
                         className="add-location-modal--remove"
-                        onClick={() => handleDeleteLocation(location.id, location.details.latitude, location.details.longitude)}/>                
+                        onClick={() => handleDeleteLocation(location, location.details.latitude, location.details.longitude)}/>                
                 </div>
             </div>
         )
