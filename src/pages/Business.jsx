@@ -98,14 +98,14 @@ const Business = () => {
     return (
         <div className="profile--main-content">
             <div className="business--header">
-                <p className="business--title bold2">Business</p>
+                <p className="business--title heading">Business</p>
             </div>
             <div className="business--body d-flexCenter flexWrap">
                 {displayBusiness}
             </div>
             <div className="requests--table">  
                 <div className="flex-between">
-                    <p className="requests--title bold2">Application Requests</p>
+                    <p className="requests--title heading2">Application Requests</p>
                     <Link to="add">
                         <button className="business--btn">
                         <FontAwesomeIcon className='btn-icons' icon={faPlus} />

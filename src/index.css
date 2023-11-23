@@ -95,10 +95,13 @@ label, input {
 label {
     color: #333333;
 }
-input {
+input, select {
     height: 45px;
     padding: 10px;
     margin: 5px 0 15px 0;
+}
+input:focus {
+    border-color: #000000;
 }
 
 a:-webkit-any-link {
@@ -716,14 +719,15 @@ input[type="text"] {
 .detailPage {
     display: flex;
     flex-direction: column;
-    max-width: 1600px;
+    max-width: 1200px;
     height:100%;
     width:100%;
-    margin: 10px auto;
+    gap: 40px;
+    margin: 0 auto;
+    padding: 120px 0;
 }
 
 .detailPage--text {
-    margin: 110px 165px 0 165px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -771,7 +775,6 @@ input[type="text"] {
     display: flex;
     justify-content: space-between;
     align-items: flex-start; 
-    margin: 10px 165px;
 }
 
 .detailPage--about {
@@ -892,12 +895,31 @@ input[type="text"] {
     justify-content: center;
     width: 60%;
     height: auto;
-    margin: 50px 0 0 165px;
 }
 
 .ratings {
     display: flex;
     gap: 10px;
+}
+
+.food-place--container {
+    padding: 40px;
+    background: #ccc;
+    border-radius: 8px;
+}
+
+.food-items {
+    margin: 30px 0;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    border-radius: 6px;
+}
+
+.food--item {
+    border: 1px solid #eee;
+    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2);
+    padding: 20px;
 }
 
 .ratings--bar {
@@ -2746,12 +2768,6 @@ input[type="text"] {
     justify-content: space-between;
 }
 
-.requests--title,
-.business--header > p {
-    color: var(--default-text, #333);
-    font-size: 20px;
-}
-
 .business--btn {
     display: flex;
     align-items: center;
@@ -2760,22 +2776,10 @@ input[type="text"] {
     padding: 10px 20px;
 }
 
-/* .1section {
-    padding: 30px 80px;
-} */
-
-.business--form-section label {
-    font-size: 14px;
-}
-
-.business--form-section ~ * {
-    border-top: 1px solid #e7e7e7;
-}
-
 .back--button {
     background: none;
     color: black;
-    margin-left: -50px;
+    margin-left: 10px;
 }
 
 .business--form-content {
@@ -2790,16 +2794,7 @@ input[type="text"] {
     margin: 4px 5px 10px 0;
 }
 
-.business--form-header {
-    margin-top: 20px;
-    margin-bottom: 30px;
-    font-size: 30px;
-    font-weight: 700;
-}
-
 .visibility--coordinates {
-    text-align: center;
-    width: 60%;
     margin: 10px auto;
 }
 
@@ -2809,12 +2804,15 @@ input[type="text"] {
     text-decoration: none;
 }
 
-.business-input {
-    padding: 12px;
+.business-input, .business-type {
     background: #FFF;
-    border: 1px solid #DEDEDE;
+    border: 2px solid #E7E7E7;
     outline: none;
-    border-radius: 10px;
+    border-radius: 5px;
+}
+
+.business-type {
+    width: 300px;
 }
 
 .add--business {
@@ -2835,7 +2833,6 @@ input[type="text"] {
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 4px;
 }
 
 .requests--table {
@@ -2940,24 +2937,24 @@ input[type="text"] {
 
 .upload-btn {
     background-color: #38A3A5;
-    color: #fff; 
     padding: 10px 15px;
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
     display: flex;
+    justify-content: center;
     align-items: center;
+    width: 180px;
+    height: 45px;
 }
 
 .upload-icon {
-    width: 17px;
-    margin-right: 10px; 
+    color: #FFFFFF;
 }
 
 .choose-file {
     cursor: pointer;
     color: white;
-    font-size: 14px;
     margin-bottom: 10px;
 }
 
