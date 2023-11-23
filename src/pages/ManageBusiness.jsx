@@ -297,10 +297,8 @@ const ManageBusiness = () => {
                             className="addProduct--popup"
                             overlayClassName="modal-overlay"
                             >
-                            <div className="modal-header">
-                                <h2>Details</h2>
-                            </div>
-
+                            
+                            <h1 className="modal-header">Details</h1>
                             <div className="form-group">
                                 <label htmlFor="address">Name</label>
                                 <input 
@@ -354,7 +352,6 @@ const ManageBusiness = () => {
                                 <button className="add--business font14" type="submit">Submit</button>
                             </div>
                         </Modal>
-            
                     </div>
                 </div>
             </form>

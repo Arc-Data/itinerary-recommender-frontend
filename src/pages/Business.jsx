@@ -112,13 +112,13 @@ const Business = () => {
                         </button>
                     </Link>
                 </div>
-                <table>
-                    <thead className="table--th">
-                        <td>Name</td>
-                        <td>Location Type</td>
-                        <td>Date Filled</td>
-                        <td>Status</td>
-                        <td>Action</td>
+                <table className='business--app-table'>
+                    <thead>
+                        <th>Business name</th>
+                        <th>Type</th>
+                        <th>Date filed</th>
+                        <th>Status</th>
+                        <th>Action</th>
                     </thead>
                     <tbody>
                         {displayRequests}

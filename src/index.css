@@ -1035,27 +1035,22 @@ input[type="text"] {
     text-align: center;
   }
   
-  #pagination--button {
-    display: inline-block;
+  #pagination--button ,#pagination--button1 {
     margin: 0.3rem;
-    padding: 0.25rem 0.5rem;
+    padding: 10px;
+    font-size: 12px;
+    height: 30px;
     cursor: pointer;
     color: var(--1, rgb(0, 0, 0));
-    width: 30px;
-    border-radius: 50%;
-    height: 30px;
-    padding: 5px;
-    font-size: 10px;
     border: 1px solid #184E77;
+    margin-top: 10px;
   }
   #pagination--button1 {
-    color: var(--1, #184E77);
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    padding: 10px;
-    font-size: 10px;
-    background-color: transparent;
+    border: none;
+    position: relative;
+    top: 3px;
+    color: #184e77;
+    background-color: rgb(255, 253, 253);
   }
 
   .pagination--result {
@@ -1566,8 +1561,11 @@ input[type="text"] {
     padding: 10px 12px;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
-    font-weight: 400;
+}
+
+.editDeleteLoc--btn{
+    color: #184E77;
+    background: none;
 }
 
 .plan--btn:hover {
@@ -1739,6 +1737,7 @@ input[type="text"] {
 .search--bookmark {
     border-bottom: 1px solid #34A0A4;
     color: #34A0A4;
+    padding-top: 10px;
 }
 
 /*FOR IPAD*/
@@ -2001,16 +2000,23 @@ input[type="text"] {
     color: red;
 }
 
-.delete-btn {
+.delete-btn , .submitEdit-btn {
     margin-top: 20px;
     font-size: 16px;
     width: 120px;
     border-radius: 10px;
     padding: 6px;
     cursor: pointer;
-    background: red;
     color: white;
     opacity: 0.8;
+}
+
+.delete-btn {
+    background: red;
+}
+
+.submitEdit-btn {
+    background-color: #184E77;
 }
 
 .delete-btn:hover {
@@ -2832,10 +2838,11 @@ input[type="text"] {
     background-color: #E86B6B;
     border-radius: 4px;
     cursor: unset;
+    height: 20%;
 }
 
 .view-details {
-    padding: 8px;
+    padding: 5px;
     border-radius: 4px;
     background: #57CC99;
 }

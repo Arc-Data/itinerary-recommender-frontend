@@ -18,7 +18,7 @@ function Sidebar() {
                 <div className="user-icon-circle">
                     <FaUser />
                 </div>
-                <h1 className="admin--text">
+                <h1 className='admin--text'>
                     Hello, admin <span className="admin14">!</span>
                 </h1>
             </div>
