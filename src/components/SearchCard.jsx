@@ -15,8 +15,8 @@ export default function SearchCard (props) {
             </div>
             
             <div className="searchPage--info">
-                <h2 className="searchPage--info-title">{props.name}</h2>
-                <span className="searchPage--info-address">{props.address}</span>
+                <h2 className="heading4">{props.name}</h2>
+                <span>{props.address}</span>
                 <div className="searchPage--star">
                     {[...Array(5)].map((star, i) => (
                         <FaStar
