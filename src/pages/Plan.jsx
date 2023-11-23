@@ -5,8 +5,8 @@ import Day from "../components/Day"
 import dayjs from "dayjs"
 import CreateNav from "../components/CreateNav"
 import Map from "../components/Map"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarAlt, faCheck, faMap, faMoneyBill, faPencilAlt, faPencilSquare } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
+import { faCalendarAlt, faCheck, faMap, faMoneyBill, faPencilAlt, faPenToSquare} from "@fortawesome/free-solid-svg-icons"
 import DateSettings from "../components/DateSettings"
 import useItineraryManager from "../hooks/useItineraryManager"
 import useDayManager from "../hooks/useDayManager"
@@ -225,7 +225,8 @@ const Plan = () => {
 								active={isExpenseOpen}
 								handleClick={toggleExpense}
 								icon={faMoneyBill}
-								text={"Expenses"}/>
+								text={"Expenses"}
+							/>
 							{isExpenseOpen && 
 							<div className="accordion-content">
 								<div >
@@ -253,11 +254,23 @@ const Plan = () => {
 					</aside>
 					<main className="plan--main-panel">
 						<section className="plan--expense-section">
-							<p className="plan--title heading2">Expenses</p>
-							<button onClick={toggleSettings}>Edit</button>
+							<div className='span-items'>
+								<p className="heading">Expenses</p>
+								{
+									
+									editable ?
+									<button className='save-details-btn no-margin-top no-margin-bottom' onClick={handleSubmit}>
+									<FontAwesomeIcon className='save-details-icon' icon={faCheck} />
+									</button>
+									:
+									<button className='edit-details-btn no-margin-top no-margin-bottom' onClick={toggleSettings}>
+									<FontAwesomeIcon className='edit-details-icon' icon={faPenToSquare} />
+									</button>
+								}
+							</div>
 							<div className="plan--expense-form">
 								<div className="form-row">
-									<label htmlFor="number_of_people">Groupsize</label>
+									<label className='plan--label' htmlFor="number_of_people">Groupsize</label>
 									{editable ?
 									<input 
 										type="number" 
@@ -267,11 +280,11 @@ const Plan = () => {
 										defaultValue={editedExpenses?.number_of_people}
 									/>
 									:
-									<p>{editedExpenses?.number_of_people}</p>	
+									<p className="plan--edited-details">{editedExpenses?.number_of_people}</p>	
 									}	
 								</div>
 								<div className="form-row">
-									<label htmlFor="budget">Budget <span>(per person)</span></label>
+									<label className='plan--label' htmlFor="budget">Budget (per person)</label>
 									{editable ? 
 									<input 
 										type="number" 
@@ -280,19 +293,13 @@ const Plan = () => {
 										defaultValue={itinerary?.budget}
 										onChange={handleEditItinerary}/>							
 									:
-									<p>{itinerary?.budget}</p>
+										<p className='plan--edited-details'>₱{itinerary?.budget}</p>
 									}
 								</div>
-								<div className="form-row">
-									Estimated Expenses: {costEstimate}
-								</div>
-								{editable && 
-								<div>
-									<button onClick={toggleSettings}>Cancel</button>
-									<button onClick={handleSubmit}>Save</button>
-								</div>
-								}
 							</div>
+							<div className='plan--cost-estimate'>
+									<p className='plan--label'>Estimated Expenses: ₱ {costEstimate}</p>
+								</div>
 						</section>
 						<section className="plan--itinerary-section">
 							{editName ? 
@@ -315,11 +322,11 @@ const Plan = () => {
 							:
 							<div className="plan--itinerary-header">
 								<div className="plan--itinerary-title">
-									<p className="plan--title heading2">{itinerary?.name}</p>
+									<p className="plan--title heading">{itinerary?.name}</p>
 								</div>
 								<div className="plan--itinerary-header-icons">
 									<FontAwesomeIcon 
-										icon={faPencilAlt}
+										icon={faPenToSquare}
 										onClick={toggleEditName} 
 										className="pencil-icon"/>
 									<FontAwesomeIcon 

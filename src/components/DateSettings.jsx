@@ -46,7 +46,7 @@ const DateSettings = ({onClose, updateDays}) => {
     return (
         <Modal onClose={onClose}>
             <div>
-                <p className="datesettings--modal-title">Trip Date</p>
+                <p className="datesettings--modal-title heading">Trip Date</p>
                 <div className="datesettings--container">
                     <div className="datesettings--input-group">
                         <label htmlFor="startDate">Start date</label>

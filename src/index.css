@@ -60,10 +60,10 @@ button:hover {
     flex-direction: column;
     justify-content: center;
 }
-.heading6 {
-    font-size: 35px;
-    font-weight: 800;
-    color: #000000;
+.span-items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .heading {
@@ -75,7 +75,7 @@ button:hover {
     font-size: 23px;
     font-weight: 700;
 }
-.heading3 p {
+.heading3, .heading3 p {
     font-size: 20px;
     font-weight: 700;
 }
@@ -87,6 +87,11 @@ button:hover {
     margin-top: 10px;
     font-size: 18px;
     color: #8C8C8C;
+}
+.heading6 {
+    font-size: 35px;
+    font-weight: 800;
+    color: #000000;
 }
 label, input {
     font-weight: 500 !important;
@@ -1348,8 +1353,8 @@ input[type="text"] {
 
 .create--nav-bar {
     background:white;
-    padding: 20px 50px;
-    border-bottom: 1px solid #e7e7e7;
+    padding: 10px 20px;
+    border-bottom: 2px solid #e7e7e7;
 }
 
 .create--main-content {
@@ -1400,6 +1405,7 @@ input[type="text"] {
 .react-datepicker__close-icon {
     margin: 0 15px 0 0;
     padding: 0;
+    height: 45px;
 }
 .react-datepicker__header {
     background-color: #C7F9CC;
@@ -1445,7 +1451,7 @@ input[type="text"] {
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: 180px 1fr;
+    grid-template-columns: 200px 1fr;
     overflow: hidden;
 }
 
@@ -1455,8 +1461,8 @@ input[type="text"] {
     padding: 40px 6px;
     gap: 40px;
     background: #fcfcfc;
-    border-right: 1px solid #e7e7e7;
-    font-size: 1rem;
+    border-right: 2px solid #e7e7e7;
+    font-size: 16px;
     color: rgba(51, 51, 51, 0.99);
 }
 
@@ -1465,12 +1471,14 @@ input[type="text"] {
     display: flex;
     gap: 10px;
 }
+.plan--title {
+    color: #184E77;
+}
 
 .plan--itinerary-header-icons > svg {
     padding: 12px;
-    border-radius: 50%;
+    border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2);
 }
 
 .calendar-icon  {
@@ -1478,10 +1486,22 @@ input[type="text"] {
     color: white;
     margin-left: 10px;
 }
+.edit-details-btn, .save-details-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px !important;
+}
+.edit-details-btn {
+    background-color: #38A3A5;
+}
+.save-details-btn {
+    background-color: #57CC99;
+}
 
 .pencil-icon {
-    color: #184E77;
+    color: #FFFFFF;
     cursor: pointer;
+    background-color: #38A3A5;
 }
 
 .check-icon {
@@ -1489,10 +1509,8 @@ input[type="text"] {
     padding: 12px;
     cursor: pointer;
     border-radius: 50%;
-}
-
-.check-icon:hover {
-    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.5);
+    background-color: #57CC99;
+    color: #FFFFFF;
 }
 
 .plan--itinerary-title > svg:hover {
@@ -1510,17 +1528,10 @@ input[type="text"] {
     border-bottom: 1px solid
 }
 
-.plan--title {
-    font-size: 32px;
-    font-weight: 700;
-    color: #333333;
-}
-
 .plan--expense-form {
-    margin-top: 20px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
+    gap: 30px;
 }
 
 .plan--expense-form span {
@@ -1560,22 +1571,33 @@ input[type="text"] {
 .accordion-content > div > * {
     margin-left: 35px;
     color: #333333;
+    font-weight: 500;
 }
-
 .accordion-content > div {
     padding: 10px 12px; 
 }
-
-
 .plan--main-panel {
     height: calc(100vh - 100px);
     overflow-y: scroll;
     overflow-x: hidden;
     background: #fcfcfc;
 }
-
+.plan--label {
+    font-size: 18px;
+    font-weight: 500;
+}
+.plan--edited-details {
+    font-size: 25px;
+    font-weight: 700;
+}
+.plan--cost-estimate {
+    background-color: #E9E9E9;
+    width: 100%;
+    padding: 20px;
+    margin-top: 30px;
+}
 .plan--main-panel > * {
-    padding: 40px 48px;
+    padding: 20px 50px 30px;
 }
 
 .plan--expense-section {
@@ -1601,9 +1623,9 @@ input[type="text"] {
 }
 
 .plan--btn-container {
-    margin: 40px 0;
+    margin: 5px 0;
     display:flex;
-    gap:20px;
+    gap: 20px;
 }
 
 .plan--btn-list {
@@ -1622,12 +1644,8 @@ input[type="text"] {
     background: none;
 }
 
-.plan--btn:hover {
-    box-shadow: 0 0 0.5em rgba(33, 20, 20, 0.5);
-}
-
 .plan--btn svg {
-    margin-right: 8px;
+    margin-right: 5px;
 }
 
 .btn-primary {
@@ -1645,6 +1663,9 @@ input[type="text"] {
     all: unset;
     cursor: pointer;
     font-size: 18px;
+    font-weight: 500;
+    color: #184E77;
+    margin-left: 10px;
 }
 
 .btn-link:hover {
@@ -1656,6 +1677,7 @@ input[type="text"] {
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    font-weight: 500;
 }
 
 .assistant--regenerate {
@@ -1790,7 +1812,7 @@ input[type="text"] {
 
 .bookmarked--location {
     width: 80%;
-    margin: 100px auto 20px;
+    margin: 10px 0;
 }
 
 .search--bookmark {
@@ -1840,19 +1862,17 @@ input[type="text"] {
     grid-template-columns: 1fr auto;
     align-items: center;
     cursor: pointer;
-
     font-size: 20px;
     color: #333333;
     font-weight: 500;
     background: white;
-    padding: 12px 18px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 0.2em rgba(0, 0, 0, 0.2);
+    padding: 12px 18px 19px;
+    border-radius: 10px;
+    border: 2px solid #E7E7E7;
 }
 
 .plan--itinerary-day:hover {
-    border: 1px solid #3498db;
+    border: 2px solid #38A3A5;
 }
 
 .plan--itinerary-day svg {
@@ -1919,8 +1939,8 @@ input[type="text"] {
 }
 
 .plan--day-details {
-    font-size: 14px;
-    font-weight: 400;
+    margin-left: 25px;
+    color: #7C7C7C;
 }
 
 /* .plan--day-settings:hover {
@@ -1945,10 +1965,7 @@ input[type="text"] {
     grid-template-columns: 1fr auto; 
     gap: 10px;
     justify-content: space-between;
-}
-
-.calendar-icon:hover {
-    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.5);
+    align-items: center;
 }
 
 .calendar-info {
@@ -2289,29 +2306,22 @@ input[type="text"] {
 }
 
 .datesettings--form-input {
-    padding: 12px 14px;
-    border: 1px solid #DEDEDE;
-    border-radius: 10px;
-    font-family: 'Work Sans', sans-serif;
-}
-
-.datesettings--modal-title {
-    font-size: 20px;
-    font-weight: 600;
+    padding: 10px 20px;
+    border: 2px solid #E7E7E7;
+    border-radius: 5px;
 }
 
 .datesettings--container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    margin-top: 40px;
+    margin-top: 20px;
     padding-bottom: 200px;
 }
 
 .datesettings--input-group{
     display: flex;
     flex-direction: column;
-    gap: 8px;
 }
 
 .assistant {

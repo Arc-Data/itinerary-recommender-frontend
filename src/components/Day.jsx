@@ -162,7 +162,7 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
             <div onClick={toggleOpen} className="plan--itinerary-day">
                 <p>
                     <FontAwesomeIcon className="icon--chevron" icon={open ? faChevronUp : faChevronDown} size="2xs" />           
-                    <span>{dayjs(day.date).format("dddd, MMM D")}</span>
+                    <span className='heading3'>{dayjs(day.date).format("dddd, MMM D")}</span>
                 </p>
                 <div className="plan--day-settings" onClick={preventSettingsPropagation}>
                     <FontAwesomeIcon icon={faEllipsis} onClick={toggleDaySettingsClick}/>
@@ -184,8 +184,8 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
                 </div>
                 {locations.length !== 0  && 
                 <p className="plan--day-details">
-                    <span>Total places: {locations.length} </span>
-                    <span>Cost estimate: {costEstimate}</span>
+                    <span>Total places: {locations.length} </span> - 
+                    <span> Cost estimate: {costEstimate}</span>
                 </p>
                 }
             </div>
