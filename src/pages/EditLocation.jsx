@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import AuthContext from "../context/AuthContext"
 import useLocationManager from "../hooks/useLocationManager"
 import { useNavigate, useParams } from "react-router-dom"
@@ -6,8 +6,12 @@ import image from '/image.png'
 import Error404 from "../components/Error404"
 
 const EditLocation = () => {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
     const { authTokens } = useContext(AuthContext)
     const { location, error, loading, getLocation, deleteLocation, handleChangeInput, editLocationDetails } = useLocationManager(authTokens)
+    const [image, setImage] = useState()
+    const [locationLoaded, setLocationLoaded] = useState(false)
     const { id } = useParams()
     const navigate = useNavigate()
 
@@ -21,11 +25,23 @@ const EditLocation = () => {
         navigate('/admin/locations')
     }
 
-    console.log(location)
+    useEffect(() => {
+        setLocationLoaded(false)
+        const fetchData = async () => {
+            await getLocation(id) 
+            
+            setLocationLoaded(true)
+        }
+        
+        fetchData()
+    }, [id])
 
     useEffect(() => {
-        getLocation(id)
-    }, [])
+        if (locationLoaded) {
+            const imageString = `${backendUrl}${location.images[0]}`
+            setImage(imageString)
+        }
+    }, [locationLoaded])
 
 
     if (loading) {
@@ -177,24 +193,24 @@ const EditLocation = () => {
                             />
                         </div>
                     </div>
-                    <div className="image--border center admin--container">
-                        {location.images ?
-                        <div></div> 
-                        :
-                        <>
-                            <img src={image} />
-                            {/* <img className="edit--images" src={`${backendUrl}${location?.images}`}  /> */}
-                            <label htmlFor="imgFile"> <a className='choose--file'>Choose file</a> to upload</label>
-                            <input
-                                type="file"
-                                id="imgFile"
-                                name="filename"
-                                accept="image/*"
-                                style={{ display: 'none' }} // Hide the default file input
-                            />
-                        </>
-                        }
+                    {location.images ?
+                    <div>
+                        <img src={image} height={400}/>
                     </div>
+                    :
+                    <div className="image--border center admin--container">
+                        <img src={image} />
+                        {/* <img className="edit--images" src={`${backendUrl}${location?.images}`}  /> */}
+                        <label htmlFor="imgFile"> <a className='choose--file'>Choose file</a> to upload</label>
+                        <input
+                            type="file"
+                            id="imgFile"
+                            name="filename"
+                            accept="image/*"
+                            style={{ display: 'none' }} // Hide the default file input
+                        />
+                    </div>
+                    }
                 </form>
                 <div className="admin--container">
                     <div className="input admin--container">
