@@ -138,6 +138,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     useEffect(() => {
         if (searchData) {
             const results = searchData.map(location => {
+                console.log(location)
                 const fee = (location.fee.min && location.fee.max) ? getFeeDetails(location.fee.min, location.fee.max) : 0
                 const opening_time = location.schedule?.opening ? getTimeDetails(location.schedule.opening) : 0
                 const closing_time = location.schedule?.closing ? getTimeDetails(location.schedule.closing) : 0

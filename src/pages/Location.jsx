@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useSearchParams } from 'react-router-dom'
 import searchIcon from '/images/search.png';
 import { useContext, useEffect, useState } from 'react';
 import AuthContext from '../context/AuthContext';
@@ -11,6 +11,8 @@ import {
 
 function Location() {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+    const [searchParams, setSearchParams] = useSearchParams()
+    const type = searchParams.get('type')
 
     const authTokens = useContext(AuthContext)
     const { result, error, loading, getLocations } = useLocationManager(authTokens)
@@ -33,11 +35,19 @@ function Location() {
     
     useEffect(() => {
         const fetchResults = async () => {
-            await getLocations(currentPage)
+            await getLocations(currentPage, "", type)
         }
 
         fetchResults()
     }, [currentPage])
+
+    useEffect(() => {
+        const fetchResults = async () => {
+            await getLocations(currentPage, "", type)
+        }
+
+        fetchResults()
+    }, [type])
 
     const totalPages = Math.ceil(result?.count / 10) || 1;
     
@@ -49,9 +59,10 @@ function Location() {
 
     const handleSearchChange = (e) => {
         if (e.key === 'Enter') {
+            console.log(type)
             const query = e.target.value
             setCurrentPage(1)
-            getLocations(1, query)
+            getLocations(1, query, type)
         }
     }
     

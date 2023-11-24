@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useSearchParams } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import { FaMapMarkerAlt, FaUser, FaAngleUp, FaAngleDown, FaReceipt } from 'react-icons/fa'; // Import arrow icons
 
 function Sidebar() {
     const { logoutUser } = useContext(AuthContext);
     const [dropdown, setDropdown] = React.useState(false);
+    const [searchParams, setSearchParams] = useSearchParams()
 
     function toggleLocationDropdown() {
         setDropdown((prev) => !prev);
@@ -34,7 +35,11 @@ function Sidebar() {
                 <NavLink
                     className={({ isActive }) => isActive ? 'active' : 'link'}
                     to="/admin/locations"
-                    onClick={toggleLocationDropdown}
+                    onClick={() => {
+                        toggleLocationDropdown()
+                        console.log("Shouldnt this run")
+                        setSearchParams({'type': 'all'})
+                    }}
                 >
                     <h4 className="locations">
                         <FaMapMarkerAlt /> Locations{' '}
@@ -46,24 +51,27 @@ function Sidebar() {
                 </NavLink>
                 {dropdown && (
                     <>
-                        <NavLink
+                        <div
                             className={({ isActive }) => (isActive ? 'active-drp dropdown' : 'link dropdown')}
-                            to="/admin/locations?type=spot"
+                            onClick={() => setSearchParams({ type: 'spot' })}
                         >
                             Tourist Spot
-                        </NavLink>
-                        <NavLink
+                        </div>
+                        <div
                             className={({ isActive }) => (isActive ? 'active-drp dropdown' : 'link dropdown')}
-                            to="/admin/locations?type=accomodation"
+                            onClick={() => setSearchParams({ type: 'accommodation' })}
                         >
                             Accommodation
-                        </NavLink>
-                        <NavLink
+                        </div>
+                        <div
                             className={({ isActive }) => (isActive ? 'active-drp dropdown' : 'link dropdown')}
-                            to="/admin/locations?type=food"
+                            onClick={() => {
+                                console.log("Shouldnt this trigger")
+                                setSearchParams({ type: 'foodplace' })
+                            }}
                         >
                             Food
-                        </NavLink>
+                        </div>
                     </>
                 )}
                 <NavLink

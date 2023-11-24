@@ -58,10 +58,10 @@ const useLocationManager = (authTokens) => {
         }
     }
 
-    const getLocations = async (page, query = "") => {
+    const getLocations = async (page, query="", type="") => {
         setLoading(true)
         try {
-            const response = await fetch(`${backendUrl}/api/location/paginated/?query=${query}&page=${page}`, {
+            const response = await fetch(`${backendUrl}/api/location/paginated/?query=${query}&page=${page}&type=${type}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
