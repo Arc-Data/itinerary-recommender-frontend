@@ -22,16 +22,16 @@ const UserBookmarks = (props) => {
                 </div>
                 <div>
                     <div className="bookmark--details">
-                        <p>Opening Time: 
+                        <p>Minimum Fee 
                             <p 
                             className="bookmark-item font14 font-weight-500 ">
-                            {props.details.schedule.opening}
+                            {props.details.fee.min}
                             </p>
                         </p>
-                        <p>Closing Time: 
+                        <p>Maximum Fee
                             <p 
                             className="bookmark-item font14 font-weight-500 ">
-                            {props.details.schedule.closing}
+                            {props.details.fee.max}
                             </p>
                         </p>
                     </div>

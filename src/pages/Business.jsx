@@ -22,27 +22,25 @@ const Business = () => {
 
     const displayBusiness = ownedLocations && ownedLocations.map(owned => {
         return (
-            <div className="business--owned ">
+            <div className="business--owned">
                 <img 
                 src={`${backendUrl}${owned.primary_image}`} 
                 className="business--image" 
                 alt="Location" 
                 />
-                <div className="business--title-address">
-                    <p className="business--name bold2">{owned.name}</p>
-                    <p>{owned.address}</p>
-                    <div className="mt-20px d-flexCenter flexWrap">
+                <div>
+                    <p className="business--name heading4">{owned.name}</p>
+                    <h1 className="owner--address">{owned.address}</h1>
+                    <div className="owner--container">
                         <Link to={`/location/${owned.id}`} >
-                            <div className="d-flexCenter mr10px">
-                                <img src={eye}  
-                                alt="View"/>
+                            <div className="d-flexCenter margin">
+                                <img src={eye}/>
                                 <p className="view--manage">View</p>
                             </div>
                         </Link>
-                        <Link to="manage" > {/* NEED DIN NG ID */}
-                            <div className="d-flexCenter">
-                                <img src={settings}  
-                                alt="Manage"/>
+                        <Link to={`/profile/business/manage/${owned.id}`} >
+                            <div className="d-flexCenter margin">
+                                <img src={settings}/>
                                 <p className="view--manage">Manage</p>
                             </div> 
                         </Link>

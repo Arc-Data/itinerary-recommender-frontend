@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import image from '/image.png'
 import Error404 from "../components/Error404"
 
-const DeleteLocation = () => {
+const EditLocation = () => {
     const { authTokens } = useContext(AuthContext)
     const { location, error, loading, getLocation, deleteLocation } = useLocationManager(authTokens)
     const { id } = useParams()
@@ -13,9 +13,10 @@ const DeleteLocation = () => {
 
     const handleDelete = async () => {
         await deleteLocation(id)
-        navigate('/admin')
+        navigate('/admin/locations')
     }
 
+    console.log(location)
     useEffect(() => {
         getLocation(id)
     }, [])
@@ -160,6 +161,7 @@ const DeleteLocation = () => {
                     </div>
                     <div className="image--border center admin--container">
                         <img src={image} />
+                         {/* <img className="edit--images" src={`${backendUrl}${location?.images}`}  /> */}
                         <label htmlFor="imgFile"> <a className='choose--file'>Choose file</a> to upload</label>
                         <input
                             type="file"
@@ -188,4 +190,4 @@ const DeleteLocation = () => {
     )
 }
 
-export default DeleteLocation
+export default EditLocation

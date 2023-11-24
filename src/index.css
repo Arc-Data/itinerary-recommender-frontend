@@ -2961,35 +2961,46 @@ input[type="text"] {
 .business--edit {
     background: var(--3, #57CC99);
 }
-
 .business--image {
-    width: 40%;
-    height: auto;
-    object-fit: cover;
+    width: 100%;
+    height: 150px;
+    object-fit:cover;
     object-position: center;
-    border-radius: 10px;
 }
 
 .business--owned {
     border-radius: 10px;
     border: 2px solid #E7E7E7;
     background: #FEFEFE;
+    width: 32%;
     display: flex;
-    width: 30%;
-}
-
-.business--title-address {
-    margin: 30px auto;
-    font-size: 14px;
-}
-
-.business--body{
-    gap: 20px;
-    margin-bottom: 50px;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .business--name {
-    margin-bottom: 10px;
+    text-align: center;
+}
+
+.owner--address {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.owner--container {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    gap: 20px;
+}
+
+.business--body {
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
 .view--manage {
@@ -3071,14 +3082,10 @@ input[type="text"] {
     padding: 15px;
 }
 
-.business--name{
-    font-size: 25px;
-    margin-top: 10px;
-}
-
 .business--name1{
-    font-size: 25px;
+    font-size: clamp(20px, 5vw, 25px);
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .form-group-result {
@@ -3108,4 +3115,11 @@ input[type="text"] {
 .approve--BTN > span ,
 .reject--BTN > span {
     margin-top: 4px;
+}
+
+.edit--images {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
