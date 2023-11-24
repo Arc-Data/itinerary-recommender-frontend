@@ -180,6 +180,7 @@ select {
   line-height: 25px;
   margin: 0;
   padding: 0;
+  cursor: pointer;
 }
 .styled-input {
   border-radius: 5px;
@@ -218,3 +219,13 @@ select {
   margin-left: 20px;
 }
 
+.dropdown--container {
+  background-color:#184E77;
+  padding: 10px;
+}
+
+#locations1  {
+  width: 100%;
+  display: block;
+  padding: 6px;
+}

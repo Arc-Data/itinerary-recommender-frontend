@@ -1218,11 +1218,12 @@ input[type="text"] {
     margin-bottom: 10px;
 }
 
-.searchPage--navbar > a {
+.searchPage--navbar > div {
     color: gray;
-    padding: 20px;
+    padding: 10px;
     font-size: 16px;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .searchPage--details {

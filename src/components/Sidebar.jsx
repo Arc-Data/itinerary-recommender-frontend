@@ -50,29 +50,32 @@ function Sidebar() {
                     </h4>
                 </NavLink>
                 {dropdown && (
-                    <>
+                    <div className='dropdown--container'>
                         <div
+                            id='locations1'
                             className={({ isActive }) => (isActive ? 'active-drp dropdown' : 'link dropdown')}
                             onClick={() => setSearchParams({ type: 'spot' })}
                         >
-                            Tourist Spot
+                            <a className='locations'>Tourist Spot</a>
                         </div>
                         <div
+                            id='locations1'
                             className={({ isActive }) => (isActive ? 'active-drp dropdown' : 'link dropdown')}
                             onClick={() => setSearchParams({ type: 'accommodation' })}
                         >
-                            Accommodation
+                           <a className='locations'>Accommodation</a> 
                         </div>
                         <div
+                            id='locations1'
                             className={({ isActive }) => (isActive ? 'active-drp dropdown' : 'link dropdown')}
                             onClick={() => {
                                 console.log("Shouldnt this trigger")
                                 setSearchParams({ type: 'foodplace' })
                             }}
                         >
-                            Food
+                             <a className='locations'>Food</a> 
                         </div>
-                    </>
+                    </div>
                 )}
                 <NavLink
                     className={({ isActive }) => isActive ? 'active' : 'link'}
