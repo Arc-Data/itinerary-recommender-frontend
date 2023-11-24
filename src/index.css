@@ -1370,24 +1370,12 @@ input[type="text"] {
     color: #212529;
 }
 
-.itinerary--details , 
-.bookmark--details {
+.itinerary--details{
     margin-top: 6px;
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 10px;
     color: #333333;
-}
-
-.bookmark--details  {
-    display: grid;
-    grid-template-columns: 0.5fr 0.5fr;
-    text-align: center;
-}
-
-.bookmark-item {
-    color: #184E77;
-    margin-top: 4px;
 }
 
 /* .create {
