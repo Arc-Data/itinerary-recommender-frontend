@@ -63,7 +63,7 @@ const Recent = () => {
                     </div>
                     <div>
                         <img src="/calendar.svg" />
-                        <span>{dayjs(day.date).format("MMMM M, YYYY")}</span>
+                        <span>{dayjs(day.date).format("MMMM D, YYYY")}</span>
                     </div>
                     <div>
                         <img src="/trip.svg" />

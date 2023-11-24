@@ -1917,7 +1917,19 @@ input[type="text"] {
     margin-right: 10px;
 }
 
+.plan--day-complete {
+    border: 1px solid #38A3A5;
+    padding: 12px;
+    border-radius: 12px;
+}
+
 .plan--day-settings {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.plan--day-ellipsis {
     position: relative;
 }
 
@@ -1964,14 +1976,14 @@ input[type="text"] {
     background: #ccc;
 }
 
-.plan--day-settings > svg {
+.plan--day-ellipsis > svg {
     font-size: 16px;
     border: 1px solid transparent;
     padding: 12px;
     border-radius: 50%;
 }
 
-.plan--day-settings > svg:hover {
+.plan--day-ellipsis > svg:hover {
     box-shadow: 0 0 0.1em rgba(0, 0, 0, 0.5);
     background: #ccc;
 }
@@ -1980,10 +1992,6 @@ input[type="text"] {
     margin-left: 25px;
     color: #7C7C7C;
 }
-
-/* .plan--day-settings:hover {
-    border: 1px solid blue;
-} */
 
 .plan--itinerary-items {
     display: flex;

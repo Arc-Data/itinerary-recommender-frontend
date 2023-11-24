@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import LocationItem from "./LocationItem"
 import dayjs from "dayjs"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faWandMagicSparkles, faChevronDown, faChevronUp, faBars, faPlus, faDotCircle, faCircle, faEllipsis, faPalette, faEdit, faRemove, faTrash, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faWandMagicSparkles, faChevronDown, faChevronUp, faBars, faPlus, faDotCircle, faCircle, faEllipsis, faPalette, faEdit, faRemove, faTrash, faLocationDot, faCheckDouble } from "@fortawesome/free-solid-svg-icons";
 import AddLocation from "./AddLocation";
 import ConfirmDeleteItem from "./ConfirmDeleteItem";
 import { DragDropContext,  Draggable } from "react-beautiful-dnd";
@@ -168,22 +168,25 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
                     <span className='heading3'>{dayjs(day.date).format("dddd, MMM D")}</span>
                 </p>
                 <div className="plan--day-settings" onClick={preventSettingsPropagation}>
-                    <FontAwesomeIcon icon={faEllipsis} onClick={toggleDaySettingsClick}/>
-                    { openDaySettings && 
-                    <div className="plan--day-dropcontent"> 
-                        {!day.completed && 
-                        <div className="plan--day-dropcontent-item" onClick={toggleDeleteDayModal}>
-                            <FontAwesomeIcon icon={faRemove} />
-                            <p>Delete day</p>
-                        </div>
+                    <div className="plan--day-complete">Mark as completed<FontAwesomeIcon icon={faCheckDouble} /></div>
+                    <div className="plan--day-ellipsis">
+                        <FontAwesomeIcon icon={faEllipsis} onClick={toggleDaySettingsClick}/>
+                        { openDaySettings && 
+                        <div className="plan--day-dropcontent"> 
+                            {!day.completed && 
+                            <div className="plan--day-dropcontent-item" onClick={toggleDeleteDayModal}>
+                                <FontAwesomeIcon icon={faRemove} />
+                                <p>Delete day</p>
+                            </div>
+                            }
+                            <div className="plan--day-dropcontent-item" onClick={toggleOpenColorModal}>
+                                <FontAwesomeIcon icon={faPalette} />
+                                <p>Edit color</p>
+                            </div>
+                            
+                        </div>                    
                         }
-                        <div className="plan--day-dropcontent-item" onClick={toggleOpenColorModal}>
-                            <FontAwesomeIcon icon={faPalette} />
-                            <p>Edit color</p>
-                        </div>
-                        
-                    </div>                    
-                    }
+                    </div>
                 </div>
                 {locations.length !== 0  && 
                 <p className="plan---details">
