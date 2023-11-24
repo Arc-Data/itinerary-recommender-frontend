@@ -202,8 +202,8 @@ const HomePage = () => {
 							<p className="bookmarked--location">
 								You haven't bookmarked any locations yet.
 							</p>
-							<Link>
-							<a className="search--bookmark">Search Location</a>
+							<Link to="/search?query=" className="search--bokmark">
+							Search Location
 							</Link>
 							
 						</>
