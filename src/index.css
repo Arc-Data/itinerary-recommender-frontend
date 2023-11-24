@@ -940,7 +940,8 @@ input[type="text"] {
     border-radius: 6px;
 }
 
-.food--item {
+.food--item,
+.service--item  {
     border: 1px solid #eee;
     box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2);
     padding: 20px;
@@ -952,7 +953,8 @@ input[type="text"] {
     text-align: left;
 }
 
-.food--item-price {
+.food--item-price ,
+.description--item-price {
     background-color: #57CC99;
     padding: 13px; 
     font-weight: 800;
@@ -965,6 +967,43 @@ input[type="text"] {
 .price--container {
     display: flex;
     justify-content: end;
+}
+
+.service--descriptions {
+    margin-top: 10px;
+    max-height: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.service--description {
+    text-align: justify;
+    text-justify: auto;
+}
+
+.show-more-button {
+    background: none;
+    border: none;
+    color: #007bff; 
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+    margin-top: 5px; 
+    font-size: 12px;
+    display: block; 
+    margin: 0 auto; 
+}
+
+.service--item {
+    position: relative;
+    max-height: 600px;
+}
+
+.service--price--container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 5px;
 }
 
 .ratings--bar {
