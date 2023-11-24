@@ -25,6 +25,8 @@ const CreateTrip = () => {
         });
     };
 
+    console.log(formData)
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -34,9 +36,9 @@ const CreateTrip = () => {
         }
 
         const data = {
-            start_date: formData.startDate.toISOString().split('T')[0], 
+            start_date: formData.startDate.toLocaleDateString('en-US', {'timezone': 'Asia/Manila'}), 
             budget: parseFloat(formData.budget),
-            end_date: formData.endDate.toISOString().split('T')[0], 
+            end_date: formData.endDate.toLocaleDateString('en-US', {'timezone': 'Asia/Manila'}), 
             number_of_people: parseInt(formData.numberOfPeople),
             user: user.user_id, 
         };

@@ -66,10 +66,6 @@ const useLocationManager = (authTokens) => {
         }))
     }
 
-    const handleTimeInput = (name, value) => {
-
-    }
-
     const editLocationDetails = async (id) => {
         try {
             const response = await fetch(`${backendUrl}/api/location/${id}/edit/`, {
@@ -153,7 +149,6 @@ const useLocationManager = (authTokens) => {
     return {
         location,
         recommendations,
-        handleTimeInput,
         result,
         error,
         loading,

@@ -22,8 +22,8 @@ const DateSettings = ({onClose, updateDays}) => {
                     "Content-Type": "application/json",
                 },
                 'body': JSON.stringify({
-                    'startDate': startDate.toISOString(),
-                    'endDate': endDate.toISOString(),
+                    'startDate': startDate.toLocaleDateString('en-US', {'timezone': 'Asia/Manila'}),
+                    'endDate': endDate.toLocaleDateString('en-US', {'timezone': 'Asia/Manila'}),
                 })
             })
 

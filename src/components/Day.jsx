@@ -13,6 +13,9 @@ import Color from "./Color";
 import getFeeDetails from "../utils/getFeeDetails";
 import ConfirmDeleteDay from "./ConfirmDeleteDay";
 import useItemLocationManager from "../hooks/useItemLocationManager";
+import utc from 'dayjs/plugin/utc'
+
+dayjs.extend(utc)
 
 const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLocations, setIncludedLocations, increaseEstimatedCost, decreaseEstimatedCost}) => {
     const { authTokens } = useContext(AuthContext)
@@ -183,7 +186,7 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
                     }
                 </div>
                 {locations.length !== 0  && 
-                <p className="plan--day-details">
+                <p className="plan---details">
                     <span>Total places: {locations.length} </span> - 
                     <span> Cost estimate: {costEstimate}</span>
                 </p>
