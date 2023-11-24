@@ -1,14 +1,21 @@
-import Map from "./Map"
+import { useEffect } from "react"
+import useMarkerManager from "../hooks/useMarkerManager"
+import ShareMap from "./ShareMap"
 
 const ShareDetails = ({onClose, day}) => {
-    console.log(day)
+    const { markers, getDayMarkersData } = useMarkerManager()
+    console.log(markers)
+
+    useEffect(() => {
+        getDayMarkersData(day)
+    }, [])
 
     return (
         <>
             <div className="overlay" onClick={onClose}></div>
             <div className="share--details">
                 <div>Content</div>
-                <Map />
+                <ShareMap markers={markers} />
             </div>
         </>
     )
