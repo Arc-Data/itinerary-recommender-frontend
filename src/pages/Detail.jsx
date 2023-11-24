@@ -389,7 +389,7 @@ export default function DetailPage() {
 
 		<div className="detailPage--review">
 			<div className="detailPage--reviews">
-				<h1 className='heading'>Reviews</h1>
+				<h1 className='detailPage--title heading'>Reviews</h1>
 				<div className="detailPage--star">
 					{[...Array(5)].map((star, i) => (
 						<FaStar
