@@ -113,6 +113,22 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
         )
     })
 
+
+    const displayBookmark = bookmarked && bookmarked.map(bookmark => {
+        const fee = (bookmark.details.fee.min && bookmark.details.fee.max) ? getFeeDetails(bookmark.details.fee.min, bookmark.details.fee.max) : 0
+        return (
+        <div key={bookmark.id} className="add-location-modal--search-item">
+            <FontAwesomeIcon icon={faLocationDot}></FontAwesomeIcon>
+            <div>
+                <p className="add-location-modal--title">{bookmark.details.name}</p>
+                <p className="add-location-modal--subtext">{bookmark.details.address}</p>
+                <p className="add-location-modal--subtext"><span>Opens {bookmark.details.schedule.opening} - {bookmark.details.schedule.closing} </span>•<span> Entrance Fee: {fee} </span></p>
+            </div>
+            <button className="add-location-modal--add-btn">+</button>
+        </div>
+        )   
+    })
+
     
     useEffect(() => {
         const getBookmarks = async () => {
@@ -126,6 +142,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                 })
                 const data = await response.json()
                 setBookmarked(data)
+                
             }
             catch(error) {
                 console.log("An error occured while getting user bookmarks")
@@ -173,6 +190,9 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
             <div>
                 <div className="add-location-modal--content">
                 Bookmarks
+                </div>
+                <div className="add-location-modal--results">
+                    {displayBookmark}
                 </div>
             </div> 
             : 

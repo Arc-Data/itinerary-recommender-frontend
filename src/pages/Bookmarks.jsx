@@ -27,7 +27,6 @@ const Bookmarks = () => {
             }
 
             const data = await response.json();
-            console.log(data);
             setUsersBookmarks(data);
         } catch (error) {
             console.error("Error while fetching recent bookmarks data: ", error);
@@ -51,7 +50,7 @@ const Bookmarks = () => {
             {loading ? 
 			<div>
 				Loading...
-			</div>
+			</div>  
 			:
 			<div className="trips--container">
 				{recentBookmarkCards}
