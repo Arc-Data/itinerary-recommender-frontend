@@ -3078,8 +3078,24 @@ input[type="text"] {
 }
 
 .approve--modal {
-    width: 500px;
     padding: 15px;
+}
+
+.approve--modal-image {
+    object-fit: cover;
+
+}
+
+.approve--modal-container {
+    display: grid;
+    padding: 40px 0;
+    grid-template-columns: 500px auto;
+    gap: 20px;
+}
+
+.approve--modal-content {
+    max-height: 400px;
+    overflow-y: scroll;
 }
 
 .business--name1{
