@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import LocationItem from "./LocationItem"
 import dayjs from "dayjs"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faWandMagicSparkles, faChevronDown, faChevronUp, faBars, faPlus, faDotCircle, faCircle, faEllipsis, faPalette, faEdit, faRemove, faTrash, faLocationDot, faCheckDouble } from "@fortawesome/free-solid-svg-icons";
+import { faWandMagicSparkles, faChevronDown, faChevronUp, faBars, faPlus, faDotCircle, faCircle, faEllipsis, faPalette, faEdit, faRemove, faTrash, faLocationDot, faCheckDouble, faShare } from "@fortawesome/free-solid-svg-icons";
 import AddLocation from "./AddLocation";
 import ConfirmDeleteItem from "./ConfirmDeleteItem";
 import { DragDropContext,  Draggable } from "react-beautiful-dnd";
@@ -14,10 +14,11 @@ import getFeeDetails from "../utils/getFeeDetails";
 import ConfirmDeleteDay from "./ConfirmDeleteDay";
 import useItemLocationManager from "../hooks/useItemLocationManager";
 import utc from 'dayjs/plugin/utc'
+import CompletionModal from "./CompletionModal";
 
 dayjs.extend(utc)
 
-const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLocations, setIncludedLocations, increaseEstimatedCost, decreaseEstimatedCost}) => {
+const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLocations, setIncludedLocations, increaseEstimatedCost, decreaseEstimatedCost, markCompletionAndReset}) => {
     const { authTokens } = useContext(AuthContext)
     const [open, setOpen] = useState(false)
 
@@ -31,7 +32,8 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
     const [openAssistantModal, setAssistantModal] = useState(false)
     const [openDaySettings, setOpenDaySettings] = useState(false)
     const [openColorModal, setOpenColorModal] = useState(false)
-
+    const [openCompletionModal, setOpenCompletionModal] = useState(false)
+    
     const [costEstimate, setCostEstimate] = useState(0)
 
     const { updateItemOrdering } = useItemLocationManager(authTokens)
@@ -82,6 +84,13 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
         }
         setOpenDaySettings(false)
         setOpenColorModal(prev => !prev)
+    }
+
+    const toggleCompletionModal = (e) => {
+        if (e) {
+            e.stopPropagation()
+        }
+        setOpenCompletionModal(prev => !prev)
     }
 
     const toggleOrdering = () => {
@@ -168,7 +177,9 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
                     <span className='heading3'>{dayjs(day.date).format("dddd, MMM D")}</span>
                 </p>
                 <div className="plan--day-settings" onClick={preventSettingsPropagation}>
-                    <div className="plan--day-complete">Mark as completed<FontAwesomeIcon icon={faCheckDouble} /></div>
+                    {day.date_status !== "soon" && !day.completed &&
+                    <div className="plan--day-complete" onClick={toggleCompletionModal}>Mark as visited<FontAwesomeIcon icon={faCheckDouble} /></div>
+                    }
                     <div className="plan--day-ellipsis">
                         <FontAwesomeIcon icon={faEllipsis} onClick={toggleDaySettingsClick}/>
                         { openDaySettings && 
@@ -182,6 +193,10 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
                             <div className="plan--day-dropcontent-item" onClick={toggleOpenColorModal}>
                                 <FontAwesomeIcon icon={faPalette} />
                                 <p>Edit color</p>
+                            </div>
+                            <div className="plan--day-dropcontent-item">
+                                <FontAwesomeIcon icon={faShare} />
+                                <p>Share Trip Details</p>
                             </div>
                             
                         </div>                    
@@ -333,6 +348,12 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
                 onClose={toggleDeleteDayModal} 
                 removeDay={removeDay}
                 dayId={day.id}/>
+            }
+            {openCompletionModal && 
+            <CompletionModal 
+                onClose={toggleCompletionModal}
+                dayId={day.id}
+                markCompletionAndReset={markCompletionAndReset}/>
             }
         </div>
     )

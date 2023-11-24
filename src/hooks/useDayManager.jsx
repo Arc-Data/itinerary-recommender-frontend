@@ -95,7 +95,7 @@ const useDayManager = (authTokens) => {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${String(authTokens.access)}`
+                    "Authorization": `Bearer ${access}`
                 },
             })
             console.log(response)
@@ -148,6 +148,29 @@ const useDayManager = (authTokens) => {
         catch(error) {
             console.log("An error occured while fetching active trips")
         }
+    }
+
+    const markCompletionAndReset = async (id, itineraryId) => {
+        console.log("Hello")
+        
+        try {
+            const response = await fetch(`${backendUrl}/api/day/${id}/complete/`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${String(authTokens.access)}`
+                },
+            })
+
+            console.log("Prepping")
+            await getDays(itineraryId)
+            console.log("Reflected")
+
+        }
+        catch(error) {
+            console.log("Error while marking day completion")
+        }
+
     }
 
     const getRecentDays = async () => {
@@ -235,6 +258,7 @@ const useDayManager = (authTokens) => {
         getDayRating,
         markDayAsComplete,
         markDaysAsCompleted,
+        markCompletionAndReset,
         updateDayColor,
         updateCalendarDays,
         updateDayRating,
