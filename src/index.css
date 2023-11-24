@@ -827,6 +827,7 @@ input[type="text"] {
 .detailPage--main-image {
     border-radius: 5px;
     width: 100%;
+    height: 500px;
     object-fit: cover;
     object-position: center;
 }
@@ -2279,10 +2280,15 @@ input[type="text"] {
     color: #212529;
 }
 
-.modal--delete {
+.modal--delete , 
+.modal--proceed {
     background-color: red;
     text-transform: uppercase;
     color: white;
+}
+
+.modal--proceed {
+    background-color:#184e77;
 }
 
 .order-item {
@@ -2870,7 +2876,7 @@ input[type="text"] {
     background: #184E77;
     margin-top: 20px;
     align-self: flex-end;
-    padding: 12px;
+    padding: 5px;
     width: 120px;
     border-radius: 10px;
 }
@@ -2986,7 +2992,8 @@ input[type="text"] {
 
 .view-details {
     padding: 5px;
-    border-radius: 4px;
+    height: 30px;
+    width: 50%;
     background: #57CC99;
 }
 
@@ -3184,4 +3191,9 @@ input[type="text"] {
     height: 100%;
     object-fit: cover;
     object-position: center;
+}
+
+.view--manage1 {
+    display: flex;
+    justify-content: center;
 }

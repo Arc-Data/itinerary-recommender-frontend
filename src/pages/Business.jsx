@@ -5,8 +5,7 @@ import AuthContext from "../context/AuthContext"
 import dayjs from "dayjs"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-	FaTrash,
-	FaPencilAlt,
+	FaEdit,
 	} from "react-icons/fa";
 import eye from "/images/eye.svg";
 import settings from "/images/fluent_settings-20-regular.svg";
@@ -54,7 +53,9 @@ const Business = () => {
     const displayRequests = requests && requests.map(request => {
         return (
             <tr key={request.id}>
-                <td>{request.details.name}</td>
+                <td>
+                    {request.details.name}
+                </td>
                 <td>
                     {request.details.location_type === '1' ? 
                     "Tourist Spot"
@@ -66,19 +67,15 @@ const Business = () => {
                     }
                 </td>
                 <td>{dayjs(request.timestamp).format("MMMM D YYYY")}</td>
-                <td><button disabled className="request--status">For Approval</button></td>
                 <td>
-                    <div className="d-flexCenter">
-                        <Link to="edit"> {/*NAKA LINK LANG TO SA WALANG KWENTANG PAGE KASI WALA PA FUNCTIONALITY*/}
-                            <button 
-                                className="business--edit mr10px btn--icon"> {/*FUNCTIONALITY HERE (EDIT) */}
-                                <FaPencilAlt />
-                            </button>
-                        </Link>
-                        <button 
-                            className="business--delete btn--icon"> {/*FUNCTIONALITY HERE (DELETE) */}
-                            <FaTrash />
-                        </button>
+                    <button disabled className="request--status">
+                        For Approval
+                    </button>
+                </td>
+                <td>
+                    <div className="view--manage1">
+                        <div className="mr5px"><FaEdit/></div>
+                        <p className="view--manage">View</p>
                     </div>
                 </td>
             </tr>
