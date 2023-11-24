@@ -51,6 +51,7 @@ const Plan = () => {
 		maxCost,
 		removeDay,
 		updateDays,
+		markCompletionAndReset,
 		updateCalendarDays,
 		updateEstimatedCost,
 		getDays,
@@ -81,6 +82,7 @@ const Plan = () => {
 	}, [id])
 
 	useEffect(() => {
+		console.log("This triggers")
 		let min = 0;
 		let max = 0;
 
@@ -165,6 +167,7 @@ const Plan = () => {
 			setIncludedLocations={setIncludedLocations}
 			increaseEstimatedCost={increaseEstimatedCost}
 			decreaseEstimatedCost={decreaseEstimatedCost}
+			markCompletionAndReset={markCompletionAndReset}
 			/>
 		})
 
