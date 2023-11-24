@@ -238,7 +238,6 @@ a:-webkit-any-link {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     place-items: center;
-    /* margin: 0 auto;  */
     width: 100%;
     padding: 12px 24px;
     height: 100%;
@@ -414,29 +413,20 @@ a:-webkit-any-link {
 
 /* FOOTER */
 .footer {
-    background-color: #E5E5E5;
+    background-color: #E7E7E7;
     width: 100%;
-    display:grid;
-    place-items:center;
-    height:90px;
+    display: grid;
+    place-items: center;
+    height: 80px;
 }
-
 .footer--content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width:80%;
+    width: 90%;
 }
-
 .footer--logo {
-    margin-left: 50px;
     height: 40px;
-    margin-right: 25px;
-}
-
-.footer--text {
-    font-size: 12px;
-    color: #6F6F6F;
 }
 
 /* FOOTER-ICONS */
@@ -444,19 +434,18 @@ a:-webkit-any-link {
     display: flex;
     list-style-type: none;
 }
-
 .icons li img.instagram , img.facebook ,img.twitter{
     height: 25px;
     margin: 0 10px;
 }
 
-/*LOGIN and SignUp PAGE*/
+/*LOGIN and SIGNUP PAGE*/
 .container--sign-log {
     display: grid;
     grid-template-columns: 60% 40%;
     align-items: center;
     height: 100vh;
-    overflow:hidden;
+    overflow: hidden;
 }
 
 @media screen and (max-width: 1253px) {
@@ -1536,6 +1525,8 @@ input[type="text"] {
     border-right: 2px solid #e7e7e7;
     font-size: 16px;
     color: #212529;
+    height: 90vh;
+    overflow-y: auto;
 }
 
 
@@ -1543,6 +1534,7 @@ input[type="text"] {
     display: flex;
     gap: 10px;
 }
+
 .plan--title {
     color: #184E77;
 }
@@ -1809,11 +1801,7 @@ input[type="text"] {
     border: 2px solid #E7E7E7;
     background-color: #F5F5F5;
     width: 100%;
-    padding: 1.05rem;
-    border-radius: 10px;
-    font-size: 1.05rem;
     transition: border-color 0.3s ease;
-    margin-bottom: 0.5rem;
 }
 
 .plan--search-input:focus {
@@ -2108,9 +2096,9 @@ input[type="text"] {
 
 .add-location-modal--content {
     margin-top: 37px;
-    display:flex;
+    display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
 }
 
 .overlay {
@@ -2143,7 +2131,7 @@ input[type="text"] {
 }
 
 .add-location--search-input {
-    padding: 12px 16px;
+    padding: 10px 20px;
 }
 
 .add-location-modal--recently-added-container {
@@ -2237,17 +2225,17 @@ input[type="text"] {
     align-self: center;
     text-align:center;
     margin-left: auto;
-    color: #7c7c7c;
+    color: #184E77;
     height: 40px;
     width: 40px;
-    border-radius: 50%;
+    border-radius: 10px;
     background: #e7e7e7;
-    font-size: 18px;
-    box-shadow: 0 0 0.1em rgba(0, 0, 0, 0.8);
+    font-size: 20px;
+    border: 2px solid #38A3A5;
 }
 
 .add-location-modal--add-btn:hover {
-    background: #184E77;
+    background: #38A3A5;
     color: white;
     transition: 0.15s ease-in-out;
 }

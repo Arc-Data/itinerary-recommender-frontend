@@ -18,7 +18,7 @@ const ForgotPassword = () => {
                 <Link to="/">
 					<img className="cebu--logo" src="/images/logo.png" alt="LandingPage" />
 				</Link>
-                <h2>Forgot Password</h2>
+                <h2 className='heading'>Forgot Password</h2>
                 <form className='modal-login-sign-form' onSubmit={(e) => loginUser(e)}>
                     <label>Email:</label>
                     <input type="email" name="email" placeholder="Enter your email" />

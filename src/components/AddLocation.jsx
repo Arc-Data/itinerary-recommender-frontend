@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faClose, faLocationDot } from "@fortawesome/free-solid-svg-icons"
+import { faClose, faLocationDot, faSearch } from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom"
 import AuthContext from "../context/AuthContext"
 import Modal from "./Modal"
@@ -185,7 +185,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                     className="plan--search-input add-location--search-input"
                     onChange={handleChange}
                     value={searchString}
-                    />
+                />
                 {recentlyAddedLocations.length !== 0 && 
                 <div className="add-location-modal--recently-added-container">
                     {displayRecentlyAdded}
