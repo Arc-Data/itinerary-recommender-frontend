@@ -15,6 +15,7 @@ import ConfirmDeleteDay from "./ConfirmDeleteDay";
 import useItemLocationManager from "../hooks/useItemLocationManager";
 import utc from 'dayjs/plugin/utc'
 import CompletionModal from "./CompletionModal";
+import ShareDetails from "./ShareDetails";
 
 dayjs.extend(utc)
 
@@ -33,7 +34,8 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
     const [openDaySettings, setOpenDaySettings] = useState(false)
     const [openColorModal, setOpenColorModal] = useState(false)
     const [openCompletionModal, setOpenCompletionModal] = useState(false)
-    
+    const [openShareDetails, setOpenShareDetails] = useState(false)
+
     const [costEstimate, setCostEstimate] = useState(0)
 
     const { updateItemOrdering } = useItemLocationManager(authTokens)
@@ -70,6 +72,10 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
         setOpenDeleteDayModal(prev => !prev)
     }
 
+    const toggleShareDetails = () => {
+        setOpenDaySettings(false)
+        setOpenShareDetails(prev => !prev)
+    }
 
     const toggleAssistantModal = (event) => {
         if(event) {
@@ -194,7 +200,7 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
                                 <FontAwesomeIcon icon={faPalette} />
                                 <p>Edit color</p>
                             </div>
-                            <div className="plan--day-dropcontent-item">
+                            <div className="plan--day-dropcontent-item" onClick={toggleShareDetails}>
                                 <FontAwesomeIcon icon={faShare} />
                                 <p>Share Trip Details</p>
                             </div>
@@ -354,6 +360,9 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
                 onClose={toggleCompletionModal}
                 dayId={day.id}
                 markCompletionAndReset={markCompletionAndReset}/>
+            }
+            {openShareDetails &&
+            <ShareDetails onClose={toggleShareDetails} day={day}/>
             }
         </div>
     )

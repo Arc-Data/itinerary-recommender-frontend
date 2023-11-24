@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarDays, faClose, faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarDays, faClose, faEllipsis, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import ConfirmDelete from "../components/ConfirmDelete";
 
@@ -33,8 +33,7 @@ const Itinerary = ({itinerary, handleDelete}) => {
                         alt="" />
                 </Link>
                 <div className="itinerary--settings" onClick={toggleDeleteModal}>
-                    <div className="itinerary--delete" >Delete</div>
-                    <FontAwesomeIcon icon={faClose} />
+                    <FontAwesomeIcon icon={faTrashAlt} />
                 </div>
             </div>
             <div>
