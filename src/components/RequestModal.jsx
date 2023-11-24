@@ -71,7 +71,7 @@ const RequestModal = ({onClose, request, approveRequest}) => {
                     <img src={`${backendUrl}${request.image}`} alt="" className="approve--modal-image" height={250}/>
                 </div>
             </div>
-            <div className="d-flexCenter"}>
+            <div className="d-flexCenter">
                 <button 
                     className="approve--BTN BTN14" 
                     onClick={handleApprove}>
