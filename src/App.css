@@ -19,6 +19,9 @@ html, body {
 .link {
   text-decoration: none;
 }
+.link:hover {
+  background-color: #143b58;
+}
 .btn {
   border: none;
   border-radius: 5px;
@@ -77,8 +80,8 @@ html, body {
   font-size: 20px;
 }
 .arrow--icon {
-  top: 110px;
-  left: 210px;
+  top: 5px;
+  left: 190px;
   position: absolute;
   color:rgb(169, 238, 238);
 }
@@ -90,10 +93,10 @@ html, body {
   padding: 10px 20px;
   text-decoration: none;
 }
-/* .active {
+.active {
   background-color: #184E77;
   color: white;
-} */
+}
 .dropdown {
   background-color: #30668F;
   color: white;
@@ -181,6 +184,7 @@ select {
   margin: 0;
   padding: 0;
   cursor: pointer;
+  position: relative;
 }
 .styled-input {
   border-radius: 5px;
@@ -228,4 +232,43 @@ select {
   width: 100%;
   display: block;
   padding: 6px;
+}
+
+/* DASHBOARD */
+.dashboard--container {
+  border-top: 2px solid #EFEFEF;
+  margin-top: 20px;
+}
+
+.dashboard--text {
+  font-size: 14px;
+}
+
+.dashboard--performance {
+  margin-top: 20px;
+}
+
+.dashboard--performance-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px; 
+  margin: 25px;
+}
+
+.dashboard--users {
+  border-radius: 50%;
+  background-color: #CFEEEF;
+  width: 50px;
+  padding: 11px;
+  margin-right: 20px;
+}
+
+.dashboard--total-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard--items {
+  height: 70px;
+  justify-content: center;
 }
