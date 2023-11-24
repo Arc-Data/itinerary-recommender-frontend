@@ -58,6 +58,34 @@ const useLocationManager = (authTokens) => {
         }
     }
 
+    const handleChangeInput = (e) => {
+        const { name, value } = e.target
+        setLocation(prev => ({
+            ...prev,
+            [name]: value,
+        }))
+    }
+
+    const handleTimeInput = (name, value) => {
+
+    }
+
+    const editLocationDetails = async (id) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/location/${id}/edit/`, {
+                "method": "PATCH",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                },
+                "body": JSON.stringify(location)
+            })
+        }
+        catch (error) {
+            console.log("An error occured while editing location details")
+        }
+    }
+
     const getLocations = async (page, query="", type="") => {
         setLoading(true)
         try {
@@ -125,12 +153,15 @@ const useLocationManager = (authTokens) => {
     return {
         location,
         recommendations,
+        handleTimeInput,
         result,
         error,
         loading,
         getLocation,
         getLocations,
         createLocation,
+        handleChangeInput,
+        editLocationDetails,
         deleteLocation,
         getRecommendedLocations,
     }

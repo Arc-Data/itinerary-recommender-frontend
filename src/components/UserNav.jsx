@@ -4,7 +4,6 @@ import { Link, createSearchParams, useNavigate, useSearchParams } from 'react-ro
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faPlus } from '@fortawesome/free-solid-svg-icons';
 
-
 const UserNav = () => {
     const [dropdown, setDropdown] = useState(false);
     const [searchParams , setSearchParams] = useSearchParams()
