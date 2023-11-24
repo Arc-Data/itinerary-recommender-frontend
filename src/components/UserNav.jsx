@@ -1,17 +1,19 @@
 import React, { useContext, useState } from 'react';
 import AuthContext from '../context/AuthContext';
-import { Link, createSearchParams, useNavigate } from 'react-router-dom';
+import { Link, createSearchParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 
 const UserNav = () => {
     const [dropdown, setDropdown] = useState(false);
+    const [searchParams , setSearchParams] = useSearchParams()
     const { logoutUser, user } = useContext(AuthContext)
     const letter = user.full_name[0].toUpperCase()
     const email = user.email;
     const full_name = user.full_name.toUpperCase();
     const navigate = useNavigate()
+    const type = searchParams.get('type')
 
     const toggleDropdown = () => {
         setDropdown(prev => !prev);
@@ -20,12 +22,7 @@ const UserNav = () => {
     const handleSearchSubmit = (e) => {
         e.preventDefault()
         const searchQuery = e.target.search.value
-        navigate({
-            pathname: "/search",
-            search: createSearchParams({
-                query: searchQuery
-            }).toString()
-        })
+        navigate(`/search?query=${searchQuery}&type=${type}`)
     }
 
     return (

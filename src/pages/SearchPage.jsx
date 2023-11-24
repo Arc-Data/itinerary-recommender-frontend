@@ -7,22 +7,20 @@ import { useSearchParams } from 'react-router-dom';
 
 const SearchPage = () => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
-
-    // initially set data to null, should contain an array of data depending on query
     const [locations, setLocations] = useState(null)
     const [searchParams, setSearchParams] = useSearchParams()
     const query = searchParams.get("query")
+    const type = searchParams.get('type')
 
     useEffect(() => {
         const fetchData = async() => {
-            const response = await fetch(`${backendUrl}/api/location/?query=${query}`)  
+            const response = await fetch(`${backendUrl}/api/location/?query=${query}&type=${type}`)  
             const data = await response.json()
             setLocations(data)
         }
 
         fetchData()
-
-    }, [query])
+    }, [query, type])
     
 
     const locationResults = locations && locations.map(location => {
@@ -37,10 +35,10 @@ const SearchPage = () => {
                 <h1 className="searchPage--title">Search result for "{`${query}`}"</h1>
                 <p className="searchPage--result">{locations ? locations.length : "0"} of {locations ? locations.length : "0"} Results</p>
                 <div className="searchPage--navbar">
-                    <a href="#">All Results</a>
-                    <Link to="/destination">Destination</Link>
-                    <Link to="/accommodation">Accommodation</Link>
-                    <Link to="/food">Restaurant</Link>
+                    <div onClick={() => setSearchParams({'query': query,'type': ''})}>All Results</div>
+                    <div onClick={() => setSearchParams({'query': query,'type':'spot'})}>Destination</div>
+                    <div onClick={() => setSearchParams({'query': query,'type':'accommodation'})}>Accommodation</div>
+                    <div onClick={() => setSearchParams({'query': query,'type':'foodplace'})}>Restaurant</div>
                 </div>
                 <div className="searchPage--card">
                     {locationResults}
