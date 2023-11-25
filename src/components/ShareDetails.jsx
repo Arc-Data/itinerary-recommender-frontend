@@ -1,9 +1,32 @@
 import { useEffect } from "react"
 import useMarkerManager from "../hooks/useMarkerManager"
 import ShareMap from "./ShareMap"
+import html2canvas from "html2canvas"
+import jsPDF from "jspdf"
 
-const ShareDetails = ({onClose, day}) => {
+const ShareDetails = ({onClose, day, costEstimate}) => {
     const { markers, getDayMarkersData } = useMarkerManager()
+
+    const exportPDF = () => {
+        const input = document.querySelector("#day-trips")
+        html2canvas(input, {logging: true, letterRendering: 1, useCORS: true})
+            .then(canvas => {
+                const imgData = canvas.toDataURL('image/png')
+                const pdf = new jsPDF()
+                pdf.addImage(imgData, 'JPEG', 0, 0)
+                pdf.save('download.pdf')
+            })
+    }
+
+    const displayItems = day.itinerary_items.map(item => {
+        return (
+            <div key={item.id}>
+                <p>{item.details.name}</p>
+                <p>Insert fees</p>
+                <p>Insert possible events and activities</p>
+            </div>
+        )
+    })
 
     useEffect(() => {
         getDayMarkersData(day)
@@ -12,8 +35,19 @@ const ShareDetails = ({onClose, day}) => {
     return (
         <>
             <div className="overlay" onClick={onClose}></div>
-            <div className="share--details">
-                <div>Content</div>
+            <div className="share--details" id ="day-trips">
+                <div className="share--details-container">
+                    <div>CebuRoute</div>
+                    <div>
+                        <p>{day.itinerary_name}</p>
+                        <p>Day {day.order}</p>
+                        <p>Estimated Costs : {costEstimate}</p>
+                    </div>
+                    <div className="share--details-content">
+                        {displayItems}
+                    </div>
+                    <button data-html2canvas-ignore="true" onClick={exportPDF}>Print</button>
+                </div>
                 <ShareMap markers={markers} />
             </div>
         </>

@@ -25,6 +25,7 @@ const ShareMap = ({markers}) => {
                 .setLngLat(marker)
                 .addTo(map.current);
 
+
             markerRefs.current.push(newMarker);
         
             bounds.extend(newMarker.getLngLat())
@@ -32,10 +33,9 @@ const ShareMap = ({markers}) => {
 
         setTimeout(() => {
             map.current.fitBounds(bounds, { padding: 60})
-        }, 400)
+        }, 100)
     
     };
-    
 
     useEffect(() => {
         if(map.current) return;
@@ -46,6 +46,7 @@ const ShareMap = ({markers}) => {
             center: [cebu.lng, cebu.lat],
             zoom: zoom
         })
+
     }, [cebu.lng, cebu.lat, zoom])
 
     useEffect(() => {
@@ -54,7 +55,7 @@ const ShareMap = ({markers}) => {
 
 
     return (
-        <div className="create--map-wrap">
+        <div className="create--map-wrap" id="nice">
             <div ref={mapContainer} className="create--map"></div>
         </div>
     )

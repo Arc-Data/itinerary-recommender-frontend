@@ -44,6 +44,8 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
         setLocations(day.itinerary_items)
     }, [day])
 
+    console.log(day)
+
     const toggleOpen = () => {
         setOpen(prev => !prev)
     }
@@ -362,7 +364,10 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
                 markCompletionAndReset={markCompletionAndReset}/>
             }
             {openShareDetails &&
-            <ShareDetails onClose={toggleShareDetails} day={day}/>
+            <ShareDetails 
+                onClose={toggleShareDetails} 
+                day={day}
+                costEstimate={costEstimate}/>
             }
         </div>
     )

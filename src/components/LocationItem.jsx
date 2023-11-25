@@ -5,7 +5,7 @@ import getFeeDetails from "../utils/getFeeDetails";
 
 const LocationItem = ({location}) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
-    
+    console.log(location)
     const string = `${backendUrl}${location.details.primary_image.replace(/'/g, "\\'")}` 
 
     const locationImage = {

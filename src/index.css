@@ -1951,8 +1951,8 @@ input[type="text"] {
     z-index: 10;
     background: white;
     display: grid;
-    grid-template-columns: 500px 300px;
-    height: 500px;
+    grid-template-columns: 500px 400px;
+    height: 600px;
 }
 
 .share--details-content {
