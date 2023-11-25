@@ -4,7 +4,6 @@ import ShareMap from "./ShareMap"
 
 const ShareDetails = ({onClose, day}) => {
     const { markers, getDayMarkersData } = useMarkerManager()
-    console.log(markers)
 
     useEffect(() => {
         getDayMarkersData(day)
