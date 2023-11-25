@@ -22,8 +22,9 @@ const ShareDetails = ({onClose, day, costEstimate}) => {
         return (
             <div key={item.id}>
                 <p>{item.details.name}</p>
-                <p>Insert fees</p>
-                <p>Insert possible events and activities</p>
+                {item.details.min_cost !== 0 && item.details.max_cost !== 0 && 
+                <p>Costs {item.details.min_cost} - {item.details.max_cost}</p>
+                }
             </div>
         )
     })
@@ -35,8 +36,8 @@ const ShareDetails = ({onClose, day, costEstimate}) => {
     return (
         <>
             <div className="overlay" onClick={onClose}></div>
-            <div className="share--details" id ="day-trips">
-                <div className="share--details-container">
+            <div className="share--details" >
+                <div className="share--details-container" id ="day-trips">
                     <div>CebuRoute</div>
                     <div>
                         <p>{day.itinerary_name}</p>

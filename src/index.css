@@ -1588,6 +1588,13 @@ input[type="text"] {
     gap: 30px;
 }
 
+.plan--events-container {
+    padding: 10px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .plan--expense-form span {
     color: #767676;
 }
