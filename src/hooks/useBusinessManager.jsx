@@ -102,6 +102,27 @@ const useBusinessManager = (authTokens) => {
         }
     }
 
+    const editSpotBusiness = (location) => {
+
+    }
+
+    const editFoodPlaceBusiness = (location) => {
+
+    }
+
+    const editAccommodationBusiness = (location) => {
+
+    }
+
+    const handleEditBusiness = (location) => {
+        if (location.locationType === "1") {
+            editSpotBusiness(location)
+        } else if(location.locationType === "2") {
+            editFoodPlaceBusiness(location)
+        } else if (location.location_type === "3")
+            editAccommodationBusiness(location)
+    }
+
     return {
         loading,
         error,
@@ -112,6 +133,7 @@ const useBusinessManager = (authTokens) => {
         approveRequest,
         getApprovalRequests,
         getAllApprovalRequests,
+        handleEditBusiness,
         getOwnedBusinesses,
     }
 }
