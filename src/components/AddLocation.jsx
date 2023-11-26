@@ -188,7 +188,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
             {openBookmarks ?
             <div>
                 <div className="add-location-modal--content">
-
+                    {displayRecentlyAdded}
                 </div>
                 <div className="add-location-modal--results">
                     {displayBookmark}
