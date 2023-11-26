@@ -1867,9 +1867,9 @@ input[type="text"] {
 }
 
 .bookmarks--container {
-    width: 100%;
+    width: 250px;
     border: 2px solid #E7E7E7;
-    border-radius: 10px;
+    border-radius: 5px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -1879,7 +1879,7 @@ input[type="text"] {
 .bookmark--image{
     width: 60px;
     height: 50px;
-    border-radius: 10px 0 0 10px;
+    border-radius: 5px 0 0 5px;
     object-fit: cover;
     object-position: center;
 }
