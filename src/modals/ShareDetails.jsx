@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import useMarkerManager from "../hooks/useMarkerManager"
-import ShareMap from "./ShareMap"
+import ShareMap from "../components/ShareMap"
 
 const ShareDetails = ({onClose, day}) => {
     const { markers, getDayMarkersData } = useMarkerManager()

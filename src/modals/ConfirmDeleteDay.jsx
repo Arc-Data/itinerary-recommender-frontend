@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import Modal from "./Modal"
+import Modal from "../components/Modal"
 import AuthContext from "../context/AuthContext"
 import useDayManager from "../hooks/useDayManager"
 
