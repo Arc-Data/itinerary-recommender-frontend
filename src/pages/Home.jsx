@@ -170,12 +170,10 @@ const HomePage = () => {
 			<div>
 				<p className="header-title heading">Active Trips</p>
 				<div className="active--trips-container">
-					<div className="active--trip">
-						{displayActiveTrips()}
-						{selectedDays.length > 0 && 
-							<button className="active--trip-save" onClick={handleMarkDaysAsCompleted}>Mark as done</button>
-						}
-					</div>
+					{displayActiveTrips()}
+					{selectedDays.length > 0 && 
+						<button className="active--trip-save" onClick={handleMarkDaysAsCompleted}>Mark as done</button>
+					}
 				</div>
 			</div>
 			}
