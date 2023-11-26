@@ -359,10 +359,13 @@ select {
   background: #E7E7E7;
   font-weight: 500;
   height: 50px;
-  font-size: 14px;
 }
 
 .heading9 {
   font-size: 28px;
   font-weight: 700;
+}
+
+.font20 {
+  font-size: 20px;
 }
