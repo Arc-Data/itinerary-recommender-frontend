@@ -815,14 +815,16 @@ input[type="text"] {
 .detailPage--bookmark.true {
     background-color: #b8fbff;
 }
+.detailPage--bookmark.true > * {
+    color: #38A3A5;
+}
 .detailPage--bookmark:hover .bookmark-text {
     opacity: 1;
 }
 .bookmark-icon {
-    color: #184E77;
+    color: #7c7c7c;
     font-size: 30px;
 }
-
 /*PICTURES OF DESTINATION*/
 .detailPage--pictures {
     flex: 1; 
