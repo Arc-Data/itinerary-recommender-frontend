@@ -91,7 +91,7 @@ const ManageBusiness = () => {
 					<input
 					type="text"
 					name="name"
-					value={businessData?.name}
+					value={formData.name}
 					className="styled-input"
 					/>
 				</div>
@@ -100,7 +100,7 @@ const ManageBusiness = () => {
 					<input
 					type="text"
 					name="address"
-					value={businessData?.address}
+					value={formData.address}
 					className="styled-input"
 					/>
 				</div>
@@ -111,7 +111,7 @@ const ManageBusiness = () => {
 						type="number"
 						step="0.000001"
 						name="latitude"
-						value={businessData?.latitude}
+						value={formData.latitude}
 						className="styled-input"
 					/>
 					</div>
@@ -121,7 +121,7 @@ const ManageBusiness = () => {
 						number="text"
 						step="0.000001"
 						name="longitude"
-						value={businessData?.longitude}
+						value={formData.longitude}
 						className="styled-input"
 					/>
 					</div>
@@ -133,7 +133,7 @@ const ManageBusiness = () => {
 					<input
 						type="text"
 						name="min_fee"
-						value={location?.min_fee}
+						value={formData.min_fee}
 						className="styled-input"
 					/>
 					</div>
@@ -142,7 +142,7 @@ const ManageBusiness = () => {
 					<input
 						number="text"
 						name="max_fee"
-						value={location?.max_fee}
+						value={formData.max_fee}
 						className="styled-input"
 					/>
 					</div>
@@ -155,7 +155,7 @@ const ManageBusiness = () => {
 					<input
 						type="text"
 						name="opening_time"
-						value={location?.opening_time}
+						value={formData.opening_time}
 						className="styled-input"
 						/>
 					</div>
@@ -164,7 +164,7 @@ const ManageBusiness = () => {
 					<input
 						type="text"
 						name="closing_time"
-						value={location?.closing_time}
+						value={formData.closing_time}
 						className="styled-input"
 						/>
 					</div>
