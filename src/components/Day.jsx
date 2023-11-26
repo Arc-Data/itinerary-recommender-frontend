@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import LocationItem from "./LocationItem"
 import dayjs from "dayjs"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faWandMagicSparkles, faChevronDown, faChevronUp, faBars, faPlus, faDotCircle, faCircle, faEllipsis, faPalette, faEdit, faRemove, faTrash, faLocationDot, faCheckDouble, faShare } from "@fortawesome/free-solid-svg-icons";
+import { faWandMagicSparkles, faChevronDown, faChevronUp, faBars, faPlus, faDotCircle, faCircle, faEllipsis, faPalette, faEdit, faFileArrowDown, faTrashCan, faRemove, faTrash, faLocationDot, faCheckDouble, faShare } from "@fortawesome/free-solid-svg-icons";
 import AddLocation from "./AddLocation";
 import ConfirmDeleteItem from "./ConfirmDeleteItem";
 import { DragDropContext,  Draggable } from "react-beautiful-dnd";
@@ -184,7 +184,7 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
                 </p>
                 <div className="plan--day-settings" onClick={preventSettingsPropagation}>
                     {day.date_status !== "soon" && !day.completed &&
-                    <div className="plan--day-complete" onClick={toggleCompletionModal}>Mark as visited<FontAwesomeIcon icon={faCheckDouble} /></div>
+                    <div className="plan--day-complete" onClick={toggleCompletionModal}><FontAwesomeIcon className="btn-icons" icon={faCheckDouble} />Mark as visited</div>
                     }
                     <div className="plan--day-ellipsis">
                         <FontAwesomeIcon icon={faEllipsis} onClick={toggleDaySettingsClick}/>
@@ -192,17 +192,17 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
                         <div className="plan--day-dropcontent"> 
                             {!day.completed && 
                             <div className="plan--day-dropcontent-item" onClick={toggleDeleteDayModal}>
-                                <FontAwesomeIcon icon={faRemove} />
-                                <p>Delete day</p>
+                                <FontAwesomeIcon icon={faTrashCan} />
+                                <p>Delete</p>
                             </div>
                             }
                             <div className="plan--day-dropcontent-item" onClick={toggleOpenColorModal}>
                                 <FontAwesomeIcon icon={faPalette} />
-                                <p>Edit color</p>
+                                <p>Map marker</p>
                             </div>
                             <div className="plan--day-dropcontent-item" onClick={toggleShareDetails}>
-                                <FontAwesomeIcon icon={faShare} />
-                                <p>Share Trip Details</p>
+                                <FontAwesomeIcon icon={faFileArrowDown} />
+                                <p>Download</p>
                             </div>
                             
                         </div>                    

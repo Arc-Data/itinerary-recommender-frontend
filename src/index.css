@@ -1935,9 +1935,15 @@ input[type="text"] {
 }
 
 .plan--day-complete {
-    border: 1px solid #38A3A5;
-    padding: 12px;
-    border-radius: 12px;
+    background-color: #E7E7E7;
+    padding: 10px 14px;
+    border-radius: 30px;
+    margin: 0 10px;
+}
+.plan--day-complete:hover {
+    background-color: #57CC99;
+    color: #FFF;
+    transition: background-color 0.2s ease;
 }
 
 .plan--day-settings {
@@ -1970,11 +1976,10 @@ input[type="text"] {
     position: absolute;
     top: 50px;
     right: 0;
-    width: 140px;
+    width: 150px;
     background: white;
     font-weight: 400;
     font-size: 14px;
-    text-align: right;
     z-index: 20;
     box-shadow: 0 0 0.5em rgba(105, 100, 100, 0.5);
     border-radius: 8px;
@@ -2002,11 +2007,11 @@ input[type="text"] {
 }
 
 .plan--day-dropcontent > div:hover {
-    background: #ccc;
+    background: #E7E7E7;
 }
 
 .plan--day-dropcontent-item:hover {
-    background: #ccc;
+    background: #E7E7E7;
 }
 
 .plan--day-ellipsis > svg {
@@ -2839,7 +2844,6 @@ input[type="text"] {
     border-radius: 10px;
     margin-bottom: 20px;
     background: #FFFFFF;
-    filter: drop-shadow(5px 5px 0.5px #184E77);
 }
 
 .active--trip-locations {
