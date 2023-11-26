@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useContext } from 'react';
 import { NavLink, useSearchParams } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
+import dashboard from "/images/radix-icons_dashboard.svg";
 import { FaMapMarkerAlt, FaUser, FaAngleUp, FaAngleDown, FaReceipt } from 'react-icons/fa'; // Import arrow icons
 
 function Sidebar() {
@@ -25,15 +26,23 @@ function Sidebar() {
             </div>
             <div className="sidebar--menu">
                 <NavLink
-                    className={({ isActive }) => isActive ? 'active' : 'link'}
+                    className={({ isActive }) => isActive ? 'active14' : 'link14'}
                     to="/"
+                >
+                    <h4 className="users">
+                    <img src={dashboard} /> Dashboard
+                    </h4>
+                </NavLink>
+                <NavLink
+                    className={({ isActive }) => isActive ? 'active14' : 'link14'}
+                    to="/admin/users"
                 >
                     <h4 className="users">
                         <FaUser /> Users
                     </h4>
                 </NavLink>
                 <NavLink
-                    className={({ isActive }) => isActive ? 'active' : 'link'}
+                    className={({ isActive }) => isActive ? 'active14' : 'link14'}
                     to="/admin/locations"
                     onClick={() => {
                         toggleLocationDropdown()
@@ -78,7 +87,7 @@ function Sidebar() {
                     </div>
                 )}
                 <NavLink
-                    className={({ isActive }) => isActive ? 'active' : 'link'}
+                    className={({ isActive }) => isActive ? 'active14' : 'link14'}
                     to="requests"
                 >
                     <h4 className="users">
