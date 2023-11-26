@@ -25,14 +25,14 @@ const DownloadDashboard = () => {
 
   return (
     <>
-      <div className="share--details-container">
+      <div className="share--details-container" ref={dashboardRef}>
         <div className="span-items">
           <div className="heading share--cebu-route">CebuRoute</div>
           <button data-html2canvas-ignore="true" className="share--details-download-btn" onClick={handleDownload}>
             <FontAwesomeIcon className="btn-icons" icon={faFileArrowDown} /> PDF FILE
           </button>
         </div>
-        <div className="share--dashboard-header no-animation" ref={dashboardRef}>
+        <div className="share--dashboard-header no-animation" >
           <Dashboard />
         </div>
       </div>
