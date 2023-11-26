@@ -122,7 +122,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                 <p className="add-location-modal--title">{bookmark.details.name}</p>
                 <p className="add-location-modal--subtext">{bookmark.details.address}</p>
             </div>
-            <button className="add-location-modal--add-btn">+</button>
+            <button className="add-location-modal--add-btn" onClick={() => handleAddLocation(bookmark.location)}>+</button>
         </div>
         )   
     })
