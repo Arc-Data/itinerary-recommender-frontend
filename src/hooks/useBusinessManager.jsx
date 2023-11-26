@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { useParams } from "react-router-dom"
 
 const useBusinessManager = (authTokens) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
