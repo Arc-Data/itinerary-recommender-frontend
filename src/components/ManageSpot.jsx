@@ -8,8 +8,6 @@ const ManageSpot = ({ location, editBusiness }) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
 	const navigate = useNavigate()
 
-    console.log(location)
-
     const [formData, setFormData] = useState({
 		'name': location.name,
 		'address': location.address,
@@ -23,29 +21,44 @@ const ManageSpot = ({ location, editBusiness }) => {
         'closing_time': new Date().setTime(0, 0, 0)
     })
 
-    console.log(formData)
+    const formatTimeToString = (time) => {
+        const hours = time.getHours().toString().padStart(2, '0');
+        const minutes = time.getMinutes().toString().padStart(2, '0');
+        const seconds = time.getSeconds().toString().padStart(2, '0');
+        return `${hours}:${minutes}:${seconds}`;
+    };
 
     useEffect(() => {
         if (location.opening_time) {
-            const opening = location.opening_time.split(":")
-            const openingTime = new Date().setTime(opening[0], opening[1], opening[2])
+            const [hours, minutes, seconds] = location.opening_time.split(":");
+            const openingTime = new Date();
+            openingTime.setHours(hours, minutes, seconds);
             setFormData(prev => ({ ...prev, opening_time: openingTime }));
         }
-
+    
         if (location.closing_time) {
-            const closing = location.closing_time.split(":")
-            const closingTime = new Date().setTime(closing[0], closing[1], closing[2])
+            const [hours, minutes, seconds] = location.closing_time.split(":");
+            const closingTime = new Date();
+            closingTime.setHours(hours, minutes, seconds);
             setFormData(prev => ({ ...prev, closing_time: closingTime }));
         }
-
-    }, [])
-
+    }, []);
+    
 	const handleChangeInput = (e) => {
 		const { name, value } = e.target
-		setFormData(prev => ({
-			...prev,
-			[name]: value
-		}))
+		
+        if (name === 'opening_time' || name === 'closing_time') {
+            const timeString = value.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            setFormData(prev => ({
+                ...prev,
+                [name]: timeString,
+            }));
+        } else {
+            setFormData(prev => ({
+                ...prev,
+                [name]: value,
+            }));
+        }
  	}
 
 	const handleSubmit = async (e) => {
@@ -55,8 +68,18 @@ const ManageSpot = ({ location, editBusiness }) => {
             alert("Min fee couldnt be greater than maximum fee")
             return;
         }
+        
+        console.log(formData.opening_time)
+        const data = {
+            ...formData,
+            "opening_time": formatTimeToString(formData.opening_time),
+            "closing_time": formatTimeToString(formData.closing_time)
+        };
 
-        await editBusiness(location.id, formData)
+        console.log(data)
+
+        await editBusiness(location.id, data)
+        navigate(-1)
 	}
 
 	const toggleAddProduct = () => {
@@ -198,7 +221,7 @@ const ManageSpot = ({ location, editBusiness }) => {
                 <button>Submit</button>
             </form>
 
-            <div className="requests--table">
+            {/* <div className="requests--table">
                 <div className="flex-between">
                 <p className="requests--title bold2">Product & Services</p>
                 <button className="business--btn" onClick={toggleAddProduct}>
@@ -241,7 +264,7 @@ const ManageSpot = ({ location, editBusiness }) => {
                     </tr>
                 </tbody>
                 </table>
-            </div>
+            </div> */}
         </div>
     )
 }
