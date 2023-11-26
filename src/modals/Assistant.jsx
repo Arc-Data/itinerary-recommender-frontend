@@ -1,7 +1,7 @@
 import dayjs from "dayjs"
 import { useContext, useEffect, useState } from "react"
 import AuthContext from "../context/AuthContext"
-import Recommendation from "./Recommendation"
+import Recommendation from "../components/Recommendation"
 import useRecommendationsManager from "../hooks/useRecommendationsManager"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';

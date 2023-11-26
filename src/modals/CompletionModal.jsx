@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import Modal from "./Modal"
+import Modal from "../components/Modal"
 
 const CompletionModal = ({onClose, dayId, markCompletionAndReset}) => {
     const { id } = useParams()

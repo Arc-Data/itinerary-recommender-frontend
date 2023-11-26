@@ -1,10 +1,11 @@
 import { useEffect } from "react"
 import useMarkerManager from "../hooks/useMarkerManager"
-import ShareMap from "./ShareMap"
 import html2canvas from "html2canvas"
 import jsPDF from "jspdf"
 import { faLocationDot, faFileArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ShareMap from "../components/ShareMap"
+
 
 const ShareDetails = ({onClose, day, costEstimate}) => {
     const { markers, getDayMarkersData } = useMarkerManager()
