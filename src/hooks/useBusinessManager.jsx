@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useParams } from "react-router-dom"
 
 const useBusinessManager = (authTokens) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
@@ -129,30 +130,22 @@ const useBusinessManager = (authTokens) => {
         }
     }
 
-    const editSpotBusiness = (location) => {
+    const editBusiness = async (id, data) => {
         try {
-            console.log("Editing a location object")
+            const response = await fetch(`${backendUrl}/api/user/business/${id}/edit/`, {
+                "method": "POST",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                },
+                "body": JSON.stringify(data)
+            })
+
+            console.log(response)
         }
         catch(error) {
-
+            console.log("An error occured while editing business")
         }
-    }
-
-    const editFoodPlaceBusiness = (location) => {
-        console.log("Editing a food place business")
-    }
-
-    const editAccommodationBusiness = (location) => {
-        console.log("Editing an accommodation business")
-    }
-
-    const handleEditBusiness = (locationType, data) => {
-        if (locationType === "1") {
-            editSpotBusiness(data)
-        } else if(locationType === "2") {
-            editFoodPlaceBusiness(data)
-        } else if (locationType === "3")
-            editAccommodationBusiness(data)
     }
 
     return {
@@ -165,7 +158,7 @@ const useBusinessManager = (authTokens) => {
         approveRequest,
         getApprovalRequests,
         getAllApprovalRequests,
-        handleEditBusiness,
+        editBusiness,
         getBusinessDetail,
         getOwnedBusinesses,
     }

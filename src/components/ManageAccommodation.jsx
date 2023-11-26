@@ -3,31 +3,18 @@ import { useNavigate } from "react-router-dom"
 import { FaTrash, FaPencilAlt } from "react-icons/fa";
 import SAMPLEIMAGE from "/images/osmenapeak.jpg";
 
-const ManageAccommodation = ({ location, handleEditBusiness }) => {
+const ManageAccommodation = ({ location, editBusiness }) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
 	const navigate = useNavigate()
 
     const [formData, setFormData] = useState({
-		'name': '',
-		'address': '',
-		'latitude': '',
-		'longitude': '',
-		'description': ''
+		'name': location.name,
+		'address': location.address,
+		'latitude': location.latitude,
+		'longitude': location.longitude,
+		'description': location.description,
+        'location_type': location.location_type
 	})
-
-    useEffect(() => {
-		const updateFormData = () => {
-			setFormData(prev => ({
-				'name': location.name,
-				'address': location.address,
-				'latitude': location.latitude,
-				'longitude': location.longitude,
-				'description': location.description,
-			}))
-		}
-
-		updateFormData()
-	}, [location])
 
     const handleChangeInput = (e) => {
 		const { name, value } = e.target
@@ -39,7 +26,7 @@ const ManageAccommodation = ({ location, handleEditBusiness }) => {
 
     const handleSubmit = (e) => {
 		e.preventDefault() 
-        handleEditBusiness(location.location_type, formData)
+        editBusiness(location.id, formData)
 	}
 
 	const toggleAddProduct = () => {
@@ -148,7 +135,8 @@ const ManageAccommodation = ({ location, handleEditBusiness }) => {
                         <label htmlFor="description">Description</label>
                         <textarea
                         name="description"
-                        // value={location?.description}
+                        value={formData.description}
+                        onChange={handleChangeInput}
                         />
                     </div>
                     </div>

@@ -4,31 +4,22 @@ import { FaTrash, FaPencilAlt } from "react-icons/fa";
 import SAMPLEIMAGE from "/images/osmenapeak.jpg";
 
 
-const ManageSpot = ({ location, handleEditBusiness }) => {
+const ManageSpot = ({ location, editBusiness }) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
 	const navigate = useNavigate()
 
-	const [formData, setFormData] = useState({
-		'name': '',
-		'address': '',
-		'latitude': '',
-		'longitude': '',
-		'description': ''
-	})
-
-	useEffect(() => {
-		const updateFormData = () => {
-			setFormData(prev => ({
-				'name': location.name,
-				'address': location.address,
-				'latitude': location.latitude,
-				'longitude': location.longitude,
-				'description': location.description,
-			}))
-		}
-
-		updateFormData()
-	}, [location])
+    const [formData, setFormData] = useState({
+		'name': location.name,
+		'address': location.address,
+		'latitude': location.latitude,
+		'longitude': location.longitude,
+		'description': location.description,
+        'location_type': location.location_type,
+        'min_fee': 0,
+        'max_fee': 0,
+        'opening_time': '',
+        'closing_time': ''
+    })
 
 	const handleChangeInput = (e) => {
 		const { name, value } = e.target
@@ -40,7 +31,7 @@ const ManageSpot = ({ location, handleEditBusiness }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault() 
-        handleEditBusiness(location.location_type, formData)
+        editBusiness(location.id, formData)
 	}
 
 	const toggleAddProduct = () => {
@@ -150,6 +141,7 @@ const ManageSpot = ({ location, handleEditBusiness }) => {
                         <textarea
                         name="description"
                         value={formData.description}
+                        onChange={handleChangeInput}
                         />
                     </div>
                     </div>

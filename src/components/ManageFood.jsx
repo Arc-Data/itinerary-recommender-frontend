@@ -7,36 +7,25 @@ import ProductModal from "../modals/ProductModal";
 
 Modal.setAppElement("#root");
 
-const ManageBusiness = ({ location, handleEditBusiness }) => {
+const ManageBusiness = ({ location, editBusiness }) => {
 	const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
 
 	const [isAddProductModalOpen, setAddProductModalOpen] = useState(false);
 	const navigate = useNavigate()
 
-	const [formData, setFormData] = useState({
-		'name': '',
-		'address': '',
-		'latitude': '',
-		'longitude': '',
-		'description': ''
+    const [formData, setFormData] = useState({
+		'name': location.name,
+		'address': location.address,
+		'latitude': location.latitude,
+		'longitude': location.longitude,
+		'description': location.description,
+        'location_type': location.location_type
 	})
-
-	useEffect(() => {
-		const updateFormData = () => {
-			setFormData(prev => ({
-				'name': location.name,
-				'address': location.address,
-				'latitude': location.latitude,
-				'longitude': location.longitude,
-				'description': location.description,
-			}))
-		}
-
-		updateFormData()
-	}, [location])
 
 	const handleChangeInput = (e) => {
 		const { name, value } = e.target
+
+		console.log(name, value)
 		setFormData(prev => ({
 			...prev,
 			[name]: value
@@ -45,7 +34,7 @@ const ManageBusiness = ({ location, handleEditBusiness }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault() 
-		handleEditBusiness(location.location_type, formData)
+		editBusiness(location.id, formData)
 	}
 
 	const toggleAddProduct = () => {
@@ -154,7 +143,8 @@ const ManageBusiness = ({ location, handleEditBusiness }) => {
 					<label htmlFor="description">Description</label>
 					<textarea
 					name="description"
-					// value={location?.description}
+					value={formData.description}
+					onChange={handleChangeInput}
 					/>
 				</div>
 				</div>

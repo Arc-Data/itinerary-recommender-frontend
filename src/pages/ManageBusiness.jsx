@@ -9,7 +9,7 @@ import useBusinessManager from "../hooks/useBusinessManager";
 const ManageBusiness = () => {
 	const { id } = useParams();
 	const { authTokens } = useContext(AuthContext);
-	const { location, loading, error, getBusinessDetail, handleEditBusiness } = useBusinessManager(authTokens)
+	const { location, loading, error, getBusinessDetail, editBusiness } = useBusinessManager(authTokens)
 
 	useEffect(() => {
 		getBusinessDetail(id)
@@ -24,8 +24,8 @@ const ManageBusiness = () => {
 	}
 
 	return location.location_type === "1" ?
-		<ManageSpot location={location} handleEditBusiness={handleEditBusiness}/> : location.location_type === "2" ? 
-		<ManageFood location={location} handleEditBusiness={handleEditBusiness}/> : <ManageAccommodation location={location} handleEditBusiness={handleEditBusiness}/>
+		<ManageSpot location={location} editBusiness={editBusiness}/> : location.location_type === "2" ? 
+		<ManageFood location={location} editBusiness={editBusiness}/> : <ManageAccommodation location={location} editBusiness={editBusiness}/>
 };
 
 export default ManageBusiness;
