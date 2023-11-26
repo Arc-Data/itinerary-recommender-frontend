@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import * as maptilersdk from '@maptiler/sdk'
 import "@maptiler/sdk/dist/maptiler-sdk.css"
-import useMarkerManager from "../hooks/useMarkerManager"
 
 const ShareMap = ({markers}) => {
     const apiKey = import.meta.env.VITE_MAPTILER_API_KEY
@@ -14,19 +13,29 @@ const ShareMap = ({markers}) => {
     maptilersdk.config.apiKey = apiKey
 
     const addMarkersToMap = () => {
-        if(!map.current || !markers) return;
-
-        markerRefs.current.forEach(marker => marker.remove())
-        markerRefs.current = [];
+        if (!map.current || !markers) return;
+    
+        const bounds = new maptilersdk.LngLatBounds();
         
-        markers.forEach((marker) => {
-            const newMarker = new maptilersdk.Marker({color: marker.color})
+        markerRefs.current.forEach(marker => marker.remove());
+        markerRefs.current = [];
+    
+        markers.forEach(marker => {
+            const newMarker = new maptilersdk.Marker({ color: marker.color })
                 .setLngLat(marker)
-                .addTo(map.current)
+                .addTo(map.current);
 
-            markerRefs.current.push(newMarker)
-        })
-    }
+
+            markerRefs.current.push(newMarker);
+        
+            bounds.extend(newMarker.getLngLat())
+        });
+
+        setTimeout(() => {
+            map.current.fitBounds(bounds, { padding: 60})
+        }, 100)
+    
+    };
 
     useEffect(() => {
         if(map.current) return;
@@ -37,6 +46,7 @@ const ShareMap = ({markers}) => {
             center: [cebu.lng, cebu.lat],
             zoom: zoom
         })
+
     }, [cebu.lng, cebu.lat, zoom])
 
     useEffect(() => {
@@ -45,7 +55,7 @@ const ShareMap = ({markers}) => {
 
 
     return (
-        <div className="create--map-wrap">
+        <div className="create--map-wrap" id="nice">
             <div ref={mapContainer} className="create--map"></div>
         </div>
     )

@@ -58,7 +58,6 @@ const useMarkerManager = () => {
         return locations
     }
 
-
     return {
         markers,
         addMarker,

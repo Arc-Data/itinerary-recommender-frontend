@@ -31,8 +31,9 @@ const RateDay = () => {
 
     const displayLocations = day && day.locations.map(location => {
         const fee = getFeeDetails(location.min_cost, location.max_cost)
-        const opening_time = getTimeDetails(location.opening)
-        const closing_time = getTimeDetails(location.closing) 
+        const opening_time = location.opening ? getTimeDetails(location.opening) : `Open 24/7`
+        const closing_time = location.closing ? getTimeDetails(location.closing) : `Open 24/7`
+
         return (
             <div key={location.id} location={location} className="add-location-modal--search-item">
                 <img src={`${backendUrl}${location.primary_image}`} width={120} height={80}/>
