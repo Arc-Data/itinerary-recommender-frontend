@@ -1,6 +1,6 @@
 import Modal from "react-modal"
 
-const ProductModal = ({onClose, isAddProductModalOpen, toggleAddProduct}) => {
+const ProductModal = ({isAddProductModalOpen, toggleAddProduct}) => {
     return (
         <Modal
             isOpen={isAddProductModalOpen}

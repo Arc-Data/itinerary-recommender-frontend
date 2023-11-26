@@ -14,7 +14,6 @@ const ManageBusiness = () => {
 	const { id } = useParams();
 	const { authTokens } = useContext(AuthContext);
 	const [isAddProductModalOpen, setAddProductModalOpen] = useState(false);
-	const [openDeleteModal, setOpenDeleteModal] = useState(false);
 	const [businessData, setBusinessData] = useState();
 	const [loading, setLoading] = useState(true);
 	const navigate = useNavigate()
@@ -76,16 +75,6 @@ const ManageBusiness = () => {
 	const toggleAddProduct = () => {
 		setAddProductModalOpen(prev => !prev)
 	}
-
-	const openDeleteBusiness = () => {
-		setOpenDeleteModal(true);
-	};
-
-	const closeDeleteBusiness = () => {
-		setOpenDeleteModal(false);
-	};
-
-
 
 	return (
 		<div className="profile--main-container">
@@ -200,7 +189,7 @@ const ManageBusiness = () => {
 					id="imgFile"
 					name="filename"
 					accept="image/*"
-					style={{ display: "none" }} // Hide the default file input
+					style={{ display: "none" }} 
 				/>
 				</div>
 			</div>    
