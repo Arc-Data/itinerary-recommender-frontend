@@ -44,8 +44,6 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
         setLocations(day.itinerary_items)
     }, [day])
 
-    console.log(day)
-
     const toggleOpen = () => {
         setOpen(prev => !prev)
     }

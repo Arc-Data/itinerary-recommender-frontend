@@ -33,6 +33,7 @@ import Bookmarks from './pages/Bookmarks';
 import Recent from './pages/Recent';
 import RateDay from './pages/RateDay';
 import Request from './pages/Request';
+import Dashboard from './pages/Dashboard';
 import EditLocation from './pages/EditLocation';
 	/*css*/
 	
@@ -74,7 +75,8 @@ function App() {
 
 				</Route>
 				<Route path="/admin" element={<AdminRoutes />}>
-					<Route path = "/admin/" index element={<Users users={data[0].users}/>} />
+					<Route path = "/admin/" index element={<Dashboard/>} />
+					<Route path = "/admin/users" index element={<Users users={data[0].users}/>} />
 					<Route path="/admin/location" element={<AddLocation/>} />
 					<Route path="/admin/locations" element={<Location/>} />
 					<Route path="/admin/location/:id" element={<EditLocation />} />

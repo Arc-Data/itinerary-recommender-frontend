@@ -16,8 +16,11 @@ html, body {
   display: flex;
   flex: 1;
 }
-.link {
+.link , .link14{
   text-decoration: none;
+}
+.link14:hover {
+  background-color: #143b58;
 }
 .btn {
   border: none;
@@ -77,8 +80,8 @@ html, body {
   font-size: 20px;
 }
 .arrow--icon {
-  top: 110px;
-  left: 210px;
+  top: 5px;
+  left: 190px;
   position: absolute;
   color:rgb(169, 238, 238);
 }
@@ -90,10 +93,10 @@ html, body {
   padding: 10px 20px;
   text-decoration: none;
 }
-/* .active {
+.active14 {
   background-color: #184E77;
   color: white;
-} */
+}
 .dropdown {
   background-color: #30668F;
   color: white;
@@ -181,6 +184,7 @@ select {
   margin: 0;
   padding: 0;
   cursor: pointer;
+  position: relative;
 }
 .styled-input {
   border-radius: 5px;
@@ -228,4 +232,140 @@ select {
   width: 100%;
   display: block;
   padding: 6px;
+}
+
+/* DASHBOARD */
+.dashboard--container {
+  border-top: 2px solid #EFEFEF;
+  margin-top: 20px;
+}
+
+.dashboard--text {
+  font-size: 14px;
+}
+
+.dashboard--performance {
+  margin-top: 20px;
+}
+
+.dashboard--performance-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px; 
+  margin: 40px 10px 40px 25px;
+}
+
+.dashboard--users {
+  background-color: #38A3A5;
+  padding: 15px;
+  width: 20px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.dashboard--total-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard--items {
+  height: 90px;
+  justify-content: center;
+  border: 2px solid #EFEFEF;
+  border-radius: 5px;
+}
+
+.icon-bounce {
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeInDown 1s ease-out 1 forwards;
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.move-from-right {
+  animation: moveFromRight 1s ease-out 1 forwards;
+}
+
+@keyframes moveFromRight {
+  0% {
+    transform: translateX(50%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+
+.User--preference-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.locations-items{
+  margin-top: 45px;
+}
+
+.height120 {
+  height: 120px;
+}
+
+.width120 {
+  width: 55%;
+}
+
+.style--barGraph {
+  border: 2px solid #EFEFEF;
+  width: 650px;
+  height: 450px;
+}
+
+.top-spot-table{
+  width: 650px;
+  height: 500px;
+  margin: 20px 10px 0 25px;
+}
+
+.top-bookmark-table{
+ gap: 20px;
+ height: 500px;
+}
+
+.dashboard--location-container{
+  margin-top: -5px;
+}
+
+.apexcharts-text tspan {
+  font-size: 12px;
+}
+
+.bordercolor {
+  border-left: 5px solid #38A3A5;
+}
+
+.bordercolor1 {
+  border-bottom: 5px solid #57CC99;
+}
+
+.table--th1 > th {
+  background: #E7E7E7;
+  font-weight: 500;
+  height: 50px;
+  font-size: 14px;
+}
+
+.heading9 {
+  font-size: 28px;
+  font-weight: 700;
 }
