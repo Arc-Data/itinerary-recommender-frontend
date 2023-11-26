@@ -4,6 +4,9 @@ import AuthContext from '../context/AuthContext'
 import useLocationManager from '../hooks/useLocationManager'
 import { useNavigate } from 'react-router-dom'
 import ReactDatePicker from 'react-datepicker'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUpload, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+
 function AddLocation() {
     const { authTokens } = useContext(AuthContext)
     const [locationData, setLocationData] = useState(
@@ -17,7 +20,10 @@ function AddLocation() {
             'max_fee': "",
             'opening_time': new Date().setTime(0, 0, 0),
             'closing_time': new Date().setTime(0, 0, 0),
-            'description': ""
+            'description': '',
+            'contact': '',
+            'email': '',
+            'website': '',
         }
     )
     const navigate = useNavigate()
@@ -96,7 +102,7 @@ function AddLocation() {
 
     return (
         <>
-            <h1>Add Location</h1>
+            <h1 className="heading">Add Location</h1>
             <form className="admin--container">
                 <div className="input--form">
                     <select
@@ -123,12 +129,42 @@ function AddLocation() {
                     </div>
                     
                     <div className="input admin--container">
-                        <label htmlFor="address">Address</label>
+                        <label htmlFor="address">Location Address</label>
                         <input
                             type="text"
                             onChange={handleChange}
                             name="address"
                             value={locationData.address}
+                            className="styled-input" 
+                        />
+                    </div>
+                    <div className="input admin--container">
+                        <label htmlFor="contact">Phone number</label>
+                        <input
+                            type="text"
+                            onChange={handleChange}
+                            name="contact"
+                            value={locationData.contact}
+                            className="styled-input" 
+                        />
+                    </div>
+                    <div className="input admin--container">
+                        <label htmlFor="email">Email address</label>
+                        <input
+                            type="email"
+                            onChange={handleChange}
+                            name="email"
+                            value={locationData.email}
+                            className="styled-input" 
+                        />
+                    </div>
+                    <div className="input admin--container">
+                        <label htmlFor="website">Website</label>
+                        <input
+                            type="website"
+                            onChange={handleChange}
+                            name="website"
+                            value={locationData.website}
                             className="styled-input" 
                         />
                     </div>
@@ -192,7 +228,8 @@ function AddLocation() {
                                 timeIntervals={15}
                                 timeCaption="Time"
                                 dateFormat="h:mm aa"
-                                />
+                                className="styled-input"
+                            />
                         </div>
                         <div className="input admin--container">
                             <label htmlFor="closing">Closing Time</label>
@@ -204,7 +241,8 @@ function AddLocation() {
                                 timeIntervals={15}
                                 timeCaption="Time"
                                 dateFormat="h:mm aa"
-                                />
+                                className="styled-input"
+                            />
                         </div>
                     </div>
                     
@@ -226,15 +264,15 @@ function AddLocation() {
                         Upload
                     </button>
                 </div>
-                <div className="image--border center admin--container">
-                    <img src={image} />
-                    <label htmlFor="imgFile"> <a className='choose--file'>Choose file</a> to upload</label>
+                <div className="upload-btn">
+                    <FontAwesomeIcon className='upload-icon btn-icons' icon={faUpload} />
+                    <label htmlFor="imgFile" className="choose-file">Upload image</label>                    
                     <input
                         type="file"
                         id="imgFile"
                         name="filename"
                         accept="image/*"
-                        style={{ display: 'none' }} // Hide the default file input
+                        style={{ display: 'none' }}
                     />
                 </div>
             </form>
