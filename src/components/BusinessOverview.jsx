@@ -12,16 +12,18 @@ const BusinessOverview = () => {
         getBusinessDetail(id)
     }, [])
 
+    console.log(location)
+
     if (loading) {
         return (
-            <div>Loading..</div>
+            <div>Loading...</div>
         )
     }
 
     return (
         <div>
-            <p>{location.name}</p>
-            <p>{location.address}</p>
+            <p>{location?.name}</p>
+            <p>{location?.address}</p>
         </div>
     )
 }

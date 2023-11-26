@@ -87,7 +87,19 @@ function App() {
 					<Route path = "/admin/users" index element={<Users users={data[0].users}/>} />
 					<Route path="/admin/location" element={<AddLocation/>} />
 					<Route path="/admin/locations" element={<Location/>} />
-					<Route path="/admin/location/:id" element={<EditLocation />} />
+{/* 					
+					<Route path="/profile/business/:id" element={<ManageLayout />}>
+							<Route path="/profile/business/:id/" element={<BusinessOverview />} />
+							<Route path="/profile/business/:id/services" element={<Services />}/>
+							<Route path="/profile/business/:id/edit" element={<ManageBusiness />} />
+						</Route> */}
+					
+					<Route path="/admin/location/:id" element={<ManageLayout />} >
+						<Route path="/admin/location/:id/" element={<BusinessOverview />} />
+						<Route path="/admin/location/:id/services" element={<Services />} />
+						<Route path="/admin/location/:id/edit" element={<ManageBusiness />} />
+					</Route>
+					
 					<Route path="/admin/requests" element={<Request />} />
 				</Route>
 			</Routes>
