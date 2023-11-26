@@ -103,15 +103,15 @@ const useBusinessManager = (authTokens) => {
     }
 
     const editSpotBusiness = (location) => {
-
+        console.log("Editing a spot business")
     }
 
     const editFoodPlaceBusiness = (location) => {
-
+        console.log("Editing a food place business")
     }
 
     const editAccommodationBusiness = (location) => {
-
+        console.log("Editing an accommodation business")
     }
 
     const handleEditBusiness = (location) => {
