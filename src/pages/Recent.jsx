@@ -4,6 +4,8 @@ import dayjs from "dayjs"
 import { Link } from "react-router-dom"
 import StarDefault from "../components/StarDefault"
 import useDayManager from "../hooks/useDayManager"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendarDay, faRoute, faCheck, faPenToSquare, faStar } from '@fortawesome/free-solid-svg-icons';
 
 const Recent = () => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
@@ -27,7 +29,7 @@ const Recent = () => {
         return (
             <div key={day.id} className="profile--ratings-item">
                 <Link to={`/profile/rate/${day.id}`}>
-                    <img src={`${backendUrl}${day.image}`} width={200} height={100}/>
+                    <img src={`${backendUrl}${day.image}`} className="profile--ratings-item-img"/>
                 </Link>
                 <div className="profile--ratings-content">
                     <div className="profile--ratings-name">
@@ -46,27 +48,29 @@ const Recent = () => {
                                     <StarDefault color={'#000'} />
                                 </div>
                                 :
-                                <Link to={`${day.id}`} className="profile--rating-btn">Leave a Rating!</Link>
+                                <Link to={`${day.id}`} className="profile--rating-btn"><FontAwesomeIcon className="btn-icons" icon={faStar} />Leave a rating!</Link>
                             }
                             </>
                             :
                             <>
                             <Link to={`/plan/${day.itinerary}`}>
-                                <img src="/pencil.svg" alt="" />
+                                <button className="profile--mark-btn-edit">
+                                <FontAwesomeIcon icon={faPenToSquare} />
+                            </button>
                             </Link>
-                            <button className="profile--mark-btn" onClick={() => handleMarkAsComplete(day.id)}>
-                                <img src="/check.svg" alt="" />
+                            <button className="profile--mark-btn-done" onClick={() => handleMarkAsComplete(day.id)}>
+                                <FontAwesomeIcon icon={faCheck} />
                             </button>
                             </>
                             }
                         </div>
                     </div>
                     <div>
-                        <img src="/calendar.svg" />
+                        <FontAwesomeIcon icon={faCalendarDay} />
                         <span>{dayjs(day.date).format("MMMM D, YYYY")}</span>
                     </div>
                     <div>
-                        <img src="/trip.svg" />
+                        <FontAwesomeIcon icon={faRoute} />
                         <span>{locations}</span>
                     </div>
                     <p></p>

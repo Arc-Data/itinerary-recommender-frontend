@@ -1,9 +1,9 @@
-import { Link, Outlet } from 'react-router-dom'
+import { Link, NavLink, Outlet } from 'react-router-dom'
 import UserNav from '../components/UserNav'
 import { useContext, useState } from 'react'
 import AuthContext from '../context/AuthContext'
 import AccordionHeader from '../pages/AccordionHeader'
-import { faBookmark, faBuilding, faRoute } from '@fortawesome/free-solid-svg-icons'
+import { faBookmark, faBuilding, faRoute, faClipboardList, faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const ProfileLayout = () => {
@@ -25,39 +25,35 @@ const ProfileLayout = () => {
 						<p className="profile--email">{user.email}</p>
 					</div>
 					<div className='profile--links-section'>
-							<AccordionHeader 
-								active={openTrips}
-								handleClick={toggleTrips}
-								icon={faRoute}
-								text={"Your Trips"}
-								className='accordion-header-text'
-							/>
-							{openTrips &&
-							<div className='accordion-content'>
-								<div>
-									<Link to="trips">
-										Itineraries
-									</Link>
-								</div>
-								<div>
-									<Link to ="rate">
-										Recent
-									</Link>
-								</div>
-							</div>
-							}
-						<Link to = "business">
-							<div className='profile--link'>
-								<FontAwesomeIcon icon={faBuilding} className='btn-icons'/>
-								<p>Business</p>
-							</div>
-						</Link>
-						<Link to = "bookmark">
-							<div className="profile--link">
-								<FontAwesomeIcon icon={faBookmark} className='btn-icons'/>
-								<p>Bookmarks</p>
-							</div>
-						</Link>
+						<NavLink to="trips">
+							{({ isActive }) => (
+								<p className={`profile--link ${isActive ? 'active-link' : ''}`}>
+									<FontAwesomeIcon icon={faClipboardList} className="btn-icons" />
+									Itineraries
+								</p>
+							)}
+						</NavLink>
+						<NavLink to="rate" activeClassName="active-link">
+							{({ isActive }) => (
+								<p className={`profile--link ${isActive ? 'active-link' : ''}`}>
+									<FontAwesomeIcon icon={faStar} className="btn-icons"/>Rate Trips
+								</p>
+							)}
+						</NavLink>
+						<NavLink to="business" activeClassName="active-link">
+							{({ isActive }) => (
+								<p className={`profile--link ${isActive ? 'active-link' : ''}`}>
+									<FontAwesomeIcon icon={faBuilding} className='btn-icons'/>Business
+								</p>
+							)}
+						</NavLink>
+						<NavLink to="bookmark" activeClassName="active-link">
+							{({ isActive }) => (
+								<p className={`profile--link ${isActive ? 'active-link' : ''}`}>
+									<FontAwesomeIcon icon={faBookmark} className='btn-icons'/>Bookmarks
+								</p>
+							)}
+						</NavLink>
 					</div>
 				</div>
 				<Outlet />
