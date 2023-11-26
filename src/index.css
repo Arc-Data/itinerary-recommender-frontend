@@ -725,24 +725,21 @@ input[type="text"] {
     display: flex;
     flex-direction: column;
     max-width: 1200px;
-    height:100%;
-    width:100%;
+    height: 100%;
+    width: 100%;
     gap: 40px;
     margin: 0 auto;
     padding: 120px 0;
 }
-
 .detailPage--text {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
 }
-
 .detailPage--title {
     color: #212529;
     margin: 20px 0;
 }
-
 .detailPage--address-time > p {
     font-size: 18px;
     color: #333333;
@@ -1034,6 +1031,49 @@ input[type="text"] {
     flex-direction: column;
     gap: 16px;
 }
+
+/* DETAIL PAGE ADDITIONAL DETAILS */
+.detailPage--additional-details {
+    border: 2px solid #E7E7E7;
+    background-color: #F8F8F8;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: auto auto;
+    padding: 10px;
+} 
+.detailPage--additional-details > div {
+    padding: 20px;
+    border: 2px solid transparent;
+}
+.detailPage--additional-details > div > p {
+    margin-bottom: 20px;
+}
+.detailPage--fees-details > div > p {
+    color: #424242;
+}
+.detailPage--activities {
+    grid-row: span 2;
+}
+.detailPage--tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px; 
+}
+.detailPage--tag {
+    font-weight: 500;
+    padding: 10px 20px;
+    background-color: #E7E7E7;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 5px;
+}
+.detailPage--fees-details {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-gap: 20px;
+}
+
 
 /* USER AND ADD REVIEW BUTTON*/
 .write--review {
