@@ -37,6 +37,7 @@ import Dashboard from './pages/Dashboard';
 import EditLocation from './pages/EditLocation';
 import Services from "./components/Services"
 import ManageLayout from './layout/ManageLayout';
+import BusinessOverview from './components/BusinessOverview';
 	/*css*/
 	
 function App() {
@@ -65,6 +66,7 @@ function App() {
 						<Route path="/profile/business/add" element={<AddBusiness/>} />
 						
 						<Route path="/profile/business/:id" element={<ManageLayout />}>
+							<Route path="/profile/business/:id/" element={<BusinessOverview />} />
 							<Route path="/profile/business/:id/services" element={<Services />}/>
 							<Route path="/profile/business/:id/edit" element={<ManageBusiness />} />
 						</Route>
