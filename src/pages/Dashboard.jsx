@@ -132,7 +132,7 @@
 	return (
 		<div>
 			<div className='flex'>
-				<h1 className="heading2">Dashboard</h1>
+				<h1 className="heading9">Dashboard</h1>
 				{location.pathname !== '/admin/download' && (
 				<Link to={`/admin/download`}>
 					<button className="share--details-download-btn">
@@ -146,7 +146,7 @@
 			) : (
 			<div className="dashboard--container">
 				<div className="dashboard--performance">
-				<p className="font14 font-weight-600">Overall Performance</p>
+				<p className="font20 font-weight-600">Overall Performance</p>
 				<div className="dashboard--performance-container">
 					{dashboardData && (
 					<>
@@ -155,7 +155,7 @@
 							<FontAwesomeIcon icon={faUsers}  className="dashboard--users icon-bounce" style={{color: "white",}}/>
 							<div>
 							<h1 className="bold heading9 icon-bounce">{dashboardData.user_count}</h1>
-							<p className="mt-5px font13 icon-bounce">Total number of users</p>
+							<p className="mt-5px  icon-bounce">Total number of users</p>
 							</div>
 						</div>
 						</div>
@@ -164,7 +164,7 @@
 						<FontAwesomeIcon icon={faLocationDot}  className="dashboard--users icon-bounce" style={{background: "#38A3A5", color: "white"}}/>
 							<div>
 							<p className="bold heading9 icon-bounce">{dashboardData.location_count}</p>
-							<p className="mt-5px font13 icon-bounce">Total number of locations</p>
+							<p className="mt-5px  icon-bounce">Total number of locations</p>
 							</div>
 						</div>
 						</div>
@@ -173,7 +173,7 @@
 							<FontAwesomeIcon icon={faMapLocationDot}  className="dashboard--users icon-bounce" style={{color: "white",}} />
 							<div>
 							<h1 className="bold heading9 icon-bounce">{dashboardData.itinerary_count}</h1>
-							<p className="mt-5px font13 icon-bounce">Total number of Itinerary</p>
+							<p className="mt-5px  icon-bounce">Total number of Itinerary</p>
 							</div>
 						</div>
 						</div>
@@ -183,7 +183,7 @@
 				</div>
 				<div className='User--preference-container'>
 					<div>
-						<p className="font14 font-weight-600">User Preference</p>
+						<p className="font20 font-weight-600">User Preference</p>
 						<div className="dashboard--performance-container style--barGraph">
 							{preferencePercentages && (
 								<ReactApexChart
@@ -273,13 +273,13 @@
 					<div className='dashboard--location-container'>
 					{dashboardData && (
 						<>
-						<p className="font14 font-weight-600">Location</p>
+						<p className="font20 font-weight-600">Location</p>
 						<div className="locations-items">
 							<div className="dashboard--items d-flexCenter height120 bordercolor1">
 								<FontAwesomeIcon icon={faLocationDot}  className="dashboard--users move-from-right" style={{background: "#C7F9CC", color: "#57CC99"}}/>
 								<div className='width120'>
 									<h1 className="bold heading9 move-from-right">{dashboardData.spot_count}</h1>
-									<p className="mt-5px font13 move-from-right">Total number of spots</p>
+									<p className="mt-5px move-from-right">Total number of spots</p>
 								</div>
 							</div>
 						</div>
@@ -288,7 +288,7 @@
 								<FontAwesomeIcon icon={faHotel}  className="dashboard--users move-from-right" style={{background: "#C7F9CC", color: "#57CC99"}}/>
 								<div className='width120'>
 									<h1 className="bold heading9 move-from-right">{dashboardData.accommodation_count}</h1>
-									<p className="mt-5px font13 move-from-right">Total number of accommodation</p>
+									<p className="mt-5px move-from-right">Total number of accommodation</p>
 								</div>
 						</div>
 						</div>
@@ -297,7 +297,7 @@
 								<FontAwesomeIcon icon={faUtensils}  className="dashboard--users move-from-right" style={{background: "#C7F9CC", color: "#57CC99"}}/>
 								<div className='width120'>
 									<h1 className="bold heading9 move-from-right">{dashboardData.food_place_count}</h1>
-									<p className="mt-5px font13 move-from-right">Total number of food places</p>
+									<p className="mt-5px move-from-right">Total number of food places</p>
 								</div>
 							</div>
 						</div>
@@ -307,7 +307,7 @@
 				</div>
 				<div className='User--preference-container'>
 					<div className='dashboard--total-container'>
-						<p className="font14 font-weight-600">Top Spots</p>
+						<p className="font20 font-weight-600">Top Spots</p>
 						<table className="top-spot-table">
 							<thead>
 							<tr className='table--th1'>
@@ -328,7 +328,7 @@
 						</table>
 					</div>
 					<div className='dashboard--total-container'>
-						<p className="font14 font-weight-600">Top Bookmarks</p>
+						<p className="font20 font-weight-600">Top Bookmarks</p>
 						<table className="top-bookmark-table">
 							<thead>
 							<tr className='table--th1'>
