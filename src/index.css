@@ -2930,20 +2930,24 @@ input[type="text"] {
     align-items: center;
     border: 2px solid #184E77;
     border-radius: 10px;
-    margin-bottom: 20px;
     background: #FFFFFF;
+    position: relative;
+    filter: drop-shadow(5px 5px 0px #184E77);
 }
 
 .active--trip-locations {
     text-overflow: ellipsis;
     color: #212529;
     line-height: 1.2rem;
+    margin-bottom: 50px;
 }
 
 .active--trip-btns {
+    position: absolute;
+    bottom: 15px;
+    right: 12px;
     display: flex;
-    justify-content: end;
-    margin-top: 20px;
+    justify-content: flex-end;
 }
 .active--trip-checkbox {
     height: 50px;
