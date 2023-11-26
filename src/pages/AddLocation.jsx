@@ -3,47 +3,67 @@ import image from '/image.png'
 import AuthContext from '../context/AuthContext'
 import useLocationManager from '../hooks/useLocationManager'
 import { useNavigate } from 'react-router-dom'
+import ReactDatePicker from 'react-datepicker'
 function AddLocation() {
     const { authTokens } = useContext(AuthContext)
     const [locationData, setLocationData] = useState(
         {
-            type: "",
-            name: "",
-            address: "",
-            tags: "",
-            latitude: "",
-            longitude: "",
-            min_fee: "",
-            max_fee: "",
-            opening_time: "",
-            closing_time: "",
-            description: ""
+            'type': "",
+            'name': "",
+            'address': "",
+            'latitude': "",
+            'longitude': "",
+            'min_fee': "",
+            'max_fee': "",
+            'opening_time': new Date().setTime(0, 0, 0),
+            'closing_time': new Date().setTime(0, 0, 0),
+            'description': ""
         }
     )
     const navigate = useNavigate()
     const { createLocation } = useLocationManager(authTokens)
 
     const handleSubmit = async () => {
-        // if (validateForm()) {
+        console.log("Hello?")
+        if (locationData.type === "1" && locationData.min_fee > locationData.max_fee) {
+            alert("Min fee couldnt be greater than maximum fee")
+            return 
+        }
+ 
+        if (validateForm()) {
+            const formattedData = {
+                ...locationData,
+                opening_time: formatTimeToString(new Date(locationData.opening_time)),
+                closing_time: formatTimeToString(new Date(locationData.closing_time)),
+            };
+
             const formData = new FormData();
     
-            Object.entries(locationData).forEach(([key, value]) => {
+            Object.entries(formattedData).forEach(([key, value]) => {
                 formData.append(key, value);
             });
-    
+
             const imageFileInput = document.getElementById('imgFile');
             if (imageFileInput.files.length > 0) {
                 formData.append('image', imageFileInput.files[0]);
             }
-    
+
             try {
-                const id = await createLocation(formData)
-                navigate(`/admin/location/${id}`)
+                console.log("wait what")
+                await createLocation(formData)
+                navigate(`/admin/location`)
 
             } catch (error) {
                 console.error(error);
             }
-        // }
+        }
+    };
+
+    const formatTimeToString = (time) => {
+        const hours = time.getHours().toString().padStart(2, '0');
+        const minutes = time.getMinutes().toString().padStart(2, '0');
+        const seconds = time.getSeconds().toString().padStart(2, '0');
+        return `${hours}:${minutes}:${seconds}`;
     };
 
     const validateForm = () => {
@@ -51,25 +71,27 @@ function AddLocation() {
             locationData.type.trim() !== '' &&
             locationData.name.trim() !== '' &&
             locationData.address.trim() !== '' &&
-            locationData.tags.trim() !== '' &&
             locationData.latitude.trim() !== '' &&
             locationData.longitude.trim() !== '' &&
-            locationData.min_fee.trim() !== '' &&
-            locationData.max_fee.trim() !== '' &&
-            locationData.opening_time.trim() !== '' &&
-            locationData.closing_time.trim() !== '' &&
             locationData.description.trim() !== ''
         );
     };
 
     const handleChange = (event) =>  {
         const { name, value } = event.target
-        setLocationData(prevLocationData => {
-            return {
-                ...prevLocationData,
-                [name]: value
-            }
-        })
+        
+        if (name === 'opening_time' || name === 'closing_time') {
+            const timeString = value.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            setLocationData(prev => ({
+                ...prev,
+                [name]: timeString,
+            }));
+        } else {
+            setLocationData(prev => ({
+                ...prev,
+                [name]: value,
+            }));
+        }
     }
 
     return (
@@ -110,16 +132,6 @@ function AddLocation() {
                             className="styled-input" 
                         />
                     </div>
-                    <div className="input admin--container">
-                            <label htmlFor="tags">Tags</label>
-                            <input
-                                type="text"
-                                onChange={handleChange}
-                                name="tags"
-                                value={locationData.tags}
-                                className="styled-input" 
-                            />
-                    </div>
                     <div className="admin--container">
                         <div className="input admin--container">
                             <label htmlFor="latitude">Latitude</label>
@@ -144,6 +156,7 @@ function AddLocation() {
                             />
                         </div>
                     </div>
+                        {locationData.type === "1" && 
                     <div className="admin--container">
                         <div className="input admin--container">
                             <label htmlFor="min_fee">Minimum Fee</label>
@@ -161,33 +174,41 @@ function AddLocation() {
                                 type="number"
                                 name="max_fee"
                                 onChange={handleChange}
-                                value={locationData.max_Fee}
+                                value={locationData.max_fee}
                                 className="styled-input" 
-                            />
+                                />
                         </div>
                      </div>
-                     <div className="admin--container">
-                            <div className="input admin--container">
-                                <label htmlFor="opening">Opening Time</label>
-                                <input
-                                    type="text"
-                                    name="opening_time"
-                                    onChange={handleChange}
-                                    value={locationData.opening_time}
-                                    className="styled-input" 
+                    }
+                    {locationData.type === "1" && 
+                    <div className="admin--container">
+                        <div className="input admin--container">
+                            <label htmlFor="opening">Opening Time</label>
+                            <ReactDatePicker
+                                selected={locationData.opening_time}
+                                onChange={(date) => setLocationData({ ...locationData, opening_time: date })}                            
+                                showTimeSelect
+                                showTimeSelectOnly
+                                timeIntervals={15}
+                                timeCaption="Time"
+                                dateFormat="h:mm aa"
                                 />
-                            </div>
-                            <div className="input admin--container">
-                                <label htmlFor="closing">Closing Time</label>
-                                <input
-                                    type="text"
-                                    name="closing_time"
-                                    onChange={handleChange}
-                                    value={locationData.closing_time}
-                                    className="styled-input" 
-                                />
-                            </div>
                         </div>
+                        <div className="input admin--container">
+                            <label htmlFor="closing">Closing Time</label>
+                            <ReactDatePicker
+                                selected={locationData.closing_time}
+                                onChange={(date) => setLocationData({ ...locationData, closing_time: date })}                            
+                                showTimeSelect
+                                showTimeSelectOnly
+                                timeIntervals={15}
+                                timeCaption="Time"
+                                dateFormat="h:mm aa"
+                                />
+                        </div>
+                    </div>
+                    
+                    }
                     <div className="input admin--container">
                         <label htmlFor="description">Description</label>
                         <textarea
