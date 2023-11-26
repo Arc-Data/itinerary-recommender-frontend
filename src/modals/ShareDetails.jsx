@@ -48,7 +48,10 @@ const ShareDetails = ({onClose, day, costEstimate}) => {
             <div className="overlay" onClick={onClose}></div>
             <div className="share--details">
                 <div className="share--details-container" id ="day-trips">
-                    <div className="heading share--cebu-route">CebuRoute</div>
+                    <div className="span-items">
+                        <div className="heading share--cebu-route">CebuRoute</div>
+                        <button data-html2canvas-ignore="true" onClick={exportPDF} className="share--details-download-btn"><FontAwesomeIcon className="btn-icons" icon={faFileArrowDown} />Download</button>
+                    </div>
                     <div className="share--details-header">
                         <p>Itinerary name: {day.itinerary_name}</p>
                         <p>Day number: {day.order}</p>
@@ -57,7 +60,6 @@ const ShareDetails = ({onClose, day, costEstimate}) => {
                     <div className="share--details-content">
                         {displayItems}
                     </div>
-                    <button data-html2canvas-ignore="true" onClick={exportPDF} className="share--details-download-btn"><FontAwesomeIcon className="btn-icons" icon={faFileArrowDown} />Download</button>
                 </div>
                 <ShareMap markers={markers} />
             </div>
