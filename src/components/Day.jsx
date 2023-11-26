@@ -290,12 +290,12 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
                         <button
                             onClick={toggleLocationModal} 
                             className="plan--btn btn-primary">
-                            <span><FontAwesomeIcon icon={faPlus}/>Add Location</span>
+                            <span><FontAwesomeIcon className="btn-icons" icon={faPlus}/>Add Location</span>
                         </button>
                         <button 
                             onClick={toggleAssistantModal}
                             className="plan--btn btn-secondary">
-                            <span className="ai-assistant"><FontAwesomeIcon icon={faWandMagicSparkles}/>AI Assistant</span>
+                            <span className="ai-assistant"><FontAwesomeIcon className="btn-icons" icon={faWandMagicSparkles}/>AI Assistant</span>
                         </button>
                         {locations &&
                         <button className="btn-link" onClick={toggleOrdering}>Edit</button>
