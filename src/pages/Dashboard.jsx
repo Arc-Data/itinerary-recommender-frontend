@@ -1,10 +1,13 @@
 	import React, { useEffect, useState, useContext } from 'react';
 	import AuthContext from '../context/AuthContext';
 	import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-	import { faMapLocationDot, faLocationDot, faUsers, faHotel , faUtensils } from '@fortawesome/free-solid-svg-icons';
+	import { faMapLocationDot, faLocationDot, faUsers, faHotel , faUtensils , faFileArrowDown } from '@fortawesome/free-solid-svg-icons';
 	import ReactApexChart from 'react-apexcharts';
+	
+	import { useLocation, Link } from 'react-router-dom';
 
 	const Dashboard = () => {
+		const location = useLocation();
 		const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 		const { authTokens } = useContext(AuthContext);
 		const [dashboardData, setDashboardData] = useState(null);
@@ -13,6 +16,7 @@
 		const [topSpots, setTopSpots] = useState([]);
 		const [topBookmarks, setTopBookmarks] = useState([]);
 		const [loading, setLoading] = useState(true); 
+		
 
 	useEffect(() => {
 	const fetchCounts = async () => {
@@ -125,10 +129,18 @@
 		religion: '#C7F9CC',
 	};
 
-
 	return (
 		<div>
-		<h1 className="heading2">Dashboard</h1>
+			<div className='flex'>
+				<h1 className="heading2">Dashboard</h1>
+				{location.pathname !== '/admin/download' && (
+				<Link to={`/admin/download`}>
+					<button className="share--details-download-btn">
+						<FontAwesomeIcon className="btn-icons" icon={faFileArrowDown} /> Download
+					</button>
+				</Link>
+				)}
+			</div>
 		{loading ? (
 			<p>Loading...</p>
 			) : (
@@ -229,7 +241,7 @@
 									yaxis: {
 									labels: {
 										formatter: function (value) {
-										return Math.round(value); 
+										return Math.round(value) + '%';
 										},
 									},
 									},
