@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Modal from "./Modal"
+import Modal from "../components/Modal"
 import DatePicker from 'react-datepicker';
 import { useParams } from "react-router-dom";
 
