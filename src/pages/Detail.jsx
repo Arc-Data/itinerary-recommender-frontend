@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 /*Components*/
-import DetailCard from "../components/DetailCard";
 import Review from "../components/Review";
 /*Icon*/
 import {
@@ -19,10 +18,16 @@ import FoodDetail from "../components/FoodDetail";
 import AccommodationDetail from "../components/AccommodationDetail";
 import useLocationManager from "../hooks/useLocationManager";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookmark } from '@fortawesome/free-solid-svg-icons';
-import { faMap } from '@fortawesome/free-solid-svg-icons';
-import { faClock } from '@fortawesome/free-solid-svg-icons';
-import { faMoneyBills } from '@fortawesome/free-solid-svg-icons';
+import { 
+	faAnglesLeft, 
+	faAnglesRight,
+	faChevronLeft, 
+	faChevronRight,
+	faMoneyBills,
+	faClock,
+	faMap,
+	faBookmark,
+} from '@fortawesome/free-solid-svg-icons';
 
 export default function DetailPage() {
 	const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
@@ -535,39 +540,52 @@ export default function DetailPage() {
 				<Review key={item.id} {...item} />
 				))}
 				<div className="pagination">
-				{/* Previous Page Button */}
-				<button
-					id="pagination--button1"
-					className={`plan--btn ${currentPage === 1 ? "" : ""}`}
-					onClick={handlePrevPage}
-					disabled={currentPage === 1}
-				>
-					<FaArrowLeft />
-				</button>
-				{/* Page Buttons */}
-				{Array.from({ length: totalPages }, (_, index) => index + 1).map(
-					(page) => (
 					<button
-						key={page}
-						id="pagination--button"
-						className={`plan--btn ${
-						page === currentPage ? "btn-primary" : "btn-secondary"
-						}`}
-						onClick={() => handlePageChange(page)}
+						id="pagination--button1"
+						className={`plan--btn ${currentPage === 1 ? "" : ""}`}
+						onClick={() => handlePageChange(1)}
+						disabled={currentPage === 1}
 					>
-						{page}
+						<FontAwesomeIcon icon={faAnglesLeft} />
 					</button>
-					)
-				)}
-				{/* Next Page Button */}
-				<button
-					id="pagination--button1"
-					className={`plan--btn ${currentPage === totalPages ? "" : ""}`}
-					onClick={handleNextPage}
-					disabled={currentPage === totalPages}
-				>
-					<FaArrowRight />
-				</button>
+					<button
+						id="pagination--button1"
+						className={`plan--btn ${currentPage === 1 ? "" : ""}`}
+						onClick={handlePrevPage}
+						disabled={currentPage === 1}
+					>
+						 <FontAwesomeIcon icon={faChevronLeft} />
+					</button>
+					{Array.from({ length: totalPages }, (_, index) => index + 1).map(
+						(page) => (
+						<button
+							key={page}
+							id="pagination--button"
+							className={`plan--btn ${
+							page === currentPage ? "btn-primary" : "btn-secondary"
+							}`}
+							onClick={() => handlePageChange(page)}
+						>
+							{page}
+						</button>
+						)
+					)}
+					<button
+						id="pagination--button1"
+						className={`plan--btn ${currentPage === totalPages ? "" : ""}`}
+						onClick={handleNextPage}
+						disabled={currentPage === totalPages}
+					>
+						<FontAwesomeIcon icon={faChevronRight} />
+					</button>
+					<button
+						id="pagination--button1"
+						className={`plan--btn ${currentPage === totalPages ? "" : ""}`}
+						onClick={() => handlePageChange(totalPages)}
+						disabled={currentPage === totalPages}
+					>
+						<FontAwesomeIcon icon={faAnglesRight} />
+					</button>
 				</div>
 				<p className="pagination--result">
 					Showing results {resultStart}-{resultEnd} of {reviewData.length}

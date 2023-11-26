@@ -1,10 +1,10 @@
-	import React, { useEffect, useState, useContext } from 'react';
-	import AuthContext from '../context/AuthContext';
-	import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-	import { faMapLocationDot, faLocationDot, faUsers, faHotel , faUtensils , faFileArrowDown } from '@fortawesome/free-solid-svg-icons';
-	import ReactApexChart from 'react-apexcharts';
-	
-	import { useLocation, Link } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from 'react';
+import AuthContext from '../context/AuthContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapLocationDot, faLocationDot, faUsers, faHotel , faUtensils , faFileArrowDown } from '@fortawesome/free-solid-svg-icons';
+import ReactApexChart from 'react-apexcharts';
+
+import { useLocation, Link } from 'react-router-dom';
 
 	const Dashboard = () => {
 		const location = useLocation();
