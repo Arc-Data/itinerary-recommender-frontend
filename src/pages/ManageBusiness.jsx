@@ -1,13 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams , useNavigate } from "react-router-dom"
 import AuthContext from "../context/AuthContext";
-import Modal from "react-modal";
 import ManageFood from "../components/ManageFood"
 import ManageSpot from "../components/ManageSpot"
 import ManageAccommodation from "../components/ManageAccommodation"
 import useBusinessManager from "../hooks/useBusinessManager";
-
-Modal.setAppElement("#root");
 
 const ManageBusiness = () => {
 	const { id } = useParams();

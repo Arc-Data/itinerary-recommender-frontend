@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useParams , useNavigate } from "react-router-dom"
-import AuthContext from "../context/AuthContext";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"
 import { FaTrash, FaPencilAlt } from "react-icons/fa";
 import SAMPLEIMAGE from "/images/osmenapeak.jpg";
 import Modal from "react-modal";
