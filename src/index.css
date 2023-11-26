@@ -1159,9 +1159,8 @@ input[type="text"] {
 }
 
 #pagination--button1 {
-    border: 2px solid #E7E7E7;
+    border: 2px solid #184e77;
     position: relative;
-    top: 3px;
     color: #212529;
     background-color: rgb(255, 253, 253);
 }

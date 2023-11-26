@@ -3,8 +3,10 @@ import searchIcon from '/images/search.png';
 import { useContext, useEffect, useState } from 'react';
 import AuthContext from '../context/AuthContext';
 import useLocationManager from '../hooks/useLocationManager';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAnglesLeft, faAnglesRight, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+
 import {
-	FaArrowLeft,
 	FaArrowRight,
     FaEdit,
 	} from "react-icons/fa";
@@ -72,12 +74,22 @@ function Location() {
         if (result?.previous) {
             buttons.push(
                 <button 
+                    key="first" 
+                    id="pagination--button1"
+					className={`plan--btn ${currentPage === 1 ? "" : ""}`}
+                    onClick={() => handlePageChange(1)} disabled={currentPage === 1}>
+                    <FontAwesomeIcon icon={faAnglesLeft} />
+                </button>
+            );
+    
+            buttons.push(
+                <button 
                     key="prev" 
                     id="pagination--button1"
 					className={`plan--btn ${currentPage === 1 ? "" : ""}`}
                     disabled={currentPage === 1}
                     onClick={() => handlePageChange(currentPage - 1)}>
-                    <FaArrowLeft />
+                    <FontAwesomeIcon icon={faChevronLeft} />
                 </button>
             );
         }
@@ -88,8 +100,8 @@ function Location() {
                     key={page} 
                     id='pagination--button'
                     className={`plan--btn ${
-						page === currentPage ? "btn-primary" : "btn-secondary"
-						}`}
+                        page === currentPage ? "btn-primary" : "btn-secondary"
+                        }`}
                     onClick={() => handlePageChange(page)} disabled={page === currentPage}>
                     {page}
                 </button>
@@ -101,10 +113,20 @@ function Location() {
                 <button 
                     key="next" 
                     id="pagination--button1"
-					className={`plan--btn ${currentPage === totalPages ? "" : ""}`}
+					className={`plan--btn ${currentPage === 1 ? "" : ""}`}
                     disabled={currentPage === totalPages}
                     onClick={() => handlePageChange(currentPage + 1)}>
-                    <FaArrowRight />
+                    <FontAwesomeIcon icon={faChevronRight} />
+                </button>
+            );
+    
+            buttons.push(
+                <button 
+                    key="last" 
+                    id="pagination--button1"
+					className={`plan--btn ${currentPage === 1 ? "" : ""}`}
+                    onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages}>
+                    <FontAwesomeIcon icon={faAnglesRight} />
                 </button>
             );
         }

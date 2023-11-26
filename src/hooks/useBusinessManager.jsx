@@ -107,10 +107,10 @@ const useBusinessManager = (authTokens) => {
         }
     }
 
-    const getFoodItems = async (id) => {
+    const getServices = async (id) => {
         setLoading(true)
         try {
-            const response = await fetch(`${backendUrl}/api/food/${id}`, {
+            const response = await fetch(`${backendUrl}/api/service/${id}/`, {
                 "method": "GET",
                 "headers": {
                     "Content-Type": "application/json",
@@ -119,6 +119,31 @@ const useBusinessManager = (authTokens) => {
             })
 
             const data = await response.json()
+            console.log(data)
+            setItems(data)
+        }
+        catch (error) {
+            setError(error)
+        }
+        finally {
+            console.log("shouldnt this have happened already")
+            setLoading(false)
+        }
+    }
+
+    const getFoodItems = async (id) => {
+        setLoading(true)
+        try {
+            const response = await fetch(`${backendUrl}/api/food/${id}/`, {
+                "method": "GET",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                }
+            })
+
+            const data = await response.json()
+            console.log(data)
             setItems(data)
         }
         catch (error) {
@@ -171,7 +196,18 @@ const useBusinessManager = (authTokens) => {
         }
     }
 
+    const handleServiceType = async (locationId, locationType) => {
+        if (locationType === "1") {
+            return;
+        } else if (locationType === "2") {
+            getFoodItems(locationId)
+        } else if (locationType === "3") {
+            getServices(locationId)
+        }
+    }
+
     return {
+        items,
         loading,
         error,
         location,
@@ -185,6 +221,7 @@ const useBusinessManager = (authTokens) => {
         getBusinessDetail,
         getOwnedBusinesses,
         getFoodItems,
+        handleServiceType,
     }
 }
 
