@@ -3,19 +3,19 @@ import LocationItem from "./LocationItem"
 import dayjs from "dayjs"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWandMagicSparkles, faChevronDown, faChevronUp, faBars, faPlus, faDotCircle, faCircle, faEllipsis, faPalette, faEdit, faRemove, faTrash, faLocationDot, faCheckDouble, faShare } from "@fortawesome/free-solid-svg-icons";
-import AddLocation from "./AddLocation";
-import ConfirmDeleteItem from "./ConfirmDeleteItem";
+import AddLocation from "../modals/AddLocation";
+import ConfirmDeleteItem from "../modals/ConfirmDeleteItem";
 import { DragDropContext,  Draggable } from "react-beautiful-dnd";
 import AuthContext from "../context/AuthContext";
 import StrictModeDroppable from "../components/StrictModeDroppable"
-import Assistant from "./Assistant";
+import Assistant from "../modals/Assistant";
 import Color from "./Color";
 import getFeeDetails from "../utils/getFeeDetails";
-import ConfirmDeleteDay from "./ConfirmDeleteDay";
+import ConfirmDeleteDay from "../modals/ConfirmDeleteDay";
 import useItemLocationManager from "../hooks/useItemLocationManager";
 import utc from 'dayjs/plugin/utc'
-import CompletionModal from "./CompletionModal";
-import ShareDetails from "./ShareDetails";
+import CompletionModal from "../modals/CompletionModal";
+import ShareDetails from "../modals/ShareDetails";
 
 dayjs.extend(utc)
 
