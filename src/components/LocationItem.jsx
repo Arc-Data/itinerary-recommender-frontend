@@ -54,7 +54,7 @@ const LocationItem = ({location}) => {
                             </p>
                             }
                             <div>
-                                {location.details.event.length > 1 && 
+                                {location.details.event.length >= 1 && 
                                 <div>
                                     <p>
                                     {location.details.event.length === 1 ? 
