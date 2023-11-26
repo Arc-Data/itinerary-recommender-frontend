@@ -390,19 +390,25 @@ export default function DetailPage() {
 		<div className="detailPage--review">
 			<div className="detailPage--reviews">
 				<h1 className='detailPage--title heading'>Reviews</h1>
-				<div className="detailPage--star">
-					{[...Array(5)].map((star, i) => (
-						<FaStar
-							key={i}
-							className="star"
-							color={
-							i + 1 <= location?.rating_percentages.average_rating ? "#ffc107" : "#e4e5e9"
-							}
-						/>
-					))}
-					<span> • {location?.rating_percentages.total_reviews} Reviews  <span className="mr5px">•</span></span>
-					<span>{location?.rating_percentages.average_rating}</span>
+				<div className="span-items">
+					<p>{location?.rating_percentages.average_rating}</p>
+					<div className="detailPage--star">
+						{[...Array(5)].map((star, i) => (
+							<FaStar
+								key={i}
+								className="star"
+								color={
+								i + 1 <= location?.rating_percentages.average_rating ? "#ffc107" : "#e4e5e9"
+								}
+							/>
+						))}
+						{/* <span>{location?.rating_percentages.total_reviews} Reviews <span></span></span>
+						<span> <span></span>• {location?.rating_percentages.average_rating}</span> */}
+					</div>
+					<p>{location?.rating_percentages.total_reviews}</p>
 				</div>
+				
+
 				<div className="ratings--container">
 					{[5, 4, 3, 2, 1].map((i, index) => {
 						const style = {
