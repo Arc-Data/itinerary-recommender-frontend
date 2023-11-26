@@ -4,7 +4,7 @@ import { FaTrash, FaPencilAlt } from "react-icons/fa";
 import SAMPLEIMAGE from "/images/osmenapeak.jpg";
 
 
-const ManageSpot = ({ location }) => {
+const ManageSpot = ({ location, handleEditBusiness }) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
 	const navigate = useNavigate()
 
@@ -40,6 +40,7 @@ const ManageSpot = ({ location }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault() 
+        handleEditBusiness(location.location_type, formData)
 	}
 
 	const toggleAddProduct = () => {
@@ -148,7 +149,7 @@ const ManageSpot = ({ location }) => {
                         <label htmlFor="description">Description</label>
                         <textarea
                         name="description"
-                        // value={location?.description}
+                        value={formData.description}
                         />
                     </div>
                     </div>

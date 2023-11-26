@@ -130,7 +130,12 @@ const useBusinessManager = (authTokens) => {
     }
 
     const editSpotBusiness = (location) => {
-        console.log("Editing a spot business")
+        try {
+            console.log("Editing a location object")
+        }
+        catch(error) {
+
+        }
     }
 
     const editFoodPlaceBusiness = (location) => {
@@ -141,13 +146,13 @@ const useBusinessManager = (authTokens) => {
         console.log("Editing an accommodation business")
     }
 
-    const handleEditBusiness = (location) => {
-        if (location.locationType === "1") {
-            editSpotBusiness(location)
-        } else if(location.locationType === "2") {
-            editFoodPlaceBusiness(location)
-        } else if (location.location_type === "3")
-            editAccommodationBusiness(location)
+    const handleEditBusiness = (locationType, data) => {
+        if (locationType === "1") {
+            editSpotBusiness(data)
+        } else if(locationType === "2") {
+            editFoodPlaceBusiness(data)
+        } else if (locationType === "3")
+            editAccommodationBusiness(data)
     }
 
     return {

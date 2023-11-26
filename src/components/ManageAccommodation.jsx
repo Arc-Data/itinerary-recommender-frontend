@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { FaTrash, FaPencilAlt } from "react-icons/fa";
 import SAMPLEIMAGE from "/images/osmenapeak.jpg";
 
-const ManageAccommodation = ({ location }) => {
+const ManageAccommodation = ({ location, handleEditBusiness }) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
 	const navigate = useNavigate()
 
@@ -39,6 +39,7 @@ const ManageAccommodation = ({ location }) => {
 
     const handleSubmit = (e) => {
 		e.preventDefault() 
+        handleEditBusiness(location.location_type, formData)
 	}
 
 	const toggleAddProduct = () => {

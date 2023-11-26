@@ -7,7 +7,7 @@ import ProductModal from "../modals/ProductModal";
 
 Modal.setAppElement("#root");
 
-const ManageBusiness = ({ location }) => {
+const ManageBusiness = ({ location, handleEditBusiness }) => {
 	const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
 
 	const [isAddProductModalOpen, setAddProductModalOpen] = useState(false);
@@ -45,6 +45,7 @@ const ManageBusiness = ({ location }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault() 
+		handleEditBusiness(location.location_type, formData)
 	}
 
 	const toggleAddProduct = () => {
