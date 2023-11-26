@@ -19,9 +19,10 @@ const LocationItem = ({location}) => {
         backgroundPosition: 'center'
     }
 
-    const displayEvents = location.details.event.map(location => {
+    const displayEvents = location.details.event && location.details.event.map(location => {
+        console.log(location)
         return (
-            <div>{location.name}</div>
+            <div key={location.id}>{location.name}</div>
         )
     })
 
