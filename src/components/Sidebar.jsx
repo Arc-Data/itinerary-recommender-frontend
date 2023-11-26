@@ -26,7 +26,7 @@ function Sidebar() {
             </div>
             <div className="sidebar--menu">
                 <NavLink
-                    className={({ isActive }) => isActive ? '' : 'link'}
+                    className={({ isActive }) => isActive ? 'active14' : 'link14'}
                     to="/"
                 >
                     <h4 className="users">
@@ -34,7 +34,7 @@ function Sidebar() {
                     </h4>
                 </NavLink>
                 <NavLink
-                    className={({ isActive }) => isActive ? 'active' : 'link'}
+                    className={({ isActive }) => isActive ? 'active14' : 'link14'}
                     to="/admin/users"
                 >
                     <h4 className="users">
@@ -42,7 +42,7 @@ function Sidebar() {
                     </h4>
                 </NavLink>
                 <NavLink
-                    className={({ isActive }) => isActive ? 'active' : 'link'}
+                    className={({ isActive }) => isActive ? 'active14' : 'link14'}
                     to="/admin/locations"
                     onClick={() => {
                         toggleLocationDropdown()
@@ -87,7 +87,7 @@ function Sidebar() {
                     </div>
                 )}
                 <NavLink
-                    className={({ isActive }) => isActive ? 'active' : 'link'}
+                    className={({ isActive }) => isActive ? 'active14' : 'link14'}
                     to="requests"
                 >
                     <h4 className="users">
