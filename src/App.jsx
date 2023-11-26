@@ -38,6 +38,7 @@ import EditLocation from './pages/EditLocation';
 import Services from "./components/Services"
 import ManageLayout from './layout/ManageLayout';
 import BusinessOverview from './components/BusinessOverview';
+import DownloadDashboard from './pages/DownloadDashboard';
 	/*css*/
 	
 function App() {
@@ -101,6 +102,7 @@ function App() {
 					</Route>
 					
 					<Route path="/admin/requests" element={<Request />} />
+					<Route path="/admin/download" element={<DownloadDashboard />} />
 				</Route>
 			</Routes>
 		</AuthProvider>
