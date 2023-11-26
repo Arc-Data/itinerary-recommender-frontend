@@ -35,7 +35,7 @@ const Business = () => {
                                 <p className="view--manage">View</p>
                             </div>
                         </Link>
-                        <Link to={`/profile/business/manage/${owned.id}`} >
+                        <Link to={`/profile/business/${owned.id}`} >
                             <div className="d-flexCenter margin">
                                 <img src={settings}/>
                                 <p className="view--manage">Manage</p>
