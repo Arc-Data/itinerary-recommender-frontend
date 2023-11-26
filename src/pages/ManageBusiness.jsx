@@ -32,33 +32,33 @@ const ManageBusiness = () => {
 
 	useEffect(() => {
 		const fetchData = async (id) => {
-		try {
-			const response = await fetch(`${backendUrl}/api/user/business/${id}/`, {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				"Authorization": `Bearer ${authTokens.access}`,
-			},
-			});
+			try {
+				const response = await fetch(`${backendUrl}/api/user/business/${id}/`, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": `Bearer ${authTokens.access}`,
+					},
+				});
 
-			if (response.status === 404) {
-			throw new Error("Error fetching data");
+				if (response.status === 404) {
+					throw new Error("Error fetching data");
+				}
+				
+				const data = await response.json();
+				setBusinessData(data.business);
+
+				setFormData({
+					'name': data.business.name,
+					'description': data.business.description,
+					'latitude': data.business.latitude,
+					'longitude': data.business.longitude,
+				})
+				setLoading(false); 
+			} catch (error) {
+				console.error("Error fetching data:", error);
+				setLoading(false); 
 			}
-			
-			const data = await response.json();
-			setBusinessData(data.business);
-
-			setFormData({
-			'name': data.business.name,
-			'description': data.business.description,
-			'latitude': data.business.latitude,
-			'longitude': data.business.longitude,
-			})
-			setLoading(false); 
-		} catch (error) {
-			console.error("Error fetching data:", error);
-			setLoading(false); 
-		}
 		};
 
 		fetchData(id);
