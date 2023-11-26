@@ -389,8 +389,8 @@ export default function DetailPage() {
 
 		<div className="detailPage--review">
 			<div className="detailPage--reviews">
-				<h1 className='detailPage--title heading'>Reviews</h1>
-				<div className="span-items">
+				<h1 className='detailPage--title heading'>Reviews & ratings</h1>
+				<div className="detailPage--reviews-info">
 					<p>{location?.rating_percentages.average_rating}</p>
 					<div className="detailPage--star">
 						{[...Array(5)].map((star, i) => (
@@ -405,7 +405,7 @@ export default function DetailPage() {
 						{/* <span>{location?.rating_percentages.total_reviews} Reviews <span></span></span>
 						<span> <span></span>• {location?.rating_percentages.average_rating}</span> */}
 					</div>
-					<p>{location?.rating_percentages.total_reviews}</p>
+					<p>{location?.rating_percentages.total_reviews} reviews</p>
 				</div>
 				
 
@@ -453,7 +453,7 @@ export default function DetailPage() {
 								/>
 								))}
 							</div>
-							<p className="date--posted font15">
+							<p className="date--posted">
 								{" "}
 								Posted: {timeToNow(userReview.datetime_created)}
 							</p>
@@ -467,11 +467,11 @@ export default function DetailPage() {
 									<div 
 										className="plan--day-dropcontent-item"
 										onClick={deleteReview}>
-										<FaTrash />
+										<FaTrash className="btn-icons"/>
 										<p>Delete review</p>
 									</div>
 									<div className="plan--day-dropcontent-item" onClick={handleEditReview}>
-										<FaEdit />
+										<FaEdit className="btn-icons"/>
 										<p>Edit review</p>
 									</div>
 								</div>
@@ -523,9 +523,11 @@ export default function DetailPage() {
 			)}
 			</div>
 		</div>
+		<div className="detailPage--review">
+			<div></div>
 			<div className="user--review">
-				<h1 className="mb15px">Reviews</h1>
-				<hr></hr>
+				<h1 className="mb15px"></h1>
+				<div className="gray-line"></div>
 				{reviewData.map((item) => (
 				<Review key={item.id} {...item} />
 				))}
@@ -539,7 +541,6 @@ export default function DetailPage() {
 				>
 					<FaArrowLeft />
 				</button>
-
 				{/* Page Buttons */}
 				{Array.from({ length: totalPages }, (_, index) => index + 1).map(
 					(page) => (
@@ -555,7 +556,6 @@ export default function DetailPage() {
 					</button>
 					)
 				)}
-
 				{/* Next Page Button */}
 				<button
 					id="pagination--button1"
@@ -567,9 +567,10 @@ export default function DetailPage() {
 				</button>
 				</div>
 				<p className="pagination--result">
-				Showing results {resultStart}-{resultEnd} of {reviewData.length}
+					Showing results {resultStart}-{resultEnd} of {reviewData.length}
 				</p>
 			</div>
 		</div>
+	</div>
 	);
 }
