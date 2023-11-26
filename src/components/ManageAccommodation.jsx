@@ -1,4 +1,4 @@
-const ManageAccommodation = () => {
+const ManageAccommodation = ({ location }) => {
     return (
         <div>ManageAccommodation</div>
     )

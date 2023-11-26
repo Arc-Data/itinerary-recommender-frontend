@@ -79,6 +79,33 @@ const useBusinessManager = (authTokens) => {
         }
     }
 
+    const getBusinessDetail = async (id) => {
+        setLoading(true) 
+        
+        try {
+            const response = await fetch(`${backendUrl}/api/user/business/${id}/`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${authTokens.access}`,
+                },
+            });
+
+            if (response.status === 404) {
+                throw new Error("Error fetching data");
+            }
+            
+            const data = await response.json();
+            setLocation(data.business)
+        }
+        catch (error) {
+            console.log("Error while fetching business data : ", error)
+        }
+        finally {
+            setLoading(false)
+        }
+    }
+
     const getAllApprovalRequests = async () => {
         setLoading(true)
 
@@ -134,6 +161,7 @@ const useBusinessManager = (authTokens) => {
         getApprovalRequests,
         getAllApprovalRequests,
         handleEditBusiness,
+        getBusinessDetail,
         getOwnedBusinesses,
     }
 }

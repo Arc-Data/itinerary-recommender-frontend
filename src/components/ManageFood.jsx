@@ -8,13 +8,10 @@ import ProductModal from "../modals/ProductModal";
 
 Modal.setAppElement("#root");
 
-const ManageBusiness = ({businessData}) => {
-	const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL;
+const ManageBusiness = ({ location }) => {
+	const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
 
-	const { id } = useParams();
-	const { authTokens } = useContext(AuthContext);
 	const [isAddProductModalOpen, setAddProductModalOpen] = useState(false);
-	const [businessData, setBusinessData] = useState();
 	const navigate = useNavigate()
 
 	const [formData, setFormData] = useState({
@@ -22,12 +19,22 @@ const ManageBusiness = ({businessData}) => {
 		'address': '',
 		'latitude': '',
 		'longitude': '',
-		'min_fee': 0,
-		'max_fee': 0,
-		'opening_time': '',
-		'closing_time': '',
 		'description': ''
 	})
+
+	useEffect(() => {
+		const updateFormData = () => {
+			setFormData(prev => ({
+				'name': location.name,
+				'address': location.address,
+				'latitude': location.latitude,
+				'longitude': location.longitude,
+				'description': location.description,
+			}))
+		}
+
+		updateFormData()
+	}, [location])
 
 	const handleChangeInput = (e) => {
 		const { name, value } = e.target
@@ -39,55 +46,6 @@ const ManageBusiness = ({businessData}) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault() 
-
-		
-
-	}
-
-	useEffect(() => {
-		
-	}, [businessData])
-
-	useEffect(() => {
-		const fetchData = async (id) => {
-			try {
-				const response = await fetch(`${backendUrl}/api/user/business/${id}/`, {
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-						"Authorization": `Bearer ${authTokens.access}`,
-					},
-				});
-
-				if (response.status === 404) {
-					throw new Error("Error fetching data");
-				}
-				
-				const data = await response.json();
-				setBusinessData(data.business);
-
-				setFormData({
-					'name': data.business.name,
-					'description': data.business.description,
-					'latitude': data.business.latitude,
-					'longitude': data.business.longitude,
-				})
-				setLoading(false); 
-			} catch (error) {
-				console.error("Error fetching data:", error);
-				setLoading(false); 
-			}
-		};
-
-		fetchData(id);
-	}, [id, authTokens.access]);
-
-	if (loading) {
-		return <div>Loading...</div>; 
-	}
-
-	if (!businessData) {
-		return <div>Error loading data</div>; 
 	}
 
 	const toggleAddProduct = () => {
@@ -99,11 +57,7 @@ const ManageBusiness = ({businessData}) => {
 		<form onSubmit={handleSubmit}>
 			<div className="admin-wrapper admin--container">
 				<div className="input--form">
-				<p>{
-				businessData.location_type === "1" ? 
-					"Spot" : businessData.location_type === "2" ? 
-					"Food Place" : "Accommodation"  
-				}</p>
+				<p>FoodPlace</p>
 				<div className="input admin--container">
 					<label htmlFor="name">Location Name</label>
 					<input
@@ -205,7 +159,7 @@ const ManageBusiness = ({businessData}) => {
 				</div>
 				</div>
 				<div className="image--border center admin--container">
-				<img className="edit--images" src={`${backendUrl}${businessData?.image}`}  />
+				<img className="edit--images" src={`${backendUrl}${location?.image}`}  />
 				<label htmlFor="imgFile">
 					{" "}
 					<a className="choose--file">Choose file</a> to upload

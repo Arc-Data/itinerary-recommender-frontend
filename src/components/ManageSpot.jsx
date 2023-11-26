@@ -1,4 +1,4 @@
-const ManageSpot = () => {
+const ManageSpot = ({ location }) => {
     return (
         <div>ManageSpot</div>
     )
