@@ -8,6 +8,8 @@ const ManageSpot = ({ location, editBusiness }) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
 	const navigate = useNavigate()
 
+    console.log(location)
+
     const [formData, setFormData] = useState({
 		'name': location.name,
 		'address': location.address,
@@ -15,10 +17,10 @@ const ManageSpot = ({ location, editBusiness }) => {
 		'longitude': location.longitude,
 		'description': location.description,
         'location_type': location.location_type,
-        'min_fee': 0,
-        'max_fee': 0,
-        'opening_time': '',
-        'closing_time': ''
+        'min_fee': location.min_fee,
+        'max_fee': location.max_fee,
+        'opening_time': location.opening_time,
+        'closing_time': location.closing_time
     })
 
 	const handleChangeInput = (e) => {
@@ -29,9 +31,15 @@ const ManageSpot = ({ location, editBusiness }) => {
 		}))
  	}
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault() 
-        editBusiness(location.id, formData)
+
+        if (formData.min_fee > formData.max_fee) {
+            alert("Min fee couldnt be greater than maximum fee")
+            return;
+        }
+
+        await editBusiness(location.id, formData)
 	}
 
 	const toggleAddProduct = () => {
@@ -105,6 +113,7 @@ const ManageSpot = ({ location, editBusiness }) => {
                         <label htmlFor="max_fee">Maximum Fee</label>
                         <input
                             number="text"
+                            onChange={handleChangeInput}
                             name="max_fee"
                             value={formData.max_fee}
                             className="styled-input"
