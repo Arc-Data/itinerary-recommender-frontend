@@ -10,6 +10,7 @@ const useBusinessManager = (authTokens) => {
     const [locations, setLocations] = useState([])
     const [requests, setRequests] = useState([])
     const [ownedLocations, setOwnedLocations] = useState([])
+    const [items, setItems] = useState([])
     
     const approveRequest = async (id) => {
         try {   
@@ -106,6 +107,29 @@ const useBusinessManager = (authTokens) => {
         }
     }
 
+    const getFoodItems = async (id) => {
+        setLoading(true)
+        try {
+            const response = await fetch(`${backendUrl}/api/food/${id}`, {
+                "method": "GET",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                }
+            })
+
+            const data = await response.json()
+            setItems(data)
+        }
+        catch (error) {
+            setError(error)
+        }
+        finally {
+            console.log("shouldnt this have happened already")
+            setLoading(false)
+        }
+    }
+
     const getAllApprovalRequests = async () => {
         setLoading(true)
 
@@ -160,6 +184,7 @@ const useBusinessManager = (authTokens) => {
         editBusiness,
         getBusinessDetail,
         getOwnedBusinesses,
+        getFoodItems,
     }
 }
 
