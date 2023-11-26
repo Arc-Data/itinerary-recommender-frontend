@@ -3,6 +3,8 @@ import useMarkerManager from "../hooks/useMarkerManager"
 import ShareMap from "./ShareMap"
 import html2canvas from "html2canvas"
 import jsPDF from "jspdf"
+import { faLocationDot, faFileArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const ShareDetails = ({onClose, day, costEstimate}) => {
     const { markers, getDayMarkersData } = useMarkerManager()
@@ -18,16 +20,23 @@ const ShareDetails = ({onClose, day, costEstimate}) => {
             })
     }
 
-    const displayItems = day.itinerary_items.map(item => {
+    const displayItems = day.itinerary_items.map((item, index) => {
         return (
             <div key={item.id}>
-                <p>{item.details.name}</p>
-                {item.details.min_cost !== 0 && item.details.max_cost !== 0 && 
-                <p>Costs {item.details.min_cost} - {item.details.max_cost}</p>
-                }
+                <div className="span-items share--location-item">
+                    <p className="share--location-name">
+                        <FontAwesomeIcon className="btn-icons" icon={faLocationDot} />
+                        {item.details.name}
+                    </p>
+                    {item.details.min_cost !== 0 && item.details.max_cost !== 0 && 
+                    <p className="share--location-costs font-weight-500">Costs {item.details.min_cost} - {item.details.max_cost} PHP</p>
+                    }
+                </div>
+                {index !== day.itinerary_items.length - 1 && <div className="location-divider"></div>}
             </div>
         )
     })
+
 
     useEffect(() => {
         getDayMarkersData(day)
@@ -36,18 +45,18 @@ const ShareDetails = ({onClose, day, costEstimate}) => {
     return (
         <>
             <div className="overlay" onClick={onClose}></div>
-            <div className="share--details" >
+            <div className="share--details">
                 <div className="share--details-container" id ="day-trips">
-                    <div>CebuRoute</div>
-                    <div>
-                        <p>{day.itinerary_name}</p>
-                        <p>Day {day.order}</p>
-                        <p>Estimated Costs : {costEstimate}</p>
+                    <div className="heading share--cebu-route">CebuRoute</div>
+                    <div className="share--details-header">
+                        <p>Itinerary name: {day.itinerary_name}</p>
+                        <p>Day number: {day.order}</p>
+                        <p>Total estimated cost: {costEstimate}</p>
                     </div>
                     <div className="share--details-content">
                         {displayItems}
                     </div>
-                    <button data-html2canvas-ignore="true" onClick={exportPDF}>Print</button>
+                    <button data-html2canvas-ignore="true" onClick={exportPDF} className="share--details-download-btn"><FontAwesomeIcon className="btn-icons" icon={faFileArrowDown} />Download</button>
                 </div>
                 <ShareMap markers={markers} />
             </div>

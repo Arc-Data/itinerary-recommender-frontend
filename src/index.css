@@ -81,7 +81,7 @@ button:hover {
 }
 .heading4 {
     font-size: 20px;
-    color: #333333;
+    color: #212529;
 }
 .heading5 {
     margin-top: 10px;
@@ -1964,12 +1964,57 @@ input[type="text"] {
     z-index: 10;
     background: white;
     display: grid;
-    grid-template-columns: 500px 400px;
+    grid-template-columns: 600px 400px;
     height: 600px;
 }
-
+.share--details-header {
+    background-color: #E7E7E7;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+.share--details-header > p {
+    margin-bottom: 5px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #184E77;
+}
+.share--details-container {
+    padding: 50px;
+    overflow-y: scroll;
+}
 .share--details-content {
     padding: 20px;
+}
+.share--cebu-route {
+    margin-bottom: 20px;
+    color: #184E77;
+}
+.share--location-item {
+    border: 2px solid transparent;
+    padding: 5px 0; 
+}
+.share--location-name {
+    color: #308B8C;
+    font-weight: 600;
+    font-size: 14px;
+}
+.location-divider {
+    width: 2px;
+    height: 25px; 
+    border-left: 4px dotted #308B8C;
+    margin: 0 6px;
+}
+.share--location-costs {
+    padding: 5px 10px;
+    background-color: #B5E48C;
+    color: #184E77;
+    font-size: 12px;
+    border-radius: 3px;
+}
+.share--details-download-btn {
+    padding: 10px 20px;
+    color: #FFF;
+    background-color: #184E77;
 }
 
 .plan--day-dropcontent {
@@ -2283,7 +2328,6 @@ input[type="text"] {
 .modal--delete , 
 .modal--proceed {
     background-color: red;
-    text-transform: uppercase;
     color: white;
 }
 
