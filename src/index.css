@@ -1076,23 +1076,29 @@ input[type="text"] {
 
 .button--stars {
     display: flex;
-    justify-content: space-between;
     width: 100%;
+    justify-content: space-between;
 }
 
 /* ADD REVIEW BUTTON AND EDIT REVIEW BUTTON */
-.submit--review, .edit--review {
+.submit--review, .cancel--review {
     display: flex;
     border-radius: 5px;
-    background: var(--1, #184E77);
-    width: 20%;
+    background-color: #57CC99;
     padding: 17px 13px;
     justify-content: center;
     align-items: center;
-    margin-top: 12px;
     width: 150px;
 }
-
+.cancel--review {
+    background-color: transparent;
+    border: 2px solid #E7E7E7;
+    color: #7C7C7C;
+}
+.edit--comment-btns {
+    display: flex;
+    gap: 20px;
+}
 .star--radioBtn[type="radio"] {
     display: none;
 } 

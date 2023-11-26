@@ -491,31 +491,34 @@ export default function DetailPage() {
 						onChange={(e) => handleReviewChange("comment", e.target.value)}
 					></textarea>
 					<div className="button--stars">
-						{editMode &&
-						<button className="submit--review" onClick={handleEditReview}>Cancel</button>
-						}
-						<button className="submit--review" onClick={handleSubmit}>
-							Submit Review
-						</button>
+						<div className="edit--comment-btns">
+							{editMode &&
+								<button className="cancel--review" onClick={handleEditReview}>Cancel</button>
+							}
+								<button className="submit--review" onClick={handleSubmit}>
+									Submit review
+								</button>
+						</div>
+						
 						<div className="detailPage--star">
-						{[...Array(5)].map((star, i) => {
-							return (
-							<label key={i}>
-								<input
-								type="radio"
-								className="star--radioBtn"
-								name="rating"
-								value={i + 1}
-								onClick={() => handleReviewChange("rating", i + 1)}
-								/>
-								<FaStar
-								className="star"
-								color={`${
-									i + 1 <= formData.rating ? "#ffc107" : "#e4e5e9"
-								}`}
-								/>
-							</label>
-							);
+							{[...Array(5)].map((star, i) => {
+								return (
+								<label key={i}>
+									<input
+									type="radio"
+									className="star--radioBtn"
+									name="rating"
+									value={i + 1}
+									onClick={() => handleReviewChange("rating", i + 1)}
+									/>
+									<FaStar
+									className="star"
+									color={`${
+										i + 1 <= formData.rating ? "#ffc107" : "#e4e5e9"
+									}`}
+									/>
+								</label>
+								);
 						})}
 						</div>
 					</div>
