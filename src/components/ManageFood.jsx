@@ -168,7 +168,7 @@ const ManageBusiness = ({ location, editBusiness }) => {
 
 		<div className="requests--table">
 			<div className="flex-between">
-			<p className="requests--title bold2">Product & Services</p>
+			<p className="requests--title bold2">Menu</p>
 			<button className="business--btn" onClick={toggleAddProduct}>
 				<img src="/plus.svg" />
 				<p>Add</p>
