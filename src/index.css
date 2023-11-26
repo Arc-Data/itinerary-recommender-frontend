@@ -207,6 +207,12 @@ a:-webkit-any-link {
     align-items: center;
 }
 
+.d-flexStart {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
 .flexWrap {
     flex-wrap: wrap;
 }
@@ -3337,4 +3343,10 @@ input[type="text"] {
 .view--manage1 {
     display: flex;
     justify-content: center;
+}
+
+/* Add events CSS */
+.add-events-btn {
+    padding: 10px 20px;
+    background-color: #184E77;
 }

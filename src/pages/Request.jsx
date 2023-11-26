@@ -45,16 +45,16 @@ const Request = () => {
 
     return (
         <div>
-            <h1 className="header-title">Requests</h1>
-            <div className="">
+            <h1 className="heading">Requests</h1>
+            <div>
                 <table>
-                    <thead className="table--th">
-                        <td>Name</td>
-                        <td>Location Type</td>
-                        <td>Owner</td>
-                        <td>Date Filled</td>
-                        <td>Status</td>
-                        <td>Action</td>
+                    <thead>
+                        <td className="font">Name</td>
+                        <td className="font">Location Type</td>
+                        <td className="font">Owner</td>
+                        <td className="font">Date Filled</td>
+                        <td className="font">Status</td>
+                        <td className="font">Action</td>
                     </thead>
                     <tbody>
                         {displayRequests}
