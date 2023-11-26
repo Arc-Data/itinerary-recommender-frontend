@@ -54,7 +54,10 @@ button:hover {
 .btn-icons {
     margin-right: 10px;
 }
-
+.gray-line {
+    width: 100%;
+    border: 1px solid #E7E7E7;
+}
 .vertical-center {
     display: flex;
     flex-direction: column;
@@ -745,7 +748,15 @@ input[type="text"] {
     color: #333333;
     margin: 4px 0;
 }
-
+.detailPage--reviews-info {
+    display: flex;
+    align-items: center;
+}
+.detailPage--reviews-info > p, .detailPage--reviews-info > div {
+    margin-right: 10px;
+    font-weight: 600;
+    color: #212529;
+}
 .detailPage--rating-stars {
     display: flex;
     align-items: center;
@@ -781,13 +792,12 @@ input[type="text"] {
 }
 
 .detailPage--about {
-    text-align: justify;
     text-justify: auto;
-    background-color: #E3E3E3;
+    background-color: #E7E7E7;
     width: 40%;
     padding: 20px;
     border-radius: 10px;
-    font-size: 17px;
+    font-size: 16px;
 }
 
 .detailPage--about > h1,
@@ -892,7 +902,7 @@ input[type="text"] {
 }
 .detailPage--review {
     display: grid;
-    grid-template-columns: 35% 60%;
+    grid-template-columns: 30% 70%;
     margin: 0;
 }
 
@@ -900,13 +910,14 @@ input[type="text"] {
 
 .detailPage--reviews{
     justify-content: center;
-    width: 60%;
+    width: 80%;
     height: auto;
 }
 
 .ratings {
     display: flex;
     gap: 10px;
+    font-weight: 600;
 }
 
 .food-place--container {
@@ -1003,7 +1014,7 @@ input[type="text"] {
 
 .ratings--bar {
     position: relative;
-    background: #d9d9d9;
+    background: #E4E5E9;
     width: 100%;
     border-radius: 10px;
 }
@@ -1026,18 +1037,18 @@ input[type="text"] {
 .write--review {
     padding: 5px; 
     margin-top: 109px;
-    width: 100%;
 }
 
 .ellipsis-icon {
     margin-left: 15px;
-    height: 35px;
-    width: 35px;
+    height: 40px;
+    width: 40px;
     padding: 8px;
+    cursor: pointer;
 }
 
 .ellipsis-icon:hover {
-    background-color: #bebebe;
+    background-color: #E7E7E7;
     border-radius: 50%;
 }
 
@@ -1046,17 +1057,14 @@ input[type="text"] {
     left: -25px;
     top: 40px;
     min-width: 120px;
-    width: 120px;
-    background: white;
-    font-weight: 400;
-    font-size: 14px;
-    text-align: center;
+    width: 165px;
+    background: #FFF;
     z-index: 20;
     box-shadow: 0 0 0.5em rgba(105, 100, 100, 0.5);
-    border-radius: 8px;
+    border-radius: 5px;
 }
 
-.input--review{
+.input--review {
     width: 100%;
     height: 100px;
     border-radius: 10px;
@@ -1111,8 +1119,6 @@ input[type="text"] {
 /*USER REVIEW ABOUT SPOT*/
 .user--review {
     max-width: 100%;
-    margin: 50px 70px 100px auto;
-    width: 60%;
 }
 
 .user--reviews {
@@ -1125,41 +1131,38 @@ input[type="text"] {
 }
 
 .date--posted {
-    color: #333333;
     margin-left: 10px;
     margin-right: 10px;
     text-align: end;
-    width: 50%;
 }
 
 /* PAGINATION */
 .pagination {
     text-align: center;
-  }
+    margin-top: 20px;
+}
   
-  #pagination--button ,#pagination--button1 {
-    margin: 0.3rem;
+#pagination--button ,#pagination--button1 {
+    margin: 5px;
     padding: 10px;
-    font-size: 12px;
-    height: 30px;
+    height: 50px;
+    width: 50px;
     cursor: pointer;
-    color: var(--1, rgb(0, 0, 0));
-    border: 1px solid #184E77;
-    margin-top: 10px;
-  }
-  #pagination--button1 {
-    border: none;
+}
+
+#pagination--button1 {
+    border: 2px solid #E7E7E7;
     position: relative;
     top: 3px;
-    color: #184e77;
+    color: #212529;
     background-color: rgb(255, 253, 253);
-  }
+}
 
-  .pagination--result {
+.pagination--result {
     text-align: center;
-    font-size: 12px;
+    font-size: 16px;
     margin-top: 10px;
-  }
+}
 
 /*SEARCH PAGE*/
 
@@ -1689,7 +1692,7 @@ input[type="text"] {
 
 .plan--btn-container {
     margin: 5px 0;
-    display:flex;
+    display: flex;
     gap: 20px;
 }
 
@@ -1707,10 +1710,6 @@ input[type="text"] {
 .editDeleteLoc--btn{
     color: #184E77;
     background: none;
-}
-
-.plan--btn svg {
-    margin-right: 5px;
 }
 
 .btn-primary {
