@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useParams } from "react-router-dom"
 
 const useBusinessManager = (authTokens) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
@@ -79,6 +80,33 @@ const useBusinessManager = (authTokens) => {
         }
     }
 
+    const getBusinessDetail = async (id) => {
+        setLoading(true) 
+        
+        try {
+            const response = await fetch(`${backendUrl}/api/user/business/${id}/`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${authTokens.access}`,
+                },
+            });
+
+            if (response.status === 404) {
+                throw new Error("Error fetching data");
+            }
+            
+            const data = await response.json();
+            setLocation(data.business)
+        }
+        catch (error) {
+            console.log("Error while fetching business data : ", error)
+        }
+        finally {
+            setLoading(false)
+        }
+    }
+
     const getAllApprovalRequests = async () => {
         setLoading(true)
 
@@ -102,25 +130,22 @@ const useBusinessManager = (authTokens) => {
         }
     }
 
-    const editSpotBusiness = (location) => {
-        console.log("Editing a spot business")
-    }
+    const editBusiness = async (id, data) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/user/business/${id}/edit/`, {
+                "method": "POST",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                },
+                "body": JSON.stringify(data)
+            })
 
-    const editFoodPlaceBusiness = (location) => {
-        console.log("Editing a food place business")
-    }
-
-    const editAccommodationBusiness = (location) => {
-        console.log("Editing an accommodation business")
-    }
-
-    const handleEditBusiness = (location) => {
-        if (location.locationType === "1") {
-            editSpotBusiness(location)
-        } else if(location.locationType === "2") {
-            editFoodPlaceBusiness(location)
-        } else if (location.location_type === "3")
-            editAccommodationBusiness(location)
+            console.log(response)
+        }
+        catch(error) {
+            console.log("An error occured while editing business")
+        }
     }
 
     return {
@@ -133,7 +158,8 @@ const useBusinessManager = (authTokens) => {
         approveRequest,
         getApprovalRequests,
         getAllApprovalRequests,
-        handleEditBusiness,
+        editBusiness,
+        getBusinessDetail,
         getOwnedBusinesses,
     }
 }

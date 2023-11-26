@@ -35,6 +35,8 @@ import RateDay from './pages/RateDay';
 import Request from './pages/Request';
 import Dashboard from './pages/Dashboard';
 import EditLocation from './pages/EditLocation';
+import Services from "./components/Services"
+import ManageLayout from './layout/ManageLayout';
 	/*css*/
 	
 function App() {
@@ -61,8 +63,12 @@ function App() {
 						<Route path="/profile/trips" element={<Trips/>} />
 						<Route path="/profile/business" element={<Business/>} />
 						<Route path="/profile/business/add" element={<AddBusiness/>} />
-						<Route path="/profile/business/edit" element={<EditBusiness/>} />
-						<Route path="/profile/business/manage/:id" element={<ManageBusiness/>} />
+						
+						<Route path="/profile/business/:id" element={<ManageLayout />}>
+							<Route path="/profile/business/:id/services" element={<Services />}/>
+							<Route path="/profile/business/:id/edit" element={<ManageBusiness />} />
+						</Route>
+						
 						<Route path="/profile/bookmark" element={<Bookmarks/>} />
 						<Route path="/profile/rate" element={<Recent/>} />
 						<Route path="/profile/rate/:id" element={<RateDay />} />
