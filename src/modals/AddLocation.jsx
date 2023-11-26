@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faClose, faLocationDot, faSearch } from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom"
 import AuthContext from "../context/AuthContext"
-import Modal from "./Modal"
+import Modal from "../components/Modal"
 import getTimeDetails from "../utils/getTimeDetails"
 import getFeeDetails from "../utils/getFeeDetails"
 import useItemLocationManager from "../hooks/useItemLocationManager"
@@ -115,14 +115,14 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
 
 
     const displayBookmark = bookmarked && bookmarked.map(bookmark => {
-        return (
+        return !checkDuplicateLocation(bookmark.location) && (
         <div key={bookmark.id} className="add-location-modal--search-item">
             <FontAwesomeIcon icon={faLocationDot}></FontAwesomeIcon>
             <div>
                 <p className="add-location-modal--title">{bookmark.details.name}</p>
                 <p className="add-location-modal--subtext">{bookmark.details.address}</p>
             </div>
-            <button className="add-location-modal--add-btn">+</button>
+            <button className="add-location-modal--add-btn" onClick={() => handleAddLocation(bookmark.location)}>+</button>
         </div>
         )   
     })
@@ -153,7 +153,8 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     useEffect(() => {
         if (searchData) {
             const results = searchData.map(location => {
-                console.log(location)
+                console.log(location.id)
+                
                 const fee = (location.fee.min && location.fee.max) ? getFeeDetails(location.fee.min, location.fee.max) : 0
                 const opening_time = location.schedule?.opening ? getTimeDetails(location.schedule.opening) : 0
                 const closing_time = location.schedule?.closing ? getTimeDetails(location.schedule.closing) : 0
@@ -187,7 +188,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
             {openBookmarks ?
             <div>
                 <div className="add-location-modal--content">
-                Bookmarks
+                    {displayRecentlyAdded}
                 </div>
                 <div className="add-location-modal--results">
                     {displayBookmark}

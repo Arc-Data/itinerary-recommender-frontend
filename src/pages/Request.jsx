@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import AuthContext from "../context/AuthContext"
 import useBusinessManager from "../hooks/useBusinessManager"
 import dayjs from "dayjs"
-import RequestModal from "../components/RequestModal"
+import RequestModal from "../modals/RequestModal"
 import eye from "/images/lets-icons_view-alt-fill.svg";
 
 const Request = () => {

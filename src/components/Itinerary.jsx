@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDays, faClose, faEllipsis, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import ConfirmDelete from "../components/ConfirmDelete";
+import ConfirmDelete from "../modals/ConfirmDelete";
 
 const Itinerary = ({itinerary, handleDelete}) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL

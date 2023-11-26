@@ -7,7 +7,7 @@ import CreateNav from "../components/CreateNav"
 import Map from "../components/Map"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
 import { faCalendarAlt, faCheck, faMap, faMoneyBill, faPencilAlt, faPenToSquare} from "@fortawesome/free-solid-svg-icons"
-import DateSettings from "../components/DateSettings"
+import DateSettings from "../modals/DateSettings"
 import useItineraryManager from "../hooks/useItineraryManager"
 import useDayManager from "../hooks/useDayManager"
 import useMarkerManager from "../hooks/useMarkerManager"

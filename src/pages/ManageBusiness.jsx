@@ -18,6 +18,18 @@ const ManageBusiness = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate()
 
+  const [formData, setFormData] = useState({
+    'name': '',
+    'address': '',
+    'latitude': '',
+    'longitude': '',
+    'min_fee': 0,
+    'max_fee': 0,
+    'opening_time': '',
+    'closing_time': '',
+    'description': ''
+  })
+
   useEffect(() => {
     const fetchData = async (id) => {
       try {
@@ -35,6 +47,13 @@ const ManageBusiness = () => {
         
         const data = await response.json();
         setBusinessData(data.business);
+
+        setFormData({
+          'name': data.business.name,
+          'description': data.business.description,
+          'latitude': data.business.latitude,
+          'longitude': data.business.longitude,
+        })
         setLoading(false); 
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -91,142 +110,123 @@ const ManageBusiness = () => {
 
   return (
     <div className="profile--main-container">
-      <div className="admin-wrapper">
-        <form className="admin--container">
-          <div className="input--form">
-            <select
-              value={businessData?.location_type}
-              name="type"
-              className="styled-input"
-            >
-              <option value="">-- Location Type --</option>
-              <option value="1">Spot</option>
-              <option value="2">Food</option>
-              <option value="3">Accommodation</option>
-            </select>
-            <div className="input admin--container">
-              <label htmlFor="name">Location Name</label>
-              <input
-                type="text"
-                name="name"
-                value={businessData?.name}
-                className="styled-input"
-              />
-            </div>
-            <div className="input admin--container">
-              <label htmlFor="address">Address</label>
-              <input
-                type="text"
-                name="address"
-                value={businessData?.address}
-                className="styled-input"
-              />
-            </div>
-            <div className="input admin--container">
-              <label htmlFor="tags">Tags</label>
-              <input
-                type="text"
-                name="tags"
-                value={businessData?.tags}
-                className="styled-input"
-              />
-            </div>
-            <div className="admin--container">
+      <form>
+        <div className="admin-wrapper admin--container">
+            <div className="input--form">
+              <p>{
+              businessData.location_type === "1" ? 
+                "Spot" : businessData.location_type === "2" ? 
+                "Food Place" : "Accommodation"  
+              }</p>
               <div className="input admin--container">
-                <label htmlFor="latitude">Latitude</label>
-                <input
-                  type="number"
-                  step="0.000001"
-                  name="latitude"
-                  value={businessData?.latitude}
-                  className="styled-input"
-                />
-              </div>
-              <div className="input admin--container">
-                <label htmlFor="postalCode">Longitude</label>
-                <input
-                  number="text"
-                  step="0.000001"
-                  name="longitude"
-                  value={businessData?.longitude}
-                  className="styled-input"
-                />
-              </div>
-            </div>
-            <div className="admin--container">
-              <div className="input admin--container">
-                <label htmlFor="min_fee">Minimum Fee</label>
+                <label htmlFor="name">Location Name</label>
                 <input
                   type="text"
-                  name="min_fee"
-                  value={location?.min_fee}
+                  name="name"
+                  value={businessData?.name}
                   className="styled-input"
                 />
               </div>
               <div className="input admin--container">
-                <label htmlFor="max_fee">Maximum Fee</label>
+                <label htmlFor="address">Address</label>
                 <input
-                  number="text"
-                  name="max_fee"
-                  value={location?.max_fee}
+                  type="text"
+                  name="address"
+                  value={businessData?.address}
                   className="styled-input"
+                />
+              </div>
+              <div className="admin--container">
+                <div className="input admin--container">
+                  <label htmlFor="latitude">Latitude</label>
+                  <input
+                    type="number"
+                    step="0.000001"
+                    name="latitude"
+                    value={businessData?.latitude}
+                    className="styled-input"
+                  />
+                </div>
+                <div className="input admin--container">
+                  <label htmlFor="postalCode">Longitude</label>
+                  <input
+                    number="text"
+                    step="0.000001"
+                    name="longitude"
+                    value={businessData?.longitude}
+                    className="styled-input"
+                  />
+                </div>
+              </div>
+              {location.location_type === "1" && 
+              <div className="admin--container">
+                <div className="input admin--container">
+                  <label htmlFor="min_fee">Minimum Fee</label>
+                  <input
+                    type="text"
+                    name="min_fee"
+                    value={location?.min_fee}
+                    className="styled-input"
+                  />
+                </div>
+                <div className="input admin--container">
+                  <label htmlFor="max_fee">Maximum Fee</label>
+                  <input
+                    number="text"
+                    name="max_fee"
+                    value={location?.max_fee}
+                    className="styled-input"
+                  />
+                </div>
+              </div>
+              }
+              {location.location_type === "1" && 
+              <div className="admin--container">
+                <div className="input admin--container">
+                  <label htmlFor="opening">Opening Time</label>
+                  <input
+                    type="text"
+                    name="opening_time"
+                    value={location?.opening_time}
+                    className="styled-input"
+                    />
+                </div>
+                <div className="input admin--container">
+                  <label htmlFor="closing">Closing Time</label>
+                  <input
+                    type="text"
+                    name="closing_time"
+                    value={location?.closing_time}
+                    className="styled-input"
+                    />
+                </div>
+              </div>
+              }
+              <div className="input admin--container">
+                <label htmlFor="description">Description</label>
+                <textarea
+                  name="description"
+                  // value={location?.description}
                 />
               </div>
             </div>
-            <div className="admin--container">
-              <div className="input admin--container">
-                <label htmlFor="opening">Opening Time</label>
-                <input
-                  type="text"
-                  name="opening_time"
-                  value={location?.opening_time}
-                  className="styled-input"
-                />
-              </div>
-              <div className="input admin--container">
-                <label htmlFor="closing">Closing Time</label>
-                <input
-                  type="text"
-                  name="closing_time"
-                  value={location?.closing_time}
-                  className="styled-input"
-                />
-              </div>
-            </div>
-            <div className="input admin--container">
-              <label htmlFor="description">Description</label>
-              <textarea
-                name="description"
-                // value={location?.description}
+            <div className="image--border center admin--container">
+              <img className="edit--images" src={`${backendUrl}${businessData?.image}`}  />
+              <label htmlFor="imgFile">
+                {" "}
+                <a className="choose--file">Choose file</a> to upload
+              </label>
+              <input
+                type="file"
+                id="imgFile"
+                name="filename"
+                accept="image/*"
+                style={{ display: "none" }} // Hide the default file input
               />
             </div>
-          </div>
-          <div className="image--border center admin--container">
-            <img className="edit--images" src={`${backendUrl}${businessData?.image}`}  />
-            <label htmlFor="imgFile">
-              {" "}
-              <a className="choose--file">Choose file</a> to upload
-            </label>
-            <input
-              type="file"
-              id="imgFile"
-              name="filename"
-              accept="image/*"
-              style={{ display: "none" }} // Hide the default file input
-            />
-          </div>
-        </form>
-        
-        <div className="admin--container">
-          <div className="input admin--container">
-            <button 
-                onClick={openDeleteBusiness} 
-                className="delete-btn">
-                Delete Business
-            </button>
-          </div>
-        </div>
-      </div>    
+        </div>    
+        <button>Submit</button>
+      </form>
 
       <div className="requests--table">
         <div className="flex-between">
