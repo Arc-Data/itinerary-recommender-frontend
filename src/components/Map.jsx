@@ -19,7 +19,6 @@ const Map = ({markers}) => {
         markerRefs.current = [];
 
         markers.forEach((markerCoords) => {
-            console.log(markerCoords)
             const newMarker = new maptilersdk.Marker({ color: markerCoords.color })
                 .setLngLat(markerCoords)
                 .addTo(map.current);
