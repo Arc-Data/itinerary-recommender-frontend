@@ -1,4 +1,4 @@
-import { faClock, faLocationDot, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { faClock, faLocationDot, faTrash, faMoneyBills, faCalendarDay } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import getTimeDetails from "../utils/getTimeDetails";
 import getFeeDetails from "../utils/getFeeDetails";
@@ -22,7 +22,7 @@ const LocationItem = ({location}) => {
     const displayEvents = location.details.event && location.details.event.map(location => {
         console.log(location)
         return (
-            <div key={location.id}>{location.name}</div>
+            <div key={location.id} className="events">{location.name}</div>
         )
     })
 
@@ -40,12 +40,14 @@ const LocationItem = ({location}) => {
                         <p className="plan--location-name">{location.details.name}</p>
                         <div className="plan--location-info">
                             {location.details.location_type === "1" &&
-                            <p><FontAwesomeIcon className='plan--icon-clock' icon={faClock} /> {opening} - {closing}</p>
+                                <p>
+                                    <FontAwesomeIcon className='plan--icon-clock' icon={faClock} /> {opening} - {closing}
+                                </p>
                             }
                             
                             {location.details.location_type === "1" &&
                             <p>
-                                <span className="plan--location-detail">Entrance fee:</span> {fee}
+                                <FontAwesomeIcon className='plan--icon-clock' icon={faMoneyBills} /> Entrance fee: {fee}
                             </p>
                             }
                             {location.details.location_type === "2" &&
@@ -53,21 +55,16 @@ const LocationItem = ({location}) => {
                                 <span className="plan--location-detail">Expenses Range:</span> {fee}
                             </p>
                             }
-                            <div>
-                                {location.details.event.length >= 1 && 
-                                <div>
-                                    <p>
-                                    {location.details.event.length === 1 ? 
-                                    "1 Ongoing Event Nearby"
-                                    :
-                                    `${location.details.event.length} events nearby`
-                                    }
-                                    </p>
-                                    <button onClick={toggleEvents}>Show</button>
-                                </div>
-                                }
-                            </div>
                         </div>
+                        {
+                            location.details.event.length > 1 && 
+                            <div className="plan--events-btn font-weight-500" onClick={toggleEvents}>
+                                <p><FontAwesomeIcon className="btn-icons" icon={faCalendarDay} />Events (
+                                    {location.details.event.length === 1 ? '1' : `${location.details.event.length}`}
+                                )</p>
+                            </div>
+                        }
+                        
                     </div>
                 </div>
                 <div style={locationImage}></div>
