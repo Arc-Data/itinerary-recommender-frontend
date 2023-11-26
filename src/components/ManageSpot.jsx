@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaTrash, FaPencilAlt } from "react-icons/fa";
 import SAMPLEIMAGE from "/images/osmenapeak.jpg";
-
+import ReactDatePicker from "react-datepicker";
 
 const ManageSpot = ({ location, editBusiness }) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
@@ -19,9 +19,26 @@ const ManageSpot = ({ location, editBusiness }) => {
         'location_type': location.location_type,
         'min_fee': location.min_fee,
         'max_fee': location.max_fee,
-        'opening_time': location.opening_time,
-        'closing_time': location.closing_time
+        'opening_time': new Date().setTime(0, 0, 0),
+        'closing_time': new Date().setTime(0, 0, 0)
     })
+
+    console.log(formData)
+
+    useEffect(() => {
+        if (location.opening_time) {
+            const opening = location.opening_time.split(":")
+            const openingTime = new Date().setTime(opening[0], opening[1], opening[2])
+            setFormData(prev => ({ ...prev, opening_time: openingTime }));
+        }
+
+        if (location.closing_time) {
+            const closing = location.closing_time.split(":")
+            const closingTime = new Date().setTime(closing[0], closing[1], closing[2])
+            setFormData(prev => ({ ...prev, closing_time: closingTime }));
+        }
+
+    }, [])
 
 	const handleChangeInput = (e) => {
 		const { name, value } = e.target
@@ -125,22 +142,31 @@ const ManageSpot = ({ location, editBusiness }) => {
                     <div className="admin--container">
                         <div className="input admin--container">
                         <label htmlFor="opening">Opening Time</label>
-                        <input
+                        <ReactDatePicker
+                            selected={formData.opening_time}
+                            onChange={(date) => setFormData({ ...formData, opening_time: date })}                            showTimeSelect
+                            showTimeSelectOnly
+                            timeIntervals={15}
+                            timeCaption="Time"
+                            dateFormat="h:mm aa"
+                            />
+                        {/* <input
                             type="text"
                             onChange={handleChangeInput}
                             name="opening_time"
                             value={formData.opening_time}
                             className="styled-input"
-                            />
+                            /> */}
                         </div>
                         <div className="input admin--container">
                         <label htmlFor="closing">Closing Time</label>
-                        <input
-                            type="text"
-                            onChange={handleChangeInput}
-                            name="closing_time"
-                            value={formData.closing_time}
-                            className="styled-input"
+                        <ReactDatePicker
+                            selected={formData.closing_time}
+                            onChange={(date) => setFormData({ ...formData, closing_time: date })}                            showTimeSelect
+                            showTimeSelectOnly
+                            timeIntervals={15}
+                            timeCaption="Time"
+                            dateFormat="h:mm aa"
                             />
                         </div>
                     </div>
@@ -182,11 +208,13 @@ const ManageSpot = ({ location, editBusiness }) => {
                 </div>
                 <table>
                 <thead className="table--th">
-                    <td></td>
-                    <td>Name</td>
-                    <td>Price</td>
-                    <td>Description</td>
-                    <td>Action</td>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr>
