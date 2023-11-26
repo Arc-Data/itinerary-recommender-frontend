@@ -35,6 +35,7 @@ import RateDay from './pages/RateDay';
 import Request from './pages/Request';
 import Dashboard from './pages/Dashboard';
 import EditLocation from './pages/EditLocation';
+import DownloadDashboard from './pages/DownloadDashboard';
 	/*css*/
 	
 function App() {
@@ -81,6 +82,7 @@ function App() {
 					<Route path="/admin/locations" element={<Location/>} />
 					<Route path="/admin/location/:id" element={<EditLocation />} />
 					<Route path="/admin/requests" element={<Request />} />
+					<Route path="/admin/download" element={<DownloadDashboard />} />
 				</Route>
 			</Routes>
 		</AuthProvider>

@@ -275,20 +275,18 @@ select {
   border-radius: 5px;
 }
 
+/* Original Animation Styles */
 .icon-bounce {
-  opacity: 0;
-  transform: translateY(-20px);
   animation: fadeInDown 1s ease-out 1 forwards;
 }
 
 @keyframes fadeInDown {
   0% {
-    opacity: 0;
-    transform: translateY(-50px);
+    transform: translateX(40%);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
@@ -299,14 +297,13 @@ select {
 @keyframes moveFromRight {
   0% {
     transform: translateX(50%);
-    opacity: 0;
+    
   }
   100% {
     transform: translateX(0);
     opacity: 1;
   }
 }
-
 
 .User--preference-container {
   display: grid;
@@ -333,13 +330,13 @@ select {
 
 .top-spot-table{
   width: 650px;
-  height: 500px;
+  height: 635px;
   margin: 20px 10px 0 25px;
 }
 
 .top-bookmark-table{
  gap: 20px;
- height: 500px;
+ height: 635px;
 }
 
 .dashboard--location-container{
