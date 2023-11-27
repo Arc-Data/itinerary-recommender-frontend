@@ -68,6 +68,7 @@ const Plan = () => {
 	const [costEstimate, setCostEstimate] = useState(0);
 
 	console.log(minCost, maxCost)
+	console.log(itinerary?.budget)
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -146,6 +147,8 @@ const Plan = () => {
 			toggleEditName()
 		}
 	}
+	
+
 
 	const handleEditName = () => {
 		editItineraryName(id)
@@ -291,14 +294,24 @@ const Plan = () => {
 								<div className="form-row">
 									<label className='plan--label' htmlFor="budget">Budget (per person)</label>
 									{editable ? 
-									<input 
-										type="number" 
-										name="budget" 
-										id="budget"
-										defaultValue={itinerary?.budget}
-										onChange={handleEditItinerary}/>							
+										<input 
+											type="number" 
+											name="budget" 
+											id="budget"
+											defaultValue={itinerary?.budget}
+											onChange={handleEditItinerary}
+										/>							
 									:
-										<p className='plan--edited-details'>₱{itinerary?.budget}</p>
+										<>
+											<p className={`plan--edited-details ${itinerary?.budget && itinerary.budget < minCost ? 'error' : ''}`}>
+												₱{itinerary?.budget}
+								  			</p>
+											  {itinerary?.budget && itinerary.budget < minCost ? (
+										  	<p className="budget--error-message">Your budget is not enough for this trip!</p>
+											) : (
+											  null
+											)}
+										</>
 									}
 								</div>
 							</div>
@@ -343,6 +356,11 @@ const Plan = () => {
 							}
 							{displayDays}
 						</section>
+						{itinerary?.budget && itinerary.budget < minCost ? (
+  							<p>fuck me daddy</p>
+						) : (
+  							<p>bwakanangshet</p>
+						)}
 					</main>
 				</div>
 			</div>

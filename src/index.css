@@ -1718,6 +1718,12 @@ input[type="text"] {
     font-size: 25px;
     font-weight: 700;
 }
+.plan--edited-details.error, .budget--error-message {
+    color: #ef233c;
+}
+.budget--error-message {
+    font-weight: 500;
+}
 .plan--cost-estimate {
     background-color: #E9E9E9;
     width: 100%;
