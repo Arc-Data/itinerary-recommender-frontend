@@ -350,14 +350,14 @@ export default function DetailPage() {
 			<div className="detailPage--text">
 				<div className="detailPage--address-time">
 					<h1 className="detailPage--title heading6">{location?.name}</h1>
-					<p>
+					<p className="detailPage--info">
 						<FontAwesomeIcon className='btn-icons' icon={faMap} />
 						{location?.address}
 					</p>
 					{location.location_type == 1 && 
 					<div>	
-						<p> <FontAwesomeIcon className='btn-icons' icon={faClock} />Opens at {location?.details.opening_time} | Closes at {" "} {location?.details.closing_time}{" "}</p>
-						<p> <FontAwesomeIcon className='btn-icons' icon={faMoneyBills} />Fee: {location?.details.min_fee} - {location?.details.max_fee}</p>
+						<p className="detailPage--info"> <FontAwesomeIcon className='btn-icons' icon={faClock} />Opens at {location?.details.opening_time} | Closes at {" "} {location?.details.closing_time}{" "}</p>
+						<p className="detailPage--info"> <FontAwesomeIcon className='btn-icons' icon={faMoneyBills} />Fee: {location?.details.min_fee} - {location?.details.max_fee}</p>
 					</div>
 					}
 					<div className="detailPage--rating-category">
@@ -474,10 +474,10 @@ export default function DetailPage() {
 				<div className="user--reviewContainer">
 					<div className="flex mb15px">
 						<div className="d-flexCenter">
-							<div className="user--profile font15">
+							<div className="user--profile">
 								<p>{letter}</p>
 							</div>
-							<p className="user--username font14">
+							<p className="user--username">
 								{`
 								${userReview.user.first_name} 
 								${userReview.user.last_name}
@@ -522,7 +522,7 @@ export default function DetailPage() {
 							</div>
 						</div>
 					</div>
-					<p className="user--reviews font15">{userReview.comment}</p>
+					<p className="user--reviews">{userReview.comment}</p>
 				</div>
 			) : (
 				<div>
@@ -573,7 +573,7 @@ export default function DetailPage() {
 			<div></div>
 			<div className="user--review">
 				<h1 className="mb15px"></h1>
-				<div className="gray-line"></div>
+				<hr/>
 				{reviewData.map((item) => (
 				<Review key={item.id} {...item} />
 				))}
