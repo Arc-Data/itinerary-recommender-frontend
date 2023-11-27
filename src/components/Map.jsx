@@ -41,13 +41,6 @@ const Map = ({markers}) => {
         })
     }
 
-    const hidePopupCloseButton = (popup) => {
-        const closeButton = popup.getElement().querySelector('.maptiler-popup-close-button');
-        if (closeButton) {
-            closeButton.style.display = 'none';
-        }
-    };
-
     useEffect(() => {
         if(map.current) return; 
 
