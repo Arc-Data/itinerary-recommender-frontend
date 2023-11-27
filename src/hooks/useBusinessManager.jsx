@@ -267,6 +267,43 @@ const useBusinessManager = (authTokens) => {
         }
     }
 
+    const getFeeTypes = async (id) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/location/${id}/fees/`, {
+                "method": "GET",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                }
+            })
+            const data = await response.json()
+            setItems(data)
+        }
+        catch(error) {
+            console.log(error)
+        }
+    }
+
+    const createFeeType = async (id, formData) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/location/${id}/fee/create/`, {
+                "method": "POST",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                },
+                "body": JSON.stringify(formData)
+            })
+
+            const data = await response.json()
+            const newItems = [...items, data]
+            setItems(newItems)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
     return {
         items,
         loading,
@@ -287,6 +324,8 @@ const useBusinessManager = (authTokens) => {
         createService,
         deleteService,
         getServices,
+        getFeeTypes,
+        createFeeType,
     }
 }
 

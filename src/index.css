@@ -3161,8 +3161,9 @@ input[type="text"] {
     background: #57CC99;
 }
 
-.table--th > td{
+.table--th > td {
     background: #E7E7E7;
+    text-align: left !important;
 }
 
 .btn--icon  {
@@ -3409,4 +3410,22 @@ input[type="text"] {
 .delete--upload-img {
     background-color: FEFEFE;
     color: #212529;
+}
+.admin--table-action .edit, .admin--table-action > button {
+    height: 40px;
+    width: 40px;
+    margin-right: 5px;
+}
+.admin--table-action .view {
+    background-color: #57CC99;
+}
+.admin--table-action .delete {
+    background-color: #E86B6B;
+}
+.admin--table-action .edit {
+    background-color: #38A3A5;
+}
+table th, table td {
+    padding: 15px 25px;
+    text-align: left;
 }

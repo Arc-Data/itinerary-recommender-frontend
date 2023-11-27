@@ -20,7 +20,7 @@ const RequestModal = ({onClose, request, approveRequest}) => {
         <Modal onClose={onClose}>
             <div className="approve--modal">
                 <span>ID: {request.details.id}</span>
-                <h1 className="business--name">{request.details.name}</h1>
+                <h1 className="business--name heading">{request.details.name}</h1>
                 <div className="approve--modal-container">
                     <div className="approve--modal-content">
                         <div className="form-group">
