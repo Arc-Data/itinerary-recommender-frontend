@@ -347,6 +347,7 @@ select {
 .top-bookmark-table{
  gap: 20px;
  max-height: 635px;
+ margin-top: 65px;
 }
 
 .dashboard--location-container{
@@ -378,4 +379,14 @@ select {
 
 .font20 {
   font-size: 20px;
+}
+
+.dropdown--list-admin {
+  justify-content: space-between;
+  text-align: end;
+  margin-right: 15px;
+}
+
+.top-list-dropdown-admin {
+  width: 60%;
 }

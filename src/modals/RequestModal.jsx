@@ -78,11 +78,11 @@ const RequestModal = ({onClose, request, approveRequest}) => {
                     <img src={approve}/> 
                     <span>Approve</span>
                 </button>
-                <button 
+                {/* <button 
                     className="reject--BTN BTN14">
                     <img src={reject}/>  
                     <span>Reject</span>
-                </button>
+                </button> */}
             </div>
         </Modal>
     )

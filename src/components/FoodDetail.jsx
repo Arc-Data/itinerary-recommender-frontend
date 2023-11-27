@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router"
 import AuthContext from "../context/AuthContext"
+import { Link } from "react-router-dom"
 
 const FoodDetail = ({isOwnedByUser}) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
@@ -53,7 +54,9 @@ const FoodDetail = ({isOwnedByUser}) => {
             <div className="food-place--header">
                 <p className="heading2">Menu</p>
                 {isOwnedByUser &&
-                <button className="food-place--update-menu" >Update Menu</button>
+                <Link to ={`/profile/business/${id}/`} >
+                    <button className="food-place--update-menu" >Update Menu</button>
+                </Link>
                 }
             </div>
             <div className="food-items">
