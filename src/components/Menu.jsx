@@ -4,8 +4,6 @@ import AuthContext from "../context/AuthContext"
 import useBusinessManager from "../hooks/useBusinessManager"
 
 const Menu = () => {
-    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
-
     const { id } = useParams()
     const { authTokens } = useContext(AuthContext)
     const { 

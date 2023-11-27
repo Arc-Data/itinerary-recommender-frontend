@@ -105,6 +105,25 @@ const useBusinessManager = (authTokens) => {
         }
     }
 
+    const createService = async (id, formData) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/service/${id}/create/`, {
+                "method": "POST",
+                "headers": {
+                    "Authorization": `Bearer ${access}`
+                },
+                "body": formData,
+            })
+
+            const data = await response.json()
+            const newItems = [...items, data]
+            setItems(newItems)
+        } 
+        catch (error) {
+            console.log("An error occured while creating service: ", error)    
+        }
+    }
+
     const getServices = async (id) => {
         setLoading(true)
         try {
@@ -123,7 +142,6 @@ const useBusinessManager = (authTokens) => {
             setError(error)
         }
         finally {
-            console.log("shouldnt this have happened already")
             setLoading(false)
         }
     }
@@ -246,6 +264,7 @@ const useBusinessManager = (authTokens) => {
         getOwnedBusinesses,
         getFoodItems,
         deleteFood,
+        createService,
         getServices,
     }
 }
