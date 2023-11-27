@@ -220,51 +220,6 @@ const ManageSpot = ({ location, editBusiness }) => {
                 </div>    
                 <button>Submit</button>
             </form>
-
-            {/* <div className="requests--table">
-                <div className="flex-between">
-                <p className="requests--title bold2">Product & Services</p>
-                <button className="business--btn" onClick={toggleAddProduct}>
-                    <img src="/plus.svg" />
-                    <p>Add</p>
-                </button>
-                </div>
-                <table>
-                <thead className="table--th">
-                    <tr>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Description</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    <td>
-                        <img
-                        src={SAMPLEIMAGE}
-                        className="product--services-images"
-                        alt="SAMPLE"
-                        />
-                    </td>
-                    <td></td>
-                    <td>150</td>
-                    <td>Sobrang Sarap</td>
-                    <td>
-                        <div className="d-flexCenter">
-                            <button className="business--edit mr10px btn--icon">
-                            <FaPencilAlt />
-                            </button>
-                        <button className="business--delete btn--icon">
-                            <FaTrash />
-                        </button>
-                        </div>
-                    </td>
-                    </tr>
-                </tbody>
-                </table>
-            </div> */}
         </div>
     )
 }

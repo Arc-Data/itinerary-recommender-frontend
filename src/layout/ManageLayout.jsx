@@ -30,6 +30,9 @@ const ManageLayout = () => {
             <div className="business--nav">
                 <Link to="">Overview</Link>
                 <Link to="edit">Edit</Link>
+                {location.location_type === "1" && 
+                <Link to="fees">Fee</Link>
+                }
                 {location.location_type === "2" && 
                 <Link to="menu">Menu</Link>
                 }
