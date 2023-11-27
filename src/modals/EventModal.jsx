@@ -10,8 +10,6 @@ const EventModal = ({onClose, id}) => {
     const { event, loading, error, getEvent } = useEventManager(authTokens)
     const { markers, addMarker } = useMarkerManager()
 
-    console.log(markers)
-
     useEffect(() => {
         getEvent(id)
     }, [])

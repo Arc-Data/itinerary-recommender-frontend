@@ -8,7 +8,7 @@ import EventModal from '../modals/EventModal';
 
 function Event() {
     const { authTokens } = useContext(AuthContext)
-    const { events, loading, error, getAllEvents } = useEventManager(authTokens) 
+    const { events, loading, error, getAllEvents, deleteEvent } = useEventManager(authTokens) 
     const [ selectedId, setSelectedId ] = useState()
     const [ openDetails, setOpenDetails ] = useState(false)
 
@@ -28,7 +28,7 @@ function Event() {
                 <td>{event.start_date}</td>
                 <td>{event.end_date}</td>
                 <td><button onClick={() => handleViewClick(event.id)}>View</button></td>
-                <td><button>Delete</button></td>
+                <td><button onClick={() => deleteEvent(event.id)}>Delete</button></td>
             </tr>
         )
     })

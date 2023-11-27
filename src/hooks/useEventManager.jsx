@@ -54,6 +54,26 @@ const useEventManager = (authTokens) => {
         }
 
     }   
+
+    const deleteEvent = async (id) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/event/${id}/delete/`, {
+                "method": "DELETE",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                }
+            })
+            
+            if (response.ok) {
+                const newEvents = events.filter(event => event.id !== id)
+                setEvents(newEvents)
+            }
+        } 
+        catch (error) {
+            console.log("an error occured")
+        }
+    }
     
     return {
         event,
@@ -62,6 +82,7 @@ const useEventManager = (authTokens) => {
         error,
         getAllEvents,
         getEvent,
+        deleteEvent,
     }
 }
 
