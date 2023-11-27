@@ -16,8 +16,9 @@ export default function SearchCard (props) {
             
             <div className="searchPage--info">
                 <h2 className="heading4">{props.name}</h2>
-                <span>{props.address}</span>
+                <p>{props.address}</p>
                 <div className="searchPage--star">
+                    <p className="ratings mr5px"> {props.ratings.average_rating} </p>
                     {[...Array(5)].map((star, i) => (
                         <FaStar
                             key={i}
@@ -27,8 +28,7 @@ export default function SearchCard (props) {
                             }
                         />
                     ))}
-                    <span className="ratings mr5px"> • {props.ratings.average_rating} </span>
-                    <span> • {props.ratings.total_reviews} reviews </span>
+                    <p className="ratings ml5px"> {props.ratings.total_reviews} reviews </p>
                 </div>
             </div>
         </div>

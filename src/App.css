@@ -261,11 +261,16 @@ select {
 }
 
 .dashboard--users {
-  background-color: #38A3A5;
+  height: 30%;
+  width: 15%;
+  margin-right: 15px;
+  border-radius: 50%;
+}
+.dashboard--users1 {
   padding: 15px;
   width: 20px;
+  margin-right: 15px;
   border-radius: 50%;
-  margin-right: 20px;
 }
 
 .dashboard--total-container {
@@ -335,13 +340,13 @@ select {
 
 .top-spot-table{
   width: 650px;
-  height: 635px;
+  max-height: 635px;
   margin: 20px 10px 0 25px;
 }
 
 .top-bookmark-table{
  gap: 20px;
- height: 635px;
+ max-height: 635px;
 }
 
 .dashboard--location-container{

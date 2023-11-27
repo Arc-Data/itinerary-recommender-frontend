@@ -152,28 +152,28 @@ import { useLocation, Link } from 'react-router-dom';
 					<>
 						<div className="dashboard--total-container">
 						<div className="dashboard--items d-flexCenter bordercolor">
-							<FontAwesomeIcon icon={faUsers}  className="dashboard--users icon-bounce" style={{color: "white",}}/>
+							<FontAwesomeIcon  className="dashboard--users"  icon={faUsers} style={{color: "#38A3A5",}}/>
 							<div>
-							<h1 className="bold heading9 icon-bounce">{dashboardData.user_count}</h1>
-							<p className="mt-5px  icon-bounce">Total number of users</p>
+							<h1 className="bold heading9 ">{dashboardData.user_count}</h1>
+							<p className="mt-5px  ">Total number of users</p>
 							</div>
 						</div>
 						</div>
 						<div className="dashboard--total-container">
 						<div className="dashboard--items d-flexCenter bordercolor">
-						<FontAwesomeIcon icon={faLocationDot}  className="dashboard--users icon-bounce" style={{background: "#38A3A5", color: "white"}}/>
+						<FontAwesomeIcon icon={faLocationDot}  className="dashboard--users " style={{color: "#38A3A5"}}/>
 							<div>
-							<p className="bold heading9 icon-bounce">{dashboardData.location_count}</p>
-							<p className="mt-5px  icon-bounce">Total number of locations</p>
+							<p className="bold heading9 ">{dashboardData.location_count}</p>
+							<p className="mt-5px  ">Total number of locations</p>
 							</div>
 						</div>
 						</div>
 						<div className="dashboard--total-container">
 						<div className="dashboard--items d-flexCenter bordercolor">
-							<FontAwesomeIcon icon={faMapLocationDot}  className="dashboard--users icon-bounce" style={{color: "white",}} />
+							<FontAwesomeIcon icon={faMapLocationDot}  className="dashboard--users " style={{color: "#38A3A5",}} />
 							<div>
-							<h1 className="bold heading9 icon-bounce">{dashboardData.itinerary_count}</h1>
-							<p className="mt-5px  icon-bounce">Total number of Itinerary</p>
+							<h1 className="bold heading9 ">{dashboardData.itinerary_count}</h1>
+							<p className="mt-5px  ">Total number of Itinerary</p>
 							</div>
 						</div>
 						</div>
@@ -210,19 +210,7 @@ import { useLocation, Link } from 'react-router-dom';
 										position: 'top',
 										endingShape: 'flat', 
 									},
-									animations: {
-										enabled: true,
-										easing: 'easeinout',
-										speed: 800,
-										animateGradually: {
-											enabled: true,
-											delay: 150
-										},
-										dynamicAnimation: {
-											enabled: true,
-											speed: 350
-										}
-									}
+			
 									},
 									dataLabels: {
 									enabled: false,
@@ -245,22 +233,7 @@ import { useLocation, Link } from 'react-router-dom';
 										},
 									},
 									},
-									responsive: [
-									{
-										breakpoint: 767,
-										options: {
-										chart: {
-											height: 'auto',
-											toolbar: {
-											show: false,
-											},
-										},
-										legend: {
-											position: 'bottom',
-										},
-										},
-									},
-									],
+									
 								}}
 								series={[{ data: chartData }]}
 								type="bar"
@@ -276,28 +249,28 @@ import { useLocation, Link } from 'react-router-dom';
 						<p className="font20 font-weight-600">Location</p>
 						<div className="locations-items">
 							<div className="dashboard--items d-flexCenter height120 bordercolor1">
-								<FontAwesomeIcon icon={faLocationDot}  className="dashboard--users move-from-right" style={{background: "#C7F9CC", color: "#57CC99"}}/>
+								<FontAwesomeIcon icon={faLocationDot}  className="dashboard--users " style={{ color: "#57CC99"}}/>
 								<div className='width120'>
-									<h1 className="bold heading9 move-from-right">{dashboardData.spot_count}</h1>
-									<p className="mt-5px move-from-right">Total number of spots</p>
+									<h1 className="bold heading9 ">{dashboardData.spot_count}</h1>
+									<p className="mt-5px ">Total number of spots</p>
 								</div>
 							</div>
 						</div>
 						<div className="locations-items">
 							<div className="dashboard--items d-flexCenter height120 bordercolor1">
-								<FontAwesomeIcon icon={faHotel}  className="dashboard--users move-from-right" style={{background: "#C7F9CC", color: "#57CC99"}}/>
+								<FontAwesomeIcon icon={faHotel}  className="dashboard--users " style={{ color: "#57CC99"}}/>
 								<div className='width120'>
-									<h1 className="bold heading9 move-from-right">{dashboardData.accommodation_count}</h1>
-									<p className="mt-5px move-from-right">Total number of accommodation</p>
+									<h1 className="bold heading9 ">{dashboardData.accommodation_count}</h1>
+									<p className="mt-5px ">Total number of accommodation</p>
 								</div>
 						</div>
 						</div>
 						<div className="locations-items">
 							<div className="dashboard--items d-flexCenter height120 bordercolor1 ">
-								<FontAwesomeIcon icon={faUtensils}  className="dashboard--users move-from-right" style={{background: "#C7F9CC", color: "#57CC99"}}/>
+								<FontAwesomeIcon icon={faUtensils}  className="dashboard--users " style={{ color: "#57CC99"}}/>
 								<div className='width120'>
-									<h1 className="bold heading9 move-from-right">{dashboardData.food_place_count}</h1>
-									<p className="mt-5px move-from-right">Total number of food places</p>
+									<h1 className="bold heading9 ">{dashboardData.food_place_count}</h1>
+									<p className="mt-5px ">Total number of food places</p>
 								</div>
 							</div>
 						</div>

@@ -67,7 +67,7 @@ const BusinessOverview = () => {
             id: 'business-bar-chart',
         },
         xaxis: {
-            categories: ['Total Bookmarks', 'Total Reviews', 'Average Rating'],
+            categories: ['Total Visits', 'Total Planned'],
         },
         plotOptions: {
             bar: {
@@ -82,7 +82,7 @@ const BusinessOverview = () => {
         },
         yaxis: {
             title: {
-                text: 'Count',
+                text: 'Total',
             },
         },
         toolbar: {
@@ -93,7 +93,7 @@ const BusinessOverview = () => {
     const [barChartSeries, setBarChartSeries] = useState([
         {
             name: 'Stats',
-            data: [businessStats.total_bookmarks, businessStats.total_reviews, businessStats.average_rating],
+            data: [businessStats.total_visits, businessStats.total_planned],
         },
     ]);
 
@@ -114,6 +114,7 @@ const BusinessOverview = () => {
 
                 const data = await response.json();
                 setBusinessStats(data);
+                console.log(data)
 
             } catch (error) {
                 console.error('Error fetching business stats:', error.message);
@@ -162,7 +163,7 @@ const BusinessOverview = () => {
                         <>
                             <div className="dashboard--total-container">
                                 <div className="dashboard--items d-flexCenter bordercolor2 height120">
-                                    <FontAwesomeIcon icon={faBookmark} className="dashboard--users icon-bounce"
+                                    <FontAwesomeIcon icon={faBookmark} className="dashboard--users1 icon-bounce"
                                         style={{ background: "#FB8D55", color: "white" }} />
                                     <div>
                                         <h1 className="bold heading9 icon-bounce">{businessStats.total_bookmarks}</h1>
@@ -172,7 +173,7 @@ const BusinessOverview = () => {
                             </div>
                             <div className="dashboard--total-container">
                                 <div className="dashboard--items d-flexCenter bordercolor2 height120">
-                                    <FontAwesomeIcon icon={faMagnifyingGlass} className="dashboard--users icon-bounce"
+                                    <FontAwesomeIcon icon={faMagnifyingGlass} className="dashboard--users1 icon-bounce"
                                         style={{ background: "#FB8D55", color: "white" }} />
                                     <div>
                                         <p className="bold heading9 icon-bounce">{businessStats.total_reviews}</p>
@@ -182,7 +183,7 @@ const BusinessOverview = () => {
                             </div>
                             <div className="dashboard--total-container">
                                 <div className="dashboard--items d-flexCenter bordercolor2 height120">
-                                    <FontAwesomeIcon icon={faStar} className="dashboard--users icon-bounce"
+                                    <FontAwesomeIcon icon={faStar} className="dashboard--users1 icon-bounce"
                                         style={{ background: "#FB8D55", color: "white" }} />
                                     <div>
                                         <h1 className="bold heading9 icon-bounce">{businessStats.average_rating}</h1>
