@@ -347,6 +347,7 @@ select {
 .top-bookmark-table{
  gap: 20px;
  max-height: 635px;
+ margin-top: 65px;
 }
 
 .dashboard--location-container{

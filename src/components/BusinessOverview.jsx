@@ -136,7 +136,7 @@ const BusinessOverview = () => {
             setBarChartSeries([
                 {
                     name: 'Stats',
-                    data: [businessStats.total_bookmarks, businessStats.total_reviews, businessStats.average_rating],
+                    data: [businessStats.total_visits, businessStats.total_planned],
                 },
             ]);
         }

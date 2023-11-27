@@ -66,12 +66,12 @@ const Business = () => {
                         For Approval
                     </button>
                 </td>
-                <td>
+                {/* <td>
                     <div className="view--manage1">
                         <div className="mr5px"><FaEdit/></div>
                         <p className="view--manage">View</p>
                     </div>
-                </td>
+                </td> */}
             </tr>
         )   
     })
@@ -108,7 +108,7 @@ const Business = () => {
                         <th>Type</th>
                         <th>Date filed</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        {/* <th>Action</th> */}
                     </thead>
                     <tbody>
                         {displayRequests}
