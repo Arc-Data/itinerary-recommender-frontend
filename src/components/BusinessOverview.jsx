@@ -67,7 +67,7 @@ const BusinessOverview = () => {
             id: 'business-bar-chart',
         },
         xaxis: {
-            categories: ['Total Bookmarks', 'Total Reviews', 'Average Rating'],
+            categories: ['Total Visits', 'Total Planned'],
         },
         plotOptions: {
             bar: {
@@ -82,7 +82,7 @@ const BusinessOverview = () => {
         },
         yaxis: {
             title: {
-                text: 'Count',
+                text: 'Total',
             },
         },
         toolbar: {
@@ -93,7 +93,7 @@ const BusinessOverview = () => {
     const [barChartSeries, setBarChartSeries] = useState([
         {
             name: 'Stats',
-            data: [businessStats.total_bookmarks, businessStats.total_reviews, businessStats.average_rating],
+            data: [businessStats.total_visits, businessStats.total_planned],
         },
     ]);
 
@@ -114,6 +114,7 @@ const BusinessOverview = () => {
 
                 const data = await response.json();
                 setBusinessStats(data);
+                console.log(data)
 
             } catch (error) {
                 console.error('Error fetching business stats:', error.message);
