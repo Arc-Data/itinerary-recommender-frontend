@@ -25,7 +25,11 @@ const ShareMap = ({markers, center=false}) => {
                 .setLngLat(marker)
                 .addTo(map.current);
 
+            const popup = new maptilersdk.Popup({ offset: [0, -30] }) // Adjust offset as needed
+                .setHTML(`<p>${marker.order}</p>`)
+                .addTo(map.current); 
 
+            newMarker.setPopup(popup);
             markerRefs.current.push(newMarker);
         
             bounds.extend(newMarker.getLngLat())

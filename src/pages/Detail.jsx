@@ -68,6 +68,7 @@ export default function DetailPage() {
 
 	const getLocationData = async () => {
 		const data = await getLocation(id)
+		console.log(data)
 		setBookmarked(data.is_bookmarked);
 		setImages(data.images);
 		setSelectedImage(`${backendUrl}` + data.images[0]);
@@ -182,6 +183,12 @@ export default function DetailPage() {
 	if (loading) {
 		return (<div>Please wait</div>)
 	}
+
+	const displayActivities = location.details.activities.map((activity, index) => {
+		return (
+			<div key={index} className="detailPage--tag">{activity}</div>
+		)
+	})
 
 	const editReview = async () => {
 		try {
@@ -386,17 +393,7 @@ export default function DetailPage() {
 			<div className="detailPage--activities">
 				<p className="heading2"><FontAwesomeIcon className="btn-icons" icon={faTags} />Activities</p>
 				<div className="detailPage--tags">
-					<div className="detailPage--tag">Sample tag</div>
-					<div className="detailPage--tag">Sample tag hey hey</div>
-					<div className="detailPage--tag">Sample tag yes i'm sleepy</div>
-					<div className="detailPage--tag">Sample tag bounce bounce</div>
-					<div className="detailPage--tag">Sample tag</div>
-					<div className="detailPage--tag">Sample tag yes</div>
-					<div className="detailPage--tag">Sample tag bounce</div>
-					<div className="detailPage--tag">Sample tag</div>
-					<div className="detailPage--tag">Sample tag yes i'm sleepy</div>
-					<div className="detailPage--tag">Sample tag bounce bounce</div>
-					<div className="detailPage--tag">Sample tag</div>
+					{displayActivities}
 				</div>
 			</div>
 			<div className="detailPage--required-fees">

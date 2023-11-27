@@ -25,11 +25,13 @@ const useMarkerManager = () => {
         const items = day.itinerary_items
 
         if(items) {
-            items.forEach(i => {
+            console.log(items)
+            items.forEach((i, idx) => {
                 mapMarkers.push({
                     lng: i.details.longitude,
                     lat: i.details.latitude,
-                    color: i.color
+                    color: i.color,
+                    order: idx + 1,
                 })
             })
         }
