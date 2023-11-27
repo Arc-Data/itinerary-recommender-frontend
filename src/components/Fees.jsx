@@ -41,6 +41,7 @@ const Fees = () => {
                         ))}
                     </ul>
                 </td>
+                <td><button>Edit</button></td>
             </tr>
         )
     })

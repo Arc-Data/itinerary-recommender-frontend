@@ -68,7 +68,6 @@ export default function DetailPage() {
 
 	const getLocationData = async () => {
 		const data = await getLocation(id)
-		console.log(data)
 		setBookmarked(data.is_bookmarked);
 		setImages(data.images);
 		setSelectedImage(`${backendUrl}` + data.images[0]);
@@ -88,7 +87,6 @@ export default function DetailPage() {
 		);
 
 		const locationData = await response.json();
-
 		setReviewData(locationData.results);
 		setTotalPages(Math.ceil(locationData.count / 5)); // Assuming 5 reviews per page
 	};
@@ -97,6 +95,7 @@ export default function DetailPage() {
 	const getReviewData = async () => {
 		setUserReview()
 
+		console.log("In here")
 		try {
 			const response = await fetch(
 				`${backendUrl}/api/location/${id}/reviews/user/`,
@@ -184,7 +183,7 @@ export default function DetailPage() {
 		return (<div>Please wait</div>)
 	}
 
-	const displayActivities = location.details.activities.map((activity, index) => {
+	const displayActivities = location && location.details.activities.map((activity, index) => {
 		return (
 			<div key={index} className="detailPage--tag">{activity}</div>
 		)
@@ -325,6 +324,8 @@ export default function DetailPage() {
 	const resultStart = (currentPage - 1) * 5 + 1;
 	const resultEnd = Math.min(currentPage * 5, reviewData.length);
 
+	console.log(location)
+
 	return (
 		<div className="detailPage">
 			<div className="detailPage--text">
@@ -335,22 +336,12 @@ export default function DetailPage() {
 						{location?.address}
 					</p>
 					{location.location_type == 1 && 
-					<>	
-						<p> <FontAwesomeIcon className='btn-icons' icon={faClock} />Opens at {location?.details.opening_time} | Closes at {" "} {location?.details.closing_time}{" "}</p>
-						<p> <FontAwesomeIcon className='btn-icons' icon={faMoneyBills} />Fee: {location?.details.max_fee}</p>
-					</>
+					<div>	
+						{/* <p> <FontAwesomeIcon className='btn-icons' icon={faClock} />Opens at {location?.details.opening_time} | Closes at {" "} {location?.details.closing_time}{" "}</p>
+						<p> <FontAwesomeIcon className='btn-icons' icon={faMoneyBills} />Fee: {location?.details.max_fee}</p> */}
+					</div>
 					}
 					<div className="detailPage--rating-category">
-						{/* {[...Array(5)].map((star, i) => (
-							<FaStar
-								key={i}
-								className="star"
-								color={
-								i + 1 < location?.rating_percentages.average_rating ? "#ffc107" : "#e4e5e9"
-								}
-							/>
-						))} */}
-						{/* <span> • {location?.rating_percentages.average_rating} <span className="mr5px"> •</span></span> */}
 						{location.location_type === "1" &&
 						<span className="tags">
 						{location?.details.tags.map((tag, index) => (
@@ -393,7 +384,7 @@ export default function DetailPage() {
 			<div className="detailPage--activities">
 				<p className="heading2"><FontAwesomeIcon className="btn-icons" icon={faTags} />Activities</p>
 				<div className="detailPage--tags">
-					{displayActivities}
+					{/* {displayActivities} */}
 				</div>
 			</div>
 			<div className="detailPage--required-fees">
