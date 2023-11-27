@@ -17,6 +17,7 @@ import { useLocation, Link } from 'react-router-dom';
 		const [topAccommodation, setTopAccommodation] = useState([]);
 		const [topFoodPlace, setTopFoodPlace] = useState([]);
 		const [topBookmarks, setTopBookmarks] = useState([]);
+		const [topLocationItinerary, setTopLocationItinerary] = useState([]);
 		const [loading, setLoading] = useState(true); 
 		const [selectedTopList, setSelectedTopList] = useState('spots');
 		
@@ -159,12 +160,34 @@ import { useLocation, Link } from 'react-router-dom';
 			}
 		};
 
+		const fetchTopLocationItinerary = async () => {
+			try {
+				const response = await fetch(`${backendUrl}/api/dashboard/top-locations-itinerary/`, {
+					method: 'GET',
+					headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${authTokens.access}`,
+					},
+				});
+		
+			if (!response.ok) {
+				throw new Error('Failed to fetch top bookmarks');
+			}
+			const data = await response.json();
+			setTopLocationItinerary(data.top_locations_itinerary);
+			console.log(data)
+			} catch (error) {
+			console.error('Error fetching top bookmarks:', error.message);
+			}
+		};
+
 
 		fetchCounts();
 		fetchPreferencePercentages();
 		fetchTopSpots();
 		fetchTopAccommodation();
 		fetchTopFoodPlaces();
+		fetchTopLocationItinerary();
 		fetchTopBookmarks();
 	}, [backendUrl, authTokens.access]);
 
@@ -176,10 +199,34 @@ import { useLocation, Link } from 'react-router-dom';
 		history: '#80ED99', 
 		nature: '#A4F3B3',
 		religion: '#C7F9CC',
-	};
+	  };
 
 	const handleTopListChange = (event) => {
 		setSelectedTopList(event.target.value);
+	  };
+
+	  const tableHeaders = () => {
+		switch (selectedTopList) {
+		  case 'spots':
+		  case 'accommodation':
+		  case 'foodPlaces':
+			return (
+			  <tr className='table--th1'>
+				<th>Name</th>
+				<th>Average Rating</th>
+				<th>Total Reviews</th>
+			  </tr>
+			);
+		  case 'locationItinerary':
+			return (
+			  <tr className='table--th1'>
+				<th>Name</th>
+				<th>Total Occurrences</th>
+			  </tr>
+			);
+		  default:
+			return null;
+		}
 	  };
 
 	return (
@@ -334,22 +381,18 @@ import { useLocation, Link } from 'react-router-dom';
 				<div className='User--preference-container'>
 					<div className='dashboard--total-container'>
 						<diV className="dropdown--list-admin d-flexCenter">
-							<p className="font20 font-weight-600">Top {selectedTopList === 'spots' ? 'Spots' : selectedTopList === 'accommodation' ? 'Accommodation' : 'Food Places'}</p>
+						<p className="font20 font-weight-600">Top {selectedTopList === 'spots' ? 'Spots' : selectedTopList === 'accommodation' ? 'Accommodation' : selectedTopList === 'foodPlaces' ? 'Food Places' : 'Visited'}</p>
 							<div className="top-list-dropdown-admin">
 								<select id="topList" value={selectedTopList} onChange={handleTopListChange}>
 									<option value="spots">Top Spots</option>
 									<option value="accommodation">Top Accommodation</option>
 									<option value="foodPlaces">Top Food Places</option>
+									<option value="locationItinerary">Top Visited </option>
 								</select>
 							</div>
 						</diV>
 						<table className="top-spot-table">
-							<thead>
-							<tr className='table--th1'>
-								<th>Name</th>
-								<th>Average Rating</th>
-								<th>Total Reviews</th>
-							</tr>
+							<thead>{tableHeaders()}
 							</thead>
 							<tbody>
 							{selectedTopList === 'spots' && topSpots && topSpots.map((spot, index) => (
@@ -373,6 +416,12 @@ import { useLocation, Link } from 'react-router-dom';
 									<td>{foodPlace.total_reviews}</td>
 								</tr>
 								))}
+							{selectedTopList === 'locationItinerary' && topLocationItinerary && topLocationItinerary.map ((itineraries, index) => (
+								<tr ley={index} className='top-spot-item'>
+									<td>{itineraries.name}</td>
+									<td>{itineraries.total_occurrences}</td>
+								</tr>
+							))}
 							</tbody>
 						</table>
 					</div>
