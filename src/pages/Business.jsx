@@ -5,7 +5,7 @@ import AuthContext from "../context/AuthContext"
 import dayjs from "dayjs"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-	FaEdit,
+	FaEdit
 	} from "react-icons/fa";
 import eye from "/images/eye.svg";
 import settings from "/images/fluent_settings-20-regular.svg";
@@ -20,26 +20,22 @@ const Business = () => {
     const displayBusiness = ownedLocations && ownedLocations.map(owned => {
         return (
             <div className="business--owned" key={owned.id}>
-                <img 
-                src={`${backendUrl}${owned.primary_image}`} 
-                className="business--image" 
-                alt="Location" 
-                />
                 <div>
-                    <p className="business--name heading4">{owned.name}</p>
-                    <h1 className="owner--address">{owned.address}</h1>
-                    <div className="owner--container">
+                    <img 
+                        src={`${backendUrl}${owned.primary_image}`} 
+                        alt="Location" 
+                        className="business--image"
+                    />
+                </div>
+                <div className="info">
+                    <p className="heading2">{owned.name}</p>
+                    <p className="address">{owned.address}</p>
+                    <div className="buttons">
                         <Link to={`/location/${owned.id}`} >
-                            <div className="d-flexCenter margin">
-                                <img src={eye}/>
-                                <p className="view--manage">View</p>
-                            </div>
+                            <p className="view--manage">View</p>
                         </Link>
                         <Link to={`/profile/business/${owned.id}`} >
-                            <div className="d-flexCenter margin">
-                                <img src={settings}/>
-                                <p className="view--manage">Manage</p>
-                            </div> 
+                            <p className="view--manage">Manage</p>
                         </Link>
                     </div>
                 </div>
@@ -93,7 +89,7 @@ const Business = () => {
             <div className="business--header">
                 <p className="business--title heading">Business</p>
             </div>
-            <div className="business--body d-flexCenter flexWrap">
+            <div className="business--body">
                 {displayBusiness}
             </div>
             <div className="requests--table">  
