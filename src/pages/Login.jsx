@@ -46,10 +46,9 @@ const Login = () => {
                         </button>
                         </div>
                     </label>
-                    <div className="forgot-password">
+                    {/* <div className="forgot-password">
                         <Link to="/forgotpass"><h1 className='font-weight-500'>Forgot Password</h1></Link>
-                    </div>
-                    
+                    </div> */}
 
                     <button className='button-login-sign'>Login</button>
                     <div className="login-sign-link">
