@@ -2,16 +2,24 @@ import { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import AuthContext from "../context/AuthContext"
 import useBusinessManager from "../hooks/useBusinessManager"
+import EditFee from "../modals/EditFee"
 
 const Fees = () => {
     const { id } = useParams()
     const { authTokens } = useContext(AuthContext)
-    const { location, items, error, loading, getBusinessDetail, createFeeType, getFeeTypes} = useBusinessManager(authTokens)
+    const { location, items, error, loading, getBusinessDetail, createFeeType, getFeeTypes, editFeeType} = useBusinessManager(authTokens)
+    const [selectedItem, setSelectedItem] = useState()
+    const [openEditModal, setOpenEditModal] = useState(false)
 
     const [data, setData] = useState({
         'name': '',
         'is_required': false,
     })
+
+    const toggleEditModal = (item) => {
+        setSelectedItem(item)
+        setOpenEditModal(prev => !prev)
+    }
 
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -41,7 +49,7 @@ const Fees = () => {
                         ))}
                     </ul>
                 </td>
-                <td><button>Edit</button></td>
+                <td><button onClick={() => toggleEditModal(item)}>Action</button></td>
             </tr>
         )
     })
@@ -106,6 +114,8 @@ const Fees = () => {
                     {displayFees}
                 </tbody>
             </table>
+            {openEditModal &&
+            <EditFee onClose={toggleEditModal} item={selectedItem} editFeeType={editFeeType}/>}
         </div>
     )
 }
