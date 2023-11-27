@@ -162,7 +162,7 @@ const BusinessOverview = () => {
                         <>
                             <div className="dashboard--total-container">
                                 <div className="dashboard--items d-flexCenter bordercolor2 height120">
-                                    <FontAwesomeIcon icon={faBookmark} className="dashboard--users icon-bounce"
+                                    <FontAwesomeIcon icon={faBookmark} className="dashboard--users1 icon-bounce"
                                         style={{ background: "#FB8D55", color: "white" }} />
                                     <div>
                                         <h1 className="bold heading9 icon-bounce">{businessStats.total_bookmarks}</h1>
@@ -172,7 +172,7 @@ const BusinessOverview = () => {
                             </div>
                             <div className="dashboard--total-container">
                                 <div className="dashboard--items d-flexCenter bordercolor2 height120">
-                                    <FontAwesomeIcon icon={faMagnifyingGlass} className="dashboard--users icon-bounce"
+                                    <FontAwesomeIcon icon={faMagnifyingGlass} className="dashboard--users1 icon-bounce"
                                         style={{ background: "#FB8D55", color: "white" }} />
                                     <div>
                                         <p className="bold heading9 icon-bounce">{businessStats.total_reviews}</p>
@@ -182,7 +182,7 @@ const BusinessOverview = () => {
                             </div>
                             <div className="dashboard--total-container">
                                 <div className="dashboard--items d-flexCenter bordercolor2 height120">
-                                    <FontAwesomeIcon icon={faStar} className="dashboard--users icon-bounce"
+                                    <FontAwesomeIcon icon={faStar} className="dashboard--users1 icon-bounce"
                                         style={{ background: "#FB8D55", color: "white" }} />
                                     <div>
                                         <h1 className="bold heading9 icon-bounce">{businessStats.average_rating}</h1>
