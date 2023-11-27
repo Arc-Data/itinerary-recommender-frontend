@@ -14,8 +14,11 @@ import { useLocation, Link } from 'react-router-dom';
 		const [preferencePercentages, setPreferencePercentages] = useState(null);
 		const [chartData, setChartData] = useState([]);
 		const [topSpots, setTopSpots] = useState([]);
+		const [topAccommodation, setTopAccommodation] = useState([]);
+		const [topFoodPlace, setTopFoodPlace] = useState([]);
 		const [topBookmarks, setTopBookmarks] = useState([]);
 		const [loading, setLoading] = useState(true); 
+		const [selectedTopList, setSelectedTopList] = useState('spots');
 		
 
 	useEffect(() => {
@@ -86,6 +89,30 @@ import { useLocation, Link } from 'react-router-dom';
 		
 			const data = await response.json();
 			setTopSpots(data.top_spots);
+			console.log(data)
+			
+			} catch (error) {
+			console.error('Error fetching top spots:', error.message);
+			}
+		};
+
+		const fetchTopAccommodation = async () => {
+			try {
+				const response = await fetch(`${backendUrl}/api/dashboard/top-accommodations/`, {
+					method: 'GET',
+					headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${authTokens.access}`,
+					},
+				});
+			
+			if (!response.ok) {
+				throw new Error('Failed to fetch top spots');
+			}
+		
+			const data = await response.json();
+			setTopAccommodation(data.top_accommodations);
+			console.log(data)
 			
 			} catch (error) {
 			console.error('Error fetching top spots:', error.message);
@@ -107,15 +134,37 @@ import { useLocation, Link } from 'react-router-dom';
 			}
 			const data = await response.json();
 			setTopBookmarks(data.top_bookmarks);
-			console.log(data)
 			} catch (error) {
 			console.error('Error fetching top bookmarks:', error.message);
 			}
 		};
 
+		const fetchTopFoodPlaces = async () => {
+			try {
+				const response = await fetch(`${backendUrl}/api/dashboard/top-foodplaces/`, {
+					method: 'GET',
+					headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${authTokens.access}`,
+					},
+				});
+		
+			if (!response.ok) {
+				throw new Error('Failed to fetch top bookmarks');
+			}
+			const data = await response.json();
+			setTopFoodPlace(data.top_food_places);
+			} catch (error) {
+			console.error('Error fetching top bookmarks:', error.message);
+			}
+		};
+
+
 		fetchCounts();
 		fetchPreferencePercentages();
 		fetchTopSpots();
+		fetchTopAccommodation();
+		fetchTopFoodPlaces();
 		fetchTopBookmarks();
 	}, [backendUrl, authTokens.access]);
 
@@ -128,6 +177,10 @@ import { useLocation, Link } from 'react-router-dom';
 		nature: '#A4F3B3',
 		religion: '#C7F9CC',
 	};
+
+	const handleTopListChange = (event) => {
+		setSelectedTopList(event.target.value);
+	  };
 
 	return (
 		<div>
@@ -280,7 +333,16 @@ import { useLocation, Link } from 'react-router-dom';
 				</div>
 				<div className='User--preference-container'>
 					<div className='dashboard--total-container'>
-						<p className="font20 font-weight-600">Top Spots</p>
+						<diV className="dropdown--list-admin d-flexCenter">
+							<p className="font20 font-weight-600">Top {selectedTopList === 'spots' ? 'Spots' : selectedTopList === 'accommodation' ? 'Accommodation' : 'Food Places'}</p>
+							<div className="top-list-dropdown-admin">
+								<select id="topList" value={selectedTopList} onChange={handleTopListChange}>
+									<option value="spots">Top Spots</option>
+									<option value="accommodation">Top Accommodation</option>
+									<option value="foodPlaces">Top Food Places</option>
+								</select>
+							</div>
+						</diV>
 						<table className="top-spot-table">
 							<thead>
 							<tr className='table--th1'>
@@ -290,13 +352,27 @@ import { useLocation, Link } from 'react-router-dom';
 							</tr>
 							</thead>
 							<tbody>
-							{topSpots.map((spot, index) => (
+							{selectedTopList === 'spots' && topSpots && topSpots.map((spot, index) => (
 								<tr key={index} className="top-spot-item">
-								<td>{spot.name}</td>
-								<td>{spot.average_rating}</td>
-								<td>{spot.total_reviews}</td>
+									<td>{spot.name}</td>
+									<td>{spot.average_rating}</td>
+									<td>{spot.total_reviews}</td>
 								</tr>
-							))}
+								))}
+							{selectedTopList === 'accommodation' && topAccommodation && topAccommodation.map((accommodation, index) => (
+								<tr key={index} className="top-spot-item">
+									<td>{accommodation.name}</td>
+									<td>{accommodation.average_rating}</td>
+									<td>{accommodation.total_reviews}</td>
+								</tr>
+								))}
+							{selectedTopList === 'foodPlaces' && topFoodPlace && topFoodPlace.map((foodPlace, index) => (
+								<tr key={index} className="top-spot-item">
+									<td>{foodPlace.name}</td>
+									<td>{foodPlace.average_rating}</td>
+									<td>{foodPlace.total_reviews}</td>
+								</tr>
+								))}
 							</tbody>
 						</table>
 					</div>

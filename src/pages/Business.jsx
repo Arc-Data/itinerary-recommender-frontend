@@ -20,15 +20,15 @@ const Business = () => {
     const displayBusiness = ownedLocations && ownedLocations.map(owned => {
         return (
             <div className="business--owned" key={owned.id}>
-                <div>
+                {/* <div>
                     <img 
                         src={`${backendUrl}${owned.primary_image}`} 
                         alt="Location" 
                         className="business--image"
                     />
-                </div>
+                </div> */}
                 <div className="info">
-                    <p className="heading2">{owned.name}</p>
+                    <p className="title">{owned.name}</p>
                     <p className="address">{owned.address}</p>
                     <div className="buttons">
                         <Link to={`/location/${owned.id}`} >
