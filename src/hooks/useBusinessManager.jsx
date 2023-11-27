@@ -22,8 +22,6 @@ const useBusinessManager = (authTokens) => {
                 }
             })
 
-            console.log(response)
-
             if (response.ok) {
                 const new_requests = requests.filter(request => request.id !== id)
                 setRequests(new_requests)
@@ -119,7 +117,6 @@ const useBusinessManager = (authTokens) => {
             })
 
             const data = await response.json()
-            console.log(data)
             setItems(data)
         }
         catch (error) {
@@ -143,14 +140,12 @@ const useBusinessManager = (authTokens) => {
             })
 
             const data = await response.json()
-            console.log(data)
             setItems(data)
         }
         catch (error) {
             setError(error)
         }
         finally {
-            console.log("shouldnt this have happened already")
             setLoading(false)
         }
     }
@@ -178,6 +173,44 @@ const useBusinessManager = (authTokens) => {
         }
     }
 
+    const createFood = async (id, formData) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/food/${id}/create/`, {
+                "method": "POST",
+                "headers": {
+                    "Authorization":`Bearer ${access}`
+                },
+                "body": formData
+            })
+            const data = await response.json()
+            
+            const newItems = [...items, data]
+            setItems(newItems)
+        }   
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    const deleteFood = async (locationId, id) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/food/${locationId}/delete/${id}/`, {
+                "method": "DELETE",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                }
+            })
+
+            if (response.ok) {
+                const newItems = items.filter(item => item.id !== id)
+                setItems(newItems)
+            }
+        } catch (error) {
+            console.log("An error occured while deleting food item: ", error)
+        }
+    }
+
     const editBusiness = async (id, data) => {
         try {
             const response = await fetch(`${backendUrl}/api/user/business/${id}/edit/`, {
@@ -196,16 +229,6 @@ const useBusinessManager = (authTokens) => {
         }
     }
 
-    const handleServiceType = async (locationId, locationType) => {
-        if (locationType === "1") {
-            return;
-        } else if (locationType === "2") {
-            getFoodItems(locationId)
-        } else if (locationType === "3") {
-            getServices(locationId)
-        }
-    }
-
     return {
         items,
         loading,
@@ -213,6 +236,7 @@ const useBusinessManager = (authTokens) => {
         location,
         locations,
         requests, 
+        createFood,
         ownedLocations,
         approveRequest,
         getApprovalRequests,
@@ -221,7 +245,8 @@ const useBusinessManager = (authTokens) => {
         getBusinessDetail,
         getOwnedBusinesses,
         getFoodItems,
-        handleServiceType,
+        deleteFood,
+        getServices,
     }
 }
 

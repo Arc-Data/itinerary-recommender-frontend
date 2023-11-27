@@ -27,7 +27,6 @@ import Profile from './pages/Profile';
 import Trips from './pages/Trips';
 import Business from './pages/Business';
 import AddBusiness from './pages/AddBusiness';
-import EditBusiness from './pages/EditBusiness';
 import ManageBusiness from './pages/ManageBusiness';
 import Bookmarks from './pages/Bookmarks';
 import Recent from './pages/Recent';
@@ -36,11 +35,11 @@ import Request from './pages/Request';
 import Event from './pages/Event';
 import AddEvent from './pages/AddEvent'
 import Dashboard from './pages/Dashboard';
-import EditLocation from './pages/EditLocation';
-import Services from "./components/Services"
+import Menu from "./components/Menu"
 import ManageLayout from './layout/ManageLayout';
 import BusinessOverview from './components/BusinessOverview';
 import DownloadDashboard from './pages/DownloadDashboard';
+import Services from './components/Services';
 	/*css*/
 	
 function App() {
@@ -70,6 +69,8 @@ function App() {
 						
 						<Route path="/profile/business/:id" element={<ManageLayout />}>
 							<Route path="/profile/business/:id/" element={<BusinessOverview />} />
+							<Route path="/profile/business/:id/" element={<BusinessOverview />} />
+							<Route path="/profile/business/:id/menu" element={<Menu />}/>
 							<Route path="/profile/business/:id/services" element={<Services />}/>
 							<Route path="/profile/business/:id/edit" element={<ManageBusiness />} />
 						</Route>
@@ -90,15 +91,10 @@ function App() {
 					<Route path = "/admin/users" index element={<Users users={data[0].users}/>} />
 					<Route path="/admin/location" element={<AddLocation/>} />
 					<Route path="/admin/locations" element={<Location/>} />
-{/* 					
-					<Route path="/profile/business/:id" element={<ManageLayout />}>
-							<Route path="/profile/business/:id/" element={<BusinessOverview />} />
-							<Route path="/profile/business/:id/services" element={<Services />}/>
-							<Route path="/profile/business/:id/edit" element={<ManageBusiness />} />
-						</Route> */}
-					
+
 					<Route path="/admin/location/:id" element={<ManageLayout />} >
 						<Route path="/admin/location/:id/" element={<BusinessOverview />} />
+						<Route path="/admin/location/:id/menu" element={<Menu />} />
 						<Route path="/admin/location/:id/services" element={<Services />} />
 						<Route path="/admin/location/:id/edit" element={<ManageBusiness />} />
 					</Route>
