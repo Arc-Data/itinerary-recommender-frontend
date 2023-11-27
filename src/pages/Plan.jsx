@@ -356,11 +356,6 @@ const Plan = () => {
 							}
 							{displayDays}
 						</section>
-						{itinerary?.budget && itinerary.budget < minCost ? (
-  							<p>fuck me daddy</p>
-						) : (
-  							<p>bwakanangshet</p>
-						)}
 					</main>
 				</div>
 			</div>
