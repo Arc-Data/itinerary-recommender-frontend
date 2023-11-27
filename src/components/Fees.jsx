@@ -91,7 +91,7 @@ const Fees = () => {
                         className="styled-input"
                         />
                     </div>
-                    <button type="submit">Submit</button>
+                    <button className="add--business font14" type="submit" >Submit</button>
                 </form>
             </div>
             <table>
