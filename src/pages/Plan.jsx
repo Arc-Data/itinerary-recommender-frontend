@@ -67,6 +67,8 @@ const Plan = () => {
 
 	const [costEstimate, setCostEstimate] = useState(0);
 
+	console.log(minCost, maxCost)
+
 	useEffect(() => {
 		const fetchData = async () => {
 			try {

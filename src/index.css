@@ -250,14 +250,17 @@ a:-webkit-any-link {
     height: 80px;
     border-bottom: 1px solid #e7e7e7;
     z-index: 1000;
+    width: 100%;
 }
 
 .nav-wrapper {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     place-items: center;
+    max-width: 1200px;
     width: 100%;
     padding: 12px 24px;
+    margin:0 auto;
     height: 100%;
 }
 

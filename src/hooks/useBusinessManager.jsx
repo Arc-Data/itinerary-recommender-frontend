@@ -284,6 +284,50 @@ const useBusinessManager = (authTokens) => {
         }
     }
 
+    const editFeeType = async (feeId, formData) => {
+        console.log(feeId, formData)
+        try {
+            const response = await fetch(`${backendUrl}/api/fee/${feeId}/edit/`, {
+                "method": "PATCH",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                },
+                "body": JSON.stringify(formData)
+            })
+
+            console.log(response)
+            const data = await response.json()
+
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    const getFeeDetails = async (feeId) => {
+        setLoading(true)
+
+        try {
+            const response = await fetch(`${backendUrl}/api/fee/${feeId}/`, {
+                "method": "GET",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                }
+            })
+
+            const data = await response.json()
+            setItems(data)
+        } 
+        catch (error) {
+            console.log("An error occured while fetching fee types ", error)
+        }
+        finally {
+            setLoading(false)
+        }
+    }
+
     const createFeeType = async (id, formData) => {
         try {
             const response = await fetch(`${backendUrl}/api/location/${id}/fee/create/`, {
@@ -325,6 +369,8 @@ const useBusinessManager = (authTokens) => {
         deleteService,
         getServices,
         getFeeTypes,
+        editFeeType,
+        getFeeDetails,
         createFeeType,
     }
 }

@@ -1,17 +1,30 @@
 import { useContext, useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import AuthContext from "../context/AuthContext"
 import useBusinessManager from "../hooks/useBusinessManager"
+import EditFee from "../modals/EditFee"
 
 const Fees = () => {
     const { id } = useParams()
     const { authTokens } = useContext(AuthContext)
-    const { location, items, error, loading, getBusinessDetail, createFeeType, getFeeTypes} = useBusinessManager(authTokens)
+    const { location, items, error, loading, getBusinessDetail, createFeeType, getFeeTypes, editFeeType} = useBusinessManager(authTokens)
+    const [selectedItem, setSelectedItem] = useState()
+    const [openEditModal, setOpenEditModal] = useState(false)
+    const [addModal, setAddModal] = useState(false)
 
     const [data, setData] = useState({
         'name': '',
         'is_required': false,
     })
+
+    const toggleEditModal = (item) => {
+        setSelectedItem(item)
+        setOpenEditModal(prev => !prev)
+    }
+
+    const toggleAddModal = () => {
+
+    }
 
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -25,7 +38,6 @@ const Fees = () => {
         return !data.name
     }
 
-    console.log(items)
 
     const displayFees = items && items.map(item => {
         return (
@@ -37,11 +49,12 @@ const Fees = () => {
                         {item.audience_types.map(audienceType => (
                             <li key={audienceType.id}>
                                 {audienceType.name} - Price: {audienceType.price}
+                                <div onClick={() => toggleModal(audienceType)}>Edit</div>
                             </li>
+                            
                         ))}
                     </ul>
                 </td>
-                <td><button>Edit</button></td>
             </tr>
         )
     })
@@ -100,12 +113,16 @@ const Fees = () => {
                         <th>Fee Type</th>
                         <th>Required</th>
                         <th>Audience Type - Price</th>
+                        <th><button>Add</button></th>
                     </tr>
                 </thead>
                 <tbody>
                     {displayFees}
                 </tbody>
             </table>
+            {openEditModal &&
+            <EditFee />
+            }    
         </div>
     )
 }
