@@ -162,6 +162,8 @@ export default function DetailPage() {
 		}
 	};
 
+	console.log(location)
+
 	const handleSubmit = () => {
 		if (userReview) {
 			editReview()
@@ -321,6 +323,25 @@ export default function DetailPage() {
 		}
 	};
 
+	const displayRequiredFees = location && location.details.required_fee.map((fee, index) => {
+		return (
+			<div key={index} className="detailPage--fee span-items">
+				<p className="font-weight-600">{fee.fee_type}({fee.audience_type})</p>
+				<p>{fee.price}</p>
+			</div>
+		)
+	}) 
+
+	const displayOptionalFees = location && location.details.optional_fee.map((fee, index) => {
+		return (
+			<div key={index} className="detailPage--fee span-items">
+				<p className="font-weight-600">{fee.fee_type}({fee.audience_type})</p>
+				<p>{fee.price}</p>
+			</div>
+		)
+	}) 
+
+
 	const resultStart = (currentPage - 1) * 5 + 1;
 	const resultEnd = Math.min(currentPage * 5, reviewData.length);
 
@@ -336,7 +357,7 @@ export default function DetailPage() {
 					{location.location_type == 1 && 
 					<div>	
 						<p> <FontAwesomeIcon className='btn-icons' icon={faClock} />Opens at {location?.details.opening_time} | Closes at {" "} {location?.details.closing_time}{" "}</p>
-						{/* <p> <FontAwesomeIcon className='btn-icons' icon={faMoneyBills} />Fee: {location?.details.max_fee}</p> */}
+						<p> <FontAwesomeIcon className='btn-icons' icon={faMoneyBills} />Fee: {location?.details.min_fee} - {location?.details.max_fee}</p>
 					</div>
 					}
 					<div className="detailPage--rating-category">
@@ -382,49 +403,19 @@ export default function DetailPage() {
 			<div className="detailPage--activities">
 				<p className="heading2"><FontAwesomeIcon className="btn-icons" icon={faTags} />Activities</p>
 				<div className="detailPage--tags">
-					{/* {displayActivities} */}
+					{displayActivities}
 				</div>
 			</div>
 			<div className="detailPage--required-fees">
 				<p className="heading2"><FontAwesomeIcon className="btn-icons" icon={faMoneyBills} />Required fees</p>
 				<div className="detailPage--fees-details">
-					<div className="detailPage--fee span-items">
-						<p className="font-weight-600">Environmental Fee</p>
-						<p>500 PHP</p>
-					</div>
-					<div className="detailPage--fee span-items">
-						<p className="font-weight-600">Entrance Fee</p>
-						<p>500 PHP</p>
-					</div>
-					<div className="detailPage--fee span-items">
-						<p className="font-weight-600">Environmental Fee</p>
-						<p>500 PHP</p>
-					</div>
-					<div className="detailPage--fee span-items">
-						<p className="font-weight-600">Entrance Fee</p>
-						<p>500 PHP</p>
-					</div>
-					<div className="detailPage--fee span-items">
-						<p className="font-weight-600">Entrance Fee</p>
-						<p>500 PHP</p>
-					</div>
+					{displayRequiredFees}
 				</div>
 			</div>
 			<div className="detailPage--optional-fees">
 				<p className="heading2"><FontAwesomeIcon className="btn-icons" icon={faMoneyBills} />Optional fees</p>
 				<div className="detailPage--fees-details">
-					<div className="detailPage--fee span-items">
-						<p className="font-weight-600">Environmental Fee</p>
-						<p>500 PHP</p>
-					</div>
-					<div className="detailPage--fee span-items">
-						<p className="font-weight-600">Entrance Fee</p>
-						<p>500 PHP</p>
-					</div>
-					<div className="detailPage--fee span-items">
-						<p className="font-weight-600">Environmental Fee</p>
-						<p>500 PHP</p>
-					</div>
+					{displayOptionalFees}
 				</div>
 			</div>
 		</div>
