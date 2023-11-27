@@ -80,7 +80,7 @@ const RateDay = () => {
                     </div>
                     <div className="header-subtitle">
                         <img src="/calendar.svg" alt="" />
-                        <span>{dayjs(day.date).format("MMM M, YYYY")}</span>
+                        <span>{dayjs(day.date).format("MMM D, YYYY")}</span>
                     </div>
                 </div>
                 <div className="profile--rate-locations">
