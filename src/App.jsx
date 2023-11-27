@@ -33,6 +33,8 @@ import Bookmarks from './pages/Bookmarks';
 import Recent from './pages/Recent';
 import RateDay from './pages/RateDay';
 import Request from './pages/Request';
+import Event from './pages/Event';
+import AddEvent from './pages/AddEvent'
 import Dashboard from './pages/Dashboard';
 import EditLocation from './pages/EditLocation';
 import Services from "./components/Services"
@@ -102,6 +104,8 @@ function App() {
 					</Route>
 					
 					<Route path="/admin/requests" element={<Request />} />
+					<Route path="/admin/events" element={<Event />} />
+					<Route path="/admin/event" element={<AddEvent />} />
 					<Route path="/admin/download" element={<DownloadDashboard />} />
 				</Route>
 			</Routes>

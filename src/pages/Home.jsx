@@ -167,7 +167,7 @@ const HomePage = () => {
 				</div>
 			</header>
 			{ days.length !== 0 && 
-			<div>
+			<div className="active--trips">
 				<p className="header-title heading">Active Trips</p>
 				<div className="active--trips-container">
 					{displayActiveTrips()}

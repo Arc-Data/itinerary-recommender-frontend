@@ -4,8 +4,7 @@ import AuthContext from "../context/AuthContext"
 import { useNavigate } from "react-router-dom"
 import back from "/images/lets-icons_back-light.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUpload } from '@fortawesome/free-solid-svg-icons';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faUpload, faCircleXmark, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const AddBusiness = () => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
@@ -21,6 +20,9 @@ const AddBusiness = () => {
         'longitude': 0,
         'latitude': 0,
         'type': '',
+        'maxfee': 0,
+        'minfee': 0,
+        'description': ''
     })
     const [image, setImage] = useState(null)
 
@@ -38,7 +40,9 @@ const AddBusiness = () => {
             !locationData.address ||
             locationData.longitude == 0 ||
             locationData.latitude == 0 ||
-            locationData.type === ''
+            locationData.type === '' || 
+            maxfee == 0 || 
+            minfee == 0
     
             if (value) {
                 alert("Missing inputs")
@@ -153,9 +157,9 @@ const AddBusiness = () => {
                                         className="business-input"/>
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="address">Phone Number (optional)</label>
+                                    <label htmlFor="contact">Phone Number (optional)</label>
                                     <input 
-                                        type="text" 
+                                        type="number" 
                                         name="contact" 
                                         id="contact" 
                                         value={locationData.contact}
@@ -185,7 +189,39 @@ const AddBusiness = () => {
                                         placeholder="Enter Website" 
                                         className="business-input"/>
                                 </div>
-
+                                <div className="form-group">
+                                        <h1 className="heading business-details">Business Details</h1>
+                                        <label htmlFor="description">Description</label>
+                                        <input 
+                                            type="text" 
+                                            name="description" 
+                                            id="description" 
+                                            value={locationData.description}
+                                            onChange={handleInputChange}
+                                            className="business-input"/>
+                                    </div>
+                                <div className="form-column-group">
+                                    <div className="form-group">
+                                        <label htmlFor="minfee">Minimum product/service fee</label>
+                                        <input 
+                                            type="number" 
+                                            name="minfee" 
+                                            id="minfee" 
+                                            value={locationData.minfee}
+                                            onChange={handleInputChange}
+                                            className="business-input"/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="maxfee">Maximum product/service fee</label>
+                                        <input 
+                                            type="maxfee" 
+                                            name="maxfee" 
+                                            id="maxfee" 
+                                            value={locationData.maxfee}
+                                            onChange={handleInputChange}
+                                            className="business-input"/>
+                                    </div>
+                                </div>
                                 <div className="form-column-group">
                                     <div className="form-group">
                                         <label htmlFor="address">Latitude</label>
@@ -230,11 +266,15 @@ const AddBusiness = () => {
                             </div>
                             <div>
                                 {image && (
+                                <div style={{ display: 'flex', alignItems: 'center', marginRight: '5px' }}>
                                 <img
                                     src={URL.createObjectURL(image)}
                                     alt="Selected Image"
-                                    style={{ marginTop: '10px', maxWidth: '100%' }}
+                                    style={{ marginRight: '10px', maxWidth: '100px' }}
                                 />
+                                <p style={{ marginRight: '10px' }}>{image.name}</p>
+                                    <button onClick={() => setImage(null)}><FontAwesomeIcon className="delete--upload-img" icon={faCircleXmark} /></button>
+                                </div>
                                 )}
                                 <div className="upload-btn" onClick={handleUploadClick}>
                                     <FontAwesomeIcon className='upload-icon btn-icons' icon={faUpload} />

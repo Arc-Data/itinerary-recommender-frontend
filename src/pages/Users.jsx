@@ -121,12 +121,12 @@ function Users() {
       </div>
       <table>
         <thead>
-          <tr className="table--th">
-            <td className="bold">ID</td>
-            <td className="bold">First Name</td>
-            <td className="bold">Last Name</td>
-            <td className="bold">Email</td>
-            <td className="bold">Action</td>
+          <tr>
+            <td className="font">ID</td>
+            <td className="font">First Name</td>
+            <td className="font">Last Name</td>
+            <td className="font">Email</td>
+            <td className="font">Action</td>
           </tr>
         </thead>
         <tbody>{userElements}</tbody>

@@ -27,6 +27,7 @@ import {
 	faClock,
 	faMap,
 	faBookmark,
+	faTags
 } from '@fortawesome/free-solid-svg-icons';
 
 export default function DetailPage() {
@@ -377,6 +378,66 @@ export default function DetailPage() {
 					/>
 					<div className="detailPage--thumbnail">
 						{thumbnails}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div className="detailPage--additional-details">
+			<div className="detailPage--activities">
+				<p className="heading2"><FontAwesomeIcon className="btn-icons" icon={faTags} />Activities</p>
+				<div className="detailPage--tags">
+					<div className="detailPage--tag">Sample tag</div>
+					<div className="detailPage--tag">Sample tag hey hey</div>
+					<div className="detailPage--tag">Sample tag yes i'm sleepy</div>
+					<div className="detailPage--tag">Sample tag bounce bounce</div>
+					<div className="detailPage--tag">Sample tag</div>
+					<div className="detailPage--tag">Sample tag yes</div>
+					<div className="detailPage--tag">Sample tag bounce</div>
+					<div className="detailPage--tag">Sample tag</div>
+					<div className="detailPage--tag">Sample tag yes i'm sleepy</div>
+					<div className="detailPage--tag">Sample tag bounce bounce</div>
+					<div className="detailPage--tag">Sample tag</div>
+				</div>
+			</div>
+			<div className="detailPage--required-fees">
+				<p className="heading2"><FontAwesomeIcon className="btn-icons" icon={faMoneyBills} />Required fees</p>
+				<div className="detailPage--fees-details">
+					<div className="detailPage--fee span-items">
+						<p className="font-weight-600">Environmental Fee</p>
+						<p>500 PHP</p>
+					</div>
+					<div className="detailPage--fee span-items">
+						<p className="font-weight-600">Entrance Fee</p>
+						<p>500 PHP</p>
+					</div>
+					<div className="detailPage--fee span-items">
+						<p className="font-weight-600">Environmental Fee</p>
+						<p>500 PHP</p>
+					</div>
+					<div className="detailPage--fee span-items">
+						<p className="font-weight-600">Entrance Fee</p>
+						<p>500 PHP</p>
+					</div>
+					<div className="detailPage--fee span-items">
+						<p className="font-weight-600">Entrance Fee</p>
+						<p>500 PHP</p>
+					</div>
+				</div>
+			</div>
+			<div className="detailPage--optional-fees">
+				<p className="heading2"><FontAwesomeIcon className="btn-icons" icon={faMoneyBills} />Optional fees</p>
+				<div className="detailPage--fees-details">
+					<div className="detailPage--fee span-items">
+						<p className="font-weight-600">Environmental Fee</p>
+						<p>500 PHP</p>
+					</div>
+					<div className="detailPage--fee span-items">
+						<p className="font-weight-600">Entrance Fee</p>
+						<p>500 PHP</p>
+					</div>
+					<div className="detailPage--fee span-items">
+						<p className="font-weight-600">Environmental Fee</p>
+						<p>500 PHP</p>
 					</div>
 				</div>
 			</div>
