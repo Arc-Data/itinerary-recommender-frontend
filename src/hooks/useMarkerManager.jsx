@@ -3,12 +3,13 @@ import { useState } from "react"
 const useMarkerManager = () => {
     const [ markers, setMarkers] = useState([])
     
-    const addMarker = (latitude, longitude, color) => {
+    const addMarker = (latitude, longitude, color, location="") => {
 		const mapMarkers = [...markers]
 		mapMarkers.push({
 			lng: longitude,
 			lat: latitude,
 			color: color,
+            location: location,
 		})
 
 		setMarkers(mapMarkers)
@@ -48,6 +49,7 @@ const useMarkerManager = () => {
                         lng: location.details.longitude,
                         lat: location.details.latitude,
                         color: day.color,
+                        location: location.details.name
                     })
                 })
             })

@@ -68,7 +68,6 @@ const Menu = () => {
             return
         }
 
-
         const formData = new FormData()
         formData.append('image', imageFile)
 

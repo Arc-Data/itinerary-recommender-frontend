@@ -181,7 +181,7 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
                     <span className='heading3'>{dayjs(day.date).format("dddd, MMM D")}</span>
                 </p>
                 <div className="plan--day-settings" onClick={preventSettingsPropagation}>
-                    {day.date_status !== "soon" && !day.completed &&
+                    {day.date_status !== "soon" && !day.completed && day.itinerary_items.length > 0 && 
                     <div className="plan--day-complete" onClick={toggleCompletionModal}><FontAwesomeIcon className="btn-icons" icon={faCheckDouble} />Mark as visited</div>
                     }
                     <div className="plan--day-ellipsis">

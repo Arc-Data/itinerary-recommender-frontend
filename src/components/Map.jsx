@@ -23,9 +23,30 @@ const Map = ({markers}) => {
                 .setLngLat(markerCoords)
                 .addTo(map.current);
 
+            const popup = new maptilersdk.Popup({ offset: [0, -30] }) // Adjust offset as needed
+                .setHTML(`<p>${markerCoords.location}</p>`)
+            
+            newMarker.getElement().addEventListener('mouseenter', () => {
+                popup.addTo(map.current);
+                hidePopupCloseButton(popup)
+            });
+    
+            newMarker.getElement().addEventListener('mouseleave', () => {
+                popup.remove();
+            });
+        
+            newMarker.setPopup(popup)
             markerRefs.current.push(newMarker);
+
         })
     }
+
+    const hidePopupCloseButton = (popup) => {
+        const closeButton = popup.getElement().querySelector('.maptiler-popup-close-button');
+        if (closeButton) {
+            closeButton.style.display = 'none';
+        }
+    };
 
     useEffect(() => {
         if(map.current) return; 

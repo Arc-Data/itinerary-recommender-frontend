@@ -16,7 +16,7 @@ const EventModal = ({onClose, id}) => {
 
     useEffect(() => {
         if(event) {
-            addMarker(event.latitude, event.longitude, '#cccccc')
+            addMarker(event.latitude, event.longitude, '#cccccc', event.name)
         }
     }, [event])    
 
