@@ -4,6 +4,7 @@ import AuthContext from "../context/AuthContext"
 import useBusinessManager from "../hooks/useBusinessManager"
 
 const Services = () => {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL;
     const { id } = useParams()
     const { authTokens } = useContext(AuthContext)
     const { 
@@ -36,12 +37,13 @@ const Services = () => {
     }
 
     const displayServices = items && items.map(item => {
+        console.log(item)
         return (
             <tr key={item.id}>
-                <td>Insert image here</td>
+                <td><img className="searchPage--pic" src={`${backendUrl}${item.image}`} /></td>
                 <td>{item.item}</td>
                 <td>{item.price}</td>
-                <td><button onClick={() => handleDelete(item.id)}>Delete</button></td>
+                <td><button className="delete-btn" onClick={() => handleDelete(item.id)}>Delete</button></td>
             </tr>
         )
     })
