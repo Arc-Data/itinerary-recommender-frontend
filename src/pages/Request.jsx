@@ -3,7 +3,8 @@ import AuthContext from "../context/AuthContext"
 import useBusinessManager from "../hooks/useBusinessManager"
 import dayjs from "dayjs"
 import RequestModal from "../modals/RequestModal"
-import eye from "/images/lets-icons_view-alt-fill.svg";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendarDay, faEye, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 const Request = () => {
     const { authTokens } = useContext(AuthContext)
@@ -34,7 +35,11 @@ const Request = () => {
                 <td>{request.requester.first_name} {request.requester.last_name}</td>
                 <td>{dayjs(request.timestamp).format("MMMM D YYYY")}</td>
                 <td><button disabled className="request--status">For Approval</button></td>
-                <td><button className="view-details" onClick={() => toggleDetails(request)}><img src={eye} /></button></td>
+                <td className="admin--table-action">
+                    <button className="view" onClick={() => toggleDetails(request)}>
+                        <FontAwesomeIcon icon={faEye} />
+                    </button>
+                </td>
             </tr>
         )   
     })

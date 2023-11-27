@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarDay } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDay, faEye, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import useEventManager from '../hooks/useEventManager'
 import EventModal from '../modals/EventModal';
 
@@ -27,8 +27,10 @@ function Event() {
                 <td>{event.name}</td>
                 <td>{event.start_date}</td>
                 <td>{event.end_date}</td>
-                <td><button onClick={() => handleViewClick(event.id)}>View</button></td>
-                <td><button onClick={() => deleteEvent(event.id)}>Delete</button></td>
+                <td className="admin--table-action">
+                    <button className="view" onClick={() => handleViewClick(event.id)}><FontAwesomeIcon icon={faEye} /></button>
+                    <button className="delete" onClick={() => deleteEvent(event.id)}><FontAwesomeIcon icon={faTrashCan} /></button>
+                </td>
             </tr>
         )
     })
@@ -64,8 +66,7 @@ function Event() {
                         <th className="font">Name</th>
                         <th className="font">Start date</th>
                         <th className="font">End date</th>
-                        <th className="font">View</th>
-                        <th className="font">Delete</th>
+                        <th className="font">Action</th>
                     </tr>
                 </thead>
                 <tbody>

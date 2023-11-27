@@ -218,7 +218,7 @@ const ManageSpot = ({ location, editBusiness }) => {
                     />
                     </div>
                 </div>    
-                <button>Submit</button>
+                <button className="add--business font14" >Submit</button>
             </form>
         </div>
     )

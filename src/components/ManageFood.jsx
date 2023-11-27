@@ -10,7 +10,7 @@ Modal.setAppElement("#root");
 const ManageBusiness = ({ location, editBusiness }) => {
 	const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
 
-	const [isAddProductModalOpen, setAddProductModalOpen] = useState(false);
+	
 	const navigate = useNavigate()
 
     const [formData, setFormData] = useState({
@@ -35,11 +35,9 @@ const ManageBusiness = ({ location, editBusiness }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault() 
 		editBusiness(location.id, formData)
+		navigate(-1)
 	}
 
-	const toggleAddProduct = () => {
-		setAddProductModalOpen(prev => !prev)
-	}
 
 	return (
 		<div className="profile--main-container">
@@ -163,56 +161,8 @@ const ManageBusiness = ({ location, editBusiness }) => {
 				/>
 				</div>
 			</div>    
-			<button>Submit</button>
+			<button className="add--business font14" >Submit</button>
 		</form>
-
-		<div className="requests--table">
-			<div className="flex-between">
-			<p className="requests--title bold2">Menu</p>
-			<button className="business--btn" onClick={toggleAddProduct}>
-				<img src="/plus.svg" />
-				<p>Add</p>
-			</button>
-			</div>
-			<table>
-			<thead className="table--th">
-				<td></td>
-				<td>Name</td>
-				<td>Price</td>
-				<td>Description</td>
-				<td>Action</td>
-			</thead>
-			<tbody>
-				<tr>
-				<td>
-					<img
-					src={SAMPLEIMAGE}
-					className="product--services-images"
-					alt="SAMPLE"
-					/>
-				</td>
-				<td></td>
-				<td>150</td>
-				<td>Sobrang Sarap</td>
-				<td>
-					<div className="d-flexCenter">
-						<button className="business--edit mr10px btn--icon">
-						<FaPencilAlt />
-						</button>
-					<button className="business--delete btn--icon">
-						<FaTrash />
-					</button>
-					</div>
-				</td>
-				</tr>
-			</tbody>
-			</table>
-		</div>
-		{isAddProductModalOpen && 
-		<ProductModal 
-			isAddProductModalOpen={isAddProductModalOpen}
-			toggleAddProduct={toggleAddProduct}/>
-		}
 
 		</div>
 	);

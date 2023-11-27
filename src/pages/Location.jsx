@@ -27,9 +27,9 @@ function Location() {
                     src={`${backendUrl}${location.primary_image}`}/></td>
             <td>{location.name}</td>
             <td style={{width: '25%'}}>{location.address}</td>
-            <td>
+            <td className="admin--table-action">
                 <Link to={`/admin/location/${location.id}`}>
-                    <button className='editDeleteLoc--btn'><FaEdit/></button> 
+                    <button className="edit"><FaEdit/></button> 
                 </Link>
             </td>
         </tr>

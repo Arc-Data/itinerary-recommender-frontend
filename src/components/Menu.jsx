@@ -4,6 +4,7 @@ import AuthContext from "../context/AuthContext"
 import useBusinessManager from "../hooks/useBusinessManager"
 
 const Menu = () => {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL;
     const { id } = useParams()
     const { authTokens } = useContext(AuthContext)
     const { 
@@ -34,12 +35,11 @@ const Menu = () => {
         return (
             <tr key={item.id}>
                 <td>
-                    Insert image here
-                    {/* <img src={`${backendUrl}${item.image}`} alt="" /> */}
+                    <img className="searchPage--pic" src={`${backendUrl}${item.image}`} alt="" />
                 </td>
                 <td>{item.item}</td>
                 <td>{item.price}</td>
-                <td><button onClick={() => handleDelete(item.id)}>Delete</button></td>
+                <td><button className="delete-btn" onClick={() => handleDelete(item.id)}>Delete</button></td>
             </tr>
         )
     })
@@ -101,7 +101,9 @@ const Menu = () => {
 
     return (
         <div>
+            <div className="input--form">
             <p>Menu</p>
+            </div>
             <form method="POST" onSubmit={handleSubmit}>
                 <div className="input admin--container">
                     <label>Product Name</label>
