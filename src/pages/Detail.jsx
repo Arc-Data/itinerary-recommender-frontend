@@ -324,8 +324,6 @@ export default function DetailPage() {
 	const resultStart = (currentPage - 1) * 5 + 1;
 	const resultEnd = Math.min(currentPage * 5, reviewData.length);
 
-	console.log(location)
-
 	return (
 		<div className="detailPage">
 			<div className="detailPage--text">
@@ -337,8 +335,8 @@ export default function DetailPage() {
 					</p>
 					{location.location_type == 1 && 
 					<div>	
-						{/* <p> <FontAwesomeIcon className='btn-icons' icon={faClock} />Opens at {location?.details.opening_time} | Closes at {" "} {location?.details.closing_time}{" "}</p>
-						<p> <FontAwesomeIcon className='btn-icons' icon={faMoneyBills} />Fee: {location?.details.max_fee}</p> */}
+						<p> <FontAwesomeIcon className='btn-icons' icon={faClock} />Opens at {location?.details.opening_time} | Closes at {" "} {location?.details.closing_time}{" "}</p>
+						{/* <p> <FontAwesomeIcon className='btn-icons' icon={faMoneyBills} />Fee: {location?.details.max_fee}</p> */}
 					</div>
 					}
 					<div className="detailPage--rating-category">
