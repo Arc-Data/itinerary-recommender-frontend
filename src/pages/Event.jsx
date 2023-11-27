@@ -1,16 +1,25 @@
 import { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
-import useLocationManager from '../hooks/useLocationManager'
-import { useNavigate } from 'react-router-dom'
-import ReactDatePicker from 'react-datepicker'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDay } from '@fortawesome/free-solid-svg-icons';
 import useEventManager from '../hooks/useEventManager'
+import EventModal from '../modals/EventModal';
 
 function Event() {
     const { authTokens } = useContext(AuthContext)
     const { events, loading, error, getAllEvents } = useEventManager(authTokens) 
+    const [ selectedId, setSelectedId ] = useState()
+    const [ openDetails, setOpenDetails ] = useState(false)
+
+    const toggleDetails = () => {
+        setOpenDetails(prev => !prev)
+    }
+
+    const handleViewClick = (id) => {
+        setSelectedId(id)
+        toggleDetails()
+    }
 
     const displayEvents = events && events.map(event => {
         return (
@@ -18,7 +27,7 @@ function Event() {
                 <td>{event.name}</td>
                 <td>{event.start_date}</td>
                 <td>{event.end_date}</td>
-                <td><button>View</button></td>
+                <td><button onClick={() => handleViewClick(event.id)}>View</button></td>
                 <td><button>Delete</button></td>
             </tr>
         )
@@ -39,8 +48,6 @@ function Event() {
             <div>An error occured: {error}</div>
         )
     }
-
-    console.log(events)
 
     return (
         <div>
@@ -65,6 +72,9 @@ function Event() {
                     {displayEvents}
                 </tbody>
             </table>
+            {openDetails &&
+            <EventModal onClose={toggleDetails} id={selectedId}/>
+            }
         </div>
     )
 }

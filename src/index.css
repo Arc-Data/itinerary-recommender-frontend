@@ -3381,6 +3381,12 @@ input[type="text"] {
     background-color: #184E77;
 }
 
+.event--modal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 500px;
+}
+
 .business-details.heading {
     margin-top: 30px;
 }

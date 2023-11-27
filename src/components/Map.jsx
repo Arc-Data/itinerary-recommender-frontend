@@ -41,9 +41,12 @@ const Map = ({markers}) => {
     }, [cebu.lng, cebu.lat, zoom])
 
     useEffect(() => {
-        
 
-        addMarkersToMap()
+        if (markers) {
+            console.log("Doing this")
+            addMarkersToMap()
+        }
+
     }, [markers])
     
 

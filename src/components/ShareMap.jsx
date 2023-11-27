@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import * as maptilersdk from '@maptiler/sdk'
 import "@maptiler/sdk/dist/maptiler-sdk.css"
 
-const ShareMap = ({markers}) => {
+const ShareMap = ({markers, center=false}) => {
     const apiKey = import.meta.env.VITE_MAPTILER_API_KEY
     const mapContainer = useRef(null)
     const map = useRef(null)
@@ -32,20 +32,33 @@ const ShareMap = ({markers}) => {
         });
 
         setTimeout(() => {
+            console.log("Fitting bounds")
             map.current.fitBounds(bounds, { padding: 60})
-        }, 100)
+        }, 200)
     
     };
 
     useEffect(() => {
         if(map.current) return;
 
-        map.current = new maptilersdk.Map({
-            container: mapContainer.current,
-            style: maptilersdk.MapStyle.STREETS,
-            center: [cebu.lng, cebu.lat],
-            zoom: zoom
-        })
+        if (center && markers) {
+            console.log(markers)
+
+            map.current = new maptilersdk.Map({
+                container: mapContainer.current,
+                style: maptilersdk.MapStyle.STREETS,
+                center: [cebu.lng, cebu.lat],
+                zoom: zoom
+            })    
+        } else {
+            map.current = new maptilersdk.Map({
+                container: mapContainer.current,
+                style: maptilersdk.MapStyle.STREETS,
+                center: [cebu.lng, cebu.lat],
+                zoom: zoom
+            })
+        }
+
 
     }, [cebu.lng, cebu.lat, zoom])
 

@@ -4,7 +4,7 @@ const useEventManager = (authTokens) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
 
     const access = String(authTokens.access)
-    const [event, setEvent] = useState([])
+    const [event, setEvent] = useState()
     const [events, setEvents] = useState([])
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(true)
@@ -31,12 +31,37 @@ const useEventManager = (authTokens) => {
         }
     }
     
+    const getEvent = async (id) => {
+        setLoading(true)
+
+        try {
+            const response = await fetch(`${backendUrl}/api/event/${id}/`, {
+                "method": "GET",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                }
+            })
+
+            const data = await response.json()
+            setEvent(data)
+        } 
+        catch (error) {
+            setError(error)
+        }
+        finally {
+            setLoading(false)
+        }
+
+    }   
+    
     return {
         event,
         events,
         loading,
         error,
         getAllEvents,
+        getEvent,
     }
 }
 
