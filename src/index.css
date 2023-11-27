@@ -2215,11 +2215,28 @@ input[type="text"] {
     cursor: pointer;
 }
 
+.add-location-modal--tabs a {
+    text-decoration: none;
+    padding: 10px;
+    margin-right: 10px;
+    border-bottom: 2px solid transparent;
+    color: black;
+  }
+  
+.add-location-modal--tabs a.active {
+    border-bottom-color: #38A3A5;
+}
+
 .trash-icon {
     font-size: 8px;
 }
 
 .add-location-modal--tabs > div.active {
+    color: #38A3A5;
+    border-block-end: 3px solid #38A3A5;
+}
+
+.add-location-modal--tabs > h2.active {
     color: #38A3A5;
     border-block-end: 3px solid #38A3A5;
 }

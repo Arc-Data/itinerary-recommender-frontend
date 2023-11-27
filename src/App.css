@@ -16,6 +16,7 @@ html, body {
   display: flex;
   flex: 1;
 }
+
 .link , .link14{
   text-decoration: none;
 }
@@ -150,6 +151,10 @@ table th, table td {
 }
 .input--form {
   width: 60%;
+}
+.input--form > p{
+  font-weight: 900;
+  margin: 20px;
 }
 label {
   font-weight: 400;
