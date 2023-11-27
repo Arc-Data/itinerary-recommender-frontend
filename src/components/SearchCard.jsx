@@ -24,7 +24,7 @@ export default function SearchCard (props) {
                             key={i}
                             className="star"
                             color={
-                            i + 1 < props.ratings.average_rating ? "#ffc107" : "#e4e5e9"
+                            i + 1 <= props.ratings.average_rating ? "#ffc107" : "#e4e5e9"
                             }
                         />
                     ))}
