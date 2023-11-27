@@ -93,11 +93,10 @@ function Users() {
       <td>{user.first_name}</td>
       <td>{user.last_name}</td>
       <td>{user.email}</td>
-      <td>
-        <FaTrash
-          style={{ color: "#184E77", cursor: "pointer" }}
-          onClick={() => handleDelete(user.id)}
-        />
+      <td className="admin--table-action">
+        <button className="delete" onClick={() => handleDelete(user.id)}>
+            <FaTrash/>
+        </button>
       </td>
     </tr>
   ));
