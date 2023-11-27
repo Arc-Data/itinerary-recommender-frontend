@@ -105,6 +105,26 @@ const useBusinessManager = (authTokens) => {
         }
     }
 
+    const deleteService = async (locationId, id) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/service/${locationId}/delete/${id}/`, {
+                "method": "DELETE",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                },
+            })
+
+            if (response.ok) {
+                const newItems = items.filter(item => item.id !== id)
+                setItems(newItems)
+            }
+        }
+        catch (error) {
+            console.log("An error occured while deleting service")
+        }
+    }
+
     const createService = async (id, formData) => {
         try {
             const response = await fetch(`${backendUrl}/api/service/${id}/create/`, {
@@ -265,6 +285,7 @@ const useBusinessManager = (authTokens) => {
         getFoodItems,
         deleteFood,
         createService,
+        deleteService,
         getServices,
     }
 }

@@ -4,8 +4,6 @@ import AuthContext from "../context/AuthContext"
 import useBusinessManager from "../hooks/useBusinessManager"
 
 const Services = () => {
-    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
-
     const { id } = useParams()
     const { authTokens } = useContext(AuthContext)
     const { 
@@ -15,6 +13,7 @@ const Services = () => {
         error, 
         getServices, 
         createService,
+        deleteService,
         getBusinessDetail} = useBusinessManager(authTokens)
     const [ imageFile, setImageFile ] = useState() 
     const [ data, setData ] = useState({
@@ -42,7 +41,7 @@ const Services = () => {
                 <td>Insert image here</td>
                 <td>{item.item}</td>
                 <td>{item.price}</td>
-                <td><button>Delete</button></td>
+                <td><button onClick={() => handleDelete(item.id)}>Delete</button></td>
             </tr>
         )
     })
@@ -64,7 +63,9 @@ const Services = () => {
         })) 
     }
 
-    console.log(data)
+    const handleDelete = (itemId) => {
+        deleteService(id, itemId)
+    }
 
     const checkInvalid = () => {
         return data.price < 0 || data.description === '' || 
