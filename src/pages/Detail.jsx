@@ -329,7 +329,7 @@ export default function DetailPage() {
 						<FontAwesomeIcon className='btn-icons' icon={faMap} />
 						{location?.address}
 					</p>
-					{location.location_type == 1 && 
+					{location.location_type === "1" && 
 					<div>	
 						<p> <FontAwesomeIcon className='btn-icons' icon={faClock} />Opens at {location?.details.opening_time} | Closes at {" "} {location?.details.closing_time}{" "}</p>
 						<p> <FontAwesomeIcon className='btn-icons' icon={faMoneyBills} />Fee: {location?.details.min_fee} - {location?.details.max_fee}</p>

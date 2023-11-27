@@ -1,16 +1,9 @@
 import { useContext, useState } from "react"
 import AuthContext from "../context/AuthContext"
 import Modal from "../components/Modal"
-import EditFeeRow from "../components/EditFeeRow"
 
 const EditFee = ({onClose, item, editFeeType}) => {
     const [audienceTypes, setAudienceTypes] = useState(item.audience_types)
-    
-    const displayFeeRow = audienceTypes.map(i => {
-        return (
-            <EditFeeRow fee={i} editFeeType={editFeeType}/>
-        )
-    })
 
     const addRow = () => {
         setAudienceTypes((prevAudienceTypes) => [
@@ -30,11 +23,14 @@ const EditFee = ({onClose, item, editFeeType}) => {
                             <th>Audience Type</th>
                             <th>Price</th>
                             <th>Description</th>
+                            <th>Add</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
-                    {displayFeeRow}
+                    <tbody>
+                        {displayFeeRow}
+                    </tbody>
                 </table>
                 <button onClick={addRow}>Add Row</button>
             </div>
