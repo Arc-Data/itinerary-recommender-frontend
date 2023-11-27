@@ -3292,7 +3292,36 @@ input[type="text"] {
     object-position: center;
 }
 
+/* Business Dashboard */
+
 .view--manage1 {
     display: flex;
     justify-content: center;
 }
+
+.bordercolor2 {
+    border-left: 5px solid #fb7c3c;
+}
+
+.colorName {
+    color: #FB8D55;
+}
+
+.dashboard--business-items {
+    height: 100px;
+    justify-content: center;
+    border: 2px solid #EFEFEF;
+    border-radius: 5px;
+    margin: 20px 10px -25px 25px;
+    padding: 20px;
+    box-shadow: 0 8px 10px rgba(143, 143, 143, 0.2);
+}
+
+.business--dashboard--container {
+    border: 2px solid #e7e7e7;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+  
+

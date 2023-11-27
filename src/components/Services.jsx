@@ -68,16 +68,39 @@ const Services = () => {
         <div>
             <p>Services</p>
             <div>
-                <input type="text" />
-                <input type="text" />
-                <input type="text" />
+                <div className="input admin--container">
+                    <label>Product Name</label>
+                    <input
+                        type="text"
+                        name="name"
+                        className="styled-input" 
+                    />
+                </div>
+                <div className="input admin--container">
+                    <label>Description</label>
+                    <input
+                        type="text"
+                        className="styled-input" 
+                    />
+                </div>
+                <div className="input admin--container">
+                    <label>Price</label>
+                    <input
+                        type="text"
+                        className="styled-input" 
+                    />
+                </div>
+            </div>
+            <div className="d-flexCenter mt-20px">
+                <button className="add--business font14" type="submit">Submit</button>
             </div>
             <table className='business--app-table'>
                 <thead>
                     <tr>
-                        <th>Business name</th>
-                        <th>Date filed</th>
+                        <th>Product Name</th>
+                        <th>Description</th>
                         <th>Price</th>
+                        <th>Date filed</th>
                     </tr>
                 </thead>
                 <tbody>
