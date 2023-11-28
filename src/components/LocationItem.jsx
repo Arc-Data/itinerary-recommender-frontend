@@ -47,7 +47,7 @@ const LocationItem = ({location}) => {
                             
                             {location.details.location_type === "1" &&
                             <p>
-                                <FontAwesomeIcon className='plan--icon-clock' icon={faMoneyBills} /> Entrance fee: {fee}
+                                <FontAwesomeIcon className='plan--icon-clock' icon={faMoneyBills} /> Expenses Range: {fee}
                             </p>
                             }
                             {location.details.location_type === "2" &&
