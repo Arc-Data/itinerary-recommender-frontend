@@ -55,6 +55,36 @@ const useEventManager = (authTokens) => {
 
     }   
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+        return formattedDate;
+    };
+
+    const createEvent = async (formData) => {
+        formData.start_date = formatDate(formData.start_date);
+        formData.end_date = formatDate(formData.end_date);
+        
+        try {
+            const response = await fetch(`${backendUrl}/api/event/create/`, {
+                "method": "POST",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                },
+                "body": JSON.stringify(formData)
+            })
+
+
+            if (response.ok) {
+                alert("Created event successfully")
+            }
+        }
+        catch(error) {
+            console.log("An error occured while creating events")
+        }
+    }
+
     const deleteEvent = async (id) => {
         try {
             const response = await fetch(`${backendUrl}/api/event/${id}/delete/`, {
@@ -62,7 +92,8 @@ const useEventManager = (authTokens) => {
                 "headers": {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${access}`
-                }
+                },
+                "body": JSON.stringify(id)
             })
             
             if (response.ok) {
@@ -83,6 +114,7 @@ const useEventManager = (authTokens) => {
         getAllEvents,
         getEvent,
         deleteEvent,
+        createEvent,
     }
 }
 
