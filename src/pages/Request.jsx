@@ -44,7 +44,10 @@ const Request = () => {
         )   
     })
 
+    console.log(requests)
+
     useEffect(() => {
+        console.log("Get approval requests")
         getAllApprovalRequests()
     }, [])
 

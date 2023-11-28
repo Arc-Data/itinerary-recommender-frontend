@@ -57,6 +57,7 @@ const useBusinessManager = (authTokens) => {
 
     const getApprovalRequests = async () => {
         setLoading(true)
+        console.log("In here")
 
         try {
             const response = await fetch(`${backendUrl}/api/location/requests`, {
@@ -67,7 +68,11 @@ const useBusinessManager = (authTokens) => {
                 }
             })
 
+            console.log(response)
+
             const data = await response.json()
+            
+            console.log(data)
             setRequests(data)
         }
         catch (error) {
@@ -190,6 +195,7 @@ const useBusinessManager = (authTokens) => {
 
     const getAllApprovalRequests = async () => {
         setLoading(true)
+        console.log("GET requests")
 
         try {
             const response = await fetch(`${backendUrl}/api/requests/`, {
@@ -200,7 +206,9 @@ const useBusinessManager = (authTokens) => {
                 }
             })
 
+            console.log(response)
             const data = await response.json()
+            console.log(data)
             setRequests(data)
         }
         catch (error) {
