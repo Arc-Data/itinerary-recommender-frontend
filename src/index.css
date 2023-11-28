@@ -1960,8 +1960,8 @@ input[type="text"] {
     margin: 10px 0;
 }
 
-.search--bookmark {
-    border-bottom: 1px solid #34A0A4;
+.search--bookmark > p {
+    text-decoration: underline;
     color: #34A0A4;
     padding-top: 10px;
 }
@@ -2520,6 +2520,7 @@ input[type="text"] {
 .preferences--option > p {
     margin-top: 10px;
     text-align: center;
+    color: #212529;
 }
 
 .preferences--image-container {

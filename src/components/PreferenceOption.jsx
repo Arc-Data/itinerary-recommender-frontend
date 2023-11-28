@@ -11,7 +11,7 @@ const PreferenceOption = ({url, name, onClick, isSelected}) => {
                     <FontAwesomeIcon icon={faCheck} />
                 </div>}
             </div>
-            <p>{name}</p>
+            <p className="font-weight-500">{name}</p>
         </div>
     )
 }
