@@ -1,14 +1,29 @@
-import React from "react";
+import { useContext } from "react";
 import { FaStar } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import AuthContext from "../context/AuthContext";
+import { db } from "../utils/firebase"
 
 export default function DetailCard(props) {
+    const { user } = useContext(AuthContext)
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
+    const handleUserClick = () => {
+        try {
+
+        }
+        catch (error) {
+            console.log("An unexepected error has occured while saving data to firebase")
+        }
+    }
 
     return (
         <div className="detailPage--popularCard">
             <div className="card--dest-image mb15px">
-                <Link to={`/location/${props.id}`}>
+                <Link 
+                    to={`/location/${props.id}`}
+                    onClick={handleUserClick}
+                >
                     <img 
                     src={`${backendUrl}${props.primary_image}`} 
                     className="card--image" alt="Location" 
