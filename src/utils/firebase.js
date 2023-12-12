@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore"
+import { getFirestore, collection } from "firebase/firestore"
 
 const API_KEY = import.meta.env.VITE_FIREBASE_API_KEY
 const AUTH_DOMAIN = import.meta.env.VITE_FIREBASE_AUTH_DOMAIN
@@ -22,5 +22,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app)
+const userClicks = collection(db, "user_clicks")
+console.log(userClicks)
 
-export { app, db }
+export { userClicks }

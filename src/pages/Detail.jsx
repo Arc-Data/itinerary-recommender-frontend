@@ -94,7 +94,6 @@ export default function DetailPage() {
 	const getReviewData = async () => {
 		setUserReview()
 
-		console.log("In here")
 		try {
 			const response = await fetch(
 				`${backendUrl}/api/location/${id}/reviews/user/`,
@@ -108,7 +107,7 @@ export default function DetailPage() {
 			)
 
 			if (response.status === 404) {
-				throw new Error("Error fetching user review data");
+				return 
 			}
 
 			const data = await response.json();
@@ -120,7 +119,7 @@ export default function DetailPage() {
 			})
 		} 
 		catch (error) {
-			console.error("User has no reviews for this location: ");
+			
 		}
 	};
 
@@ -160,8 +159,6 @@ export default function DetailPage() {
 			console.error("Error while submitting the review: ", error);
 		}
 	};
-
-	console.log(location)
 
 	const handleSubmit = () => {
 		if (userReview) {
