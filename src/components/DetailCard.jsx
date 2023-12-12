@@ -2,8 +2,6 @@ import { useContext } from "react";
 import { FaStar } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import AuthContext from "../context/AuthContext";
-import { addDoc, setDoc, getDocs, query, where } from "firebase/firestore";
-import { userClicks } from "../utils/firebase"
 import recordClicks from "../utils/recordClicks";
 
 export default function DetailCard(props) {
