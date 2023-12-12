@@ -1,17 +1,21 @@
-import React from "react"
+import React, { useContext } from "react"
 import { Link } from 'react-router-dom';
-import {
-	FaStar,
-	} from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
+import recordClicks from "../utils/recordClicks";
+import AuthContext from "../context/AuthContext";
 
 export default function SearchCard (props) {
+    const { user } = useContext(AuthContext)
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
-
 
     return (
         <div className="searchPage--details">  
             <div className="searchPage--picture"> 
-            <Link to={`/location/${props.id}`}> <img className="searchPage--pic" src={`${backendUrl}${props.primary_image}`}  /></Link>
+            <Link 
+                to={`/location/${props.id}`}> <img className="searchPage--pic" 
+                src={`${backendUrl}${props.primary_image}`}  
+                onClick={async () => recordClicks(user.user_id, props.id)}
+                /></Link>
             </div>
             
             <div className="searchPage--info">

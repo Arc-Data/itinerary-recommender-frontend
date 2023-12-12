@@ -4,48 +4,18 @@ import { Link } from 'react-router-dom';
 import AuthContext from "../context/AuthContext";
 import { addDoc, setDoc, getDocs, query, where } from "firebase/firestore";
 import { userClicks } from "../utils/firebase"
+import recordClicks from "../utils/recordClicks";
 
 export default function DetailCard(props) {
     const { user } = useContext(AuthContext)
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
-
-    const handleUserClick = async () => {
-        try {
-            const userQuery = query(userClicks, where("userId", "==", user.user_id))
-            const userSnapshot = await getDocs(userQuery)
-            
-            if (userSnapshot.empty) {
-                const newUserRef = await addDoc(userClicks, {
-                    userId: user.user_id,
-                    clicks: [{locationId: props.id, count: 1}]
-                })
-                
-            } else {
-                console.log("Should be here")
-
-                const userDoc = userSnapshot.docs[0]
-                const userClicksData = userDoc.data().clicks || [];
-                const existingClick = userClicksData.find(click => click.locationId === props.id);
-                
-                if (existingClick) {
-                  existingClick.count += 1;
-                } else {
-                  userClicksData.push({ locationId: props.id, count: 1 });
-                }
-
-                await setDoc(userDoc.ref, { clicks: userClicksData });            }
-        }
-        catch (error) {
-            console.log("An unexepected error has occured while saving data to firebase", error)
-        }
-    }
 
     return (
         <div className="detailPage--popularCard">
             <div className="card--dest-image mb15px">
                 <Link 
                     to={`/location/${props.id}`}
-                    onClick={handleUserClick}
+                    onClick={async () => recordClicks(user.user_id, props.id)}
                 >
                     <img 
                     src={`${backendUrl}${props.primary_image}`} 
