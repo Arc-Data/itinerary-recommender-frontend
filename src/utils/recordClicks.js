@@ -1,34 +1,46 @@
-import { addDoc, setDoc, getDocs, query, where} from "firebase/firestore"
-import { userClicks } from "../utils/firebase"
+import { get, ref, set, update } from "firebase/database";
+import { db } from "../utils/firebase";
 
 const recordClicks = async (userId, locationId) => {
+    locationId = String(locationId);
+
     try {
-        console.log("Recording Click Data for location id: ", locationId)
-        const userQuery = query(userClicks, where("userId", "==", userId))
-        const userSnapshot = await getDocs(userQuery)
+        const dbRef = ref(db, `users/${userId}`);
+        const userSnapshot = await get(dbRef);
         
-        if (userSnapshot.empty) {
-            await addDoc(userClicks, {
-                userId: userId,
-                clicks: [{locationId: locationId, count: 1}]
+        if(!userSnapshot.exists()) {
+            await set(dbRef, {
+                clicks: [{
+                    location: locationId,
+                    amount: 1
+                }]
             })
-            
         } else {
-            const userDoc = userSnapshot.docs[0]
-            const userClicksData = userDoc.data().clicks || [];
-            const existingClick = userClicksData.find(click => click.locationId === locationId);
-            
-            if (existingClick) {
-              existingClick.count += 1;
-            } else {
-              userClicksData.push({ locationId: locationId, count: 1 });
-            }
+             // If the user exists, update the clicks
+             const userClicks = userSnapshot.val().clicks || [];
+             const existingClick = userClicks.find(click => click.location === locationId);
+ 
+             if (existingClick) {
+                 // If the location already exists, increment the count
+                 existingClick.amount += 1;
+             } else {
+                 // If the location doesn't exist, add a new entry
+                 userClicks.push({
+                     location: locationId,
+                     amount: 1
+                 });
+             }
+ 
+             // Update the clicks in the database using the update method
+             const updates = {};
+             updates[`/users/${userId}/clicks`] = userClicks;
+ 
+             return update(ref(db), updates);
+        }
 
-            await setDoc(userDoc.ref, { userId: userId, clicks: userClicksData });            }
+    } catch (error) {
+        console.log("An unexpected error has occurred while saving data to firebase", error);
     }
-    catch (error) {
-        console.log("An unexepected error has occured while saving data to firebase", error)
-    }
-}
+};
 
-export default recordClicks
+export default recordClicks;
