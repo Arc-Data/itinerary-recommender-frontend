@@ -2,7 +2,6 @@ import { useContext, useState } from "react"
 import { Link } from "react-router-dom"
 import AuthContext from "../context/AuthContext"
 import { useNavigate } from "react-router-dom"
-import back from "/images/lets-icons_back-light.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload, faCircleXmark, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
@@ -24,6 +23,10 @@ const AddBusiness = () => {
         'minfee': 0,
         'description': ''
     })
+    
+    const [query, setQuery] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+    const [tags, setTags] = useState([]);
     const [image, setImage] = useState(null)
 
     const handleInputChange = (e) => {
@@ -32,7 +35,63 @@ const AddBusiness = () => {
             ...prev,
             [name]: value,
         }))
+    }
 
+    const handleTagInputChange = (e) => {
+        const { value } = e.target
+        setQuery(value)
+        searchTags(value)
+    }
+
+    const searchTags = async (query) => {
+        try {
+          const response = await fetch(`http://127.0.0.1:8000/api/foodtag/search/?query=${query}`, {
+                "method": "GET",
+                "headers": {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${authTokens.access}`
+                }
+          });
+          let data = await response.json()
+          data = data.filter((tag) => !tags.includes(tag.name))
+          setSearchResults(data)
+        } catch (error) {
+          console.error('Error searching tags:', error);
+        }
+    }
+
+    const addTag = async (tagName, locationId) => {
+        try {
+            await fetch(`http://127.0.0.1:8000/api/user/business/${locationId}/edit/add_foodtags/`, {
+                "method": "POST",
+                "headers": {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${authTokens.access}`
+                },
+                body: JSON.stringify({ tags: [tagName] }),
+          });
+            setTags([...tags, tagName])
+            searchTags(query)
+        } catch (error) {
+          console.error('Error adding tag:', error)
+        }
+    }
+
+    const removeTag = async (tagName, locationId) => {
+        try {
+          await fetch(`http://127.0.0.1:8000/api/user/business/${locationId}/edit/remove_foodtags/`, {
+                "method": "POST",
+                "headers": {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${authTokens.access}`
+                },
+                body: JSON.stringify({ tags: [tagName] }),
+          })
+                setTags(tags.filter((tag) => tag !== tagName))
+                searchTags(query)
+        } catch (error) {
+          console.error('Error removing tag:', error)
+        }
     }
 
     const checkInvalid = () => {
@@ -106,6 +165,25 @@ const AddBusiness = () => {
         }
     }
     
+    const tagSearchResults = (
+        <div className="tag-results-container">
+            {searchResults.map((tag, index) => (
+                <div key={index} className="tag-result-box" onClick={() => addTag(tag.name)}>
+                    {tag.name}
+                </div>
+            ))}
+        </div>
+    )
+
+    const addedTagItem = tags.map((tag, index) => (
+        <div className="tag-item" key={index}>
+            {tag}
+            <button className="delete-tag-button" onClick={() => removeTag(tag)}>
+                <FontAwesomeIcon icon={faCircleXmark} />
+            </button>
+        </div>
+    ))
+
     return (
         <div className="profile--main-container">
             <form action="POST" onSubmit={handleSubmit}>
@@ -199,7 +277,7 @@ const AddBusiness = () => {
                                             value={locationData.description}
                                             onChange={handleInputChange}
                                             className="business-input"/>
-                                    </div>
+                                </div>
                                 <div className="form-column-group">
                                     <div className="form-group">
                                         <label htmlFor="minfee">Minimum product/service fee</label>
@@ -258,9 +336,23 @@ const AddBusiness = () => {
                                         link to access instructions.
                                     </p>
                                 </div>
+                                <div className="form-group">
+                                    <h1 className="heading business-details">Tags</h1>
+                                    <label htmlFor="tags">Tags</label>
+                                        <div className="tags-input-container business-input">
+                                        {addedTagItem}
+                                        <input 
+                                          type="text" 
+                                          value={query} 
+                                          onChange={handleTagInputChange} 
+                                          placeholder="Add or search tags..."
+                                          className="tags-input"
+                                        />
+                                      </div>
+                                      {tagSearchResults}
+                                </div>
                         
                                 <div className="flex jc-end mt-20px">
-                                    
                                     <button className="add--business font14" >Submit</button>  
                                 </div>
                             </div>
