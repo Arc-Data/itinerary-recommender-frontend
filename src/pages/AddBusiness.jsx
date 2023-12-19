@@ -29,6 +29,8 @@ const AddBusiness = () => {
     const [tags, setTags] = useState([]);
     const [image, setImage] = useState(null)
 
+    console.log(tags)
+
     const handleInputChange = (e) => {
         const { name, value } = e.target
         setLocationData(prev => ({
@@ -94,8 +96,10 @@ const AddBusiness = () => {
         }
     }
 
+
     const checkInvalid = () => {
-        const value = !locationData.name ||
+        const value = 
+            !locationData.name  ||
             !locationData.address ||
             locationData.longitude == 0 ||
             locationData.latitude == 0 ||
