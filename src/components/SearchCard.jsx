@@ -22,7 +22,7 @@ export default function SearchCard (props) {
                 <h2 className="heading4">{props.name}</h2>
                 <p>{props.address}</p>
                 <div className="searchPage--star">
-                    <p className="ratings mr5px"> {props.ratings.average_rating} </p>
+                    <p className=" mt-3px ratings mr5px"> {props.ratings.average_rating} ● </p>
                     {[...Array(5)].map((star, i) => (
                         <FaStar
                             key={i}
@@ -32,7 +32,7 @@ export default function SearchCard (props) {
                             }
                         />
                     ))}
-                    <p className="ratings ml5px"> {props.ratings.total_reviews} reviews </p>
+                    <p className=" mt-3px  ratings ml5px"> ● {props.ratings.total_reviews} reviews </p>
                 </div>
             </div>
         </div>
