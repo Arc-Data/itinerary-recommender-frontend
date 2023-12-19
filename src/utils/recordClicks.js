@@ -2,8 +2,6 @@ import { get, ref, set, update } from "firebase/database";
 import { db } from "../utils/firebase";
 
 const recordClicks = async (userId, locationId) => {
-    locationId = String(locationId);
-
     try {
         const dbRef = ref(db, `users/${userId}`);
         const userSnapshot = await get(dbRef);

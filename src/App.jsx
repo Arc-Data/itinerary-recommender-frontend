@@ -41,6 +41,7 @@ import BusinessOverview from './components/BusinessOverview';
 import DownloadDashboard from './pages/DownloadDashboard';
 import Services from './components/Services';
 import Fees from './components/Fees';
+import Test from './pages/Test';
 	/*css*/
 	
 function App() {
@@ -55,6 +56,7 @@ function App() {
 
 				<Route path="/preferences" element={<Preferences/>}/>
 				<Route element={<PrivateRoutes />} >
+					<Route path="/test" element={<Test />} />
 					
 					<Route element={<BaseLayout />}>
 						<Route path="/location/:id" element={<Detail/>}/>
