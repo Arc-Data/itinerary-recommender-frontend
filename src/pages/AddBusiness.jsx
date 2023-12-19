@@ -28,6 +28,7 @@ const AddBusiness = () => {
     const [searchResults, setSearchResults] = useState([]);
     const [tags, setTags] = useState([]);
     const [image, setImage] = useState(null)
+    const [showFees, setShowFees] = useState(true);
 
     console.log(tags)
 
@@ -38,6 +39,39 @@ const AddBusiness = () => {
             [name]: value,
         }))
     }
+
+    const handleTypeChange = (e) => {
+        const selectedType = e.target.value;
+        
+        setLocationData(prev => ({
+            ...prev,
+            type: selectedType,
+        }));
+    
+        // Add logic for latitude and longitude based on the selected type
+        if (selectedType === '1') {
+            // Tourist Spot, you may want to set some default values or leave them empty
+            setLocationData(prev => ({
+                ...prev,
+                latitude: 0,
+                longitude: 0,
+                maxfee: 0,
+                minfee: 0,
+            }));
+        } else {
+            // Restaurant/Food Establishment or Accommodation
+            setLocationData(prev => ({
+                ...prev,
+                latitude: '',
+                longitude: '',
+                maxfee: '',
+                minfee: '',
+            }));
+        }
+    
+        // Show fees only for Restaurant/Food Establishment or Accommodation
+        setShowFees(selectedType === '1' );
+    };
 
     const handleTagInputChange = (e) => {
         const { value } = e.target
@@ -208,7 +242,7 @@ const AddBusiness = () => {
                                         name="type" 
                                         id="type" 
                                         value={locationData.type}
-                                        onChange={handleInputChange} 
+                                        onChange={handleTypeChange} 
                                         className="business-type">
                                         <option value="" disabled>-- Location Type --</option>
                                         <option value="1">Tourist Spot</option>
@@ -282,64 +316,70 @@ const AddBusiness = () => {
                                             onChange={handleInputChange}
                                             className="business-input"/>
                                 </div>
-                                <div className="form-column-group">
-                                    <div className="form-group">
-                                        <label htmlFor="minfee">Minimum product/service fee</label>
-                                        <input 
-                                            type="number" 
-                                            name="minfee" 
-                                            id="minfee" 
-                                            value={locationData.minfee}
-                                            onChange={handleInputChange}
-                                            className="business-input"/>
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="maxfee">Maximum product/service fee</label>
-                                        <input 
-                                            type="maxfee" 
-                                            name="maxfee" 
-                                            id="maxfee" 
-                                            value={locationData.maxfee}
-                                            onChange={handleInputChange}
-                                            className="business-input"/>
-                                    </div>
-                                </div>
-                                <div className="form-column-group">
-                                    <div className="form-group">
-                                        <label htmlFor="address">Latitude</label>
-                                        <input 
-                                            type="number" 
-                                            name="latitude" 
-                                            id="latitude" 
-                                            value={locationData.latitude}
-                                            onChange={handleInputChange}
-                                            className="business-input"/>
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="address">Longitude</label>
-                                        <input 
-                                            type="number" 
-                                            name="longitude" 
-                                            id="longitude" 
-                                            value={locationData.longitude}
-                                            onChange={handleInputChange}
-                                            className="business-input"/>
-                                    </div>
-                                </div>
                                 <div>
-                                    <p className="visibility--coordinates">
-                                        To improve your business's visibility on the site, we require your
-                                        coordinates. Please click on the{" "}
-                                        <a
-                                            href="https://support.google.com/maps/answer/18539?hl=en&co=GENIE.Platform%3DDesktop#:~:text=Get%20the%20coordinates%20of%20a%20place&text=Right%2Dclick%20the%20place%20or,decimal%20format%20at%20the%20top."
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            How to Obtain My Coordinates
-                                        </a>{" "}
-                                        link to access instructions.
-                                    </p>
+                                {showFees && (
+                                    <>
+                                    <div className="form-column-group">
+                                        <div className="form-group">
+                                            <label htmlFor="minfee">Minimum product/service fee</label>
+                                            <input 
+                                                type="number" 
+                                                name="minfee" 
+                                                id="minfee" 
+                                                value={locationData.minfee}
+                                                onChange={handleInputChange}
+                                                className="business-input"/>
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="maxfee">Maximum product/service fee</label>
+                                            <input 
+                                                type="number" 
+                                                name="maxfee" 
+                                                id="maxfee" 
+                                                value={locationData.maxfee}
+                                                onChange={handleInputChange}
+                                                className="business-input"/>
+                                        </div>
+                                    </div>
+                                    </>
+                                )}
                                 </div>
+                                    <div className="form-column-group">
+                                        <div className="form-group">
+                                            <label htmlFor="address">Latitude</label>
+                                            <input 
+                                                type="number" 
+                                                name="latitude" 
+                                                id="latitude" 
+                                                value={locationData.latitude}
+                                                onChange={handleInputChange}
+                                                className="business-input"/>
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="address">Longitude</label>
+                                            <input 
+                                                type="number" 
+                                                name="longitude" 
+                                                id="longitude" 
+                                                value={locationData.longitude}
+                                                onChange={handleInputChange}
+                                                className="business-input"/>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p className="visibility--coordinates">
+                                            To improve your business's visibility on the site, we require your
+                                            coordinates. Please click on the{" "}
+                                            <a
+                                                href="https://support.google.com/maps/answer/18539?hl=en&co=GENIE.Platform%3DDesktop#:~:text=Get%20the%20coordinates%20of%20a%20place&text=Right%2Dclick%20the%20place%20or,decimal%20format%20at%20the%20top."
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                How to Obtain My Coordinates
+                                            </a>{" "}
+                                            link to access instructions.
+                                        </p>
+                                    </div>
                                 <div className="form-group">
                                     <h1 className="heading business-details">Tags</h1>
                                     <label htmlFor="tags">Tags</label>
