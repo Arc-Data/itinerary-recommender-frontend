@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import AuthContext from "../context/AuthContext"
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,7 +7,10 @@ import { faUpload, faCircleXmark, faArrowLeft } from '@fortawesome/free-solid-sv
 
 const AddBusiness = () => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+    const { id } = useParams()
 
+    console.log('id: ', id)
+    
     const { authTokens } = useContext(AuthContext)
     const navigate = useNavigate()
     const [locationData, setLocationData] = useState({
@@ -30,7 +33,7 @@ const AddBusiness = () => {
     const [image, setImage] = useState(null)
     const [showFees, setShowFees] = useState(true);
 
-    console.log(tags)
+    console.log('added tags', tags)
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
@@ -81,31 +84,25 @@ const AddBusiness = () => {
 
     const searchTags = async (query) => {
         try {
-          const response = await fetch(`http://127.0.0.1:8000/api/foodtag/search/?query=${query}`, {
+          const response = await fetch(`${backendUrl}/api/foodtag/search/?query=${query}`, {
                 "method": "GET",
                 "headers": {
                         "Content-Type": "application/json",
                         "Authorization": `Bearer ${authTokens.access}`
                 }
-          });
+          })
           let data = await response.json()
-          data = data.filter((tag) => !tags.includes(tag.name))
-          setSearchResults(data)
+          const filteredTags = data.filter((tag) => !tags.includes(tag.name));
+          setSearchResults(filteredTags)
         } catch (error) {
           console.error('Error searching tags:', error);
         }
     }
 
-    const addTag = async (tagName, locationId) => {
+    console.log('search results: ', searchResults)
+
+    const addTag = async (tagName) => {
         try {
-            await fetch(`http://127.0.0.1:8000/api/user/business/${locationId}/edit/add_foodtags/`, {
-                "method": "POST",
-                "headers": {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${authTokens.access}`
-                },
-                body: JSON.stringify({ tags: [tagName] }),
-          });
             setTags([...tags, tagName])
             searchTags(query)
         } catch (error) {
@@ -113,23 +110,14 @@ const AddBusiness = () => {
         }
     }
 
-    const removeTag = async (tagName, locationId) => {
+    const removeTag = async (tagName) => {
         try {
-          await fetch(`http://127.0.0.1:8000/api/user/business/${locationId}/edit/remove_foodtags/`, {
-                "method": "POST",
-                "headers": {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${authTokens.access}`
-                },
-                body: JSON.stringify({ tags: [tagName] }),
-          })
-                setTags(tags.filter((tag) => tag !== tagName))
-                searchTags(query)
+            setTags(tags.filter((tag) => tag !== tagName))
+            searchTags(query)
         } catch (error) {
           console.error('Error removing tag:', error)
         }
     }
-
 
     const checkInvalid = () => {
         const value = 
