@@ -7,9 +7,6 @@ import { faUpload, faCircleXmark, faArrowLeft } from '@fortawesome/free-solid-sv
 
 const AddBusiness = () => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
-    const { id } = useParams()
-
-    console.log('id: ', id)
     
     const { authTokens } = useContext(AuthContext)
     const navigate = useNavigate()
@@ -32,8 +29,6 @@ const AddBusiness = () => {
     const [tags, setTags] = useState([]);
     const [image, setImage] = useState(null)
     const [showFees, setShowFees] = useState(true);
-
-    console.log('added tags', tags, 'tag length', tags.length)
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
@@ -99,25 +94,68 @@ const AddBusiness = () => {
         }
     }
 
-    console.log('search results: ', searchResults)
-
     const addTag = async (tagName) => {
         try {
-            setTags([...tags, tagName])
-            searchTags(query)
+            if (!tags.includes(tagName)) {
+                setTags(prevTags => [...prevTags, tagName]);
+                await createTag(tagName);
+            }
+            setQuery('')
         } catch (error) {
-          console.error('Error adding tag:', error)
+            console.error('Error adding tag:', error);
+        }
+    }
+
+    console.log("Added tags: ", tags)
+
+    const createTag = async (tagName) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/foodtag/get/?tag_name=${tagName}`, {
+                "method": "GET",
+                "headers": {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${authTokens.access}`
+                }
+            })
+    
+            if (response.ok) {
+                const data = await response.json()
+                console.log('Tag created:', data)
+            } else {
+                console.error('Failed to create tag:', response.statusText)
+            }
+        } catch (error) {
+            console.error('Error creating tag:', error)
         }
     }
 
     const removeTag = async (tagName) => {
         try {
             setTags(tags.filter((tag) => tag !== tagName))
-            searchTags(query)
+            searchTags('')
         } catch (error) {
           console.error('Error removing tag:', error)
         }
     }
+
+    const tagSearchResults = (query !== '' || query !== null) && (
+        <div className="tag-results-container">
+            {searchResults.map((tag, index) => (
+                <div key={index} className="tag-result-box" onClick={() => addTag(tag.name)}>
+                    {tag.name}
+                </div>
+            ))}
+        </div>
+    )
+
+    const addedTagItem = tags.map((tag, index) => (
+        <div className="tag-item" key={index}>
+            {tag}
+            <button className="delete-tag-button" onClick={() => removeTag(tag)}>
+                <FontAwesomeIcon icon={faCircleXmark} />
+            </button>
+        </div>
+    ))
 
     const checkInvalid = () => {
         const value = 
@@ -152,6 +190,15 @@ const AddBusiness = () => {
     const handleUploadClick = (e) => {
         e.stopPropagation()
     }
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault()
+            addTag(query)
+        }
+    }
+
+    console.log('Query:', query)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -195,24 +242,7 @@ const AddBusiness = () => {
         }
     }
     
-    const tagSearchResults = (
-        <div className="tag-results-container">
-            {searchResults.map((tag, index) => (
-                <div key={index} className="tag-result-box" onClick={() => addTag(tag.name)}>
-                    {tag.name}
-                </div>
-            ))}
-        </div>
-    )
-
-    const addedTagItem = tags.map((tag, index) => (
-        <div className="tag-item" key={index}>
-            {tag}
-            <button className="delete-tag-button" onClick={() => removeTag(tag)}>
-                <FontAwesomeIcon icon={faCircleXmark} />
-            </button>
-        </div>
-    ))
+    
 
     return (
         <div className="profile--main-container">
@@ -382,7 +412,8 @@ const AddBusiness = () => {
                                                     <input 
                                                      type="text" 
                                                      value={query} 
-                                                     onChange={handleTagInputChange} 
+                                                     onChange={handleTagInputChange}
+                                                     onKeyDown={handleKeyDown}
                                                      placeholder="Add or search tags..."
                                                      className="tags-input"
                                                     />
