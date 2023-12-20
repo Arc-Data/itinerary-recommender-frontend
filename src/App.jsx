@@ -42,6 +42,7 @@ import DownloadDashboard from './pages/DownloadDashboard';
 import Services from './components/Services';
 import Fees from './components/Fees';
 import Test from './pages/Test';
+import AssistantContact from './pages/AssistantContact';
 	/*css*/
 	
 function App() {
@@ -88,6 +89,7 @@ function App() {
 						<Route path="/create" element={<CreateTrip />} /> 
 					</Route>
 					<Route path="/plan/:id/" element={<Plan />} />
+					<Route path="/plan/:id/assistantContact/" element={<AssistantContact/>} />
 
 				</Route>
 				<Route path="/admin" element={<AdminRoutes />}>

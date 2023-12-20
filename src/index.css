@@ -674,8 +674,47 @@ input[type="text"] {
 .card--destination {      
     border-radius: 10px;
     background-color: #F9F9F9;
-    border-bottom: 15px solid #34A0A4;
+    border-bottom: 5px solid #B5E48C;
+    height: 550px;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
 }
+
+.card--destination.flipped {
+    transform: rotateY(180deg);
+  }
+  
+  .flipped-content {
+    transform: rotateY(180deg);
+    text-align: start;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backface-visibility: hidden;
+  }
+
+.driver--images {
+    object-position: top;
+    width: 100%;
+    height: 200px;
+    border-radius: 20px;
+    object-fit:cover;
+}
+
+.driver--div  {
+    margin: 15px;
+}
+
+.driver--div > p {
+    margin-top: 5px;
+}
+
+
 
 .hero--destination-title{
     font-size: 40px;
@@ -684,9 +723,10 @@ input[type="text"] {
 
 .hero--cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     overflow-x: auto;
+    margin: 140px 100px;
 }
 
 .card--dest-image { /*Same to detailPage Popular*/
@@ -1589,6 +1629,30 @@ input[type="text"] {
     color: #212529;
     height: 90vh;
     overflow-y: auto;
+}
+
+.contact--button-div {
+    text-align: center;
+    position: relative;
+}
+
+.driver--button-div{
+    text-align: center;
+}
+
+.contact--button, .contact--button1 {
+    color: black;
+    background: var(--6, #B5E48C);
+}
+.contact--button1 {
+    position: relative;
+    bottom: 0;
+}
+
+
+.contact--div {
+    justify-content: center;
+    margin: 10px;
 }
 
 
