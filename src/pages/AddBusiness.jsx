@@ -33,7 +33,7 @@ const AddBusiness = () => {
     const [image, setImage] = useState(null)
     const [showFees, setShowFees] = useState(true);
 
-    console.log('added tags', tags)
+    console.log('added tags', tags, 'tag length', tags.length)
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
@@ -73,7 +73,7 @@ const AddBusiness = () => {
         }
     
         // Show fees only for Restaurant/Food Establishment or Accommodation
-        setShowFees(selectedType === '1' );
+        setShowFees(selectedType === '1');
     };
 
     const handleTagInputChange = (e) => {
@@ -125,9 +125,9 @@ const AddBusiness = () => {
             !locationData.address ||
             locationData.longitude == 0 ||
             locationData.latitude == 0 ||
-            locationData.type === '' || 
-            maxfee == 0 || 
-            minfee == 0
+            locationData.type === ''
+            // maxfee == 0 || 
+            // minfee == 0
     
             if (value) {
                 alert("Missing inputs")
@@ -165,9 +165,13 @@ const AddBusiness = () => {
                     formData.append(key, value);
                 });
 
-                const imageInput = document.getElementById("imgFile");
+                const imageInput = document.getElementById("imgFile")
                 if (imageInput.files.length > 0) {
-                    formData.append("image", imageInput.files[0]);
+                    formData.append("image", imageInput.files[0])
+                }
+
+                if (tags.length > 0) {
+                    formData.append("tags", JSON.stringify(tags))
                 }
 
                 const response = await fetch(`${backendUrl}/api/location/request/`, {
@@ -368,21 +372,25 @@ const AddBusiness = () => {
                                             link to access instructions.
                                         </p>
                                     </div>
-                                <div className="form-group">
-                                    <h1 className="heading business-details">Tags</h1>
-                                    <label htmlFor="tags">Tags</label>
-                                        <div className="tags-input-container business-input">
-                                        {addedTagItem}
-                                        <input 
-                                          type="text" 
-                                          value={query} 
-                                          onChange={handleTagInputChange} 
-                                          placeholder="Add or search tags..."
-                                          className="tags-input"
-                                        />
-                                      </div>
-                                      {tagSearchResults}
-                                </div>
+                                    <div>
+                                        {locationData.type === '2' && 
+                                            <div className="form-group">
+                                            <h1 className="heading business-details">Tags</h1>
+                                                <label htmlFor="tags">Tags</label>
+                                                <div className="tags-input-container business-input">
+                                                    {addedTagItem}
+                                                    <input 
+                                                     type="text" 
+                                                     value={query} 
+                                                     onChange={handleTagInputChange} 
+                                                     placeholder="Add or search tags..."
+                                                     className="tags-input"
+                                                    />
+                                                </div>
+                                                {tagSearchResults}
+                                            </div>
+                                        }
+                                    </div>
                         
                                 <div className="flex jc-end mt-20px">
                                     <button className="add--business font14" >Submit</button>  
