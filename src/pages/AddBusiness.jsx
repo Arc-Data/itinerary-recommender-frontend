@@ -218,6 +218,7 @@ const AddBusiness = () => {
                 }
 
                 if (tags.length > 0) {
+                    console.log("Adds this")
                     formData.append("tags", JSON.stringify(tags))
                 }
 
