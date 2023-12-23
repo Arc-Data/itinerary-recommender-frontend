@@ -93,7 +93,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
 
     const addRecommendation = async (id) => {
         handleAddLocation(id)
-        onClose()
+        fetchNearbyRecommendations(id)
     }
 
     const checkDuplicateLocation = (locationId) => {
@@ -135,7 +135,6 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     const getToVisitLocations = (locations) => {
         return locations.map(i => i.location)
     }
-
     
     useEffect(() => {
         const getBookmarks = async () => {
@@ -180,8 +179,6 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     useEffect(() => {
         if (searchData) {
             const results = searchData.map(location => {
-                console.log(location.id)
-                
                 const fee = (location.fee.min && location.fee.max) ? getFeeDetails(location.fee.min, location.fee.max) : 0
                 const opening_time = location.schedule?.opening ? getTimeDetails(location.schedule.opening) : 0
                 const closing_time = location.schedule?.closing ? getTimeDetails(location.schedule.closing) : 0
@@ -223,12 +220,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
             </div> 
             : 
             <div className="add-location-modal--content">
-                <div>
-                    <p>Recommended Nearby Locations</p>
-                    <div className="add-location-recommendations">
-                        {displayNearbyRecommendations}
-                    </div>
-                </div>
+                
                 <input 
                     type="search"
                     placeholder="Add a location"
@@ -242,7 +234,17 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                 <div className="add-location-modal--recently-added-container">
                     {displayRecentlyAdded}
                 </div> }
-                {searchString.length !== 0 ? 
+                <div>
+                    {locations.length !== 0 && !searchString.length && 
+                    <>
+                    <p>Recommended Nearby Locations</p>
+                    <div className="add-location-recommendations">
+                        {displayNearbyRecommendations}
+                    </div>
+                    </>
+                    }
+                </div>
+                {searchString.length ? 
                 <div className="add-location-modal--results-container">
                     <p>Search Results for "{searchString}"</p>
                     <div className="add-location-modal--results">
