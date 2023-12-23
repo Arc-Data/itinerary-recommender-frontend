@@ -57,7 +57,6 @@ const Map = ({markers}) => {
     useEffect(() => {
 
         if (markers) {
-            console.log("Doing this")
             addMarkersToMap()
         }
 

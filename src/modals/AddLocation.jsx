@@ -13,7 +13,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
     const { authTokens } = useContext(AuthContext)
     const { addItem, deleteItem, updateItemOrdering } = useItemLocationManager(authTokens)
-    const { recommendations, loading, fetchNearbyRecommendations } = useRecommendationsManager(authTokens)
+    const { recommendations, loading, fetchNearbyRecommendations, fetchPreferenceRecommendations } = useRecommendationsManager(authTokens)
     const [recentlyAddedLocations, setRecentlyAddedLocations] = useState([])
     const [searchData, setSearchData] = useState(null)
     const [openBookmarks, setOpenBookmarks] = useState(false)
@@ -159,7 +159,9 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     useEffect(() => {
         if (locations.length !== 0) {
             fetchNearbyRecommendations(locations[locations.length - 1].location, getToVisitLocations(locations))
-        } 
+        }  else {
+            fetchPreferenceRecommendations()
+        }
     }, [locations])
 
     const displayNearbyRecommendations = recommendations && recommendations.map(recommendation => {
@@ -168,7 +170,9 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                 <img src={`${backendUrl}${recommendation.primary_image}`} alt="" />
                 <div>
                     <p>{recommendation.name}</p>
+                    {recommendation.distance && 
                     <p>{Math.floor(recommendation.distance)}m</p>
+                    }
                     <p>Rating: {recommendation.ratings.average_rating}</p>
                     <button onClick={() => addRecommendation(recommendation.id)}>Add</button>
                 </div>
@@ -223,7 +227,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                 
                 <input 
                     type="search"
-                    placeholder="Add a location"
+                    placeholder="Search location name..."
                     name="location"
                     id="location"
                     className="plan--search-input add-location--search-input"
@@ -235,10 +239,13 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                     {displayRecentlyAdded}
                 </div> }
                 <div>
-
-                    {locations.length !== 0 && !searchString.length && 
+                    {!searchString.length && 
                     <>
+                    {locations.length === 0 ? 
+                    <p>Recommended for you</p>
+                    :
                     <p>Recommended Nearby Locations</p>
+                    }
                     {loading ? 
                     <div>Loading</div>
                     :
