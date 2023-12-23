@@ -111,7 +111,7 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
 
     const itineraryLocations = () => locations.map(location => {
         return (
-            <LocationItem location={location} />
+            <LocationItem location={location} key={location.id}/>
         )
     })
 
