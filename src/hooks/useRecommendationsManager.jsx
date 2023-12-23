@@ -41,7 +41,6 @@ const useRecommendationsManager = (authTokens) => {
         setLoading(true)
 
         try {
-            console.log("Hello")
             const response = await fetch(`${backendUrl}/api/recommendations/${id}/nearby/`, {
                 method: "POST",
                 headers: {

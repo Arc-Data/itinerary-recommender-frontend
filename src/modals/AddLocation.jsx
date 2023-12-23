@@ -37,7 +37,6 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     const handleDeleteLocation = async (location, latitude, longitude) => {
         try {
             await deleteItem(location.id)
-            console.log(location)
     
             const updatedLocations = locations.filter(i => i.id !== location.id)
             const updatedIncludedLocations = includedLocations.filter(i => i.id !== location.id)
@@ -68,7 +67,6 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
             setIncludedLocations(arr2)
             setRecentlyAddedLocations(arr3)
             increaseEstimatedCost(item.details.min_cost, item.details.max_cost)
-            console.log(item)
             addMarker(item.details.latitude, item.details.longitude, day.color, item.name)
         }
         catch(error) {
@@ -151,16 +149,18 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                 
             }
             catch(error) {
-                console.log("An error occured while getting user bookmarks")
+                console.log("An error occured while getting user bookmarks", error)
             }
         }
 
         getBookmarks()
+    }, [])
 
+    useEffect(() => {
         if (locations.length !== 0) {
             fetchNearbyRecommendations(locations[locations.length - 1].location, getToVisitLocations(locations))
         } 
-    }, [])
+    }, [locations])
 
     const displayNearbyRecommendations = recommendations && recommendations.map(recommendation => {
         return (
