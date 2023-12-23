@@ -13,7 +13,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
     const { authTokens } = useContext(AuthContext)
     const { addItem, deleteItem, updateItemOrdering } = useItemLocationManager(authTokens)
-    const { recommendations, fetchNearbyRecommendations } = useRecommendationsManager(authTokens)
+    const { recommendations, loading, fetchNearbyRecommendations } = useRecommendationsManager(authTokens)
     const [recentlyAddedLocations, setRecentlyAddedLocations] = useState([])
     const [searchData, setSearchData] = useState(null)
     const [openBookmarks, setOpenBookmarks] = useState(false)
@@ -235,12 +235,17 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                     {displayRecentlyAdded}
                 </div> }
                 <div>
+
                     {locations.length !== 0 && !searchString.length && 
                     <>
                     <p>Recommended Nearby Locations</p>
+                    {loading ? 
+                    <div>Loading</div>
+                    :
                     <div className="add-location-recommendations">
                         {displayNearbyRecommendations}
                     </div>
+                    }
                     </>
                     }
                 </div>

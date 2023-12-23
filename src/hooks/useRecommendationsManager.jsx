@@ -57,6 +57,9 @@ const useRecommendationsManager = (authTokens) => {
         catch (error) {
             console.log("An error occured: ", error)
         }
+        finally {
+            setLoading(false)
+        }
     }
 
     const fetchRecommendations = async () => {
