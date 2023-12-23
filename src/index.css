@@ -2305,6 +2305,14 @@ input[type="text"] {
     color: black;
   }
   
+.add-location-recommendations {
+    display: flex;
+}
+
+.add-location-recommendations > * {
+    flex: 1;
+}
+
 .add-location-modal--tabs a.active {
     border-bottom-color: #38A3A5;
 }
@@ -2769,6 +2777,19 @@ input[type="text"] {
 
 .assistant--location-icon {
     color:#38A3A5;
+}
+
+.nearby-recommendation-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.nearby-recommendation-item > img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
 }
 
 .color--modal {

@@ -8,11 +8,10 @@ import getTimeDetails from "../utils/getTimeDetails"
 import getFeeDetails from "../utils/getFeeDetails"
 import useItemLocationManager from "../hooks/useItemLocationManager"
 import useRecommendationsManager from "../hooks/useRecommendationsManager"
+import truncateDecimals from "../utils/truncateDecimals"
 
 const AddLocation = ({onClose, locations, setLocations, day, includedLocations, setIncludedLocations, addMarker, deleteMarker, increaseEstimatedCost, decreaseEstimatedCost}) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
-    
-    
     const { authTokens } = useContext(AuthContext)
     const { addItem, deleteItem, updateItemOrdering } = useItemLocationManager(authTokens)
     const { recommendations, fetchNearbyRecommendations } = useRecommendationsManager(authTokens)
@@ -29,8 +28,6 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     const toggleBookmarkSection = () => {
         setOpenBookmarks(prev => !prev)
     }
-
-    console.log(locations)
 
     const searchLocations = async (search) => {
         const response = await fetch(`${backendUrl}/api/location/plan/?query=${search}&hide`)
@@ -93,6 +90,11 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
         timeout = setTimeout(() => {
             searchLocations(e.target.value)
         }, debounceTimeout)
+    }
+
+    const addRecommendation = async (id) => {
+        handleAddLocation(id)
+        onClose()
     }
 
     const checkDuplicateLocation = (locationId) => {
@@ -162,6 +164,20 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
         } 
     }, [])
 
+    const displayNearbyRecommendations = recommendations && recommendations.map(recommendation => {
+        return (
+            <div key={recommendation.id} className="nearby-recommendation-item">
+                <img src={`${backendUrl}${recommendation.primary_image}`} alt="" />
+                <div>
+                    <p>{recommendation.name}</p>
+                    <p>{Math.floor(recommendation.distance)}m</p>
+                    <p>Rating: {recommendation.ratings.average_rating}</p>
+                    <button onClick={() => addRecommendation(recommendation.id)}>Add</button>
+                </div>
+            </div>
+        )
+    })
+
     useEffect(() => {
         if (searchData) {
             const results = searchData.map(location => {
@@ -208,6 +224,12 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
             </div> 
             : 
             <div className="add-location-modal--content">
+                <div>
+                    <p>Recommended Nearby Locations</p>
+                    <div className="add-location-recommendations">
+                        {displayNearbyRecommendations}
+                    </div>
+                </div>
                 <input 
                     type="search"
                     placeholder="Add a location"
