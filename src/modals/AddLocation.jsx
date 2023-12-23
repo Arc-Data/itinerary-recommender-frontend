@@ -8,7 +8,6 @@ import getTimeDetails from "../utils/getTimeDetails"
 import getFeeDetails from "../utils/getFeeDetails"
 import useItemLocationManager from "../hooks/useItemLocationManager"
 import useRecommendationsManager from "../hooks/useRecommendationsManager"
-import truncateDecimals from "../utils/truncateDecimals"
 
 const AddLocation = ({onClose, locations, setLocations, day, includedLocations, setIncludedLocations, addMarker, deleteMarker, increaseEstimatedCost, decreaseEstimatedCost}) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
