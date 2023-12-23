@@ -36,6 +36,30 @@ const useRecommendationsManager = (authTokens) => {
         }
     }
 
+    const fetchNearbyRecommendations = async (id, toVisitList) => {
+        setStatus("Loading Recommendations")
+        setLoading(true)
+
+        try {
+            console.log("Hello")
+            const response = await fetch(`${backendUrl}/api/recommendations/${id}/nearby/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                },
+                body: JSON.stringify(toVisitList)
+                
+            })
+
+            const data = await response.json()
+            setRecommendations(data)
+        }
+        catch (error) {
+            console.log("An error occured: ", error)
+        }
+    }
+
     const fetchRecommendations = async () => {
         setStatus("Loading Recommendations")
         setLoading(true)
@@ -68,6 +92,7 @@ const useRecommendationsManager = (authTokens) => {
         recommendations,
         applyRecommendation,
         fetchRecommendations,
+        fetchNearbyRecommendations,
     }
 }
 

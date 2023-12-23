@@ -7,12 +7,15 @@ import Modal from "../components/Modal"
 import getTimeDetails from "../utils/getTimeDetails"
 import getFeeDetails from "../utils/getFeeDetails"
 import useItemLocationManager from "../hooks/useItemLocationManager"
+import useRecommendationsManager from "../hooks/useRecommendationsManager"
 
 const AddLocation = ({onClose, locations, setLocations, day, includedLocations, setIncludedLocations, addMarker, deleteMarker, increaseEstimatedCost, decreaseEstimatedCost}) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
-
+    
+    
     const { authTokens } = useContext(AuthContext)
     const { addItem, deleteItem, updateItemOrdering } = useItemLocationManager(authTokens)
+    const { recommendations, fetchNearbyRecommendations } = useRecommendationsManager(authTokens)
     const [recentlyAddedLocations, setRecentlyAddedLocations] = useState([])
     const [searchData, setSearchData] = useState(null)
     const [openBookmarks, setOpenBookmarks] = useState(false)
@@ -26,6 +29,8 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     const toggleBookmarkSection = () => {
         setOpenBookmarks(prev => !prev)
     }
+
+    console.log(locations)
 
     const searchLocations = async (search) => {
         const response = await fetch(`${backendUrl}/api/location/plan/?query=${search}&hide`)
@@ -113,7 +118,6 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
         )
     })
 
-
     const displayBookmark = bookmarked && bookmarked.map(bookmark => {
         return !checkDuplicateLocation(bookmark.location) && (
         <div key={bookmark.id} className="add-location-modal--search-item">
@@ -126,6 +130,10 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
         </div>
         )   
     })
+
+    const getToVisitLocations = (locations) => {
+        return locations.map(i => i.location)
+    }
 
     
     useEffect(() => {
@@ -148,6 +156,10 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
         }
 
         getBookmarks()
+
+        if (locations.length !== 0) {
+            fetchNearbyRecommendations(locations[locations.length - 1].location, getToVisitLocations(locations))
+        } 
     }, [])
 
     useEffect(() => {
