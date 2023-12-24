@@ -23,6 +23,7 @@ const useMarkerManager = () => {
     const getDayMarkersData = (day) => {
         const mapMarkers = []
         const items = day.itinerary_items
+        console.log(day)
 
         if(items) {
             console.log(items)
@@ -53,7 +54,18 @@ const useMarkerManager = () => {
                         color: day.color,
                         location: location.details.name
                     })
+
+                    location.details.event.forEach(event => {
+                        mapMarkers.push({
+                            lng: event.longitude,
+                            lat: event.latitude,
+                            location: event.name,
+                            color: "#d9ed92"
+                        })
+                    })
                 })
+
+                
             })
         }
 
