@@ -57,7 +57,7 @@ const LocationItem = ({location}) => {
                             }
                         </div>
                         {
-                            location.details.event.length > 1 && 
+                            location.details.event.length >= 1 && 
                             <div className="plan--events-btn font-weight-500" onClick={toggleEvents}>
                                 <p><FontAwesomeIcon className="btn-icons" icon={faCalendarDay} />Events (
                                     {location.details.event.length === 1 ? '1' : `${location.details.event.length}`}
