@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router-dom"
 import AuthContext from "../context/AuthContext"
 import useBusinessManager from "../hooks/useBusinessManager"
 import EditFee from "../modals/EditFee"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 const Fees = () => {
     const { id } = useParams()
@@ -12,64 +14,46 @@ const Fees = () => {
     const [openEditModal, setOpenEditModal] = useState(false)
     const [addModal, setAddModal] = useState(false)
 
-    const [data, setData] = useState({
-        'name': '',
-        'is_required': false,
-    })
+    const [formFields, setFormFields] = useState([
+        {
+            'fee_name': '',
+            'audience_type' : '',
+            'amount' : '',
+            'is_required': false,
+        }
+    ])
 
-    const toggleEditModal = (item) => {
-        setSelectedItem(item)
-        setOpenEditModal(prev => !prev)
+    const handleInputChange = (event, index) => {
+        const { name, value, type, checked } = event.target
+        let data = [...formFields]
+        data[index][name] = type === 'checkbox' ? checked : value
+        setFormFields(data)
+
+        console.log(data)
     }
 
-    const toggleAddModal = () => {
-
+    const handleSubmit = () => {
+        event.preventDefault();
+        console.log(formFields)
     }
 
-    const handleInputChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setData((prevData) => ({
-            ...prevData,
-            [name]: type === 'checkbox' ? checked : value,
-        }));
-    };
-
-    const checkInvalid = () => {
-        return !data.name
-    }
-
-
-    const displayFees = items && items.map(item => {
-        return (
-            <tr key={item.id}>
-                <td>{item.name}</td>
-                <td>{item.is_required ? "Required" : "Optional"}</td>
-                <td>
-                    <ul>
-                        {item.audience_types.map(audienceType => (
-                            <li key={audienceType.id}>
-                                {audienceType.name} - Price: {audienceType.price}
-                                <div onClick={() => toggleModal(audienceType)}>Edit</div>
-                            </li>
-                            
-                        ))}
-                    </ul>
-                </td>
-            </tr>
-        )
-    })
-
-    const handleSubmit = (e) => {   
-        e.preventDefault()
-
-        if (checkInvalid()) {
-            alert("Please supply in the missing fields")
-            return
+    const addFields = () => {
+        let newField = {
+            'fee_name': '',
+            'audience_type' : '',
+            'amount' : '',
+            'is_required': false,
         }
 
-        createFeeType(id, data)
+        setFormFields([...formFields, newField])
     }
 
+    const deleteField = (indexToDelete) => {
+        const updatedFields = formFields.filter((_, index) => index !== indexToDelete)
+        setFormFields(updatedFields)
+    }
+    
+    
     useEffect(() => {
         getBusinessDetail(id)
     }, [id])
@@ -78,51 +62,78 @@ const Fees = () => {
         getFeeTypes(id)
     }, [])
     
+
     return (
         <div>
-            <div>
-                <p>Add Services</p>
-                <form onSubmit={handleSubmit}>
-                    <div className="input admin--container">
-                        <label>Fee Type (ex: Entrance Fee, Environmental Fee, Tent Rental, etc.)</label>
-                        <input
-                            type="text"
-                            name="name"
-                            placeholder="Entrance Fee"
-                            value={data.item}
-                            onChange={handleInputChange}
-                            className="styled-input" 
-                        />
+                <p className="heading">Add Services</p>
+                <div>
+                    <div className="form-column-group fees-input-group">
+                        <h2 className="fees-label">Fee Name</h2>
+                        <h2 className="fees-label">Audience Type</h2>
+                        <h2 className="fees-label">Amount</h2>
+                        <h2 className="fees-label">Required</h2>
+                        <h2 className="fees-label"></h2>
                     </div>
-                    <div className="input admin--container">
-                        <label>Is Required</label>
-                        <input
-                        type="checkbox"
-                        name="is_required"
-                        checked={data.is_required}
-                        onChange={handleInputChange}
-                        className="styled-input"
-                        />
-                    </div>
-                    <button className="add--business font14" type="submit" >Submit</button>
-                </form>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Fee Type</th>
-                        <th>Required</th>
-                        <th>Audience Type - Price</th>
-                        <th><button>Add</button></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {displayFees}
-                </tbody>
-            </table>
-            {openEditModal &&
-            <EditFee />
-            }    
+
+                    <form onSubmit={(event) => handleSubmit(event)}>
+                    {formFields.map((form, index) => {
+                        return (
+                            <div className="form-column-group fees-input-group" key={index}>
+                                <input
+                                    type="text"
+                                    name="fee_name"
+                                    placeholder="ex. Entrance Fee"
+                                    value={form.fee_name}
+                                    onChange={(event) => handleInputChange(event, index)}
+                                    className="business-input fees-input" 
+                                />
+                                <select
+                                    name="audience_type"
+                                    value={form.audience_type}
+                                    onChange={(event) => handleInputChange(event, index)}
+                                    className="business-type fees-input"
+                                >
+                                    <option value="" disabled>-- Audience Type --</option>
+                                    <option value="General">General</option>
+                                    <option value="Regular">Regular</option>
+                                    <option value="Students">Students</option>
+                                    <option value="PWD">PWD</option>
+                                    <option value="Seniors">Senior Citizen</option>
+                                    <option value="Children">Children</option>
+                                    <option value="Adult">Adult</option>
+                                    <option value="Locals">Local Guests</option>
+                                    <option value="Foreigners">Foreigners</option>
+                                </select>
+                                <input
+                                    type="number"
+                                    name="amount"
+                                    placeholder="Amount"
+                                    value={form.amount}
+                                    onChange={(event) => handleInputChange(event, index)}
+                                    className="business-input fees-input"
+                                />
+                                <input
+                                    type="checkbox"
+                                    name="is_required"
+                                    checked={form.is_required}
+                                    onChange={(event) => handleInputChange(event, index)}
+                                    className="required-fees-checkbox"
+                                />
+                                <button 
+                                    className="delete-fee-btn" 
+                                    onClick={() => deleteField(index)}>
+                                    <FontAwesomeIcon className="delete-fees-icon" icon={faTrashCan} />
+                                </button>
+                            </div>
+                        )
+                    })}
+                    </form>
+                </div> 
+
+                <div>
+                    <button className="add--business add--fields" onClick={addFields}>Add</button>
+                    <button className="add--business" type="submit" onClick={handleSubmit}>Submit</button>
+                </div>                
         </div>
     )
 }

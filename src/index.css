@@ -3563,3 +3563,56 @@ table th, table td {
     padding: 15px 25px;
     text-align: left;
 }
+
+.fees-label {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.required-fees-checkbox {
+    appearance: none;
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    width: 40px;
+    height: 40px;
+    border: 2px solid #E7E7E7; 
+    border-radius: 4px; 
+    outline: none; 
+    margin: 0;
+    outline: none;
+}
+
+.required-fees-checkbox:checked {
+    background-color: #57CC99; 
+}
+
+.delete-fee-btn {
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    background-color: #E86B6B;
+    color: #fff;
+}
+
+.fees-input {
+    margin: 0 0 10px 0;
+}
+
+.fees-input-group h2 {
+    flex: 1;
+}
+
+.fees-input-group h2:nth-child(4),
+.fees-input-group h2:nth-child(5) {
+    flex: 0 0 7%;
+}
+
+.fees-input-group .required-fees-checkbox, 
+.fees-input-group button {
+    flex: 0 0 7%; 
+}
+
+.add--fields {
+    margin-right: 20px;
+    background-color: #57CC99;
+}
