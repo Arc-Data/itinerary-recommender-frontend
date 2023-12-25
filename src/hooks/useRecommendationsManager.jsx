@@ -91,11 +91,12 @@ const useRecommendationsManager = (authTokens) => {
 
         try {
             const response = await fetch(`${backendUrl}/api/recommendations/content/`, {
-                'method' : 'GET',
+                'method' : 'POST',
                 'headers': {
                     "Content-Type" : "application/json",
                     "Authorization": `Bearer ${access}`, 
-                }
+                },
+                'body': JSON.stringify(budget)
             })
 
             const data = await response.json()
