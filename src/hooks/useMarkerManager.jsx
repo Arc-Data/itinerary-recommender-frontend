@@ -27,9 +27,17 @@ const useMarkerManager = () => {
 		setMarkers(mapMarkers)
 	}
 
-    const deleteMarker = (latitude, longitude) => {
-		const mapMarkers = markers.filter(i => i.lng !== longitude && i.lat !== latitude)
-		setMarkers(mapMarkers)
+    const deleteMarker = (latitude, longitude, events) => {
+		let mapMarkers = markers.filter(i => i.lng !== longitude && i.lat !== latitude)
+		
+        if (events) {
+            events.forEach(event => {
+                console.log(event)
+                mapMarkers = mapMarkers.filter(i => i.lng !== event.longitude && i.lat !== event.latitude)
+            })
+        }
+        
+        setMarkers(mapMarkers)
 	}
 
     const getDayMarkersData = (day) => {

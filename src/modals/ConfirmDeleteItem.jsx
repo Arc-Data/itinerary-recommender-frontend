@@ -22,7 +22,7 @@ const ConfirmDeleteItem = ({onClose, itemId, deleteMarker, locations, setLocatio
             updateItemOrdering(updatedLocations)
             setItemOrdering(updatedLocations)
 
-            deleteMarker(item.details.latitude, item.details.longitude)
+            deleteMarker(item.details.latitude, item.details.longitude, item.details.event)
             decreaseEstimatedCost(item.details.min_cost, item.details.max_cost)
             onClose()
         }

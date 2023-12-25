@@ -37,11 +37,6 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     const handleDeleteLocation = async (location, latitude, longitude) => {
         
         try {
-            location.details.event.forEach(event => {
-                console.log("Deleting ", event)
-                deleteMarker(event.latitude, event.longitude)
-            })
-
             await deleteItem(location.id)
             
             const updatedLocations = locations.filter(i => i.id !== location.id)
@@ -54,7 +49,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
             
             decreaseEstimatedCost(location.details.min_cost, location.details.max_cost)
             updateItemOrdering(updatedLocations)
-            deleteMarker(latitude, longitude)
+            deleteMarker(latitude, longitude, location.details.event)
         }
         catch (error) {
             console.log("An error occured: ", error)
