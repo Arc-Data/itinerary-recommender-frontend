@@ -32,6 +32,7 @@ const Plan = () => {
 		editItineraryName,
 		handleEditItinerary,
 		cancelEditName, 
+		getLeftOverBudget,
 		editedExpenses,
 		submitEditedItineraryExpenses,
 	} = useItineraryManager(authTokens)
@@ -148,8 +149,6 @@ const Plan = () => {
 			toggleEditName()
 		}
 	}
-	
-
 
 	const handleEditName = () => {
 		editItineraryName(id)
@@ -159,6 +158,10 @@ const Plan = () => {
 	const handleSubmit = () => {
 		submitEditedItineraryExpenses(id)
 		toggleSettings(prev => !prev)
+	}
+
+	const handleBudgetCalculcation = (days, day, budget) => {
+		return getLeftOverBudget(days, day, budget)
 	}
 
 	const displayDays = days && days.map(day => {
@@ -174,6 +177,7 @@ const Plan = () => {
 			increaseEstimatedCost={increaseEstimatedCost}
 			decreaseEstimatedCost={decreaseEstimatedCost}
 			markCompletionAndReset={markCompletionAndReset}
+			getLeftOverBudget={() => handleBudgetCalculcation(days, day, itinerary.budget)}
 			/>
 		})
 

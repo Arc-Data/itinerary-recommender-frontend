@@ -6,7 +6,7 @@ import useRecommendationsManager from "../hooks/useRecommendationsManager"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 
-const Assistant = ({onClose, day, updateDays}) => {
+const Assistant = ({onClose, day, updateDays, getLeftOverBudget}) => {
     const { authTokens } = useContext(AuthContext)
     const { loading, status, recommendations, applyRecommendation, fetchRecommendations } = useRecommendationsManager(authTokens)
     const [selectedItem, setSelectedItem] = useState() 
@@ -49,7 +49,8 @@ const Assistant = ({onClose, day, updateDays}) => {
     }
 
     useEffect(() => {
-        fetchRecommendations()
+        const leftover = getLeftOverBudget()
+        fetchRecommendations(leftover)
     }, [])
 
     return (

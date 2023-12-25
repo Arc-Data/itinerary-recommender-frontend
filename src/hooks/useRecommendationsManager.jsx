@@ -85,7 +85,7 @@ const useRecommendationsManager = (authTokens) => {
         }
     }
 
-    const fetchRecommendations = async () => {
+    const fetchRecommendations = async (budget) => {
         setStatus("Loading Recommendations")
         setLoading(true)
 

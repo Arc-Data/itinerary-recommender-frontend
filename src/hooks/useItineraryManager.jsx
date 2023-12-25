@@ -14,6 +14,17 @@ const useItineraryManager = (authTokens) => {
     })
     const access = String(authTokens.access)
 
+    const getLeftOverBudget = (days, day, budget) => {
+        let filteredDays = days.filter(i => i.id != day.id)
+        const nice = filteredDays.reduce((day, leftover) => {
+            day_cost = day.itinerary_items.reduce((item, sum) => sum + item.details.max_cost, 0)
+            return leftover - day_cost
+        }, budget)
+
+        // console.log(nice)
+        return nice
+    }
+
     const getItineraryById = async (id) => {
         setLoading(true)
 
@@ -172,6 +183,7 @@ const useItineraryManager = (authTokens) => {
         editItineraryName,
         deleteItinerary,
         cancelEditName,
+        getLeftOverBudget,
         submitEditedItineraryExpenses,
     }
 }
