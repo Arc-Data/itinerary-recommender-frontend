@@ -4,7 +4,7 @@ import getTimeDetails from "../utils/getTimeDetails";
 import getFeeDetails from "../utils/getFeeDetails";
 import { useState } from "react";
 
-const LocationItem = ({location, addMarker}) => {
+const LocationItem = ({ location }) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
     const string = `${backendUrl}${location.details.primary_image.replace(/'/g, "\\'")}` 
     const [openEvents, setOpenEvents] = useState(false)
@@ -20,7 +20,6 @@ const LocationItem = ({location, addMarker}) => {
     }
 
     const displayEvents = location.details.event && location.details.event.map(location => {
-        // addMarker(location.latitude, location.longitude, "#d9ed92", location.name)
         return (
             <div key={location.id} className="events">{location.name}</div>
         )
