@@ -31,7 +31,8 @@ const Assistant = ({onClose, day, updateDays, getLeftOverBudget}) => {
         if (e) {
             e.stopPropagation()
         }
-        fetchRecommendations()
+        const leftover = getLeftOverBudget()
+        fetchRecommendations(leftover)
     }
 
     const handleApplyRecommendation = async (e) => {
