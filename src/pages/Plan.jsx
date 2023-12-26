@@ -69,9 +69,6 @@ const Plan = () => {
 
 	const [costEstimate, setCostEstimate] = useState(0);
 
-	console.log(minCost, maxCost)
-	console.log(itinerary?.budget)
-
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -87,7 +84,6 @@ const Plan = () => {
 	}, [id])
 
 	useEffect(() => {
-		console.log("This triggers")
 		let min = 0;
 		let max = 0;
 

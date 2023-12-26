@@ -88,6 +88,7 @@ const useRecommendationsManager = (authTokens) => {
     const fetchRecommendations = async (budget) => {
         setStatus("Loading Recommendations")
         setLoading(true)
+        console.log("Budget", budget)
 
         try {
             const response = await fetch(`${backendUrl}/api/recommendations/content/`, {

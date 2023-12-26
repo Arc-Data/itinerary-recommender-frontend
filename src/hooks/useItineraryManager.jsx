@@ -16,13 +16,13 @@ const useItineraryManager = (authTokens) => {
 
     const getLeftOverBudget = (days, day, budget) => {
         let filteredDays = days.filter(i => i.id != day.id)
-        const nice = filteredDays.reduce((day, leftover) => {
-            day_cost = day.itinerary_items.reduce((item, sum) => sum + item.details.max_cost, 0)
+
+        return filteredDays.reduce((leftover, day) => {
+            if (day.itinerary_items.length === 0) return
+
+            let day_cost = day.itinerary_items.reduce((sum, item) => sum + item.details.max_cost, 0)
             return leftover - day_cost
         }, budget)
-
-        // console.log(nice)
-        return nice
     }
 
     const getItineraryById = async (id) => {
