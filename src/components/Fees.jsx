@@ -28,7 +28,6 @@ const Fees = () => {
         let data = [...formFields]
         data[index][name] = type === 'checkbox' ? checked : value
         setFormFields(data)
-
         console.log(data)
     }
 
@@ -41,7 +40,7 @@ const Fees = () => {
         let newField = {
             'fee_name': '',
             'audience_type' : '',
-            'amount' : '',
+            'amount' : 0,
             'is_required': false,
         }
 
@@ -87,27 +86,46 @@ const Fees = () => {
                                     onChange={(event) => handleInputChange(event, index)}
                                     className="business-input fees-input" 
                                 />
-                                <select
+                                <input
+                                    type="text"
                                     name="audience_type"
+                                    placeholder="ex. General, Students, PWD, Senior"
                                     value={form.audience_type}
                                     onChange={(event) => handleInputChange(event, index)}
-                                    className="business-type fees-input"
-                                >
-                                    <option value="" disabled>-- Audience Type --</option>
-                                    <option value="General">General</option>
-                                    <option value="Regular">Regular</option>
-                                    <option value="Students">Students</option>
-                                    <option value="PWD">PWD</option>
-                                    <option value="Seniors">Senior Citizen</option>
-                                    <option value="Children">Children</option>
-                                    <option value="Adult">Adult</option>
-                                    <option value="Locals">Local Guests</option>
-                                    <option value="Foreigners">Foreigners</option>
-                                </select>
+                                    className="business-input fees-input"
+                                />
+                                {/* { form.audience_type !== 'Other' ? (
+                                    <select
+                                        name="audience_type"
+                                        value={form.audience_type}
+                                        onChange={(event) => handleInputChange(event, index)}
+                                        className="business-type fees-input"
+                                    >
+                                        <option value="General">General</option>
+                                        <option value="Regular">Regular</option>
+                                        <option value="Students">Students</option>
+                                        <option value="PWD">PWD</option>
+                                        <option value="Seniors">Senior Citizen</option>
+                                        <option value="Children">Children</option>
+                                        <option value="Adult">Adult</option>
+                                        <option value="Locals">Local Guests</option>
+                                        <option value="Foreigners">Foreigners</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                ) : (
+                                    <input
+                                        type="text"
+                                        name="audience_type"
+                                        placeholder="Type your audience type"
+                                        value={form.audience_type}
+                                        onChange={(event) => handleInputChange(event, index)}
+                                        className="business-input fees-input"
+                                    />
+                                )} */}
                                 <input
                                     type="number"
                                     name="amount"
-                                    placeholder="Amount"
+                                    placeholder="0"
                                     value={form.amount}
                                     onChange={(event) => handleInputChange(event, index)}
                                     className="business-input fees-input"
