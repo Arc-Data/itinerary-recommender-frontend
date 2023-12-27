@@ -174,6 +174,7 @@ const Plan = () => {
 			decreaseEstimatedCost={decreaseEstimatedCost}
 			markCompletionAndReset={markCompletionAndReset}
 			getLeftOverBudget={() => handleBudgetCalculcation(days, day, itinerary.budget)}
+			itineraryName={itinerary.name}
 			/>
 		})
 

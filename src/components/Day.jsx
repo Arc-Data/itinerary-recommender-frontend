@@ -21,7 +21,7 @@ dayjs.extend(utc)
 
 const Day = ({ day, updateDays, removeDay, addMarker, 
         deleteMarker, includedLocations, setIncludedLocations, increaseEstimatedCost, 
-        decreaseEstimatedCost, markCompletionAndReset, getLeftOverBudget}) => {
+        decreaseEstimatedCost, markCompletionAndReset, getLeftOverBudget, itineraryName}) => {
     
     const { authTokens } = useContext(AuthContext)
     const [open, setOpen] = useState(false)
@@ -368,7 +368,8 @@ const Day = ({ day, updateDays, removeDay, addMarker,
             <ShareDetails 
                 onClose={toggleShareDetails} 
                 day={day}
-                costEstimate={costEstimate}/>
+                costEstimate={costEstimate}
+                name={itineraryName}/>
             }
         </div>
     )

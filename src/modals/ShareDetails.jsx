@@ -7,8 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ShareMap from "../components/ShareMap"
 
 
-const ShareDetails = ({onClose, day, costEstimate}) => {
+const ShareDetails = ({onClose, day, costEstimate, name}) => {
     const { markers, getDayMarkersData } = useMarkerManager()
+    console.log(name)
 
     const exportPDF = () => {
         const input = document.querySelector("#day-trips")
@@ -53,7 +54,7 @@ const ShareDetails = ({onClose, day, costEstimate}) => {
                         <button data-html2canvas-ignore="true" onClick={exportPDF} className="share--details-download-btn"><FontAwesomeIcon className="btn-icons" icon={faFileArrowDown} />Download</button>
                     </div>
                     <div className="share--details-header">
-                        <p>Itinerary name: {day.itinerary_name}</p>
+                        <p>Itinerary name: {name}</p>
                         <p>Day number: {day.order}</p>
                         <p>Total estimated cost: {costEstimate}</p>
                     </div>

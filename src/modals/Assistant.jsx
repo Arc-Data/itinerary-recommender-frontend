@@ -37,9 +37,7 @@ const Assistant = ({onClose, day, updateDays, getLeftOverBudget}) => {
 
     const handleApplyRecommendation = async (e) => {
         try {
-            console.log("Huh")
             const data = await applyRecommendation(selectedItem, day.id);
-            console.log(data)
             updateDays(day.id, data.day)
         }
         catch(error) {
