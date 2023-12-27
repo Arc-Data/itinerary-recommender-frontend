@@ -28,7 +28,6 @@ const Map = ({markers}) => {
             
             newMarker.getElement().addEventListener('mouseenter', () => {
                 popup.addTo(map.current);
-                hidePopupCloseButton(popup)
             });
     
             newMarker.getElement().addEventListener('mouseleave', () => {
@@ -57,7 +56,6 @@ const Map = ({markers}) => {
     useEffect(() => {
 
         if (markers) {
-            console.log("Doing this")
             addMarkersToMap()
         }
 

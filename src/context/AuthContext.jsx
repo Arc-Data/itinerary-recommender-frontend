@@ -92,7 +92,6 @@ export const AuthProvider = ({children}) => {
     }
 
     const updateToken = async() => {
-        console.log("Runs the backend function")
         const response = await fetch(`${backendUrl}/api/token/refresh/`, {
             method:'POST',
             headers: {

@@ -1,4 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react"
+import { Link } from "react-router-dom"
 import { useParams } from "react-router-dom"
 import AuthContext from "../context/AuthContext"
 import Day from "../components/Day"
@@ -6,7 +7,7 @@ import dayjs from "dayjs"
 import CreateNav from "../components/CreateNav"
 import Map from "../components/Map"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
-import { faCalendarAlt, faCheck, faMap, faMoneyBill, faPencilAlt, faPenToSquare} from "@fortawesome/free-solid-svg-icons"
+import { faPhone, faCalendarAlt, faCheck, faMap, faMoneyBill, faPencilAlt, faPenToSquare} from "@fortawesome/free-solid-svg-icons"
 import DateSettings from "../modals/DateSettings"
 import useItineraryManager from "../hooks/useItineraryManager"
 import useDayManager from "../hooks/useDayManager"
@@ -31,6 +32,7 @@ const Plan = () => {
 		editItineraryName,
 		handleEditItinerary,
 		cancelEditName, 
+		getLeftOverBudget,
 		editedExpenses,
 		submitEditedItineraryExpenses,
 	} = useItineraryManager(authTokens)
@@ -67,9 +69,6 @@ const Plan = () => {
 
 	const [costEstimate, setCostEstimate] = useState(0);
 
-	console.log(minCost, maxCost)
-	console.log(itinerary?.budget)
-
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -85,7 +84,6 @@ const Plan = () => {
 	}, [id])
 
 	useEffect(() => {
-		console.log("This triggers")
 		let min = 0;
 		let max = 0;
 
@@ -147,8 +145,6 @@ const Plan = () => {
 			toggleEditName()
 		}
 	}
-	
-
 
 	const handleEditName = () => {
 		editItineraryName(id)
@@ -158,6 +154,10 @@ const Plan = () => {
 	const handleSubmit = () => {
 		submitEditedItineraryExpenses(id)
 		toggleSettings(prev => !prev)
+	}
+
+	const handleBudgetCalculcation = (days, day, budget) => {
+		return getLeftOverBudget(days, day, budget)
 	}
 
 	const displayDays = days && days.map(day => {
@@ -173,6 +173,8 @@ const Plan = () => {
 			increaseEstimatedCost={increaseEstimatedCost}
 			decreaseEstimatedCost={decreaseEstimatedCost}
 			markCompletionAndReset={markCompletionAndReset}
+			getLeftOverBudget={() => handleBudgetCalculcation(days, day, itinerary.budget)}
+			itineraryName={itinerary.name}
 			/>
 		})
 
@@ -258,6 +260,15 @@ const Plan = () => {
 								{ getDayTabs }
 							</div>
 							}
+						</div>
+						<div className="contact--div">
+							<p>Need a ride for your upcoming trip? Contact our drivers now!</p>
+							<Link to="assistantContact">
+							<button className="contact--button">
+								<FontAwesomeIcon icon={faPhone} style={{ marginRight: "8px", color: "black" }} />
+								Contact now
+							</button>
+							</Link>
 						</div>
 					</aside>
 					<main className="plan--main-panel">

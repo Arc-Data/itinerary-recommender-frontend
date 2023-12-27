@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaTrash, FaPencilAlt } from "react-icons/fa";
-import SAMPLEIMAGE from "/images/osmenapeak.jpg";
 import ReactDatePicker from "react-datepicker";
 
 const ManageSpot = ({ location, editBusiness }) => {
@@ -86,6 +84,8 @@ const ManageSpot = ({ location, editBusiness }) => {
 		setAddProductModalOpen(prev => !prev)
 	}
 
+    console.log(formData)
+
     return (
         <div className="profile--main-container">
             <form onSubmit={handleSubmit}>
@@ -137,30 +137,6 @@ const ManageSpot = ({ location, editBusiness }) => {
                         />
                         </div>
                     </div>
-                    {location.location_type === "1" && 
-                    <div className="admin--container">
-                        <div className="input admin--container">
-                        <label htmlFor="min_fee">Minimum Fee</label>
-                        <input
-                            type="text"
-                            onChange={handleChangeInput}
-                            name="min_fee"
-                            value={formData.min_fee}
-                            className="styled-input"
-                        />
-                        </div>
-                        <div className="input admin--container">
-                        <label htmlFor="max_fee">Maximum Fee</label>
-                        <input
-                            number="text"
-                            onChange={handleChangeInput}
-                            name="max_fee"
-                            value={formData.max_fee}
-                            className="styled-input"
-                        />
-                        </div>
-                    </div>
-                    }
                     {location.location_type === "1" && 
                     <div className="admin--container">
                         <div className="input admin--container">

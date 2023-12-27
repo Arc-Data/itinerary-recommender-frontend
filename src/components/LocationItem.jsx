@@ -4,7 +4,7 @@ import getTimeDetails from "../utils/getTimeDetails";
 import getFeeDetails from "../utils/getFeeDetails";
 import { useState } from "react";
 
-const LocationItem = ({location}) => {
+const LocationItem = ({ location }) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
     const string = `${backendUrl}${location.details.primary_image.replace(/'/g, "\\'")}` 
     const [openEvents, setOpenEvents] = useState(false)
@@ -20,7 +20,6 @@ const LocationItem = ({location}) => {
     }
 
     const displayEvents = location.details.event && location.details.event.map(location => {
-        console.log(location)
         return (
             <div key={location.id} className="events">{location.name}</div>
         )
@@ -57,7 +56,7 @@ const LocationItem = ({location}) => {
                             }
                         </div>
                         {
-                            location.details.event.length > 1 && 
+                            location.details.event.length >= 1 && 
                             <div className="plan--events-btn font-weight-500" onClick={toggleEvents}>
                                 <p><FontAwesomeIcon className="btn-icons" icon={faCalendarDay} />Events (
                                     {location.details.event.length === 1 ? '1' : `${location.details.event.length}`}

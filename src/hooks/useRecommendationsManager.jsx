@@ -36,17 +36,67 @@ const useRecommendationsManager = (authTokens) => {
         }
     }
 
-    const fetchRecommendations = async () => {
+    const fetchNearbyRecommendations = async (id, toVisitList) => {
+        setStatus("Loading Recommendations")
+        setLoading(true)
+
+        try {
+            const response = await fetch(`${backendUrl}/api/recommendations/${id}/nearby/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                },
+                body: JSON.stringify(toVisitList)
+                
+            })
+
+            const data = await response.json()
+            setRecommendations(data)
+        }
+        catch (error) {
+            console.log("An error occured: ", error)
+        }
+        finally {
+            setLoading(false)
+        }
+    }
+
+    const fetchPreferenceRecommendations = async () => {
+        setStatus("Loading Recommendation")
+        setLoading(true)
+
+        try {
+            const response = await fetch(`${backendUrl}/api/recommendations/homepage/`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                }
+            })
+            const data = await response.json()
+            setRecommendations(data.recommendations)
+        }
+        catch (error) {
+            console.log("An error occured while fetching recommendations based on preferences: ", error)
+        }   
+        finally {
+            setLoading(false)
+        }
+    }
+
+    const fetchRecommendations = async (budget) => {
         setStatus("Loading Recommendations")
         setLoading(true)
 
         try {
             const response = await fetch(`${backendUrl}/api/recommendations/content/`, {
-                'method' : 'GET',
+                'method' : 'POST',
                 'headers': {
                     "Content-Type" : "application/json",
                     "Authorization": `Bearer ${access}`, 
-                }
+                },
+                'body': JSON.stringify(budget)
             })
 
             const data = await response.json()
@@ -68,6 +118,8 @@ const useRecommendationsManager = (authTokens) => {
         recommendations,
         applyRecommendation,
         fetchRecommendations,
+        fetchPreferenceRecommendations,
+        fetchNearbyRecommendations,
     }
 }
 

@@ -7,12 +7,13 @@ import Modal from "../components/Modal"
 import getTimeDetails from "../utils/getTimeDetails"
 import getFeeDetails from "../utils/getFeeDetails"
 import useItemLocationManager from "../hooks/useItemLocationManager"
+import useRecommendationsManager from "../hooks/useRecommendationsManager"
 
 const AddLocation = ({onClose, locations, setLocations, day, includedLocations, setIncludedLocations, addMarker, deleteMarker, increaseEstimatedCost, decreaseEstimatedCost}) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
-
     const { authTokens } = useContext(AuthContext)
     const { addItem, deleteItem, updateItemOrdering } = useItemLocationManager(authTokens)
+    const { recommendations, loading, fetchNearbyRecommendations, fetchPreferenceRecommendations } = useRecommendationsManager(authTokens)
     const [recentlyAddedLocations, setRecentlyAddedLocations] = useState([])
     const [searchData, setSearchData] = useState(null)
     const [openBookmarks, setOpenBookmarks] = useState(false)
@@ -34,10 +35,10 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     }
 
     const handleDeleteLocation = async (location, latitude, longitude) => {
+        
         try {
             await deleteItem(location.id)
-            console.log(location)
-    
+            
             const updatedLocations = locations.filter(i => i.id !== location.id)
             const updatedIncludedLocations = includedLocations.filter(i => i.id !== location.id)
             const updatedRecentlyAddedLocations = recentlyAddedLocations.filter(i => i.id !== location.id)
@@ -48,7 +49,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
             
             decreaseEstimatedCost(location.details.min_cost, location.details.max_cost)
             updateItemOrdering(updatedLocations)
-            deleteMarker(latitude, longitude)
+            deleteMarker(latitude, longitude, location.details.event)
         }
         catch (error) {
             console.log("An error occured: ", error)
@@ -67,8 +68,8 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
             setIncludedLocations(arr2)
             setRecentlyAddedLocations(arr3)
             increaseEstimatedCost(item.details.min_cost, item.details.max_cost)
-            console.log(item)
-            addMarker(item.details.latitude, item.details.longitude, day.color, item.name)
+            addMarker(item.details.latitude, item.details.longitude, day.color, item.details.name, item.details.event)
+            
         }
         catch(error) {
             console.log("An error occured : ", error)
@@ -88,6 +89,11 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
         timeout = setTimeout(() => {
             searchLocations(e.target.value)
         }, debounceTimeout)
+    }
+
+    const addRecommendation = async (id) => {
+        handleAddLocation(id)
+        fetchNearbyRecommendations(id)
     }
 
     const checkDuplicateLocation = (locationId) => {
@@ -113,7 +119,6 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
         )
     })
 
-
     const displayBookmark = bookmarked && bookmarked.map(bookmark => {
         return !checkDuplicateLocation(bookmark.location) && (
         <div key={bookmark.id} className="add-location-modal--search-item">
@@ -127,6 +132,9 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
         )   
     })
 
+    const getToVisitLocations = (locations) => {
+        return locations.map(i => i.location)
+    }
     
     useEffect(() => {
         const getBookmarks = async () => {
@@ -143,7 +151,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                 
             }
             catch(error) {
-                console.log("An error occured while getting user bookmarks")
+                console.log("An error occured while getting user bookmarks", error)
             }
         }
 
@@ -151,10 +159,34 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     }, [])
 
     useEffect(() => {
+        if (locations.length !== 0) {
+            fetchNearbyRecommendations(locations[locations.length - 1].location, getToVisitLocations(locations))
+            
+        
+        }  else {
+            fetchPreferenceRecommendations()
+        }
+    }, [locations])
+
+    const displayNearbyRecommendations = recommendations && recommendations.map(recommendation => {
+        return (
+            <div key={recommendation.id} className="nearby-recommendation-item">
+                <img src={`${backendUrl}${recommendation.primary_image}`} alt="" />
+                <div>
+                    <p>{recommendation.name}</p>
+                    {recommendation.distance && 
+                    <p>{Math.floor(recommendation.distance)}m</p>
+                    }
+                    <p>Rating: {recommendation.ratings.average_rating}</p>
+                    <button onClick={() => addRecommendation(recommendation.id)}>Add</button>
+                </div>
+            </div>
+        )
+    })
+
+    useEffect(() => {
         if (searchData) {
             const results = searchData.map(location => {
-                console.log(location.id)
-                
                 const fee = (location.fee.min && location.fee.max) ? getFeeDetails(location.fee.min, location.fee.max) : 0
                 const opening_time = location.schedule?.opening ? getTimeDetails(location.schedule.opening) : 0
                 const closing_time = location.schedule?.closing ? getTimeDetails(location.schedule.closing) : 0
@@ -196,9 +228,10 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
             </div> 
             : 
             <div className="add-location-modal--content">
+                
                 <input 
                     type="search"
-                    placeholder="Add a location"
+                    placeholder="Search location name..."
                     name="location"
                     id="location"
                     className="plan--search-input add-location--search-input"
@@ -209,7 +242,25 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                 <div className="add-location-modal--recently-added-container">
                     {displayRecentlyAdded}
                 </div> }
-                {searchString.length !== 0 ? 
+                <div>
+                    {!searchString.length && 
+                    <>
+                    {locations.length === 0 ? 
+                    <p>Recommended for you</p>
+                    :
+                    <p>Recommended Nearby Locations</p>
+                    }
+                    {loading ? 
+                    <div>Loading</div>
+                    :
+                    <div className="add-location-recommendations">
+                        {displayNearbyRecommendations}
+                    </div>
+                    }
+                    </>
+                    }
+                </div>
+                {searchString.length ? 
                 <div className="add-location-modal--results-container">
                     <p>Search Results for "{searchString}"</p>
                     <div className="add-location-modal--results">

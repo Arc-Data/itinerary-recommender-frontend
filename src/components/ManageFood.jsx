@@ -93,29 +93,6 @@ const ManageBusiness = ({ location, editBusiness }) => {
 				{location.location_type === "1" && 
 				<div className="admin--container">
 					<div className="input admin--container">
-					<label htmlFor="min_fee">Minimum Fee</label>
-					<input
-						type="text"
-						onChange={handleChangeInput}
-						name="min_fee"
-						value={formData.min_fee}
-						className="styled-input"
-					/>
-					</div>
-					<div className="input admin--container">
-					<label htmlFor="max_fee">Maximum Fee</label>
-					<input
-						number="text"
-						name="max_fee"
-						value={formData.max_fee}
-						className="styled-input"
-					/>
-					</div>
-				</div>
-				}
-				{location.location_type === "1" && 
-				<div className="admin--container">
-					<div className="input admin--container">
 					<label htmlFor="opening">Opening Time</label>
 					<input
 						type="text"
