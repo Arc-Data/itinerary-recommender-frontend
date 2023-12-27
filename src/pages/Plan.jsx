@@ -32,6 +32,7 @@ const Plan = () => {
 		editItineraryName,
 		handleEditItinerary,
 		cancelEditName, 
+		getLeftOverBudget,
 		editedExpenses,
 		submitEditedItineraryExpenses,
 	} = useItineraryManager(authTokens)
@@ -68,9 +69,6 @@ const Plan = () => {
 
 	const [costEstimate, setCostEstimate] = useState(0);
 
-	console.log(minCost, maxCost)
-	console.log(itinerary?.budget)
-
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -86,7 +84,6 @@ const Plan = () => {
 	}, [id])
 
 	useEffect(() => {
-		console.log("This triggers")
 		let min = 0;
 		let max = 0;
 
@@ -148,8 +145,6 @@ const Plan = () => {
 			toggleEditName()
 		}
 	}
-	
-
 
 	const handleEditName = () => {
 		editItineraryName(id)
@@ -159,6 +154,10 @@ const Plan = () => {
 	const handleSubmit = () => {
 		submitEditedItineraryExpenses(id)
 		toggleSettings(prev => !prev)
+	}
+
+	const handleBudgetCalculcation = (days, day, budget) => {
+		return getLeftOverBudget(days, day, budget)
 	}
 
 	const displayDays = days && days.map(day => {
@@ -174,6 +173,7 @@ const Plan = () => {
 			increaseEstimatedCost={increaseEstimatedCost}
 			decreaseEstimatedCost={decreaseEstimatedCost}
 			markCompletionAndReset={markCompletionAndReset}
+			getLeftOverBudget={() => handleBudgetCalculcation(days, day, itinerary.budget)}
 			/>
 		})
 

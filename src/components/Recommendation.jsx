@@ -7,12 +7,12 @@ const Recommendation = ({recommendation, onClick, selected}) => {
 
     const displayItem = recommendation && recommendation.locations.map(item => {
         return (
-            <div key={item.id} className="assistant--recommendation-item">
+            <div key={item.spot.id} className="assistant--recommendation-item">
                 <FontAwesomeIcon icon ={faLocationDot} className="assistant--location-icon"/>
                 <div className="assistant--recommendation-item-content">
-                    <p className="assistant--recommendation-item-title">{item.name}</p>
-                    <p>Open {getTimeDetails(item.schedule.opening)} - {getTimeDetails(item.schedule.closing)}</p>
-                    <p>Entrance Fee: {getFeeDetails(item.fee.min, item.fee.max)}</p>
+                    <p className="assistant--recommendation-item-title">{item.spot.name}</p>
+                    <p>Open {getTimeDetails(item.spot.schedule.opening)} - {getTimeDetails(item.spot.schedule.closing)}</p>
+                    <p>Entrance Fee: {getFeeDetails(item.spot.fee.min, item.spot.fee.max)}</p>
                 </div>
             </div>
         )

@@ -19,7 +19,10 @@ import ShareDetails from "../modals/ShareDetails";
 
 dayjs.extend(utc)
 
-const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLocations, setIncludedLocations, increaseEstimatedCost, decreaseEstimatedCost, markCompletionAndReset}) => {
+const Day = ({ day, updateDays, removeDay, addMarker, 
+        deleteMarker, includedLocations, setIncludedLocations, increaseEstimatedCost, 
+        decreaseEstimatedCost, markCompletionAndReset, getLeftOverBudget}) => {
+    
     const { authTokens } = useContext(AuthContext)
     const [open, setOpen] = useState(false)
 
@@ -36,6 +39,7 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
     const [openCompletionModal, setOpenCompletionModal] = useState(false)
     const [openShareDetails, setOpenShareDetails] = useState(false)
 
+    const [leftOverBudget, setLeftOverBudget] = useState(0)
     const [costEstimate, setCostEstimate] = useState(0)
 
     const { updateItemOrdering } = useItemLocationManager(authTokens)
@@ -339,7 +343,8 @@ const Day = ({ day, updateDays, removeDay, addMarker, deleteMarker, includedLoca
             <Assistant 
                 onClose={toggleAssistantModal}
                 day={day}
-                updateDays={updateDays}/>
+                updateDays={updateDays}
+                getLeftOverBudget={getLeftOverBudget}/>
             }
             {openColorModal &&
             <Color 
