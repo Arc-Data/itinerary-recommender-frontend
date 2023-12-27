@@ -18,7 +18,7 @@ const useItineraryManager = (authTokens) => {
         let filteredDays = days.filter(i => i.id != day.id)
 
         return filteredDays.reduce((leftover, day) => {
-            if (day.itinerary_items.length === 0) return
+            if (day.itinerary_items.length === 0) return leftover
 
             let day_cost = day.itinerary_items.reduce((sum, item) => sum + item.details.max_cost, 0)
             return leftover - day_cost
