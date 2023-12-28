@@ -67,6 +67,7 @@ export default function DetailPage() {
 
 	const getLocationData = async () => {
 		const data = await getLocation(id)
+		console.log(data)
 		setBookmarked(data.is_bookmarked);
 		setImages(data.images);
 		setSelectedImage(`${backendUrl}` + data.images[0]);
