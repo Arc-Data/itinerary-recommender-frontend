@@ -6,10 +6,12 @@ import useRecommendationsManager from "../hooks/useRecommendationsManager"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 
-const Assistant = ({onClose, day, updateDays}) => {
+const Assistant = ({onClose, day, updateDays, getLeftOverBudget}) => {
     const { authTokens } = useContext(AuthContext)
     const { loading, status, recommendations, applyRecommendation, fetchRecommendations } = useRecommendationsManager(authTokens)
     const [selectedItem, setSelectedItem] = useState() 
+
+    console.log(getLeftOverBudget())
 
     const formatDate = (day) => {
         return dayjs(day.date).format("MMM D YYYY, dddd")
@@ -31,7 +33,8 @@ const Assistant = ({onClose, day, updateDays}) => {
         if (e) {
             e.stopPropagation()
         }
-        fetchRecommendations()
+        const leftover = getLeftOverBudget()
+        fetchRecommendations(leftover)
     }
 
     const handleApplyRecommendation = async (e) => {
@@ -49,7 +52,8 @@ const Assistant = ({onClose, day, updateDays}) => {
     }
 
     useEffect(() => {
-        fetchRecommendations()
+        const leftover = getLeftOverBudget()
+        fetchRecommendations(leftover)
     }, [])
 
     return (

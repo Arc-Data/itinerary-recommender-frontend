@@ -3,21 +3,41 @@ import { useState } from "react"
 const useMarkerManager = () => {
     const [ markers, setMarkers] = useState([])
     
-    const addMarker = (latitude, longitude, color, location="") => {
+    const addMarker = (latitude, longitude, color, location="", events) => {
 		const mapMarkers = [...markers]
-		mapMarkers.push({
+
+        mapMarkers.push({
 			lng: longitude,
 			lat: latitude,
 			color: color,
             location: location,
 		})
 
+        if (events) {
+            events.forEach(event => {
+                mapMarkers.push({
+                    lng: event.longitude,
+                    lat: event.latitude, 
+                    color: "#d9ed92",
+                    location: event.name,
+                })
+            })
+        }
+
 		setMarkers(mapMarkers)
 	}
 
-    const deleteMarker = (latitude, longitude) => {
-		const mapMarkers = markers.filter(i => i.lng !== longitude && i.lat !== latitude)
-		setMarkers(mapMarkers)
+    const deleteMarker = (latitude, longitude, events) => {
+		let mapMarkers = markers.filter(i => i.lng !== longitude && i.lat !== latitude)
+		
+        if (events) {
+            events.forEach(event => {
+                console.log(event)
+                mapMarkers = mapMarkers.filter(i => i.lng !== event.longitude && i.lat !== event.latitude)
+            })
+        }
+        
+        setMarkers(mapMarkers)
 	}
 
     const getDayMarkersData = (day) => {

@@ -28,7 +28,6 @@ const Map = ({markers}) => {
             
             newMarker.getElement().addEventListener('mouseenter', () => {
                 popup.addTo(map.current);
-                hidePopupCloseButton(popup)
             });
     
             newMarker.getElement().addEventListener('mouseleave', () => {

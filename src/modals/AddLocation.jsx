@@ -35,9 +35,10 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     }
 
     const handleDeleteLocation = async (location, latitude, longitude) => {
+        
         try {
             await deleteItem(location.id)
-    
+            
             const updatedLocations = locations.filter(i => i.id !== location.id)
             const updatedIncludedLocations = includedLocations.filter(i => i.id !== location.id)
             const updatedRecentlyAddedLocations = recentlyAddedLocations.filter(i => i.id !== location.id)
@@ -48,7 +49,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
             
             decreaseEstimatedCost(location.details.min_cost, location.details.max_cost)
             updateItemOrdering(updatedLocations)
-            deleteMarker(latitude, longitude)
+            deleteMarker(latitude, longitude, location.details.event)
         }
         catch (error) {
             console.log("An error occured: ", error)
@@ -67,7 +68,8 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
             setIncludedLocations(arr2)
             setRecentlyAddedLocations(arr3)
             increaseEstimatedCost(item.details.min_cost, item.details.max_cost)
-            addMarker(item.details.latitude, item.details.longitude, day.color, item.name)
+            addMarker(item.details.latitude, item.details.longitude, day.color, item.details.name, item.details.event)
+            
         }
         catch(error) {
             console.log("An error occured : ", error)
@@ -159,6 +161,8 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     useEffect(() => {
         if (locations.length !== 0) {
             fetchNearbyRecommendations(locations[locations.length - 1].location, getToVisitLocations(locations))
+            
+        
         }  else {
             fetchPreferenceRecommendations()
         }

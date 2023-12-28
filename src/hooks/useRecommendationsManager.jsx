@@ -85,17 +85,18 @@ const useRecommendationsManager = (authTokens) => {
         }
     }
 
-    const fetchRecommendations = async () => {
+    const fetchRecommendations = async (budget) => {
         setStatus("Loading Recommendations")
         setLoading(true)
 
         try {
             const response = await fetch(`${backendUrl}/api/recommendations/content/`, {
-                'method' : 'GET',
+                'method' : 'POST',
                 'headers': {
                     "Content-Type" : "application/json",
                     "Authorization": `Bearer ${access}`, 
-                }
+                },
+                'body': JSON.stringify(budget)
             })
 
             const data = await response.json()
