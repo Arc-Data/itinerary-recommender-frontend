@@ -11,6 +11,8 @@ const Assistant = ({onClose, day, updateDays, getLeftOverBudget}) => {
     const { loading, status, recommendations, applyRecommendation, fetchRecommendations } = useRecommendationsManager(authTokens)
     const [selectedItem, setSelectedItem] = useState() 
 
+    console.log(getLeftOverBudget())
+
     const formatDate = (day) => {
         return dayjs(day.date).format("MMM D YYYY, dddd")
     }
