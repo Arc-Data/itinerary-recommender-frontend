@@ -45,6 +45,7 @@ import Test from './pages/Test';
 import AssistantContact from './pages/AssistantContact';
 import AccountSettings from './pages/AccountSettings';
 import ChangePassword from './pages/ChangePassword';
+import AuthLayout from './layout/AuthLayout';
 	/*css*/
 	
 function App() {
@@ -53,7 +54,9 @@ function App() {
 		<AuthProvider>
 			<Routes>
 				<Route path="/" element={<LandingPage />} />
-				<Route path="/login" element={<Login />} />
+				<Route element={<AuthLayout />}>
+					<Route path="/login" element={<Login />} />
+				</Route>
 				<Route path="/signup" element={<Signup />} />
 				<Route path="/forgotpass" element={<ForgotPassword />} />
 
