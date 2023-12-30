@@ -3614,3 +3614,20 @@ table th, table td {
     color: #333333;
     padding: 0;
 }
+
+.tags-checkbox-container {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.tags-checkbox {
+    margin: 0;
+    height: 18px;
+    width: 18px;
+}
+
+.tags-checkbox-label {
+    margin: 0 0 0 10px;
+    font-size: 18px;
+}

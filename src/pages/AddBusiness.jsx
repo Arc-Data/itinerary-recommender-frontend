@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import AuthContext from "../context/AuthContext"
 import { useNavigate } from "react-router-dom"
@@ -23,12 +23,12 @@ const AddBusiness = () => {
         'minfee': 0,
         'description': ''
     })
-    
-    const [query, setQuery] = useState('');
-    const [searchResults, setSearchResults] = useState([]);
-    const [tags, setTags] = useState([]);
+    const [query, setQuery] = useState('')
+    const [searchResults, setSearchResults] = useState([])
+    const [tags, setTags] = useState([])
     const [image, setImage] = useState(null)
-    const [showFees, setShowFees] = useState(true);
+    const [showFees, setShowFees] = useState(true)
+    const [spotTags, setSpotTags] = useState([])
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
@@ -97,12 +97,12 @@ const AddBusiness = () => {
     const addTag = async (tagName) => {
         try {
             if (!tags.includes(tagName)) {
-                setTags(prevTags => [...prevTags, tagName]);
-                await createTag(tagName);
+                setTags(prevTags => [...prevTags, tagName])
+                await createTag(tagName)
             }
             setQuery('')
         } catch (error) {
-            console.error('Error adding tag:', error);
+            console.error('Error adding tag:', error)
         }
     }
 
@@ -138,6 +138,18 @@ const AddBusiness = () => {
         }
     }
 
+    const handleSpotTagChange = (e, tagName) => {
+        const isChecked = e.target.checked
+      
+        if (isChecked) {
+          if (!tags.includes(tagName)) {
+            setTags((prevTags) => [...prevTags, tagName])
+          }
+        } else {
+          setTags((prevTags) => prevTags.filter((tag) => tag !== tagName))
+        }
+    }
+
     const tagSearchResults = (query !== '' || query !== null) && (
         <div className="tag-results-container">
             {searchResults.map((tag, index) => (
@@ -156,6 +168,27 @@ const AddBusiness = () => {
             </button>
         </div>
     ))
+
+    useEffect(() => {
+        const getSpotTags = async () => {
+          try {
+            const response = await fetch(`${backendUrl}/api/tags/get/`, {
+              method: "GET",
+              headers: {
+                'Content-Type': "application/json",
+                'Authorization': `Bearer ${String(authTokens.access)}`
+              }
+            });
+            const data = await response.json();
+            setSpotTags(data)
+          } catch (error) {
+            console.error("Error fetching spot tags:", error);
+          }
+        };
+    
+        getSpotTags()
+    
+      }, [backendUrl, authTokens.access])
 
     const checkInvalid = () => {
         const value = 
@@ -197,8 +230,6 @@ const AddBusiness = () => {
             addTag(query)
         }
     }
-
-    console.log('Query:', query)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -404,7 +435,8 @@ const AddBusiness = () => {
                                         </p>
                                     </div>
                                     <div>
-                                        {locationData.type === '2' && 
+                                        {
+                                            locationData.type === '2' && 
                                             <div className="form-group">
                                             <h1 className="heading business-details">Tags</h1>
                                                 <label htmlFor="tags">Tags</label>
@@ -420,6 +452,25 @@ const AddBusiness = () => {
                                                     />
                                                 </div>
                                                 {tagSearchResults}
+                                            </div>
+                                        }
+                                        {
+                                            locationData.type === '1' && 
+                                            <div>
+                                                <h1 className="heading business-details">Tags</h1>
+                                                {spotTags.map((tag, index) => (
+                                                    <div key={index} className="tags-checkbox-container">
+                                                      <input
+                                                        type="checkbox"
+                                                        id={`tag-${index}`}
+                                                        name={`tag-${index}`}
+                                                        checked={tags.includes(tag.name)}
+                                                        onChange={(e) => handleSpotTagChange(e, tag.name)}
+                                                        className="tags-checkbox"
+                                                      />
+                                                      <label className="tags-checkbox-label" htmlFor={`tag-${index}`}>{tag.name}</label>
+                                                    </div>
+                                                  ))}
                                             </div>
                                         }
                                     </div>
