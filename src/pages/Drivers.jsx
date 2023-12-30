@@ -2,7 +2,7 @@ import { Link, NavLink, useSearchParams } from 'react-router-dom'
 import searchIcon from '/images/search.png';
 import { useContext, useEffect, useState } from 'react';
 import AuthContext from '../context/AuthContext';
-import useLocationManager from '../hooks/useLocationManager';
+import useDriverManager from '../hooks/useDriverManager';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAnglesLeft, faAnglesRight, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -11,22 +11,22 @@ import {
     FaEdit,
 	} from "react-icons/fa";
 
-function Location() {
+function Drivers() {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+    const [currentPage, setCurrentPage] = useState(1);
     const [searchParams, setSearchParams] = useSearchParams()
     const type = searchParams.get('type')
 
-    const authTokens = useContext(AuthContext)
-    const { result, error, loading, getLocations } = useLocationManager(authTokens)
-    const [currentPage, setCurrentPage] = useState(1)
-    const locationElements = result?.results.map(location => (
-        <tr key={location.id}>
-            <td>{location.id}</td>
-            <td>
-                <img className="location--img" 
-                    src={`${backendUrl}${location.primary_image}`}/></td>
-            <td>{location.name}</td>
-            <td style={{width: '25%'}}>{location.address}</td>
+    const {authTokens} = useContext(AuthContext)
+    const { driver, error, loading, getDrivers } = useDriverManager(authTokens)
+    const locationElements = driver.map(driver => (
+        <tr key={driver.id}>
+            <td>{driver.id}</td>
+            <td>{driver.first_name},{driver.last_name} </td>
+            <td>{driver.email}</td>
+            <td>{driver.contact}</td>
+            <td>{driver.facebook}</td>
+            <td>{driver.car}</td>
             <td className="admin--table-action">
                 <Link to={`/admin/location/${location.id}`}>
                     <button className="edit"><FaEdit/></button> 
@@ -37,13 +37,14 @@ function Location() {
     
     useEffect(() => {
         const fetchResults = async () => {
-            await getLocations(currentPage, "", type)
+            await getDrivers(currentPage, "", type)
         }
 
         fetchResults()
     }, [currentPage, type])
 
-    const totalPages = Math.ceil(result?.count / 10) || 1;
+
+    const totalPages = Math.ceil(driver?.count / 10) || 1;
     
     const handlePageChange = (newPage) => {
         if (newPage >= 1 && newPage <= totalPages) {
@@ -56,14 +57,14 @@ function Location() {
             console.log(type)
             const query = e.target.value
             setCurrentPage(1)
-            getLocations(1, query, type)
+            getDrivers(1, query, type)
         }
     }
     
     const generatePageButtons = () => {
         const buttons = [];
     
-        if (result?.previous) {
+        if (driver?.previous) {
             buttons.push(
                 <button 
                     key="first" 
@@ -100,7 +101,7 @@ function Location() {
             );
         }
     
-        if (result?.next) {
+        if (driver?.next) {
             buttons.push(
                 <button 
                     key="next" 
@@ -162,7 +163,7 @@ function Location() {
                         to="/admin/location"
                         className="link"
                     >
-                        Add Location
+                        Add Driver
                     </NavLink>
                 </button>
             </div>
@@ -170,9 +171,11 @@ function Location() {
                 <thead>
                     <tr>
                         <th className="font">ID</th>
-                        <th className="font">Image</th>
                         <th className="font">Name</th>
-                        <th className="font">Address</th>
+                        <th className="font">Email</th>
+                        <th className="font">Contact</th>
+                        <th className="font">Facebook</th>
+                        <th className="font">Car Type</th>
                         <th className="font">Action</th>
                     </tr>
                 </thead>
@@ -185,4 +188,4 @@ function Location() {
     )
 }
 
-export default Location
+export default Drivers

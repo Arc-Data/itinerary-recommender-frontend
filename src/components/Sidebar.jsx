@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { NavLink, useSearchParams } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import dashboard from "/images/radix-icons_dashboard.svg";
-import { FaMapMarkerAlt, FaUser, FaAngleUp, FaAngleDown, FaReceipt, FaCalendarDay } from 'react-icons/fa'; // Import arrow icons
+import { FaMapMarkerAlt, FaUser, FaAngleUp, FaAngleDown, FaReceipt, FaCalendarDay, FaCar } from 'react-icons/fa'; // Import arrow icons
 
 function Sidebar() {
     const { logoutUser } = useContext(AuthContext);
@@ -100,6 +100,14 @@ function Sidebar() {
                 >
                     <h4 className="users">
                         <FaCalendarDay /> Events
+                    </h4>
+                </NavLink>
+                <NavLink
+                    className={({ isActive }) => isActive ? 'active14' : 'link14'}
+                    to="drivers"
+                >
+                    <h4 className="users">
+                        <FaCar /> Drivers
                     </h4>
                 </NavLink>
             </div>
