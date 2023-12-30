@@ -46,8 +46,8 @@ import AssistantContact from './pages/AssistantContact';
 import AccountSettings from './pages/AccountSettings';
 import ChangePassword from './pages/ChangePassword';
 import AuthLayout from './layout/AuthLayout';
-	/*css*/
-	
+import Activation from './pages/Activation'
+
 function App() {
 	return (
 		<BrowserRouter>
@@ -57,6 +57,7 @@ function App() {
 				<Route element={<AuthLayout />}>
 					<Route path="/login" element={<Login />} />
 					<Route path="/signup" element={<Signup />} />
+					<Route path="activate/:uid/:token" element={<Activation />}/>
 				</Route>
 				<Route path="/forgotpass" element={<ForgotPassword />} />
 
