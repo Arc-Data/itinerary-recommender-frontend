@@ -3,7 +3,7 @@ import UserNav from '../components/UserNav'
 import { useContext, useState } from 'react'
 import AuthContext from '../context/AuthContext'
 import AccordionHeader from '../pages/AccordionHeader'
-import { faBookmark, faBuilding, faRoute, faClipboardList, faStar } from '@fortawesome/free-solid-svg-icons'
+import { faBookmark, faBuilding, faRoute, faClipboardList, faStar, faGear } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const ProfileLayout = () => {
@@ -51,6 +51,13 @@ const ProfileLayout = () => {
 							{({ isActive }) => (
 								<p className={`profile--link ${isActive ? 'active-link' : ''}`}>
 									<FontAwesomeIcon icon={faBookmark} className='btn-icons'/>Bookmarks
+								</p>
+							)}
+						</NavLink>
+						<NavLink to="settings" activeClassName="active-link">
+							{({ isActive }) => (
+								<p className={`profile--link ${isActive ? 'active-link' : ''}`}>
+									<FontAwesomeIcon icon={faGear} className='btn-icons'/>Settings
 								</p>
 							)}
 						</NavLink>

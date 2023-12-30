@@ -43,6 +43,7 @@ import Services from './components/Services';
 import Fees from './components/Fees';
 import Test from './pages/Test';
 import AssistantContact from './pages/AssistantContact';
+import AccountSettings from './pages/AccountSettings';
 	/*css*/
 	
 function App() {
@@ -70,6 +71,7 @@ function App() {
 						<Route path="/profile/trips" element={<Trips/>} />
 						<Route path="/profile/business" element={<Business/>} />
 						<Route path="/profile/business/add" element={<AddBusiness/>} />
+						<Route path="/profile/settings/" element={<AccountSettings />} />
 						
 						<Route path="/profile/business/:id" element={<ManageLayout />}>
 							<Route path="/profile/business/:id/" element={<BusinessOverview />} />
