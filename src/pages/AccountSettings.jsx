@@ -1,8 +1,11 @@
-import React from 'react'
+import { Link } from "react-router-dom"
 
 const AccountSettings = () => {
     return (
-        <div>AccountSettings</div>
+        <div>
+            <div>Account Settings</div>
+            <Link to="change-password">Change Password</Link>
+        </div>
     )
 }
 
