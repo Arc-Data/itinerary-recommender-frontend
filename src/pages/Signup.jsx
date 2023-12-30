@@ -3,8 +3,6 @@ import { Link, Navigate } from 'react-router-dom';
 import AuthContext from "../context/AuthContext"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-/*Images*/
-import herobackground from "/herobackground.jpeg";
 
 const Signup = () => {
     const { registerUser, user } = useContext(AuthContext)
@@ -50,11 +48,7 @@ const Signup = () => {
     }
 
     return (
-        <div className="container--sign-log">
-            <div className="container-form">
-                <Link to="/">
-					<img className="cebu--logo" src="/images/logo.png" alt="LandingPage" />
-				</Link>
+        <div>
             <h2 className='heading'>Sign Up</h2>
             <form className='modal-login-sign-form' onSubmit={handleSubmit}>
                 <div className="name-inputs">
@@ -113,14 +107,10 @@ const Signup = () => {
                     {showPassword ? <FontAwesomeIcon icon={faEye} /> : <FontAwesomeIcon icon={faEyeSlash} />}
                 </button>
                 <button className='button-login-sign' type="submit">Sign Up</button>
-                  <div className="login-sign-link">
-                     Already have an account? <Link to="/login">Login</Link>
+                <div className="login-sign-link">
+                    Already have an account? <Link to="/login">Login</Link>
                 </div>
-                </form>
-            </div>
-            <div className="container-images">
-                <img src={herobackground}/>
-            </div>
+            </form>
         </div>
     );
 }

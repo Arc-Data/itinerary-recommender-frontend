@@ -56,8 +56,8 @@ function App() {
 				<Route path="/" element={<LandingPage />} />
 				<Route element={<AuthLayout />}>
 					<Route path="/login" element={<Login />} />
+					<Route path="/signup" element={<Signup />} />
 				</Route>
-				<Route path="/signup" element={<Signup />} />
 				<Route path="/forgotpass" element={<ForgotPassword />} />
 
 				<Route path="/preferences" element={<Preferences/>}/>

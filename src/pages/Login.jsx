@@ -4,7 +4,6 @@ import AuthContext from "../context/AuthContext"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
-import herobackground from "/herobackground.jpeg";
 
 const Login = () => {
     const { loginUser, user } = useContext(AuthContext)
@@ -45,7 +44,6 @@ const Login = () => {
                 {/* <div className="forgot-password">
                     <Link to="/forgotpass"><h1 className='font-weight-500'>Forgot Password</h1></Link>
                 </div> */}
-
                 <button className='button-login-sign'>Login</button>
                 <div className="login-sign-link">
                     Don't have an account? <Link to="/signup">Sign Up</Link>
