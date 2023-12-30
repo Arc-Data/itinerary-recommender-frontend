@@ -1,9 +1,13 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import AuthContext from "../context/AuthContext"
 
 const ChangePassword = () => {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+    const { authTokens } = useContext(AuthContext)
+
     const [formData, setFormData] = useState({
-        'old': '',
-        'new': '',
+        'oldPassword': '',
+        'newPassword': '',
         'confirm': '',
     })
 
@@ -15,27 +19,48 @@ const ChangePassword = () => {
         }))
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
-        if (!formData.new || !formData.confirm || !formData.old) {
+        if (!formData.newPassword || !formData.confirm || !formData.oldPassword) {
             alert("Missing input fields")
             return
         }
 
-        if (formData.new !== formData.confirm) {
-            alert("New password and confirmation do not match");
+        if (formData.newPassword !== formData.confirm) {
+            alert("newPassword password and confirmation do not match");
             return;
         }
         
         try {
-            console.log("Goes through")
+            const response = await fetch(`${backendUrl}/api/change-password/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${String(authTokens.access)}`
+                },
+                body: JSON.stringify({
+                    'old_password': formData.oldPassword,
+                    'new_password': formData.newPassword,
+                })
+            })
+
+            if (response.status === 400) {
+                alert("Incorrect oldPassword Password")
+                return
+            }
+
+            alert("Password Changed")
+            setFormData({
+                'oldPassword': '',
+                'newPassword': '',
+                'confirm': '',
+            })
 
         }
         catch (error) {
-            console.log("An error occured while updating password instance")
+            console.log("An error occured while updating password instance", error)
         }
-
     }
 
     return (
@@ -43,25 +68,25 @@ const ChangePassword = () => {
             <p>Change Password</p>
             <form onSubmit={handleSubmit}>
                 <div className="form-input">
-                    <label htmlFor="old">Old Password</label>
+                    <label htmlFor="oldPassword">Old Password</label>
                     <input
                         type="password"
-                        name="old"
-                        placeholder="Enter old password"
-                        id="old"
-                        value={formData.old}
+                        name="oldPassword"
+                        placeholder="Enter Old Password"
+                        id="oldPassword"
+                        value={formData.oldPassword}
                         onChange={handleChange}
                     />
                 </div>
 
                 <div className="form-input">
-                    <label htmlFor="new">New Password</label>
+                    <label htmlFor="newPassword">New Password</label>
                     <input
                         type="password"
-                        name="new"
-                        placeholder="Enter new password"
-                        id="new"
-                        value={formData.new}
+                        name="newPassword"
+                        placeholder="Enter New Password"
+                        id="newPassword"
+                        value={formData.newPassword}
                         onChange={handleChange}
                     />
                 </div>
@@ -71,7 +96,7 @@ const ChangePassword = () => {
                     <input
                         type="password"
                         name="confirm"
-                        placeholder="Confirm new password"
+                        placeholder="Confirm Password"
                         id="confirm"
                         value={formData.confirm}
                         onChange={handleChange}
