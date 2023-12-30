@@ -8,11 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const ProfileLayout = () => {
 	const { user } = useContext(AuthContext)
-	const [openTrips, setOpenTrips] = useState(true)
-	
-	const toggleTrips = () => {
-		setOpenTrips(prev => !prev)
-	}
 	
 	return (
 		<div>
