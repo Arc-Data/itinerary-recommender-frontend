@@ -57,7 +57,7 @@ function App() {
 				<Route element={<AuthLayout />}>
 					<Route path="/login" element={<Login />} />
 					<Route path="/signup" element={<Signup />} />
-					<Route path="activate/:uid/:token" element={<Activation />}/>
+					<Route path="/activate/:uidb64/:token" element={<Activation />}/>
 				</Route>
 				<Route path="/forgotpass" element={<ForgotPassword />} />
 
