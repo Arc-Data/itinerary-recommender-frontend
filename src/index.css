@@ -3564,6 +3564,74 @@ table th, table td {
     text-align: left;
 }
 
+.tag-results-container {
+    overflow-y: auto; 
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+.tag-result-box {
+    padding: 10px 15px; 
+    background-color: #E7E7E7;
+    border-radius: 20px;
+    margin: 5px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.tags-input-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    border: 2px solid #E7E7E7;
+    padding: 10px;
+    margin: 5px 0 15px;
+}
+  
+.tag-item {
+    display: inline-block;
+    margin: 5px;
+    background-color: #E7E7E7;
+    font-weight: 500;
+    padding: 10px;
+    border-radius: 20px; 
+}
+
+.tags-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+    height: 0;
+    margin: 15px 0;
+}
+
+.delete-tag-button {
+    height: 0;
+    margin: 0 0 0 5px;
+    color: #333333;
+    padding: 0;
+}
+
+.tags-checkbox-container {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.tags-checkbox {
+    margin: 0;
+    height: 18px;
+    width: 18px;
+}
+
+.tags-checkbox-label {
+    margin: 0 0 0 10px;
+    font-size: 18px;
+}
+
 .fees-label {
     font-size: 18px;
     font-weight: 500;

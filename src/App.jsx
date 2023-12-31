@@ -43,6 +43,7 @@ import Services from './components/Services';
 import Fees from './components/Fees';
 import Test from './pages/Test';
 import AssistantContact from './pages/AssistantContact';
+import Drivers from './pages/Drivers';
 	/*css*/
 	
 function App() {
@@ -97,6 +98,8 @@ function App() {
 					<Route path = "/admin/users" index element={<Users users={data[0].users}/>} />
 					<Route path="/admin/location" element={<AddLocation/>} />
 					<Route path="/admin/locations" element={<Location/>} />
+					<Route path="/admin/drivers" element={<Drivers/>} />
+
 
 					<Route path="/admin/location/:id" element={<ManageLayout />} >
 						<Route path="/admin/location/:id/" element={<BusinessOverview />} />

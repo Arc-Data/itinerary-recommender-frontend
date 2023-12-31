@@ -4,7 +4,8 @@ const useRecommendationsManager = (authTokens) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
     const access = String(authTokens.access)
 
-    const [ recommendations, setRecommendations ] = useState()
+    const [ recommendations, setRecommendations ] = useState([])
+    const [ foodRecommendations, setFoodRecommendations ] = useState([])
     const [ loading, setLoading ] = useState(true)
     const [ status, setStatus ] = useState("")
 
@@ -85,6 +86,29 @@ const useRecommendationsManager = (authTokens) => {
         }
     }
 
+    const fetchNearbyFoodRecommendations = async (id, toVisitList) => {
+        setLoading(true)
+        console.log(toVisitList)
+        try {
+            const response = await fetch(`${backendUrl}/api/foodplace/${id}/recommendations/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                },
+                body: JSON.stringify(toVisitList)
+            })
+            const data = await response.json()
+            setRecommendations(data)
+        }
+        catch(error) {
+            console.log("An error occured while fetching foodplace data: ", error)
+        }
+        finally {
+            setLoading(false)
+        }
+    }
+
     const fetchRecommendations = async (budget) => {
         setStatus("Loading Recommendations")
         setLoading(true)
@@ -116,10 +140,12 @@ const useRecommendationsManager = (authTokens) => {
         loading,
         status,
         recommendations,
+        foodRecommendations,
         applyRecommendation,
         fetchRecommendations,
         fetchPreferenceRecommendations,
         fetchNearbyRecommendations,
+        fetchNearbyFoodRecommendations,
     }
 }
 

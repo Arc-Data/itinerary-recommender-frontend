@@ -8,12 +8,15 @@ import getTimeDetails from "../utils/getTimeDetails"
 import getFeeDetails from "../utils/getFeeDetails"
 import useItemLocationManager from "../hooks/useItemLocationManager"
 import useRecommendationsManager from "../hooks/useRecommendationsManager"
+import RecommendationList from "../components/RecommendationList"
 
 const AddLocation = ({onClose, locations, setLocations, day, includedLocations, setIncludedLocations, addMarker, deleteMarker, increaseEstimatedCost, decreaseEstimatedCost}) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
     const { authTokens } = useContext(AuthContext)
     const { addItem, deleteItem, updateItemOrdering } = useItemLocationManager(authTokens)
-    const { recommendations, loading, fetchNearbyRecommendations, fetchPreferenceRecommendations } = useRecommendationsManager(authTokens)
+    const { recommendations: spotRecommendations, loading: recommendationsLoading, fetchNearbyRecommendations, fetchPreferenceRecommendations } = useRecommendationsManager(authTokens)
+    const { recommendations: foodRecommendations, loading: foodRecommendationsLoading, fetchNearbyFoodRecommendations } = useRecommendationsManager(authTokens)
+
     const [recentlyAddedLocations, setRecentlyAddedLocations] = useState([])
     const [searchData, setSearchData] = useState(null)
     const [openBookmarks, setOpenBookmarks] = useState(false)
@@ -94,7 +97,15 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     const addRecommendation = async (id) => {
         handleAddLocation(id)
         fetchNearbyRecommendations(id)
+        fetchNearbyFoodRecommendations(id)
     }
+
+    
+    const handleAddRecommendation = async (id) => {
+        handleAddLocation(id);
+        fetchNearbyRecommendations(id);
+        fetchNearbyFoodRecommendations(id);
+    };
 
     const checkDuplicateLocation = (locationId) => {
         const status = includedLocations.some(i => {
@@ -161,28 +172,11 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
     useEffect(() => {
         if (locations.length !== 0) {
             fetchNearbyRecommendations(locations[locations.length - 1].location, getToVisitLocations(locations))
-            
-        
+            fetchNearbyFoodRecommendations(locations[locations.length - 1].location, getToVisitLocations(locations))
         }  else {
             fetchPreferenceRecommendations()
         }
     }, [locations])
-
-    const displayNearbyRecommendations = recommendations && recommendations.map(recommendation => {
-        return (
-            <div key={recommendation.id} className="nearby-recommendation-item">
-                <img src={`${backendUrl}${recommendation.primary_image}`} alt="" />
-                <div>
-                    <p>{recommendation.name}</p>
-                    {recommendation.distance && 
-                    <p>{Math.floor(recommendation.distance)}m</p>
-                    }
-                    <p>Rating: {recommendation.ratings.average_rating}</p>
-                    <button onClick={() => addRecommendation(recommendation.id)}>Add</button>
-                </div>
-            </div>
-        )
-    })
 
     useEffect(() => {
         if (searchData) {
@@ -206,7 +200,6 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                 )
             })
             setDisplayedSearchItems(results)
-               
         }
 
     }, [searchData, recentlyAddedLocations])
@@ -250,12 +243,27 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                     :
                     <p>Recommended Nearby Locations</p>
                     }
-                    {loading ? 
+                    {recommendationsLoading ? 
                     <div>Loading</div>
                     :
-                    <div className="add-location-recommendations">
-                        {displayNearbyRecommendations}
-                    </div>
+                    <RecommendationList 
+                        recommendations={spotRecommendations}
+                        onAddRecommendation={handleAddRecommendation}/>
+                    }
+                    </>
+                    }
+                </div>
+
+                <div>
+                    {!searchString.length && 
+                    <>
+                    <p>Recommended Food Locations</p>
+                    {recommendationsLoading ? 
+                    <div>Loading</div>
+                    :
+                    <RecommendationList 
+                        recommendations={foodRecommendations}
+                        onAddRecommendation={handleAddRecommendation}/>
                     }
                     </>
                     }
