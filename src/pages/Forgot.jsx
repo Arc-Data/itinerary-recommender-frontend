@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 
 const Forgot = () => {
-    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
-    const { forgotPassword, status } = useContext(AuthContext)
+    const { forgotPassword, status, loading } = useContext(AuthContext)
 
     return (
         <div>
             <h2 className='heading'>Forgot Password</h2>
+            <p>{status}</p>
             <form className='modal-login-sign-form' onSubmit={forgotPassword}>
                 <label>Email:</label>
                 <input type="email" name="email" placeholder="Enter your email" />

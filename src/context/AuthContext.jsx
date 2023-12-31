@@ -143,6 +143,7 @@ export const AuthProvider = ({children}) => {
 
     const forgotPassword = async (e) => {
         e.preventDefault()
+        setStatus()
         const email = e.target.email.value
 
         try {
@@ -156,9 +157,12 @@ export const AuthProvider = ({children}) => {
                 })
             })
 
-            console.log(response)
-            const data = await response.json()
-            console.log(data)
+            if (response.status == 404) {
+                setStatus(`User with email: ${email} does not exist`)
+                return
+            } else if (response.status == 200) {
+                setStatus(`Instructions have been sent to your email`)
+            }
         }
         catch (error) {
             console.log("An error occured while sending forgot password request. ", error)
@@ -204,7 +208,6 @@ export const AuthProvider = ({children}) => {
                 }
             }
 
-            setLoading(false)
         };
         
         checkTokenExpiryAndRefresh();
