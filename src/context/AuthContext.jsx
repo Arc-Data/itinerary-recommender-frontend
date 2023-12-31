@@ -11,11 +11,30 @@ export const AuthProvider = ({children}) => {
 
     const [authTokens, setAuthTokens] = useState(() => localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null)
     const [user, setUser] = useState(() => localStorage.getItem('authTokens') ? jwt_decode(localStorage.getItem('authTokens')) : null)
+    const [ status, setStatus ] = useState()
     const [loading, setLoading] = useState(true)
     const [preferences, setPreferences] = useState(() => localStorage.getItem('setPreferences') ? 
         JSON.parse(localStorage.getItem("setPreferences") === "true") : null)
 
     const navigate = useNavigate()
+
+    const activateUser = async (uidb64, token) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/activate/${uidb64}/${token}/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({uidb64, token})
+            })
+
+            const data = await response.json();
+            setStatus(data.message)
+        }
+        catch (error) {
+            setStatus(error)
+        }
+    }
 
     const loginUser = async (e) => {
         e.preventDefault()
@@ -78,17 +97,12 @@ export const AuthProvider = ({children}) => {
         })
 
         if(response.status === 201) {
-            const data = await response.json()
-            alert("Successfully created user")
-            loginUser({ target: { email: { value: formData.email }, password: {value: formData.password} }, preventDefault: () => {} });
-
+            navigate('/success')
         } else if(response.status === 401) {
             console.log("401")
         } else {
-            
+                        
         }
-
-        return false;
     }
 
     const updateToken = async() => {
@@ -137,7 +151,9 @@ export const AuthProvider = ({children}) => {
 
     const contextData = {
         user: user,
+        status: status,
         authTokens: authTokens,
+        activateUser: activateUser,
         loginUser: loginUser,    
         logoutUser: logoutUser,    
         registerUser: registerUser,

@@ -47,6 +47,7 @@ import AccountSettings from './pages/AccountSettings';
 import ChangePassword from './pages/ChangePassword';
 import AuthLayout from './layout/AuthLayout';
 import Activation from './pages/Activation'
+import RegisterSuccess from './pages/RegisterSuccess';
 
 function App() {
 	return (
@@ -58,6 +59,7 @@ function App() {
 					<Route path="/login" element={<Login />} />
 					<Route path="/signup" element={<Signup />} />
 					<Route path="/activate/:uidb64/:token" element={<Activation />}/>
+					<Route path="/success" element={<RegisterSuccess />} />
 				</Route>
 				<Route path="/forgotpass" element={<ForgotPassword />} />
 

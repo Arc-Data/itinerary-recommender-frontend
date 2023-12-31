@@ -36,10 +36,9 @@ const Signup = () => {
         e.preventDefault()
 
         if(passwordMatch) {
-            await registerUser(formData)
-            
+            registerUser(formData)
         } else {
-            console.log("Not match")
+            alert("Passwords do not match")
         }
     }
 

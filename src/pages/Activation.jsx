@@ -1,41 +1,22 @@
-import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useContext, useEffect, useState } from "react"
+import { Link, useParams } from "react-router-dom"
+import AuthContext from "../context/AuthContext"
 
 const Activation = () => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+    const { status, activateUser } = useContext(AuthContext)
     const { uidb64, token } = useParams()
-    const [ activationResult, setActivationResult ] = useState()
 
     useEffect(() => {
-        const activateUser = async () => {
-            try {
-                const response = await fetch(`${backendUrl}/api/activate/${uidb64}/${token}/`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({uidb64, token})
-                })
-
-                if (response.ok) {
-                    const data = await response.json();
-                    setActivationResult(data.message)
-                } else {
-                    setActivationResult('Activation Failed. Please try again')
-                }
-            }
-            catch (error) {
-                console.log("error during activation", error)
-                setActivationResult('Activation Failed. Please try again.')
-            }
-        }
-
-        activateUser()
+        activateUser(uidb64, token)
     }, [uidb64, token])
     
     return (
         <div>
-            {activationResult && <p>{activationResult}</p>}
+            {status && <p>{status}</p>}
+            <Link to="/login">
+                <button>Login</button>
+            </Link>
         </div>
     )
 }
