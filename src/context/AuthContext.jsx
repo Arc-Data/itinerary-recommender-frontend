@@ -133,6 +133,26 @@ export const AuthProvider = ({children}) => {
         }
     }
 
+    const checkResetInstance = async (uidb64, token) => {
+        console.log("Im here right?")
+        try {
+            const response = await fetch(`${backendUrl}/api/reset/${uidb64}/${token}/`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            })
+
+            console.log(response)
+
+            return response.ok
+        }   
+        catch (error) {
+            console.log("An error occured while checking reset instance. ", error)
+        }
+
+    }
+
     const logoutUser = () => {
         setAuthTokens(null)
         setUser(null)
@@ -185,6 +205,7 @@ export const AuthProvider = ({children}) => {
         logoutUser: logoutUser,    
         registerUser: registerUser,
         forgotPassword: forgotPassword,
+        checkResetInstance: checkResetInstance,
         userSetPreference: userSetPreference,
         preferences: preferences,
     }
