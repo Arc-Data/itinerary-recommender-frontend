@@ -14,7 +14,7 @@ import AddLocation from './pages/AddLocation'
 import CreateTrip from './pages/CreateTrip';
 import Login from './pages/Login'
 import Signup from './pages/Signup'
-import ForgotPassword from './pages/ForgotPassword'
+import Forgot from './pages/Forgot'
 /*Components*/
 /*Layout*/
 import BaseLayout from './layout/BaseLayout';
@@ -60,8 +60,8 @@ function App() {
 					<Route path="/signup" element={<Signup />} />
 					<Route path="/activate/:uidb64/:token" element={<Activation />}/>
 					<Route path="/success" element={<RegisterSuccess />} />
+					<Route path="/forgot" element={<Forgot />} />
 				</Route>
-				<Route path="/forgotpass" element={<ForgotPassword />} />
 
 				<Route path="/preferences" element={<Preferences/>}/>
 				<Route element={<PrivateRoutes />} >
