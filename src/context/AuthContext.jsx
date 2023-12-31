@@ -143,7 +143,6 @@ export const AuthProvider = ({children}) => {
 
     const forgotPassword = async (e) => {
         e.preventDefault()
-        setStatus()
         const email = e.target.email.value
 
         try {
@@ -158,10 +157,10 @@ export const AuthProvider = ({children}) => {
             })
 
             if (response.status == 404) {
-                setStatus(`User with email: ${email} does not exist`)
+                setStatus(`Email ${email} does not exist`)
                 return
             } else if (response.status == 200) {
-                setStatus(`Instructions have been sent to your email`)
+                setStatus(`Instructions have been sent to your email `)
             }
         }
         catch (error) {
@@ -208,6 +207,7 @@ export const AuthProvider = ({children}) => {
                 }
             }
 
+            setLoading(false)
         };
         
         checkTokenExpiryAndRefresh();

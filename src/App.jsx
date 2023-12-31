@@ -62,7 +62,7 @@ function App() {
 					<Route path="/activate/:uidb64/:token" element={<Activation />}/>
 					<Route path="/success" element={<RegisterSuccess />} />
 					<Route path="/forgot" element={<Forgot />} />
-					<Route path="/reset/:uidb64/:token" element={<Reset />} />
+					<Route path="/reset/:uid/:token" element={<Reset />} />
 				</Route>
 
 				<Route path="/preferences" element={<Preferences/>}/>
