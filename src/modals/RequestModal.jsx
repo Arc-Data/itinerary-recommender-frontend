@@ -14,7 +14,7 @@ const RequestModal = ({onClose, request, approveRequest}) => {
         onClose()
     }
 
-    console.log(request)
+    console.log('REQUEST: ', request)
 
     return (
         <Modal onClose={onClose}>
