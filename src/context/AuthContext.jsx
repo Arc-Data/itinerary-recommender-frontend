@@ -141,6 +141,30 @@ export const AuthProvider = ({children}) => {
         navigate('/')
     }
 
+    const forgotPassword = async (e) => {
+        e.preventDefault()
+        const email = e.target.email.value
+
+        try {
+            const response = await fetch(`${backendUrl}/api/forgot/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    'email': email
+                })
+            })
+
+            console.log(response)
+            const data = await response.json()
+            console.log(data)
+        }
+        catch (error) {
+            console.log("An error occured while sending forgot password request. ", error)
+        }
+    }
+
     const userSetPreference = () => {
         if (user) {
             localStorage.setItem('setPreferences', true)
@@ -157,6 +181,7 @@ export const AuthProvider = ({children}) => {
         loginUser: loginUser,    
         logoutUser: logoutUser,    
         registerUser: registerUser,
+        forgotPassword: forgotPassword,
         userSetPreference: userSetPreference,
         preferences: preferences,
     }

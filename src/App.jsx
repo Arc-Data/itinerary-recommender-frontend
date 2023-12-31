@@ -48,6 +48,7 @@ import ChangePassword from './pages/ChangePassword';
 import AuthLayout from './layout/AuthLayout';
 import Activation from './pages/Activation'
 import RegisterSuccess from './pages/RegisterSuccess';
+import Reset from './pages/Reset';
 
 function App() {
 	return (
@@ -61,6 +62,7 @@ function App() {
 					<Route path="/activate/:uidb64/:token" element={<Activation />}/>
 					<Route path="/success" element={<RegisterSuccess />} />
 					<Route path="/forgot" element={<Forgot />} />
+					<Route path="/reset/:uidb64/:token" element={<Reset />} />
 				</Route>
 
 				<Route path="/preferences" element={<Preferences/>}/>
