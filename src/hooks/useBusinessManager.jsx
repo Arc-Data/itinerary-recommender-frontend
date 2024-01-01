@@ -396,6 +396,26 @@ const useBusinessManager = (authTokens) => {
         }
     }
 
+    const deleteAudienceType = async (id) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/audience/${id}/delete/`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                }
+            })
+
+            if (response.ok) {
+                const updatedItems = items.filter(i => i.id != id)
+                setItems(updatedItems)
+            }
+        }
+        catch(error) {
+            console.log("An error occured while deleting audience type: ", error)
+        }
+    }
+
     return {
         item,
         items,
@@ -423,6 +443,7 @@ const useBusinessManager = (authTokens) => {
         getFeeTypes,
         getFeeDetails,
         editAudienceType,
+        deleteAudienceType,
     }
 }
 

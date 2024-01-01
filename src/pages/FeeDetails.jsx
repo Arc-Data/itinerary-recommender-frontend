@@ -7,7 +7,14 @@ import AudienceRow from '../components/AudienceRow'
 const FeeDetails = () => {
     const { feeId } = useParams()
     const { authTokens } = useContext(AuthContext)
-    const { item: fee, items: audience_types, loading, error, getFeeDetails } = useBusinessManager(authTokens)
+    const { 
+        item: fee, 
+        items: audience_types, 
+        loading, 
+        error, 
+        getFeeDetails, 
+        deleteAudienceType
+    } = useBusinessManager(authTokens)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -20,7 +27,7 @@ const FeeDetails = () => {
     
     const displayAudienceTypes = audience_types && audience_types.map(type => {
         return (
-            <AudienceRow key={type.id} type={type}/>
+            <AudienceRow key={type.id} type={type} deleteAudienceType={deleteAudienceType}/>
         )
     })
 

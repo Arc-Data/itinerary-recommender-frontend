@@ -6,8 +6,7 @@ import AuthContext from "../context/AuthContext"
 import { useParams } from "react-router-dom"
 
 
-const AudienceRow = ({ type }) => {
-    const { feeId } = useParams()
+const AudienceRow = ({ type, deleteAudienceType }) => {
     const [ editState, setEditState ] = useState(false)
     const { authTokens } = useContext(AuthContext)
     const { editAudienceType } = useBusinessManager(authTokens)
@@ -22,8 +21,6 @@ const AudienceRow = ({ type }) => {
 
     const handleSaveAudienceType = () => {
         editAudienceType(type.id, data)
-        type.name = data.name
-        type.price = data.price
         toggleEditState()
     }
 
@@ -71,7 +68,7 @@ const AudienceRow = ({ type }) => {
                 <button onClick={toggleEditState}>
                     Edit <FontAwesomeIcon icon={faPencil} />
                 </button>
-                <button>
+                <button onClick={() => deleteAudienceType(type.id)}>
                     Delete <FontAwesomeIcon icon={faTrash} /> 
                 </button>
             </td>
