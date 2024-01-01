@@ -7,8 +7,18 @@ const Reset = () => {
     const { uidb64, token } = useParams()
     const [ status, setStatus ] = useState()
     const { checkResetInstance } = useContext(AuthContext)
+    const [ formData, setFormData ] = useState({
+        'newPassword': '',
+        'confirmPassword': '',
+    })
 
-    console.log(uidb64, token)
+    const handleInputChange = (e) => {
+        const { name, value } = e.target
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        })) 
+    }
 
     useEffect(() => {
         setLoading(true)
@@ -29,9 +39,37 @@ const Reset = () => {
         )
     }
 
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        if (formData.newPassword !== formData.confirmPassword) {
+            alert("Passwords do not match")
+            return 
+        }
+
+
+    }
+
     return (
         <div>
-            <form action="POST" >
+            <form action="POST" onSubmit={handleSubmit}>
+                <div>
+                    <label htmlFor="newPassword">New Password</label>
+                    <input 
+                        type="password" 
+                        id="newPassword" 
+                        name="newPassword"
+                        onChange={handleInputChange}/>
+                </div>
+                <div>
+                    <label htmlFor="confirmPassword">Confirm Password</label>
+                    <input 
+                        type="password" 
+                        id="confirmPassword" 
+                        name="confirmPassword"
+                        onChange={handleInputChange}/>
+                </div>
                 <button>Submit</button>
             </form>
         </div>

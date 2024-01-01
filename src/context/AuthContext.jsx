@@ -134,7 +134,6 @@ export const AuthProvider = ({children}) => {
     }
 
     const checkResetInstance = async (uidb64, token) => {
-        console.log("Im here right?")
         try {
             const response = await fetch(`${backendUrl}/api/reset/${uidb64}/${token}/`, {
                 method: "GET",
@@ -143,9 +142,11 @@ export const AuthProvider = ({children}) => {
                 }
             })
 
-            console.log(response)
-
-            return response.ok
+            if (response.status == 200) {
+                return 'Valid'
+            } else {
+                return 'Invalid'
+            }
         }   
         catch (error) {
             console.log("An error occured while checking reset instance. ", error)
