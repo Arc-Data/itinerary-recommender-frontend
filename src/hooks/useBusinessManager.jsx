@@ -292,6 +292,24 @@ const useBusinessManager = (authTokens) => {
         }
     }
 
+    const editFee = async (id, data) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/fee/${id}/`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                },
+                body: JSON.stringify(data)
+            })
+
+            console.log(response)
+        }
+        catch(error) {
+            console.log("An error occured while editing fee: ", error)
+        }
+    }
+
     const editFeeType = async (feeId, formData) => {
         console.log(feeId, formData)
         try {
@@ -379,6 +397,7 @@ const useBusinessManager = (authTokens) => {
         getFeeTypes,
         editFeeType,
         getFeeDetails,
+        editFee,
         createFeeType,
     }
 }

@@ -1,6 +1,12 @@
-import { useState } from "react"
+import { faPencil, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useContext, useState } from "react"
+import AuthContext from "../context/AuthContext"
+import useBusinessManager from "../hooks/useBusinessManager"
 
 const FeeRow = ({ fee }) => {
+    const { authTokens } = useContext(AuthContext)
+    const { editFee } = useBusinessManager(authTokens)
     const [ editState, setEditState ] = useState(false)
     const [ data, setData ] = useState({
         'name': fee.name,
@@ -19,18 +25,24 @@ const FeeRow = ({ fee }) => {
         }))
     }
 
+    const handleSaveFee = async () => {
+        await editFee(fee.id, data)     
+        fee.name = data.name
+        fee.is_required = data.is_required    
+        toggleEditState()
+    }
+
     return (
         <tr>
             <td>
-                {
-                    editState ? 
-                    <input 
-                        type="text" 
-                        name="name" 
-                        value={data.name}
-                        onChange={handleInputChange}/> 
-                    :
-                    fee.name
+                {editState ? 
+                <input 
+                    type="text" 
+                    name="name" 
+                    value={data.name}
+                    onChange={handleInputChange}/> 
+                :
+                fee.name
                 }    
                 
             </td>
@@ -59,12 +71,16 @@ const FeeRow = ({ fee }) => {
             {editState ? 
             <td>
                 <button onClick={toggleEditState}>Cancel</button>
-                <button>Save</button>
+                <button onClick={handleSaveFee}>Save</button>
             </td>
             :
             <td>
-                <button onClick={toggleEditState}>Edit</button>
-                <button>Delete</button>
+                <button onClick={toggleEditState}>
+                    Edit <FontAwesomeIcon icon={faPencil} />
+                </button>
+                <button>
+                    Delete <FontAwesomeIcon icon={faTrash} /> 
+                </button>
             </td>
             }
         </tr>
