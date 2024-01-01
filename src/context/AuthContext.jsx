@@ -38,6 +38,7 @@ export const AuthProvider = ({children}) => {
 
     const loginUser = async (e) => {
         e.preventDefault()
+        console.log("Logging in the user", e)
         const response = await fetch(`${backendUrl}/api/token/`, {
             method:'POST',
             headers: {
@@ -48,6 +49,7 @@ export const AuthProvider = ({children}) => {
                 'password':e.target.password.value
             })
         })
+        console.log(response)
         const data = await response.json()
 
         if(response.status === 200) {
@@ -103,6 +105,35 @@ export const AuthProvider = ({children}) => {
         } else {
                         
         }
+    }
+
+    const resetPassword = async (uidb64, token, password) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/reset/${uidb64}/${token}/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    'password': password,
+                })
+            })
+
+            const data = await response.json()
+
+            if (response.status === 200) {
+                console.log("Returning email: ", data.email)
+                return data.email
+            }
+
+            console.log("Something wrong happened")
+            return false
+        }
+        catch(error) {
+            console.log("An error occured while reseting password: ", error)            
+            return false
+        }
+        
     }
 
     const updateToken = async() => {
@@ -205,6 +236,7 @@ export const AuthProvider = ({children}) => {
         loginUser: loginUser,    
         logoutUser: logoutUser,    
         registerUser: registerUser,
+        resetPassword: resetPassword,
         forgotPassword: forgotPassword,
         checkResetInstance: checkResetInstance,
         userSetPreference: userSetPreference,

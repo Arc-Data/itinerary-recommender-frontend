@@ -6,7 +6,7 @@ const Reset = () => {
     const [ loading, setLoading ] = useState(true)
     const { uidb64, token } = useParams()
     const [ status, setStatus ] = useState()
-    const { checkResetInstance } = useContext(AuthContext)
+    const { checkResetInstance, resetPassword, loginUser } = useContext(AuthContext)
     const [ formData, setFormData ] = useState({
         'newPassword': '',
         'confirmPassword': '',
@@ -39,8 +39,7 @@ const Reset = () => {
         )
     }
 
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         if (formData.newPassword !== formData.confirmPassword) {
@@ -48,7 +47,23 @@ const Reset = () => {
             return 
         }
 
+        const email = await resetPassword(uidb64, token, formData.newPassword)
 
+        if(email) {
+            const syntheticEvent = {
+                preventDefault: () => {},
+                target: {
+                    email: {
+                        value: email
+                    },
+                    password: {
+                        value: formData.newPassword,
+                    }
+                }
+            }
+
+            loginUser(syntheticEvent)
+        }
     }
 
     return (
