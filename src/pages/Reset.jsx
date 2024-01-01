@@ -22,9 +22,13 @@ const Reset = () => {
 
     useEffect(() => {
         setLoading(true)
-        const check = checkResetInstance(uidb64, token)
-        setStatus(check)
-        setLoading(false)
+        const fetchResetInstance = async () => {
+            const check = await checkResetInstance(uidb64, token)
+            setStatus(check)
+            setLoading(false)
+        }
+
+        fetchResetInstance()
     }, [])
 
     if (loading) {
@@ -63,6 +67,8 @@ const Reset = () => {
             }
 
             loginUser(syntheticEvent)
+        } else {
+            setStatus('Invalid')
         }
     }
 
