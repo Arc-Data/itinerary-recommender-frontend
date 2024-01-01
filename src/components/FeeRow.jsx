@@ -4,7 +4,7 @@ import { useContext, useState } from "react"
 import AuthContext from "../context/AuthContext"
 import useBusinessManager from "../hooks/useBusinessManager"
 
-const FeeRow = ({ fee }) => {
+const FeeRow = ({ fee, deleteFeeType }) => {
     const { authTokens } = useContext(AuthContext)
     const { editFee } = useBusinessManager(authTokens)
     const [ editState, setEditState ] = useState(false)
@@ -62,7 +62,7 @@ const FeeRow = ({ fee }) => {
                 <ul>
                 {fee.audience_types.map(type => {
                     return(
-                        <li>{type.name} - PHP {type.price}</li>   
+                        <li key={type.id}>{type.name} - PHP {type.price}</li>   
                     )
                 })}
                 </ul>
@@ -78,7 +78,7 @@ const FeeRow = ({ fee }) => {
                 <button onClick={toggleEditState}>
                     Edit <FontAwesomeIcon icon={faPencil} />
                 </button>
-                <button>
+                <button onClick={() => deleteFeeType(fee.id)}>
                     Delete <FontAwesomeIcon icon={faTrash} /> 
                 </button>
             </td>

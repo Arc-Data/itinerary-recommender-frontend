@@ -292,23 +292,25 @@ const useBusinessManager = (authTokens) => {
         }
     }
 
-    const editFee = async (id, data) => {
+    const addFeeType = async (id, formData) => {
         try {
-            const response = await fetch(`${backendUrl}/api/fee/${id}/`, {
-                method: "PATCH",
+            const response = await fetch(`${backendUrl}/api/location/${id}/fee/create/`, {
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${access}`
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify(formData)
             })
 
-            console.log(response)
+            const data = await response.json()
+            const newData = [...items, data]
+            setItems(newData)
         }
         catch(error) {
-            console.log("An error occured while editing fee: ", error)
+            console.log("Error adding fee type: ", error)
         }
-    }
+    } 
 
     const editFeeType = async (feeId, formData) => {
         console.log(feeId, formData)
@@ -328,6 +330,26 @@ const useBusinessManager = (authTokens) => {
         }
         catch (error) {
             console.log(error)
+        }
+    }
+
+    const deleteFeeType = async (id) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/fee/${id}/delete/`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                }
+            })
+
+            if (response.ok) {
+                const updatedItems = items.filter(i => id !== i.id)
+                setItems(updatedItems)
+            }
+        }
+        catch(error) {
+            console.log("An error occured while deleting fee type: ", error)
         }
     }
 
@@ -354,26 +376,6 @@ const useBusinessManager = (authTokens) => {
         }
     }
 
-    const createFeeType = async (id, formData) => {
-        try {
-            const response = await fetch(`${backendUrl}/api/location/${id}/fee/create/`, {
-                "method": "POST",
-                "headers": {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${access}`
-                },
-                "body": JSON.stringify(formData)
-            })
-
-            const data = await response.json()
-            const newItems = [...items, data]
-            setItems(newItems)
-        }
-        catch (error) {
-            console.log(error)
-        }
-    }
-
     return {
         items,
         loading,
@@ -394,11 +396,11 @@ const useBusinessManager = (authTokens) => {
         createService,
         deleteService,
         getServices,
-        getFeeTypes,
+        addFeeType,
         editFeeType,
+        deleteFeeType,
+        getFeeTypes,
         getFeeDetails,
-        editFee,
-        createFeeType,
     }
 }
 

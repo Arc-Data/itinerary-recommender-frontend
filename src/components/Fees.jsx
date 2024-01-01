@@ -2,45 +2,26 @@ import { useContext, useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import AuthContext from "../context/AuthContext"
 import useBusinessManager from "../hooks/useBusinessManager"
-import EditFee from "../modals/EditFee"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import FeeRow from "./FeeRow"
+import AddFeeType from "../modals/AddFeeType";
 
 const Fees = () => {
     const { id } = useParams()
     const { authTokens } = useContext(AuthContext)
-    const { location, items: fees, error, loading, getBusinessDetail, createFeeType, getFeeTypes, editFeeType} = useBusinessManager(authTokens)
+    const { location, items: fees, error, loading, getBusinessDetail, createFeeType, getFeeTypes, editFeeType, addFeeType, deleteFeeType} = useBusinessManager(authTokens)
+    const [ openFeeTypeModal, setOpenFeeTypeModal ] = useState(false)
 
-    // const [formFields, setFormFields] = useState([
-    //     {
-    //         'fee_name': '',
-    //         'audience_type' : '',
-    //         'amount' : '',
-    //         'is_required': false,
-    //     }
-    // ])
+    console.log(fees)
 
-    // const handleInputChange = (event, index) => {
-    //     const { name, value, type, checked } = event.target
-    //     let data = [...formFields]
-    //     data[index][name] = type === 'checkbox' ? checked : value
-    //     setFormFields(data)
-    //     console.log(data)
-    // }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const toggleAddFeeTypeModal = () => {
+        setOpenFeeTypeModal(prev => !prev)
     }
-
-    // const deleteField = (indexToDelete) => {
-    //     const updatedFields = formFields.filter((_, index) => index !== indexToDelete)
-    //     setFormFields(updatedFields)
-    // }
 
     const displayFees = fees && fees.map(fee => {
         return (
-            <FeeRow fee={fee} key={fee.id}/>
+            <FeeRow fee={fee} key={fee.id} deleteFeeType={deleteFeeType}/>
         )
     })
     
@@ -52,6 +33,7 @@ const Fees = () => {
     return (
         <div>
             <p>Fees</p>
+            <button onClick={toggleAddFeeTypeModal}>Add Fee Type</button>
             <table>
                 <thead>
                     <tr>
@@ -65,6 +47,11 @@ const Fees = () => {
                 {displayFees}
                 </tbody>
             </table>
+            { openFeeTypeModal && 
+            <AddFeeType 
+                onClose={toggleAddFeeTypeModal} 
+                addFeeType={addFeeType}/>
+            }
         </div>
     )
 }
