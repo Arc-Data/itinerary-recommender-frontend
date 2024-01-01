@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useContext, useState } from "react"
 import AuthContext from "../context/AuthContext"
 import useBusinessManager from "../hooks/useBusinessManager"
+import { Link } from "react-router-dom"
 
 const FeeRow = ({ fee, deleteFeeType }) => {
     const { authTokens } = useContext(AuthContext)
@@ -66,7 +67,7 @@ const FeeRow = ({ fee, deleteFeeType }) => {
                     )
                 })}
                 </ul>
-                <div>Edit Audience Types</div>
+                <Link to={`${fee.id}/edit`}>Edit Audience Types</Link>
             </td>
             {editState ? 
             <td>

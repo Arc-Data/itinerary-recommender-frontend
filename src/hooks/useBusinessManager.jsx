@@ -11,6 +11,7 @@ const useBusinessManager = (authTokens) => {
     const [requests, setRequests] = useState([])
     const [ownedLocations, setOwnedLocations] = useState([])
     const [items, setItems] = useState([])
+    const [item, setItem] = useState()
     
     const approveRequest = async (id) => {
         try {   
@@ -364,12 +365,15 @@ const useBusinessManager = (authTokens) => {
                     "Authorization": `Bearer ${access}`
                 }
             })
+            console.log(response)
 
             const data = await response.json()
-            setItems(data)
+            setItem(data)
+            setItems(data.audience_types)
         } 
         catch (error) {
             console.log("An error occured while fetching fee types ", error)
+            setError(error)
         }
         finally {
             setLoading(false)
@@ -377,6 +381,7 @@ const useBusinessManager = (authTokens) => {
     }
 
     return {
+        item,
         items,
         loading,
         error,
