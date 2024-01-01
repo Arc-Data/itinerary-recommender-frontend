@@ -6,7 +6,7 @@ import useBusinessManager from "../hooks/useBusinessManager"
 
 const FeeRow = ({ fee, deleteFeeType }) => {
     const { authTokens } = useContext(AuthContext)
-    const { editFee } = useBusinessManager(authTokens)
+    const { editFeeType } = useBusinessManager(authTokens)
     const [ editState, setEditState ] = useState(false)
     const [ data, setData ] = useState({
         'name': fee.name,
@@ -26,7 +26,7 @@ const FeeRow = ({ fee, deleteFeeType }) => {
     }
 
     const handleSaveFee = async () => {
-        await editFee(fee.id, data)     
+        await editFeeType(fee.id, data)     
         fee.name = data.name
         fee.is_required = data.is_required    
         toggleEditState()
