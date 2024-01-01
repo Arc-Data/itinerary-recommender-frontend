@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import useBusinessManager from '../hooks/useBusinessManager'
 import AuthContext from '../context/AuthContext'
 import AudienceRow from '../components/AudienceRow'
+import AddAudienceType from '../modals/AddAudienceType'
 
 const FeeDetails = () => {
     const { feeId } = useParams()
@@ -16,6 +17,11 @@ const FeeDetails = () => {
         deleteAudienceType
     } = useBusinessManager(authTokens)
     const navigate = useNavigate()
+    const [ openAddAudienceModal, setOpenAddAudienceModal ] = useState(false)
+
+    const toggleAddAudienceModal = () => {
+        setOpenAddAudienceModal(prev => !prev)
+    }
 
     useEffect(() => {
         getFeeDetails(feeId)
@@ -47,6 +53,7 @@ const FeeDetails = () => {
         <div>
             <p onClick={goBack}>Back</p>
             <p>{fee.name} Details</p>
+            <button onClick={toggleAddAudienceModal}>Add Audience Type</button>
             <table>
                 <thead>
                     <tr>
@@ -59,6 +66,9 @@ const FeeDetails = () => {
                 {displayAudienceTypes}
                 </tbody>
             </table>
+            {openAddAudienceModal && 
+            <AddAudienceType onClose={toggleAddAudienceModal} />
+            }
         </div>
     )
 }
