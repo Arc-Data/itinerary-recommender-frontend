@@ -5,153 +5,66 @@ import useBusinessManager from "../hooks/useBusinessManager"
 import EditFee from "../modals/EditFee"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import FeeRow from "./FeeRow"
 
 const Fees = () => {
     const { id } = useParams()
     const { authTokens } = useContext(AuthContext)
-    const { location, items, error, loading, getBusinessDetail, createFeeType, getFeeTypes, editFeeType} = useBusinessManager(authTokens)
-    const [selectedItem, setSelectedItem] = useState()
-    const [openEditModal, setOpenEditModal] = useState(false)
-    const [addModal, setAddModal] = useState(false)
+    const { location, items: fees, error, loading, getBusinessDetail, createFeeType, getFeeTypes, editFeeType} = useBusinessManager(authTokens)
 
-    const [formFields, setFormFields] = useState([
-        {
-            'fee_name': '',
-            'audience_type' : '',
-            'amount' : '',
-            'is_required': false,
-        }
-    ])
+    // const [formFields, setFormFields] = useState([
+    //     {
+    //         'fee_name': '',
+    //         'audience_type' : '',
+    //         'amount' : '',
+    //         'is_required': false,
+    //     }
+    // ])
 
-    const handleInputChange = (event, index) => {
-        const { name, value, type, checked } = event.target
-        let data = [...formFields]
-        data[index][name] = type === 'checkbox' ? checked : value
-        setFormFields(data)
-        console.log(data)
+    // const handleInputChange = (event, index) => {
+    //     const { name, value, type, checked } = event.target
+    //     let data = [...formFields]
+    //     data[index][name] = type === 'checkbox' ? checked : value
+    //     setFormFields(data)
+    //     console.log(data)
+    // }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
     }
 
-    const handleSubmit = () => {
-        event.preventDefault();
-        console.log(formFields)
-    }
+    // const deleteField = (indexToDelete) => {
+    //     const updatedFields = formFields.filter((_, index) => index !== indexToDelete)
+    //     setFormFields(updatedFields)
+    // }
 
-    const addFields = () => {
-        let newField = {
-            'fee_name': '',
-            'audience_type' : '',
-            'amount' : 0,
-            'is_required': false,
-        }
-
-        setFormFields([...formFields, newField])
-    }
-
-    const deleteField = (indexToDelete) => {
-        const updatedFields = formFields.filter((_, index) => index !== indexToDelete)
-        setFormFields(updatedFields)
-    }
-    
+    const displayFees = fees && fees.map(fee => {
+        return (
+            <FeeRow fee={fee} key={fee.id}/>
+        )
+    })
     
     useEffect(() => {
         getBusinessDetail(id)
-    }, [id])
-
-    useEffect(() => {
         getFeeTypes(id)
-    }, [])
-    
+    }, [id])
 
     return (
         <div>
-                <p className="heading">Add Services</p>
-                <div>
-                    <div className="form-column-group fees-input-group">
-                        <h2 className="fees-label">Fee Name</h2>
-                        <h2 className="fees-label">Audience Type</h2>
-                        <h2 className="fees-label">Amount</h2>
-                        <h2 className="fees-label">Required</h2>
-                        <h2 className="fees-label"></h2>
-                    </div>
-
-                    <form onSubmit={(event) => handleSubmit(event)}>
-                    {formFields.map((form, index) => {
-                        return (
-                            <div className="form-column-group fees-input-group" key={index}>
-                                <input
-                                    type="text"
-                                    name="fee_name"
-                                    placeholder="ex. Entrance Fee"
-                                    value={form.fee_name}
-                                    onChange={(event) => handleInputChange(event, index)}
-                                    className="business-input fees-input" 
-                                />
-                                <input
-                                    type="text"
-                                    name="audience_type"
-                                    placeholder="ex. General, Students, PWD, Senior"
-                                    value={form.audience_type}
-                                    onChange={(event) => handleInputChange(event, index)}
-                                    className="business-input fees-input"
-                                />
-                                {/* { form.audience_type !== 'Other' ? (
-                                    <select
-                                        name="audience_type"
-                                        value={form.audience_type}
-                                        onChange={(event) => handleInputChange(event, index)}
-                                        className="business-type fees-input"
-                                    >
-                                        <option value="General">General</option>
-                                        <option value="Regular">Regular</option>
-                                        <option value="Students">Students</option>
-                                        <option value="PWD">PWD</option>
-                                        <option value="Seniors">Senior Citizen</option>
-                                        <option value="Children">Children</option>
-                                        <option value="Adult">Adult</option>
-                                        <option value="Locals">Local Guests</option>
-                                        <option value="Foreigners">Foreigners</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                ) : (
-                                    <input
-                                        type="text"
-                                        name="audience_type"
-                                        placeholder="Type your audience type"
-                                        value={form.audience_type}
-                                        onChange={(event) => handleInputChange(event, index)}
-                                        className="business-input fees-input"
-                                    />
-                                )} */}
-                                <input
-                                    type="number"
-                                    name="amount"
-                                    placeholder="0"
-                                    value={form.amount}
-                                    onChange={(event) => handleInputChange(event, index)}
-                                    className="business-input fees-input"
-                                />
-                                <input
-                                    type="checkbox"
-                                    name="is_required"
-                                    checked={form.is_required}
-                                    onChange={(event) => handleInputChange(event, index)}
-                                    className="required-fees-checkbox"
-                                />
-                                <button 
-                                    className="delete-fee-btn" 
-                                    onClick={() => deleteField(index)}>
-                                    <FontAwesomeIcon className="delete-fees-icon" icon={faTrashCan} />
-                                </button>
-                            </div>
-                        )
-                    })}
-                    </form>
-                </div> 
-
-                <div>
-                    <button className="add--business add--fields" onClick={addFields}>Add</button>
-                    <button className="add--business" type="submit" onClick={handleSubmit}>Submit</button>
-                </div>                
+            <p>Fees</p>
+            <table>
+                <thead>
+                    <tr>
+                        <td>Fee</td>
+                        <td>Required</td>
+                        <td>Audience Types</td>
+                        <td>Action</td>
+                    </tr>
+                </thead>
+                <tbody>
+                {displayFees}
+                </tbody>
+            </table>
         </div>
     )
 }
