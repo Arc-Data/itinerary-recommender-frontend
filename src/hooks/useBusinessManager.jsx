@@ -416,6 +416,29 @@ const useBusinessManager = (authTokens) => {
         }
     }
 
+    const addAudienceType = async (id, formData) => {
+        try {   
+            const response = await fetch(`${backendUrl}/api/fee/${id}/audience/create/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                },
+                body: JSON.stringify(formData)
+            })
+            console.log(response)
+            
+            if (response.ok) {
+                const data = await response.json()
+                const updatedItems = [...items, data]
+                setItems(updatedItems)
+            }
+        }
+        catch (error) {
+            console.log("An error occureed while adding audience type: ", error)
+        }
+    }
+
     return {
         item,
         items,
@@ -442,6 +465,7 @@ const useBusinessManager = (authTokens) => {
         deleteFeeType,
         getFeeTypes,
         getFeeDetails,
+        addAudienceType,
         editAudienceType,
         deleteAudienceType,
     }

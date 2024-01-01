@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import Modal from '../components/Modal'
+import { useParams } from 'react-router-dom'
 
-const AddAudienceType = ({ onClose }) => {
+const AddAudienceType = ({ onClose, addAudienceType }) => {
+    const { feeId } = useParams()
     const [ data, setData ] = useState({
         'name': '',
         'price': 0,
@@ -17,8 +19,8 @@ const AddAudienceType = ({ onClose }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(data)
-    }
+        addAudienceType(feeId, data)
+    }   
 
     return (
         <Modal onClose={onClose}> 

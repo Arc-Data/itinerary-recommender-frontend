@@ -14,7 +14,8 @@ const FeeDetails = () => {
         loading, 
         error, 
         getFeeDetails, 
-        deleteAudienceType
+        deleteAudienceType,
+        addAudienceType,
     } = useBusinessManager(authTokens)
     const navigate = useNavigate()
     const [ openAddAudienceModal, setOpenAddAudienceModal ] = useState(false)
@@ -67,7 +68,7 @@ const FeeDetails = () => {
                 </tbody>
             </table>
             {openAddAudienceModal && 
-            <AddAudienceType onClose={toggleAddAudienceModal} />
+            <AddAudienceType onClose={toggleAddAudienceModal} addAudienceType={addAudienceType}/>
             }
         </div>
     )
