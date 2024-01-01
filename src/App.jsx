@@ -49,7 +49,9 @@ import AuthLayout from './layout/AuthLayout';
 import Activation from './pages/Activation'
 import RegisterSuccess from './pages/RegisterSuccess';
 import Reset from './pages/Reset';
-
+import Drivers from './pages/Drivers';
+	/*css*/
+	
 function App() {
 	return (
 		<BrowserRouter>
@@ -109,6 +111,8 @@ function App() {
 					<Route path = "/admin/users" index element={<Users users={data[0].users}/>} />
 					<Route path="/admin/location" element={<AddLocation/>} />
 					<Route path="/admin/locations" element={<Location/>} />
+					<Route path="/admin/drivers" element={<Drivers/>} />
+
 
 					<Route path="/admin/location/:id" element={<ManageLayout />} >
 						<Route path="/admin/location/:id/" element={<BusinessOverview />} />
