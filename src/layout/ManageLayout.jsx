@@ -39,13 +39,13 @@ const ManageLayout = () => {
                         Edit
                     </NavLink>
                 </div>
-                {/* {location.location_type === "1" && 
+                {location.location_type === "1" && 
                 <div>
                     <NavLink to="fees" activeClassName="active">
                         Fee
                     </NavLink>
                 </div>
-                } */}
+                }
                 {location.location_type === "2" && 
                 <div>
                     <NavLink to="menu" activeClassName="active">
