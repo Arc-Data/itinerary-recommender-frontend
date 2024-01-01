@@ -365,8 +365,6 @@ const useBusinessManager = (authTokens) => {
                     "Authorization": `Bearer ${access}`
                 }
             })
-            console.log(response)
-
             const data = await response.json()
             setItem(data)
             setItems(data.audience_types)
@@ -377,6 +375,24 @@ const useBusinessManager = (authTokens) => {
         }
         finally {
             setLoading(false)
+        }
+    }
+
+    const editAudienceType = async (id, formData) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/audience/${id}/edit/`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                },
+                body: JSON.stringify(formData)
+            })
+
+            console.log(response)
+        }
+        catch (error) {
+            console.log("Error while editing audience fee type :", error)
         }
     }
 
@@ -406,6 +422,7 @@ const useBusinessManager = (authTokens) => {
         deleteFeeType,
         getFeeTypes,
         getFeeDetails,
+        editAudienceType,
     }
 }
 
