@@ -26,24 +26,29 @@ const AddFeeType = ({ onClose, addFeeType }) => {
         <Modal onClose={onClose}> 
             <form method='POST' onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="name">Fee Name</label>
                     <input 
                         type="text" 
                         name="name"
                         id="name"
                         value={data.name}
-                        onChange={handleInputChange}/>
+                        onChange={handleInputChange}
+                        className="business-input"
+                        placeholder='ex. Entrance Fee'  
+                    />
                 </div>
-                <div>
-                    <label htmlFor="name">Is Required</label>
+                <div className="required-fees-checkbox-container">
                     <input 
                         type="checkbox" 
                         name="is_required"
                         id="is_required"
                         checked={data.is_required}
-                        onChange={handleInputChange}/>
+                        onChange={handleInputChange}
+                        className="required-checkbox"
+                    />
+                    <label className="required-label" htmlFor="name">Required</label>
                 </div>
-                <button type='submit'>Submit</button>
+                <button type='submit' className="submit-fee-btn">Submit</button>
             </form>
         </Modal>
     )

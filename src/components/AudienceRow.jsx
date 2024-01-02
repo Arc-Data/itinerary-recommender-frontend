@@ -65,11 +65,11 @@ const AudienceRow = ({ type, deleteAudienceType }) => {
             </td>
             :
             <td>
-                <button onClick={toggleEditState}>
-                    Edit <FontAwesomeIcon icon={faPencil} />
+                <button onClick={toggleEditState} className="table-action-btn edit-fee-btn">
+                    <FontAwesomeIcon icon={faPencil} />
                 </button>
-                <button onClick={() => deleteAudienceType(type.id)}>
-                    Delete <FontAwesomeIcon icon={faTrash} /> 
+                <button onClick={() => deleteAudienceType(type.id)} className="table-action-btn delete-fee-btn">
+                    <FontAwesomeIcon icon={faTrash} /> 
                 </button>
             </td>
             }

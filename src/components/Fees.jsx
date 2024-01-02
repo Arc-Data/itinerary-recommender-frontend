@@ -3,9 +3,10 @@ import { Link, useParams } from "react-router-dom"
 import AuthContext from "../context/AuthContext"
 import useBusinessManager from "../hooks/useBusinessManager"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan, faPlus } from "@fortawesome/free-solid-svg-icons";
 import FeeRow from "./FeeRow"
-import AddFeeType from "../modals/AddFeeType";
+import AddFeeType from "../modals/AddFeeType"
+
 
 const Fees = () => {
     const { id } = useParams()
@@ -32,8 +33,8 @@ const Fees = () => {
 
     return (
         <div>
-            <p>Fees</p>
-            <button onClick={toggleAddFeeTypeModal}>Add Fee Type</button>
+            <p className="heading">Fees</p>
+            <button className="add-fee-type-btn" onClick={toggleAddFeeTypeModal}><FontAwesomeIcon className="btn-icons" icon={faPlus}/>Add</button>
             <table>
                 <thead>
                     <tr>
@@ -44,7 +45,7 @@ const Fees = () => {
                     </tr>
                 </thead>
                 <tbody>
-                {displayFees}
+                    {displayFees}
                 </tbody>
             </table>
             { openFeeTypeModal && 

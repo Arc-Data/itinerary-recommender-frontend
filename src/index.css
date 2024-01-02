@@ -2287,23 +2287,24 @@ input[type="text"] {
 }
 
 .add-location-modal--tabs {
-    border-block-end: 1px solid #e7e7e7;
     display: flex;
     width: 800px;
+    margin-bottom: 30px;
 }
 
-.add-location-modal--tabs > div {
-    padding: 15px;
+.add-location-modal--tabs > * {
+    margin-right: 20px;
     cursor: pointer;
-}
-
-.add-location-modal--tabs a {
     text-decoration: none;
-    padding: 10px;
-    margin-right: 10px;
-    border-bottom: 2px solid transparent;
-    color: black;
-  }
+}
+.tabs--link {
+    padding: 15px;
+    color: #212529;
+    font-weight: 500;
+}
+.tabs--link.active-link {
+    border-bottom: 3px solid #212529;
+}
   
 .add-location-recommendations {
     display: flex;
@@ -2311,10 +2312,6 @@ input[type="text"] {
 
 .add-location-recommendations > * {
     flex: 1;
-}
-
-.add-location-modal--tabs a.active {
-    border-bottom-color: #38A3A5;
 }
 
 .trash-icon {
@@ -3562,7 +3559,10 @@ input[type="text"] {
 table th, table td {
     padding: 15px 25px;
     text-align: left;
+    font-weight: 500;
+    vertical-align: center;
 }
+
 
 .tag-results-container {
     overflow-y: auto; 
@@ -3682,5 +3682,57 @@ table th, table td {
 
 .add--fields {
     margin-right: 20px;
+    background-color: #57CC99;
+}
+
+.add-fee-type-btn, .submit-fee-btn {
+    padding: 0 15px;
+    background-color: #38A3A5;
+}
+.submit-fee-btn {
+    background-color: #57CC99;
+}
+.required-fees-checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.required-label, .required-checkbox, .audience-type-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+.audience-type-item {
+    margin-bottom: 5px;
+}
+.audience-type-list {
+    margin-bottom: 10px;
+}
+.edit-audience-type-btn {
+    font-weight: 500;
+    color: #184E77;
+}
+.table-action-btn {
+    height: 40px;
+    width: 40px;
+}
+.edit-fee-btn {
+    margin-right: 10px;
+    background-color: #57CC99;
+}
+.delete-fee-btn {
+    background-color: #E86B6B;
+}
+.fees-price {
+    width: 100%;
+}
+.fees-cancel-btn, .fees-save-btn {
+    padding: 15px;
+}
+.fees-cancel-btn {
+    margin-right: 15px;
+    background-color: #b8b8b8;
+}
+.fees-save-btn {
     background-color: #57CC99;
 }

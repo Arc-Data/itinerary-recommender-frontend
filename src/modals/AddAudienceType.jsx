@@ -26,24 +26,30 @@ const AddAudienceType = ({ onClose, addAudienceType }) => {
         <Modal onClose={onClose}> 
             <form method='POST' onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="name">Audience Type</label>
                     <input 
                         type="text" 
                         name="name"
                         id="name"
                         value={data.name}
-                        onChange={handleInputChange}/>
+                        onChange={handleInputChange}
+                        className="business-input"
+                        placeholder='ex. General, Students, PWD'
+                    />
                 </div>
                 <div>
-                    <label htmlFor="name">Price</label>
+                    <label htmlFor="name">Price</label><br/>
                     <input 
                         type="number" 
                         name="price"
                         id="price"
                         checked={data.price}
-                        onChange={handleInputChange}/>
+                        onChange={handleInputChange}
+                        className="business-input fees-price"
+                        placeholder='100'
+                    />
                 </div>
-                <button type='submit'>Submit</button>
+                <button type='submit' className="submit-fee-btn">Submit</button>
             </form>
         </Modal>
     )

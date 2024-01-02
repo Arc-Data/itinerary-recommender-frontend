@@ -4,6 +4,8 @@ import useBusinessManager from '../hooks/useBusinessManager'
 import AuthContext from '../context/AuthContext'
 import AudienceRow from '../components/AudienceRow'
 import AddAudienceType from '../modals/AddAudienceType'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan, faPlus, faArrowRotateLeft } from "@fortawesome/free-solid-svg-icons"
 
 const FeeDetails = () => {
     const { feeId } = useParams()
@@ -52,9 +54,9 @@ const FeeDetails = () => {
 
     return (
         <div>
-            <p onClick={goBack}>Back</p>
-            <p>{fee.name} Details</p>
-            <button onClick={toggleAddAudienceModal}>Add Audience Type</button>
+            <p onClick={goBack}><FontAwesomeIcon className="btn-icons" icon={faArrowRotateLeft} />Back</p>
+            <p className="heading">{fee.name} Details</p>
+            <button className="add-fee-type-btn" onClick={toggleAddAudienceModal}><FontAwesomeIcon className="btn-icons" icon={faPlus}/>Add</button>
             <table>
                 <thead>
                     <tr>

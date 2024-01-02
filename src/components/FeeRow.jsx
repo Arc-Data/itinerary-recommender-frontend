@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useContext, useState } from "react"
 import AuthContext from "../context/AuthContext"
 import useBusinessManager from "../hooks/useBusinessManager"
-import { Link } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 
 const FeeRow = ({ fee, deleteFeeType }) => {
     const { authTokens } = useContext(AuthContext)
@@ -41,7 +41,9 @@ const FeeRow = ({ fee, deleteFeeType }) => {
                     type="text" 
                     name="name" 
                     value={data.name}
-                    onChange={handleInputChange}/> 
+                    onChange={handleInputChange}
+                    className="business-input"
+                /> 
                 :
                 fee.name
                 }    
@@ -54,33 +56,36 @@ const FeeRow = ({ fee, deleteFeeType }) => {
                     name="is_required" 
                     id="is_required" 
                     checked={data.is_required}
-                    onChange={handleInputChange}/>
+                    onChange={handleInputChange}
+                    />
                 : 
                 fee.is_required ? "Required" : "Not Required"
                 }
             </td>
             <td>
-                <ul>
+                <ul className="audience-type-list">
                 {fee.audience_types.map(type => {
                     return(
-                        <li key={type.id}>{type.name} - PHP {type.price}</li>   
+                        <li className="audience-type-item" key={type.id}>{type.name} - PHP {type.price}</li>   
                     )
                 })}
                 </ul>
-                <Link to={`${fee.id}/edit`}>Edit Audience Types</Link>
+                <NavLink to={`${fee.id}/edit`} className="edit-audience-type-btn">
+                    Edit
+                </NavLink>
             </td>
             {editState ? 
             <td>
-                <button onClick={toggleEditState}>Cancel</button>
-                <button onClick={handleSaveFee}>Save</button>
+                <button onClick={toggleEditState} className="fees-cancel-btn">Cancel</button>
+                <button onClick={handleSaveFee} className="fees-save-btn">Save</button>
             </td>
             :
             <td>
-                <button onClick={toggleEditState}>
-                    Edit <FontAwesomeIcon icon={faPencil} />
+                <button onClick={toggleEditState} className="table-action-btn edit-fee-btn">
+                    <FontAwesomeIcon icon={faPencil} />
                 </button>
-                <button onClick={() => deleteFeeType(fee.id)}>
-                    Delete <FontAwesomeIcon icon={faTrash} /> 
+                <button onClick={() => deleteFeeType(fee.id)} className="table-action-btn delete-fee-btn">
+                    <FontAwesomeIcon icon={faTrash} />
                 </button>
             </td>
             }
