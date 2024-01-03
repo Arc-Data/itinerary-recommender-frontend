@@ -29,36 +29,46 @@ const ManageLayout = () => {
     return (
         <div>
             <div className="add-location-modal--tabs">
-                <div>
-                    <NavLink to="" exact activeClassName="active">
-                        Overview
+                <NavLink to="">
+                    {({ isActive }) => (
+						<p className={`tabs--link ${isActive ? 'active-link' : ''}`}>
+							Overview
+						</p>
+					)}
+                </NavLink>
+                <NavLink to="edit">
+                    {({ isActive }) => (
+						<p className={`tabs--link ${isActive ? 'active-link' : ''}`}>
+							Edit
+						</p>
+					)}
+                </NavLink>
+                {location.location_type === "1" && 
+                    <NavLink to="fees">
+                        {({ isActive }) => (
+                            <p className={`tabs--link ${isActive ? 'active-link' : ''}`}>
+                                Fees
+                            </p>
+                        )}
                     </NavLink>
-                </div>
-                <div>
-                    <NavLink to="edit" activeClassName="active">
-                        Edit
-                    </NavLink>
-                </div>
-                {/* {location.location_type === "1" && 
-                <div>
-                    <NavLink to="fees" activeClassName="active">
-                        Fee
-                    </NavLink>
-                </div>
-                } */}
+                }
                 {location.location_type === "2" && 
-                <div>
-                    <NavLink to="menu" activeClassName="active">
-                        Menu
+                    <NavLink to="menu">
+                        {({ isActive }) => (
+                            <p className={`tabs--link ${isActive ? 'active-link' : ''}`}>
+                                Menu
+                            </p>
+                        )}
                     </NavLink>
-                </div>
                 }
                 {location.location_type === "3" && 
-                <div>
-                    <NavLink to="services" activeClassName="active">
-                        Services
+                    <NavLink to="services">
+                        {({ isActive }) => (
+                            <p className={`tabs--link ${isActive ? 'active-link' : ''}`}>
+                                Services
+                            </p>
+                        )}
                     </NavLink>
-                </div>
                 }
             </div>
             <Outlet/>

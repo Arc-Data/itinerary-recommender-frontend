@@ -44,7 +44,8 @@ import Fees from './components/Fees';
 import Test from './pages/Test';
 import AssistantContact from './pages/AssistantContact';
 import Drivers from './pages/Drivers';
-	/*css*/
+import FeeDetails from './pages/FeeDetails';
+/*css*/
 	
 function App() {
 	return (
@@ -78,6 +79,7 @@ function App() {
 							<Route path="/profile/business/:id/menu" element={<Menu />}/>
 							<Route path="/profile/business/:id/services" element={<Services />}/>
 							<Route path="/profile/business/:id/fees" element={<Fees />}/>
+							<Route path="/profile/business/:id/fees/:feeId/edit" element={<FeeDetails />}/>
 							<Route path="/profile/business/:id/edit" element={<ManageBusiness />} />
 						</Route>
 						
@@ -106,6 +108,7 @@ function App() {
 						<Route path="/admin/location/:id/menu" element={<Menu />} />
 						<Route path="/admin/location/:id/services" element={<Services />} />
 						<Route path="/admin/location/:id/fees" element={<Fees />} />
+						<Route path="/admin/location/:id/fees/:feeId/" element={<FeeDetails />} />
 						<Route path="/admin/location/:id/edit" element={<ManageBusiness />} />
 					</Route>
 					
