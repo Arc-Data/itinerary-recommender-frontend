@@ -45,11 +45,14 @@ const useBusinessManager = (authTokens) => {
                 }
             })
 
+            console.log(response)
+
             const data = await response.json()
+            console.log(data)
             setOwnedLocations(data)
         } 
         catch(error) {
-            console.log("An error occured while getting owned businesses")
+            console.log("An error occured while getting owned businesses", error)
         }
         finally {
             setLoading(false)

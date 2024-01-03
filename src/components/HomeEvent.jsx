@@ -11,7 +11,6 @@ const HomeEvent = () => {
         getUpcomingEvents()
     }, [])
 
-    console.log(events)
     const displayEvents = events && events.map(event => {
         return (
             <div key={event.id}>
