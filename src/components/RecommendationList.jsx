@@ -9,7 +9,7 @@ const RecommendationList = ({ recommendations, onAddRecommendation} ) => {
             {recommendations && recommendations.map(recommendation => {
             return (
             <div key={recommendation.id} className="nearby-recommendation-item">
-                <img src={`${backendUrl}${recommendation.primary_image}`} alt="" />
+                <img src={`${backendUrl}${recommendation.primary_image}`} alt={recommendation.name} />
                     <div className='recommendation-details'>
                         <p className="name">{recommendation.name}</p>
                         {recommendation.distance && 

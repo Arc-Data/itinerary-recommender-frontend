@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faClose, faLocationDot, faSearch } from "@fortawesome/free-solid-svg-icons"
+import { faClose, faLocationDot, faSearch, faPlus } from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom"
 import AuthContext from "../context/AuthContext"
 import Modal from "../components/Modal"
@@ -178,7 +178,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                             <p className="add-location-modal--subtext">{location.address}</p>
                             <p className="add-location-modal--subtext"><span>Opens {opening_time} - {closing_time} </span>•<span> Entrance Fee: {fee} </span></p>
                         </div>
-                        <button className="add-location-modal--add-btn" onClick={() => handleAddLocation(location.id)}>+</button>
+                        <button className="add-location-modal--add-btn" onClick={() => handleAddLocation(location.id)}><FontAwesomeIcon icon={faPlus} /></button>
                     </div>
                 )
             })
@@ -224,7 +224,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                     {locations.length === 0 ? 
                     <p className="heading2">Recommended for you</p>
                     :
-                    <p>Recommended Nearby Locations</p>
+                    <p className="heading2">Recommended Nearby Locations</p>
                     }
                     {recommendationsLoading  ? 
                     <div>Loading</div>
@@ -240,7 +240,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                 <div>
                     {!searchString.length && locations.length !== 0 && 
                     <>
-                    <p>Recommended Food Locations</p>
+                    <p className="heading2">Recommended Food Locations</p>
                     {foodRecommendationsLoading ? 
                     <div>Loading</div>
                     :

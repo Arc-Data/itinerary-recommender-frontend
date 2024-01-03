@@ -2329,15 +2329,19 @@ input[type="text"] {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-    margin-top: 20px;
+    margin: 20px 0;
 }
 .recommendation-details > * {
     color: #212529;
-    font-size: 15px;
+    font-size: 14px;
 }
 .recommendation-details > .name {
     font-weight: 500;
     margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
 }
 /* 
 .add-location-recommendations > * {
@@ -2496,6 +2500,7 @@ input[type="text"] {
     border-radius: 50px !important;
     background: #e7e7e7;
     font-size: 20px;
+    margin-right: 10px;
 }
 
 .add-location-modal--add-btn:hover {
@@ -2811,13 +2816,13 @@ input[type="text"] {
     display: flex;
     align-items: center;
     border-radius: 5px;
-    padding: 0 5px;
 }
 .nearby-recommendation-item > img {
-    width: 60px;
+    width: 80px;
     height: 60px;
-    object-fit: contain;
+    object-fit: cover;
     margin-right: 10px;
+    border-radius: 4px 0 0 4px;
 }
 .nearby-recommendation-item div {
   flex: 1;
