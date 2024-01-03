@@ -1,6 +1,6 @@
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Link, Outlet } from "react-router-dom"
+import { NavLink, Link, Outlet } from "react-router-dom"
 
 const HomeLayout = () => {
     return (
@@ -25,9 +25,9 @@ const HomeLayout = () => {
 				</div>
 			</header>
             <nav className="home--page-navigation">
-                <Link to="/home">Home</Link>
-                <Link to="/business">Business</Link>
-                <Link to="/event">Events</Link>
+                <NavLink to="/home">Home</NavLink>
+                <NavLink to="/business">Business</NavLink>
+                <NavLink to="/event">Events</NavLink>
             </nav>
             <Outlet />
         </div>

@@ -3,8 +3,9 @@ import UserNav from '../components/UserNav'
 import { useContext, useState } from 'react'
 import AuthContext from '../context/AuthContext'
 import AccordionHeader from '../pages/AccordionHeader'
-import { faBookmark, faBuilding, faRoute, faClipboardList, faStar, faGear } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBookmark, faBuilding, faRoute, faClipboardList, faStar, faGear } from '@fortawesome/free-solid-svg-icons'
+
 
 const ProfileLayout = () => {
 	const { user } = useContext(AuthContext)

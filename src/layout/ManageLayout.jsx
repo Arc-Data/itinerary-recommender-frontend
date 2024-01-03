@@ -28,49 +28,19 @@ const ManageLayout = () => {
 
     return (
         <div>
-            <div className="add-location-modal--tabs">
-                <NavLink to="">
-                    {({ isActive }) => (
-						<p className={`tabs--link ${isActive ? 'active-link' : ''}`}>
-							Overview
-						</p>
-					)}
-                </NavLink>
-                <NavLink to="edit">
-                    {({ isActive }) => (
-						<p className={`tabs--link ${isActive ? 'active-link' : ''}`}>
-							Edit
-						</p>
-					)}
-                </NavLink>
+            <nav className="business--page-navigation">
+                <NavLink to="." end>Overview</NavLink>
+                <NavLink to="edit">Edit</NavLink>
                 {location.location_type === "1" && 
-                    <NavLink to="fees">
-                        {({ isActive }) => (
-                            <p className={`tabs--link ${isActive ? 'active-link' : ''}`}>
-                                Fees
-                            </p>
-                        )}
-                    </NavLink>
+                    <NavLink to="fees">Fees</NavLink>
                 }
                 {location.location_type === "2" && 
-                    <NavLink to="menu">
-                        {({ isActive }) => (
-                            <p className={`tabs--link ${isActive ? 'active-link' : ''}`}>
-                                Menu
-                            </p>
-                        )}
-                    </NavLink>
+                    <NavLink to="menu">Menu</NavLink>
                 }
                 {location.location_type === "3" && 
-                    <NavLink to="services">
-                        {({ isActive }) => (
-                            <p className={`tabs--link ${isActive ? 'active-link' : ''}`}>
-                                Services
-                            </p>
-                        )}
-                    </NavLink>
+                    <NavLink to="services">Services</NavLink>
                 }
-            </div>
+            </nav>
             <Outlet/>
         </div>
     )

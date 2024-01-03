@@ -35,7 +35,7 @@ const Fees = () => {
         <div>
             <p className="heading">Fees</p>
             <button className="add-fee-type-btn" onClick={toggleAddFeeTypeModal}><FontAwesomeIcon className="btn-icons" icon={faPlus}/>Add</button>
-            <table>
+            <table className="business-table">
                 <thead>
                     <tr>
                         <td>Fee</td>

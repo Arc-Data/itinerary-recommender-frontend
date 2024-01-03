@@ -22,6 +22,8 @@ const ManageBusiness = ({ location, editBusiness }) => {
         'location_type': location.location_type
 	})
 
+	console.log('Location Data: ', location)
+
 	const handleChangeInput = (e) => {
 		const { name, value } = e.target
 
@@ -44,7 +46,7 @@ const ManageBusiness = ({ location, editBusiness }) => {
 		<form onSubmit={handleSubmit}>
 			<div className="admin-wrapper admin--container">
 				<div className="input--form">
-				<p>FoodPlace</p>
+				<p className="heading no-margin">Food Place</p>
 				<div className="input admin--container">
 					<label htmlFor="name">Location Name</label>
 					<input
@@ -52,7 +54,7 @@ const ManageBusiness = ({ location, editBusiness }) => {
 					name="name"
 					value={formData.name}
 					onChange={handleChangeInput}
-					className="styled-input"
+					className="business-input"
 					/>
 				</div>
 				<div className="input admin--container">
@@ -62,7 +64,7 @@ const ManageBusiness = ({ location, editBusiness }) => {
 					name="address"
 					onChange={handleChangeInput}
 					value={formData.address}
-					className="styled-input"
+					className="business-input"
 					/>
 				</div>
 				<div className="admin--container">
@@ -75,7 +77,7 @@ const ManageBusiness = ({ location, editBusiness }) => {
 						step="0.000001"
 						name="latitude"
 						value={formData.latitude}
-						className="styled-input"
+						className="business-input"
 					/>
 					</div>
 					<div className="input admin--container">
@@ -86,7 +88,7 @@ const ManageBusiness = ({ location, editBusiness }) => {
 						step="0.000001"
 						name="longitude"
 						value={formData.longitude}
-						className="styled-input"
+						className="business-input"
 					/>
 					</div>
 				</div>
@@ -99,7 +101,7 @@ const ManageBusiness = ({ location, editBusiness }) => {
 						onChange={handleChangeInput}
 						name="opening_time"
 						value={formData.opening_time}
-						className="styled-input"
+						className="business-input"
 						/>
 					</div>
 					<div className="input admin--container">
@@ -109,7 +111,7 @@ const ManageBusiness = ({ location, editBusiness }) => {
 						onChange={handleChangeInput}
 						name="closing_time"
 						value={formData.closing_time}
-						className="styled-input"
+						className="business-input"
 						/>
 					</div>
 				</div>
@@ -117,9 +119,10 @@ const ManageBusiness = ({ location, editBusiness }) => {
 				<div className="input admin--container">
 					<label htmlFor="description">Description</label>
 					<textarea
-					name="description"
-					value={formData.description}
-					onChange={handleChangeInput}
+						name="description"
+						value={formData.description}
+						onChange={handleChangeInput}
+						className="business-input description"
 					/>
 				</div>
 				</div>

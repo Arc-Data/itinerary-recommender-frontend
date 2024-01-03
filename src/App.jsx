@@ -94,8 +94,7 @@ function App() {
 						<Route path="/profile/settings/change-password/" element={<ChangePassword />} />
 						
 						<Route path="/profile/business/:id" element={<ManageLayout />}>
-							<Route path="/profile/business/:id/" element={<BusinessOverview />} />
-							<Route path="/profile/business/:id/" element={<BusinessOverview />} />
+							<Route index element={<BusinessOverview />} />
 							<Route path="/profile/business/:id/menu" element={<Menu />}/>
 							<Route path="/profile/business/:id/services" element={<Services />}/>
 							<Route path="/profile/business/:id/fees" element={<Fees />}/>
@@ -116,8 +115,8 @@ function App() {
 
 				</Route>
 				<Route path="/admin" element={<AdminRoutes />}>
-					<Route path = "/admin/" index element={<Dashboard/>} />
-					<Route path = "/admin/users" index element={<Users users={data[0].users}/>} />
+					<Route path="/admin/" index element={<Dashboard/>} />
+					<Route path="/admin/users" index element={<Users users={data[0].users}/>} />
 					<Route path="/admin/location" element={<AddLocation/>} />
 					<Route path="/admin/locations" element={<Location/>} />
 					<Route path="/admin/drivers" element={<Drivers/>} />

@@ -55,7 +55,7 @@ const Request = () => {
         <div>
             <h1 className="heading">Requests</h1>
             <div>
-                <table>
+                <table className="business-table admin-requests">
                     <thead>
                         <td className="font">Name</td>
                         <td className="font">Location Type</td>

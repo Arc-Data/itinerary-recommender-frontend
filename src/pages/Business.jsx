@@ -102,7 +102,7 @@ const Business = () => {
                         </button>
                     </Link>
                 </div>
-                <table className='business--app-table'>
+                <table className='business-requests-table'>
                     <thead>
                         <tr>
                             <th>Business name</th>
