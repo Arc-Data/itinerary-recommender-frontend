@@ -1973,7 +1973,6 @@ input[type="text"] {
 }
 .plan--search-input {
     border: 2px solid #E7E7E7;
-    background-color: #F5F5F5;
     width: 100%;
     transition: border-color 0.3s ease;
 }
@@ -2294,7 +2293,7 @@ input[type="text"] {
 
 .modal {
     background: #fcfcfc;
-    padding: 40px 20px;
+    padding: 40px 30px;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -2329,7 +2328,7 @@ input[type="text"] {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-    margin: 20px 0;
+    margin: 15px 0;
 }
 .recommendation-details > * {
     color: #212529;
@@ -2351,19 +2350,19 @@ input[type="text"] {
 .trash-icon {
     font-size: 8px;
 }
-
+.add-location-modal--tabs.plan-page {
+    margin-bottom: 10px;
+}
+.add-location-modal--tabs > div {
+    padding: 10px 20px;
+    font-weight: 500;
+}
 .add-location-modal--tabs > div.active {
-    color: #38A3A5;
-    border-block-end: 3px solid #38A3A5;
+    color: #FFF;
+    background-color: #333;
+    border-radius: 5px;
 }
-
-.add-location-modal--tabs > h2.active {
-    color: #38A3A5;
-    border-block-end: 3px solid #38A3A5;
-}
-
 .add-location-modal--content {
-    margin-top: 37px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -2816,6 +2815,7 @@ input[type="text"] {
     display: flex;
     align-items: center;
     border-radius: 5px;
+    background-color: #FFF;
 }
 .nearby-recommendation-item > img {
     width: 80px;

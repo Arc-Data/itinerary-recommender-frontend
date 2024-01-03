@@ -189,7 +189,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
 
     return (
         <Modal onClose={onClose}>
-            <div className="add-location-modal--tabs">
+            <div className="add-location-modal--tabs plan-page">
                 <div className={`${openBookmarks ? "" : "active"}` } onClick={toggleBookmarkSection}>Location</div>
                 <div className={`${openBookmarks ? "active" : ""}`} onClick={toggleBookmarkSection}>Bookmarks</div>
             </div>
