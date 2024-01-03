@@ -9,7 +9,6 @@ import ShareMap from "../components/ShareMap"
 
 const ShareDetails = ({onClose, day, costEstimate, name}) => {
     const { markers, getDayMarkersData } = useMarkerManager()
-    console.log(markers)
     console.log(name)
 
     const exportPDF = () => {
