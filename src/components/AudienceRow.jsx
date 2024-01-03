@@ -60,8 +60,8 @@ const AudienceRow = ({ type, deleteAudienceType }) => {
             </td>
             {editState ? 
             <td>
-                <button onClick={toggleEditState}>Cancel</button>
-                <button onClick={handleSaveAudienceType}>Save</button>
+                <button onClick={toggleEditState} className="fees-cancel-btn">Cancel</button>
+                <button onClick={handleSaveAudienceType} className="fees-save-btn">Save</button>
             </td>
             :
             <td>
