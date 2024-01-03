@@ -10,7 +10,6 @@ const useRecommendationsManager = (authTokens) => {
     const [ status, setStatus ] = useState("")
 
     const applyRecommendation = async (id, day_id) => {
-        setStatus("Applying Recommendations...")
         setLoading(true)
 
         try {
@@ -37,21 +36,18 @@ const useRecommendationsManager = (authTokens) => {
         }
     }
 
-    const fetchNearbyRecommendations = async (id, toVisitList) => {
+    const fetchNearbyRecommendations = async (dayId) => {
         setStatus("Loading Recommendations")
         setLoading(true)
 
         try {
-            const response = await fetch(`${backendUrl}/api/recommendations/${id}/nearby/`, {
-                method: "POST",
+            const response = await fetch(`${backendUrl}/api/recommendations/${dayId}/nearby/spot/`, {
+                method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${access}`
                 },
-                body: JSON.stringify(toVisitList)
-                
             })
-
             const data = await response.json()
             setRecommendations(data)
         }
@@ -86,18 +82,18 @@ const useRecommendationsManager = (authTokens) => {
         }
     }
 
-    const fetchNearbyFoodRecommendations = async (id, toVisitList) => {
+    const fetchNearbyFoodRecommendations = async (dayId) => {
         setLoading(true)
-        console.log(toVisitList)
+
         try {
-            const response = await fetch(`${backendUrl}/api/foodplace/${id}/recommendations/`, {
-                method: "POST",
+            const response = await fetch(`${backendUrl}/api/recommendations/${dayId}/nearby/foodplace/`, {
+                method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${access}`
                 },
-                body: JSON.stringify(toVisitList)
-            })
+            })  
+
             const data = await response.json()
             setRecommendations(data)
         }

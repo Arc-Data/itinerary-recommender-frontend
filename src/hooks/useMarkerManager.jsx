@@ -43,7 +43,6 @@ const useMarkerManager = () => {
     const getDayMarkersData = (day) => {
         const mapMarkers = []
         const items = day.itinerary_items
-        console.log(day)
 
         if(items) {
             console.log(items)
