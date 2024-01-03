@@ -7,7 +7,6 @@ const HomeBusiness = () => {
     const { ownedLocations: locations, loading, getOwnedBusinesses } = useBusinessManager(authTokens)
 
     const displayLocations = locations && locations.map(location => {
-        console.log(location)
         return (
             <div key={location.id}>{location.name}</div>
         )
