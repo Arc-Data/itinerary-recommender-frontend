@@ -2369,6 +2369,7 @@ input[type="text"] {
 }
 
 .add-location-modal--recently-added-container {
+    margin:20px 0;
     display: flex;
     flex-wrap: wrap;
     gap: 8px;

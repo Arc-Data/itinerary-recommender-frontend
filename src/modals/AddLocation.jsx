@@ -94,19 +94,6 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
         }, debounceTimeout)
     }
 
-    const addRecommendation = async (id) => {
-        handleAddLocation(id)
-        fetchNearbyRecommendations(id)
-        fetchNearbyFoodRecommendations(id)
-    }
-
-    
-    const handleAddRecommendation = async (id) => {
-        handleAddLocation(id);
-        fetchNearbyRecommendations(id);
-        fetchNearbyFoodRecommendations(id);
-    };
-
     const checkDuplicateLocation = (locationId) => {
         const status = includedLocations.some(i => {
             return i.location == locationId
@@ -143,10 +130,6 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
         )   
     })
 
-    const getToVisitLocations = (locations) => {
-        return locations.map(i => i.location)
-    }
-    
     useEffect(() => {
         const getBookmarks = async () => {
             try {
@@ -171,8 +154,8 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
 
     useEffect(() => {
         if (locations.length !== 0) {
-            fetchNearbyRecommendations(locations[locations.length - 1].location, getToVisitLocations(locations))
-            fetchNearbyFoodRecommendations(locations[locations.length - 1].location, getToVisitLocations(locations))
+            fetchNearbyRecommendations(day.id)
+            fetchNearbyFoodRecommendations(day.id)
         }  else {
             fetchPreferenceRecommendations()
         }
@@ -212,7 +195,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
             </div>
             {openBookmarks ?
             <div>
-                <div className="add-location-modal--content">
+                <div className="add-location-modal--recently-added-container">
                     {displayRecentlyAdded}
                 </div>
                 <div className="add-location-modal--results">
@@ -243,27 +226,27 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                     :
                     <p>Recommended Nearby Locations</p>
                     }
-                    {recommendationsLoading ? 
+                    {recommendationsLoading  ? 
                     <div>Loading</div>
                     :
                     <RecommendationList 
                         recommendations={spotRecommendations}
-                        onAddRecommendation={handleAddRecommendation}/>
+                        onAddRecommendation={handleAddLocation}/>
                     }
                     </>
                     }
                 </div>
 
                 <div>
-                    {!searchString.length && 
+                    {!searchString.length && locations.length !== 0 && 
                     <>
                     <p>Recommended Food Locations</p>
-                    {recommendationsLoading ? 
+                    {foodRecommendationsLoading ? 
                     <div>Loading</div>
                     :
                     <RecommendationList 
                         recommendations={foodRecommendations}
-                        onAddRecommendation={handleAddRecommendation}/>
+                        onAddRecommendation={handleAddLocation}/>
                     }
                     </>
                     }
