@@ -91,7 +91,7 @@ const ManageSpot = ({ location, editBusiness }) => {
             <form onSubmit={handleSubmit}>
                 <div className="admin-wrapper admin--container">
                     <div className="input--form">
-                    <p>Spot</p>
+                    <p className="heading no-margin">Spot</p>
                     <div className="input admin--container">
                         <label htmlFor="name">Location Name</label>
                         <input
@@ -99,8 +99,8 @@ const ManageSpot = ({ location, editBusiness }) => {
                         name="name"
                         value={formData.name}
                         onChange={handleChangeInput}
-                        className="styled-input"
-                        />
+                        className="business-input"
+                    />
                     </div>
                     <div className="input admin--container">
                         <label htmlFor="address">Address</label>
@@ -109,7 +109,7 @@ const ManageSpot = ({ location, editBusiness }) => {
                         name="address"
                         onChange={handleChangeInput}
                         value={formData.address}
-                        className="styled-input"
+                        className="business-input"
                         />
                     </div>
                     <div className="admin--container">
@@ -122,7 +122,7 @@ const ManageSpot = ({ location, editBusiness }) => {
                             step="0.000001"
                             name="latitude"
                             value={formData.latitude}
-                            className="styled-input"
+                            className="business-input"
                         />
                         </div>
                         <div className="input admin--container">
@@ -133,7 +133,7 @@ const ManageSpot = ({ location, editBusiness }) => {
                             step="0.000001"
                             name="longitude"
                             value={formData.longitude}
-                            className="styled-input"
+                            className="business-input"
                         />
                         </div>
                     </div>
@@ -148,7 +148,8 @@ const ManageSpot = ({ location, editBusiness }) => {
                             timeIntervals={15}
                             timeCaption="Time"
                             dateFormat="h:mm aa"
-                            />
+                            className="business-input"
+                        />
                         {/* <input
                             type="text"
                             onChange={handleChangeInput}
@@ -166,7 +167,8 @@ const ManageSpot = ({ location, editBusiness }) => {
                             timeIntervals={15}
                             timeCaption="Time"
                             dateFormat="h:mm aa"
-                            />
+                            className="business-input"
+                        />
                         </div>
                     </div>
                     }
@@ -176,6 +178,7 @@ const ManageSpot = ({ location, editBusiness }) => {
                         name="description"
                         value={formData.description}
                         onChange={handleChangeInput}
+                        className="business-input description"
                         />
                     </div>
                     </div>
