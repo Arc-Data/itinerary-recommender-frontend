@@ -18,8 +18,8 @@ function Drivers() {
     const type = searchParams.get('type')
 
     const {authTokens} = useContext(AuthContext)
-    const { driver, error, loading, getDrivers } = useDriverManager(authTokens)
-    const locationElements = driver.map(driver => (
+    const { drivers, error, loading, getDrivers } = useDriverManager(authTokens)
+    const locationElements = drivers.map(driver => (
         <tr key={driver.id}>
             <td>{driver.id}</td>
             <td>{driver.first_name},{driver.last_name} </td>
@@ -28,7 +28,7 @@ function Drivers() {
             <td>{driver.facebook}</td>
             <td>{driver.car}</td>
             <td className="admin--table-action">
-                <Link to={`/admin/location/${location.id}`}>
+                <Link to={`/admin/driver/${driver.id}/edit`}>
                     <button className="edit"><FaEdit/></button> 
                 </Link>
             </td>
@@ -44,7 +44,7 @@ function Drivers() {
     }, [currentPage, type])
 
 
-    const totalPages = Math.ceil(driver?.count / 10) || 1;
+    const totalPages = Math.ceil(drivers?.count / 10) || 1;
     
     const handlePageChange = (newPage) => {
         if (newPage >= 1 && newPage <= totalPages) {
@@ -64,7 +64,7 @@ function Drivers() {
     const generatePageButtons = () => {
         const buttons = [];
     
-        if (driver?.previous) {
+        if (drivers?.previous) {
             buttons.push(
                 <button 
                     key="first" 
@@ -101,7 +101,7 @@ function Drivers() {
             );
         }
     
-        if (driver?.next) {
+        if (drivers?.next) {
             buttons.push(
                 <button 
                     key="next" 
@@ -160,7 +160,7 @@ function Drivers() {
                     type="button"
                 >
                     <NavLink 
-                        to="/admin/location"
+                        to="/admin/driver"
                         className="link"
                     >
                         Add Driver
