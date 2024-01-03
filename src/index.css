@@ -2307,12 +2307,23 @@ input[type="text"] {
 }
   
 .add-location-recommendations {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 20px;
 }
-
+.recommendation-details > * {
+    color: #212529;
+    font-size: 15px;
+}
+.recommendation-details > .name {
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+/* 
 .add-location-recommendations > * {
     flex: 1;
-}
+} */
 
 .trash-icon {
     font-size: 8px;
@@ -2458,19 +2469,18 @@ input[type="text"] {
 
 .add-location-modal--add-btn {
     align-self: center;
-    text-align:center;
+    text-align: center;
     margin-left: auto;
-    color: #184E77;
+    color: #333333;
     height: 40px;
     width: 40px;
-    border-radius: 10px;
+    border-radius: 50px !important;
     background: #e7e7e7;
     font-size: 20px;
-    border: 2px solid #38A3A5;
 }
 
 .add-location-modal--add-btn:hover {
-    background: #38A3A5;
+    background-color: #333333;
     color: white;
     transition: 0.15s ease-in-out;
 }
@@ -2778,16 +2788,20 @@ input[type="text"] {
 }
 
 .nearby-recommendation-item {
+    border: 2px solid #E7E7E7;
     display: flex;
     align-items: center;
-    gap: 10px;
+    border-radius: 5px;
+    padding: 0 5px;
 }
-
-
 .nearby-recommendation-item > img {
     width: 60px;
     height: 60px;
     object-fit: contain;
+    margin-right: 10px;
+}
+.nearby-recommendation-item div {
+  flex: 1;
 }
 
 .color--modal {

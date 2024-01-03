@@ -222,7 +222,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                     {!searchString.length && 
                     <>
                     {locations.length === 0 ? 
-                    <p>Recommended for you</p>
+                    <p className="heading2">Recommended for you</p>
                     :
                     <p>Recommended Nearby Locations</p>
                     }
