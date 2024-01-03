@@ -939,6 +939,9 @@ input[type="text"] {
 .no-margin-bottom {
     margin-bottom: 0 !important;
 }
+.no-margin {
+    margin: 0 !important;
+}
 
 .detailPage--cards {
     display: grid;
@@ -1377,7 +1380,22 @@ input[type="text"] {
 }
 
 .home--page-content > * {
-    padding: 40px 0px;
+    padding: 20px 0px;
+}
+
+.home--page-main-content > *{
+    padding: 20px 0;
+}
+
+.home--page-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.home--page-navigation > a {
+    padding: 10px;
 }
 
 .home--banner {
@@ -2304,6 +2322,7 @@ input[type="text"] {
 }
 .tabs--link.active-link {
     border-bottom: 3px solid #212529;
+    font-weight: 600;
 }
   
 .add-location-recommendations {
@@ -3237,7 +3256,11 @@ input[type="text"] {
     outline: none;
     border-radius: 5px;
 }
-
+.business-input.description {
+    padding: 15px;
+    font-weight: 500;
+    margin: 5px 0 15px;
+}
 .business-type {
     width: 300px;
 }

@@ -10,6 +10,8 @@ const ShareMap = ({markers, center=false}) => {
     const [zoom] = useState(11)
     const markerRefs = useRef([])
     
+    console.log("Markers", markers)
+
     maptilersdk.config.apiKey = apiKey
 
     const addMarkersToMap = () => {

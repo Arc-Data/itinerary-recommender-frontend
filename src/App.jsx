@@ -51,6 +51,9 @@ import RegisterSuccess from './pages/RegisterSuccess';
 import Reset from './pages/Reset';
 import Drivers from './pages/Drivers';
 import FeeDetails from './pages/FeeDetails';
+import HomeLayout from './layout/HomeLayout';
+import HomeEvent from './components/HomeEvent';
+import HomeBusiness from './components/HomeBusiness';
 /*css*/
 	
 function App() {
@@ -74,7 +77,11 @@ function App() {
 					
 					<Route element={<BaseLayout />}>
 						<Route path="/location/:id" element={<Detail/>}/>
-						<Route path="/home" element={<HomePage />} />
+						<Route element={<HomeLayout />}>
+							<Route path="/home" element={<HomePage />} />
+							<Route path="/event" element={<HomeEvent />} /> 
+							<Route path="/business" element={<HomeBusiness />} /> 
+						</Route>
 						<Route path="/search" element={<SearchPage />} />
 					</Route>
 
