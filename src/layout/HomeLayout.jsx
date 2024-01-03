@@ -24,6 +24,11 @@ const HomeLayout = () => {
 					<img src="/banner-3.png" className="banner-img" />
 				</div>
 			</header>
+            <nav className="home--page-navigation">
+                <Link to="/home">Home</Link>
+                <Link to="/business">Business</Link>
+                <Link to="/event">Events</Link>
+            </nav>
             <Outlet />
         </div>
     )

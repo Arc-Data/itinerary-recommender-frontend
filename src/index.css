@@ -1377,7 +1377,22 @@ input[type="text"] {
 }
 
 .home--page-content > * {
-    padding: 40px 0px;
+    padding: 20px 0px;
+}
+
+.home--page-main-content > *{
+    padding: 20px 0;
+}
+
+.home--page-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.home--page-navigation > a {
+    padding: 10px;
 }
 
 .home--banner {
