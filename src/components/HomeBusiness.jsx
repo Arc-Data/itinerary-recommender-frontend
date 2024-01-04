@@ -13,6 +13,8 @@ const HomeBusiness = () => {
     const displayLocations = locations && locations.map(location => {
         return (
             <div>
+                <Link to={`/profile/business/${location.id}`}>
+                    
                 <div key={location.id} className="home--business-item">
                     <img src={`${backendUrl}${location.primary_image}`} alt="" className="home--business-img"/>
                     <div className="home--business-item-details">
@@ -20,6 +22,7 @@ const HomeBusiness = () => {
                         <p className="address"><FontAwesomeIcon icon={faLocationDot} className="btn-icons"/>{location.address}</p>
                     </div>
                 </div>
+                </Link>
             </div>
             
         )
@@ -42,7 +45,7 @@ const HomeBusiness = () => {
             <p className="heading">Owned Locations</p>
             <div className="home--business-container">
 
-                {locations.length > 1 ? 
+                {locations.length > 0 ? 
                 displayLocations
                 :
                 <div>
