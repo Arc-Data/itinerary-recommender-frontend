@@ -3,7 +3,7 @@ import useBusinessManager from "../hooks/useBusinessManager"
 import AuthContext from "../context/AuthContext"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBuilding, faLocationDot } from '@fortawesome/free-solid-svg-icons'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const HomeBusiness = () => {
     const { authTokens } = useContext(AuthContext)
@@ -41,7 +41,14 @@ const HomeBusiness = () => {
         <div>
             <p className="heading">Owned Locations</p>
             <div className="home--business-container">
-                {displayLocations}
+
+                {locations.length > 1 ? 
+                displayLocations
+                :
+                <div>
+                    <Link to='/profile/business/add'>Do you own a location in Cebu and want to promote your location? </Link>
+                </div>
+                }
             </div>
         </div>
     )
