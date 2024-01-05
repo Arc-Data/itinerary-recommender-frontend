@@ -13,11 +13,29 @@ const HomeEvent = () => {
 
     const displayEvents = events && events.map(event => {
         return (
-            <div key={event.id}>
-                {dayjs(event.start_date).format("dddd, MMM D")} - {event.name}
+            <div key={event.id} className="home--event-item">
+                <div className="date-container">
+                    <div className="date start">
+                        <span className="month start">{dayjs(event.start_date).format("MMMM")}</span>
+                        <span className="day">{dayjs(event.start_date).format("D")}</span>
+                        <span className="day-name">{dayjs(event.start_date).format("ddd")}</span>
+                    </div>
+                    <div className="date end">
+                        <span className="month end">{dayjs(event.end_date).format("MMMM")}</span>
+                        <span className="day">{dayjs(event.end_date).format("D")}</span>
+                        <span className="day-name">{dayjs(event.end_date).format("ddd")}</span>
+                    </div>
+                </div>
+                
+                <div className="details">
+                    <p className="name">{event.name}</p>
+                    <p className="description">{event.description}</p>
+                </div>
             </div>
         )
     })
+
+    console.log(events)
 
     if (loading) {
         return (

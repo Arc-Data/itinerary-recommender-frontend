@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react"
 import useBusinessManager from "../hooks/useBusinessManager"
 import AuthContext from "../context/AuthContext"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBuilding, faLocationDot } from '@fortawesome/free-solid-svg-icons'
+import { faBuilding, faLocationDot, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 
 const HomeBusiness = () => {
@@ -14,7 +14,6 @@ const HomeBusiness = () => {
         return (
             <div>
                 <Link to={`/profile/business/${location.id}`}>
-                    
                 <div key={location.id} className="home--business-item">
                     <img src={`${backendUrl}${location.primary_image}`} alt="" className="home--business-img"/>
                     <div className="home--business-item-details">
@@ -44,12 +43,16 @@ const HomeBusiness = () => {
         <div>
             <p className="heading">Owned Locations</p>
             <div className="home--business-container">
-
                 {locations.length > 0 ? 
                 displayLocations
                 :
-                <div>
-                    <Link to='/profile/business/add'>Do you own a location in Cebu and want to promote your location? </Link>
+                <div className="home--business-item banner">
+                    <p className="heading4 mb15px">Want to promote your business in Cebu? Click the button below.</p>
+                    <Link to='/profile/business/add'>
+                        <div>
+                            <button className="add--business no-margin "><FontAwesomeIcon icon={faPlus} className="btn-icons"/>Add business</button>
+                        </div>
+                    </Link>
                 </div>
                 }
             </div>
