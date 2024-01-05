@@ -8,10 +8,10 @@ const Forgot = () => {
     return (
         <div>
             <h2 className='heading'>Forgot Password</h2>
-            <p>{status}</p>
             <form className='modal-login-sign-form' onSubmit={forgotPassword}>
-                <label>Email:</label>
+                <label>Email</label>
                 <input type="email" name="email" placeholder="Enter your email" />
+                <p className="login-sign-link forgot font-weight-400">{status}</p>
 
                 <button className='button-login-sign'>Send Code</button>
                 <div className="login-sign-link">
