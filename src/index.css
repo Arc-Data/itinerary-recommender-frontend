@@ -3864,6 +3864,9 @@ thead {
     background-color: #F9F9F9;
     border: 2px solid #E7E7E7;
 }
+.home--business-item > * {
+    color: #212529;
+}
 .home--business-img {
     height: 150px;
     width: 100%;
@@ -3882,4 +3885,67 @@ thead {
 }
 .home--business-item-details > .address {
     font-size: 18px;
+}
+.home--business-item.banner {
+    padding: 20px;
+}
+.events-container {
+    margin-top: 20px;
+}
+.home--event-item {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 15px;
+}
+.date-container {
+    display: flex;
+    gap: 10px;
+}
+.date-container > .date {
+    width: 120px;
+    text-align: center;
+    height: 80px;
+    position: relative; 
+    border-radius: 5px;
+    background-color: #f0f0f0;
+}
+.date-container > .date .month {
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    color: #FFF;
+}
+.date-container > .date.start {
+    border: 2px solid #38A3A5;
+}
+.date-container > .date.end {
+    border: 2px solid #E86B6B;
+}
+.date-container > .date.start > .month.start {
+    background-color: #38A3A5;
+}
+.date-container > .date.end > .month.end {
+    background-color: #E86B6B;
+}
+.date-container > .date .day {
+    font-size: 24px;
+    display: block;
+    margin-top: 30px; 
+    font-weight: 500;
+}
+.date-container > .date .day-name {
+    color: #7B7B7B;
+}
+.home--event-item > .details .name {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.home--event-item > .details .description {
+    font-size: 15px;
+    color: #7B7B7B;
+    line-height: 18px;
 }
