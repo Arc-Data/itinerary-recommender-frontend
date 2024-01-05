@@ -212,7 +212,7 @@ export const AuthProvider = ({children}) => {
                 setStatus(<span>That email account doesn't exist. Enter a different account or <Link to="/signup"> create a new one </Link></span>)
                 return
             } else if (response.status == 200) {
-                setStatus(`Instructions have been sent to your email `)
+                setStatus(`Instructions have been sent to your email! `)
             }
         }
         catch (error) {

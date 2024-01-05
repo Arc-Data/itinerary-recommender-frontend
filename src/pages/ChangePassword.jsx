@@ -1,5 +1,7 @@
 import { useContext, useState } from "react"
 import AuthContext from "../context/AuthContext"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExclamationTriangle, faLock } from '@fortawesome/free-solid-svg-icons';
 
 const ChangePassword = () => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
@@ -64,9 +66,13 @@ const ChangePassword = () => {
     }
 
     return (
-        <div>
-            <p>Change Password</p>
-            <form onSubmit={handleSubmit}>
+        <div className="register--success">
+            <p className="successfully">
+                <FontAwesomeIcon icon={faLock} className="warning-icon mr5px" />
+                Create new Password
+            </p>
+            <form className="verify-text textAlign" onSubmit={handleSubmit}>
+            <p className="mb15px textAlignC"> Your new password must be different from previous used passwords.</p>
                 <div className="form-input">
                     <label htmlFor="oldPassword">Old Password</label>
                     <input
@@ -76,6 +82,7 @@ const ChangePassword = () => {
                         id="oldPassword"
                         value={formData.oldPassword}
                         onChange={handleChange}
+                        className="business-input"
                     />
                 </div>
 
@@ -88,6 +95,7 @@ const ChangePassword = () => {
                         id="newPassword"
                         value={formData.newPassword}
                         onChange={handleChange}
+                        className={`business-input ${formData.newPassword !== formData.confirm && 'error-border'}`}
                     />
                 </div>
 
@@ -100,10 +108,11 @@ const ChangePassword = () => {
                         id="confirm"
                         value={formData.confirm}
                         onChange={handleChange}
+                        className={`business-input ${formData.newPassword !== formData.confirm && 'error-border'}`}
                     />
                 </div>
 
-                <button type="submit">Change Password</button>
+                <button className="bg-308B8C " type="submit">Reset Password</button>
             </form>
         </div>
     )

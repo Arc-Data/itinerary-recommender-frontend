@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react"
 import AuthContext from "../context/AuthContext"
 import { useParams } from "react-router-dom"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExclamationTriangle, faLock } from '@fortawesome/free-solid-svg-icons';
 
 const Reset = () => {
     const [ loading, setLoading ] = useState(true)
@@ -39,7 +41,15 @@ const Reset = () => {
 
     if (status === 'Invalid') {
         return (
-            <div>Invalid Reset Link</div>
+            <div className="register--success">
+                
+                <div 
+                    className="successfully heading3">
+                    <FontAwesomeIcon icon={faExclamationTriangle} className="warning-icon mr5px" />
+                        Invalid Reset Link
+                </div>
+                <div className="verify-text">Check your email and click the latest link.</div>
+            </div>
         )
     }
 
@@ -73,25 +83,37 @@ const Reset = () => {
     }
 
     return (
-        <div>
-            <form action="POST" onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="newPassword">New Password</label>
-                    <input 
-                        type="password" 
-                        id="newPassword" 
-                        name="newPassword"
-                        onChange={handleInputChange}/>
-                </div>
-                <div>
-                    <label htmlFor="confirmPassword">Confirm Password</label>
-                    <input 
-                        type="password" 
-                        id="confirmPassword" 
-                        name="confirmPassword"
-                        onChange={handleInputChange}/>
-                </div>
-                <button>Submit</button>
+        <div className="register--success textAlign">
+            <div className="successfully heading3 "> 
+                <FontAwesomeIcon icon={faLock} className="warning-icon mr5px" />
+                Change Password
+            </div>
+            <form className="verify-text" action="POST" onSubmit={handleSubmit}>
+            <p className="mb15px"> Your new password must be different from previous used passwords.</p>
+            <div className="form-input">
+                <label htmlFor="newPassword">New Password</label>
+                <input 
+                    type="password" 
+                    placeholder="Enter New Password"
+                    id="newPassword" 
+                    name="newPassword"
+                    onChange={handleInputChange}
+                    className={`business-input ${formData.newPassword !== formData.confirmPassword && 'error-border'}`}
+                />
+            </div>
+            
+            <div className="form-input">
+                <label htmlFor="confirmPassword">Confirm Password</label>
+                <input 
+                    type="password" 
+                    id="confirmPassword" 
+                    placeholder="Confirm Password"
+                    name="confirmPassword"
+                    onChange={handleInputChange}
+                    className={`business-input ${formData.newPassword !== formData.confirmPassword && 'error-border'}`}
+                />
+            </div>
+                <button className="bg-308B8C">Submit</button>
             </form>
         </div>
     )
