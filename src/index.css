@@ -163,21 +163,12 @@ a:-webkit-any-link {
 .mb15px {
     margin-bottom: 15px;
 }
-
-.mr10px{
-   margin-right: 10px;
-}
-
 .mr5px{
     margin-right: 5px;
  }
 .ml5px {
     margin-left: 5px;
 }
-.mr10px{
-   margin-right: 10px;
-}
-
 .mt-20px {
     margin-top: 20px;
 }
@@ -189,7 +180,6 @@ a:-webkit-any-link {
 .mt-3px {
     margin-top: 3px;
 }
-
 
 .mr10px{
    margin-right: 10px;
@@ -481,12 +471,10 @@ a:-webkit-any-link {
    padding: 60px 100px;
 }
 
-/* .login-sign-link {
+.login-sign-link {
     margin-top: 10px;
-    text-align: left;
-    font-size: 13px;
-    color: gray;
-} */
+    text-align: center;
+}
 
 .login-sign-link a {
     color: #184E77;
@@ -532,6 +520,31 @@ a:-webkit-any-link {
 
 .forgot-password a {
     color: #184E77;
+}
+
+
+.forgot {
+    text-align: center;
+    color: #ff2c2c;
+}
+
+.register--success{
+    width: 70%;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.successfully {
+    background-color: #308B8C;
+    padding: 25px;
+    color: whitesmoke;
+}
+
+.verify-text {
+    border: 3px solid #308B8C;;
+    height: 100px;
+    padding: 30px;
 }
 
 /*MODAL SIGN*/

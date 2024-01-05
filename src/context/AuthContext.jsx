@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import jwt_decode from "jwt-decode"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const AuthContext = createContext()
 
@@ -209,7 +209,7 @@ export const AuthProvider = ({children}) => {
             })
 
             if (response.status == 404) {
-                setStatus(`Email ${email} does not exist`)
+                setStatus(<span>That email account doesn't exist. Enter a different account or <Link to="/signup"> create a new one </Link></span>)
                 return
             } else if (response.status == 200) {
                 setStatus(`Instructions have been sent to your email `)
