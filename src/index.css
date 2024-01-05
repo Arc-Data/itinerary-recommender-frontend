@@ -3908,6 +3908,7 @@ thead {
     position: relative; 
     border-radius: 5px;
     background-color: #f0f0f0;
+    filter: drop-shadow(4px 4px 0px #D9D9D9);
 }
 .date-container > .date .month {
     position: absolute;

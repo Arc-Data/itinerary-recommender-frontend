@@ -16,12 +16,12 @@ const HomeEvent = () => {
             <div key={event.id} className="home--event-item">
                 <div className="date-container">
                     <div className="date start">
-                        <span className="month start">{dayjs(event.start_date).format("MMMM")}</span>
+                        <span className="month start">{dayjs(event.start_date).format("MMMM").toUpperCase()}</span>
                         <span className="day">{dayjs(event.start_date).format("D")}</span>
                         <span className="day-name">{dayjs(event.start_date).format("ddd")}</span>
                     </div>
                     <div className="date end">
-                        <span className="month end">{dayjs(event.end_date).format("MMMM")}</span>
+                        <span className="month end">{dayjs(event.end_date).format("MMMM").toUpperCase()}</span>
                         <span className="day">{dayjs(event.end_date).format("D")}</span>
                         <span className="day-name">{dayjs(event.end_date).format("ddd")}</span>
                     </div>
