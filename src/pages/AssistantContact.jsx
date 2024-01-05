@@ -13,6 +13,8 @@ function AssistantContact() {
 
   const [flippedCard, setFlippedCard] = useState(null);
   const [selectedCarType, setSelectedCarType] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const driversPerPage = 4;
 
   useEffect(() => {
     getDrivers();
@@ -24,6 +26,11 @@ function AssistantContact() {
 
   const handleCarTypeChange = (event) => {
     setSelectedCarType(event.target.value);
+    setCurrentPage(1); // Reset page when car type changes
+  };
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
   };
 
   if (loading) {
@@ -38,6 +45,10 @@ function AssistantContact() {
     ? drivers.filter((driver) => driver.car_type.toString() === selectedCarType)
     : drivers;
 
+  const indexOfLastDriver = currentPage * driversPerPage;
+  const indexOfFirstDriver = indexOfLastDriver - driversPerPage;
+  const currentDrivers = filteredDrivers.slice(indexOfFirstDriver, indexOfLastDriver);
+
   const mapCarType = (type) => {
     const carTypeMap = {
       1: "Sedan",
@@ -47,12 +58,12 @@ function AssistantContact() {
   
     return carTypeMap[type] || "Unknown";
   };
-
   return (
     <div>
       <UserNav />
       <div className="driver--containers">
         <div className="driver--text flex ">
+          <div className="heading3 mt-20px">Drivers ({filteredDrivers.length})</div>
           <select className="select--driver" onChange={handleCarTypeChange} value={selectedCarType}>
             <option value="">Car Type (All)</option>
             <option value="1">Sedan (4 Seater)</option>
@@ -61,7 +72,7 @@ function AssistantContact() {
           </select>
         </div>
         <div className='hero--cards'>
-          {filteredDrivers.map((assistant) => (
+          {currentDrivers.map((assistant) => (
             <div
               key={assistant.id}
               className={`card--destination ${flippedCard === assistant.id ? 'flipped' : ''}`}
@@ -105,7 +116,20 @@ function AssistantContact() {
               )}
             </div>
           ))}
+           <div className="paginationDriver">
+            {currentPage > 1 && (
+              <button onClick={() => handlePageChange(currentPage - 1)} className="arrow-button left">
+                &lt; {/* Left arrow */}
+              </button>
+            )}
+            {currentPage < Math.ceil(filteredDrivers.length / driversPerPage) && (
+              <button onClick={() => handlePageChange(currentPage + 1)} className="arrow-button right">
+                &gt; {/* Right arrow */}
+              </button>
+            )}
+          </div>
         </div>
+       
       </div>
     </div>
   );

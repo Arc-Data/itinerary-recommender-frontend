@@ -10,7 +10,7 @@ const EditDriver = () => {
 
     const { authTokens } = useContext(AuthContext);
     const { driver, error, loading, getDriver, deleteDriver, handleChangeInput, editDriverDetails } = useDriverManager(authTokens);
-    const [driverImage, setDriverImage] = useState(); // Rename to driverImage
+    const [driverImage, setDriverImage] = useState();
     const [driverLoaded, setDriverLoaded] = useState(false);
     const { id } = useParams();
     const navigate = useNavigate();
@@ -21,9 +21,10 @@ const EditDriver = () => {
     };
 
     const handleEdit = async () => {
-        editDriverDetails(id);
+        await editDriverDetails(id);
+        alert("Successfully Added");
         navigate('/admin/drivers');
-    };
+      };
 
     useEffect(() => {
         setDriverLoaded(false);
@@ -36,11 +37,18 @@ const EditDriver = () => {
     }, [id]);
 
     useEffect(() => {
-        if (driverLoaded && driver && driver.images && driver.images.length > 0) {
-            const imageString = `${backendUrl}${driver.images[0]}`;
-            setDriverImage(imageString);
+        if (driverLoaded && driver && driver.image) {
+          const imageString = `${backendUrl}${driver.image}`;
+          setDriverImage(imageString);
         }
-    }, [driverLoaded, driver]);
+      }, [driverLoaded, driver]);
+
+      const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        const imageUrl = URL.createObjectURL(file);
+        setDriverImage(imageUrl);
+        setImage(file); 
+    };
 
     if (!driverLoaded || !driver) {
         return (
@@ -70,161 +78,145 @@ const EditDriver = () => {
             <h1 className="edit--location">Edit Driver</h1>
                 <form className="admin--container">
                     <div className="input--form">
-                        {/* <select
-                            value={driver.location_type}
-                            onChange={handleChangeInput}
-                            name="type"
-                            className="styled-input" 
-                        >
-                            <option value="">-- Location Type --</option>
-                            <option value="1">Spot</option>
-                            <option value="2">Food</option>
-                            <option value="3">Accommodation</option>
-                        </select> */}
+                        <h1 className='mt-20px'>Personal Information </h1>
+                            <div className="input admin--container">
+                                <label htmlFor="first_name">First Name</label>
+                                <input
+                                    type="text"
+                                    name="first_name"
+                                    value={driver.first_name}
+                                    onChange={handleChangeInput}
+                                    className="styled-input" 
+                                />
+                            </div>
+                            <div className="input admin--container">
+                                <label htmlFor="last_name">First Name</label>
+                                <input
+                                    type="text"
+                                    name="last_name"
+                                    value={driver.last_name}
+                                    onChange={handleChangeInput}
+                                    className="styled-input" 
+                                />
+                            </div>
+                            <div className="input admin--container">
+                                <label htmlFor="contact">Phone Number</label>
+                                <input
+                                    type="text"
+                                    name="contact"
+                                    value={driver.contact}
+                                    onChange={handleChangeInput}
+                                    className="styled-input" 
+                                />
+                            </div>
+                            <div className="input admin--container">
+                                <label htmlFor="email">Email</label>
+                                <input
+                                    type="text"
+                                    name="email"
+                                    value={driver.email}
+                                    onChange={handleChangeInput}
+                                    className="styled-input" 
+                                />
+                            </div>
+                            <div className="input admin--container">
+                                <label htmlFor="facebook">Facebook</label>
+                                <input
+                                    type="text"
+                                    name="facebook"
+                                    value={driver.facebook}
+                                    onChange={handleChangeInput}
+                                    className="styled-input" 
+                                />
+                            </div> 
+                            <div className="input admin--container">
+                                <label htmlFor="additional_information">Additional Information</label>
+                                <input
+                                    type="text"
+                                    name="additional_information"
+                                    value={driver.additional_information}
+                                    onChange={handleChangeInput}
+                                    className="styled-input"
+                                />
+                            </div>
+
+                            <h1 className='mt-20px'>Car Information </h1>
 
                         <div className="input admin--container">
-                            <label htmlFor="name">First Name</label>
+                            <select
+                                value={driver.car_type}
+                                onChange={handleChangeInput}
+                                name="car_type"
+                                className="styled-input" 
+                            >
+                                <option value="">-- Car Type --</option>
+                                <option value="1">Sedan</option>
+                                <option value="2">Van</option>
+                                <option value="3">SUV</option>
+                            </select>
+                        </div>
+                        <div className="input admin--container">
+                            <label htmlFor="car">Car</label>
                             <input
                                 type="text"
-                                name="name"
-                                value={driver.first_name}
                                 onChange={handleChangeInput}
+                                name="car"
+                                value={driver.car}
                                 className="styled-input" 
                             />
                         </div>
-                        {/* <div className="input admin--container">
-                            <label htmlFor="address">Address</label>
+                        <div className="input admin--container">
+                            <label htmlFor="max_capacity">Max capacity</label>
                             <input
-                                type="text"
-                                name="address"
+                                type="number"
                                 onChange={handleChangeInput}
-                                value={location?.address}
+                                name="max_capacity"
+                                value={driver.max_capacity}
                                 className="styled-input" 
                             />
                         </div>
-                        {location.location_type === "1" &&
                         <div className="input admin--container">
-                                <label htmlFor="tags">Tags</label>
-                                <input
-                                    type="text"
-                                    onChange={handleChangeInput}                                
-                                    name="tags"
-                                    value={location?.details.tags}
-                                    className="styled-input" 
-                                />
-                        </div>
-                        }
-                        <div className="admin--container">
-                            <div className="input admin--container">
-                                <label htmlFor="latitude">Latitude</label>
-                                <input
-                                    type="number"
-                                    step="0.000001"
-                                    onChange={handleChangeInput}
-                                    name="latitude"
-                                    value={location?.latitude}
-                                    className="styled-input" 
-                                />
-                            </div>
-                            <div className="input admin--container">
-                                <label htmlFor="postalCode">Longitude</label>
-                                <input
-                                    number="text"
-                                    step="0.000001"
-                                    onChange={handleChangeInput}                                
-                                    name="longitude"
-                                    value={location?.longitude}
-                                    className="styled-input" 
-                                />
-                            </div>
-                        </div>
-                        {location.location_type === "1" &&
-                        <div className="admin--container">
-                            <div className="input admin--container">
-                                <label htmlFor="min_fee">Minimum Fee</label>
-                                <input
-                                    type="text"
-                                    name="min_fee"
-                                    onChange={handleChangeInput}
-                                    value={location?.details.min_fee}
-                                    className="styled-input" 
-                                />
-                            </div>
-                            <div className="input admin--container">
-                                <label htmlFor="max_fee">Maximum Fee</label>
-                                <input
-                                    number="text"
-                                    name="max_fee"
-                                    onChange={handleChangeInput}
-                                    value={location?.details.max_fee}
-                                    className="styled-input" 
-                                />
-                            </div>
-                        </div>
-                        }
-                        <div className="admin--container">
-                            <div className="input admin--container">
-                                <label htmlFor="opening">Opening Time</label>
-                                <input
-                                    type="text"
-                                    name="opening_time"
-                                    onChange={handleChangeInput}
-                                    value={location?.details.opening_time}
-                                    className="styled-input" 
-                                />
-                            </div>
-                            <div className="input admin--container">
-                                <label htmlFor="closing">Closing Time</label>
-                                <input
-                                    type="text"
-                                    name="closing_time"
-                                    onChange={handleChangeInput}
-                                    value={location?.details.closing_time}
-                                    className="styled-input" 
-                                />
-                            </div>
-                        </div>
-                        <div className="input admin--container">
-                            <label htmlFor="description">Description</label>
-                            <textarea
-                                name="description"
+                            <label htmlFor="plate_number">Plate Number</label>
+                            <input
+                                type="text"
                                 onChange={handleChangeInput}
-                                value={location?.description}
+                                name="plate_number"
+                                value={driver.plate_number}
+                                className="styled-input" 
                             />
-                        </div> */}
+                        </div>
                     </div>
-                    {location.images ?
-                    <div>
-                        <img src={image} height={400}/>
-                    </div>
-                    :
-                    <div className="image--border center admin--container">
-                        <img src={image} />
-                        {/* <img className="edit--images" src={`${backendUrl}${location?.images}`}  /> */}
-                        <label htmlFor="imgFile"> <a className='choose--file'>Choose file</a> to upload</label>
-                        <input
-                            type="file"
-                            id="imgFile"
-                            name="filename"
-                            accept="image/*"
-                            style={{ display: 'none' }} // Hide the default file input
-                        />
-                    </div>
-                    }
+                  
+                <div className="image--border center admin--container">
+                    <img className="edit--images1" src={driverImage || `${backendUrl}${driver.image}`} />
+                    <label htmlFor="imgFile">
+                        {" "}
+                        <a className="choose--file">Choose file</a> to upload
+                    </label>
+                    <input
+                        type="file"
+                        id="imgFile"
+                        name="filename"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        style={{ display: "none" }} 
+                    />
+                </div>
+                
                 </form>
                 <div className="admin--container">
                     <div className="input admin--container">
                         <button
                             className="submitEdit-btn"
-                            onClick={handleEdit}>Edit {/* FUNCTIONALITY */}
+                            onClick={handleEdit}>Edit 
                         </button>
                     </div>
-                    <div className="input admin--container">
+                    {/* <div className="input admin--container">
                         <button
                             className="delete-btn"
                             onClick={handleDelete}>Delete
                         </button>
-                    </div>
+                    </div> */}
                 </div>
         </div>
     )

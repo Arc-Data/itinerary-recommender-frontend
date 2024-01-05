@@ -35,7 +35,23 @@ const useDriverManager = (authTokens) => {
 
 }
 
-  const getDrivers = async (page, query = "", type = "") => {
+  const editDriverDetails = async (id) => {
+    try {
+      const response = await fetch(`${backendUrl}/api/driver/${id}/edit/`, {
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${access}`
+            },
+            "body": JSON.stringify(driver)
+        })
+    }
+    catch (error) {
+        console.log("An error occured while editing driver details")
+    }
+  }
+
+  const getDrivers = async () => {
     setLoading(true);
     try {
       const response = await fetch(`${backendUrl}/api/driver/`, {
@@ -78,6 +94,15 @@ const useDriverManager = (authTokens) => {
     }
   };
 
+  const handleChangeInput = (e) => {
+    const { name, value } = e.target
+    setDriver(prev => ({
+        ...prev,
+        [name]: value,
+    }))
+  }
+  
+
   return {
     driver,
     drivers,
@@ -87,6 +112,8 @@ const useDriverManager = (authTokens) => {
     getDrivers,
     getDriver,
     createDriver,
+    handleChangeInput,
+    editDriverDetails,
   };
 };
 

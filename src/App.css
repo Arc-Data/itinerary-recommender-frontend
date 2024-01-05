@@ -173,6 +173,7 @@ select {
 .image--border {
   border: 3px dashed #E7E7E7;
   border-radius: 20px;
+  height: 50%;
 }
 .btn.done {
   margin-top: 20px;
