@@ -9,8 +9,6 @@ const LocationItem = ({ location }) => {
     const string = `${backendUrl}${location.details.primary_image.replace(/'/g, "\\'")}` 
     const [openEvents, setOpenEvents] = useState(false)
 
-    console.log(location)
-
     const toggleEvents = () => {
         setOpenEvents(prev => !prev)
     }

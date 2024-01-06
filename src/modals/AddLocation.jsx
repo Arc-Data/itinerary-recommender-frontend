@@ -72,7 +72,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
             setRecentlyAddedLocations(arr3)
             increaseEstimatedCost(item.details.min_cost, item.details.max_cost)
             addMarker(item.details.latitude, item.details.longitude, day.color, item.details.name, item.details.event)
-            
+            setSearchString("")
         }
         catch(error) {
             console.log("An error occured : ", error)
