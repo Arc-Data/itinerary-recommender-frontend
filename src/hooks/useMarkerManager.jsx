@@ -40,21 +40,16 @@ const useMarkerManager = () => {
         setMarkers(mapMarkers)
 	}
 
-    const getDayMarkersData = (day) => {
+    const getDayMarkersData = (locations) => {
         const mapMarkers = []
-        const items = day.itinerary_items
-
-        if(items) {
-            console.log(items)
-            items.forEach((i, idx) => {
-                mapMarkers.push({
-                    lng: i.details.longitude,
-                    lat: i.details.latitude,
-                    color: i.color,
-                    order: idx + 1,
-                })
+        locations.forEach((i, idx) => {
+            mapMarkers.push({
+                lng: i.details.longitude,
+                lat: i.details.latitude,
+                color: i.color,
+                order: idx + 1,
             })
-        }
+        })
 
         setMarkers(mapMarkers)
     }

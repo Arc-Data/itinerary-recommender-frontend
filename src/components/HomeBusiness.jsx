@@ -12,7 +12,7 @@ const HomeBusiness = () => {
 
     const displayLocations = locations && locations.map(location => {
         return (
-            <div>
+            <div key={location.id}>
                 <Link to={`/profile/business/${location.id}`}>
                 <div key={location.id} className="home--business-item">
                     <img src={`${backendUrl}${location.primary_image}`} alt="" className="home--business-img"/>

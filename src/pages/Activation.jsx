@@ -12,11 +12,15 @@ const Activation = () => {
     }, [uidb64, token])
     
     return (
-        <div>
-            {status && <p>{status}</p>}
-            <Link to="/login">
-                <button>Login</button>
-            </Link>
+        <div className="register--success">
+            <div className="successfully heading3">{status && <p>{status}</p>}</div>
+            <div className="verify-text">
+                You may now proceed to log in to your account. Enjoy!
+                <Link to="/login">
+                    <button className="button-login-sign bg-308B8C">Login</button>
+                </Link>
+            </div>
+           
         </div>
     )
 }
