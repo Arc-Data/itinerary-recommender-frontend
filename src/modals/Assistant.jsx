@@ -72,7 +72,7 @@ const Assistant = ({onClose, day, updateDays, getLeftOverBudget}) => {
                         <p className='assistant-option'>Option C</p>
                     </div>
                         {loading ? 
-                        <div> Loading... </div>
+                        <div className="assistant--loading"> Loading... </div>
                         :
                         <div className="assistant--content-grid">
                             {displayRecommendations}

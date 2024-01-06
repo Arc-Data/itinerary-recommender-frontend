@@ -1976,6 +1976,14 @@ input[type="text"] {
     cursor: pointer;
 }
 
+.assistant--loading {
+    display: grid;
+    place-items: center;
+    padding: 80px;
+    border: 2px solid #e7e7e7;
+    margin: 20px;
+}
+
 .plan-item {
     display: grid;
     grid-template-columns: 1fr 140px;
