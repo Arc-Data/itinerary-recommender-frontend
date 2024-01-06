@@ -380,7 +380,7 @@ import { useLocation, Link } from 'react-router-dom';
 				</div>
 				<div className='User--preference-container'>
 					<div className='dashboard--total-container'>
-						<diV className="dropdown--list-admin d-flexCenter">
+						<div className="dropdown--list-admin d-flexCenter">
 						<p className="font20 font-weight-600">Top {selectedTopList === 'spots' ? 'Spots' : selectedTopList === 'accommodation' ? 'Accommodation' : selectedTopList === 'foodPlaces' ? 'Food Places' : 'Visited'}</p>
 							<div className="top-list-dropdown-admin">
 								<select id="topList" value={selectedTopList} onChange={handleTopListChange}>
@@ -390,7 +390,7 @@ import { useLocation, Link } from 'react-router-dom';
 									<option value="locationItinerary">Top Visited </option>
 								</select>
 							</div>
-						</diV>
+						</div>
 						<table className="top-spot-table">
 							<thead>{tableHeaders()}
 							</thead>

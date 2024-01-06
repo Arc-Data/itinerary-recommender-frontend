@@ -11,133 +11,148 @@ import {
     FaEdit,
 	} from "react-icons/fa";
 
-function Drivers() {
-    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
-    const [currentPage, setCurrentPage] = useState(1);
-    const [searchParams, setSearchParams] = useSearchParams()
-    const type = searchParams.get('type')
-
-    const {authTokens} = useContext(AuthContext)
-    const { driver, error, loading, getDrivers } = useDriverManager(authTokens)
-    const locationElements = driver.map(driver => (
-        <tr key={driver.id}>
-            <td>{driver.id}</td>
-            <td>{driver.first_name},{driver.last_name} </td>
-            <td>{driver.email}</td>
-            <td>{driver.contact}</td>
-            <td>{driver.facebook}</td>
-            <td>{driver.car}</td>
-            <td className="admin--table-action">
-                <Link to={`/admin/location/${location.id}`}>
-                    <button className="edit"><FaEdit/></button> 
-                </Link>
-            </td>
-        </tr>
-    ))
+    function Drivers() {
+        const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL;
+        const [currentPage, setCurrentPage] = useState(1);
+        const [searchParams, setSearchParams] = useSearchParams();
+        const [searchTerm, setSearchTerm] = useState("");
+        const type = searchParams.get('type');
     
-    useEffect(() => {
-        const fetchResults = async () => {
-            await getDrivers(currentPage, "", type)
-        }
-
-        fetchResults()
-    }, [currentPage, type])
-
-
-    const totalPages = Math.ceil(driver?.count / 10) || 1;
+        const { authTokens } = useContext(AuthContext);
+        const { drivers, error, loading, getDrivers } = useDriverManager(authTokens);
     
-    const handlePageChange = (newPage) => {
-        if (newPage >= 1 && newPage <= totalPages) {
-            setCurrentPage(newPage);
-        }
-    };
-
-    const handleSearchChange = (e) => {
-        if (e.key === 'Enter') {
-            console.log(type)
-            const query = e.target.value
-            setCurrentPage(1)
-            getDrivers(1, query, type)
-        }
-    }
+        const handleSearchChange = (event) => {
+            const term = event.target.value;
+            setSearchTerm(term);
+        };
     
-    const generatePageButtons = () => {
-        const buttons = [];
+        const filteredDrivers = drivers.filter((driver) =>
+            driver.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            driver.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            driver.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            driver.contact.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            driver.facebook.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            driver.car.toLowerCase().includes(searchTerm.toLowerCase())
+        );
     
-        if (driver?.previous) {
-            buttons.push(
-                <button 
-                    key="first" 
-                    id="pagination--button1"
-					className={`plan--btn ${currentPage === 1 ? "" : ""}`}
-                    onClick={() => handlePageChange(1)} disabled={currentPage === 1}>
-                    <FontAwesomeIcon icon={faAnglesLeft} />
-                </button>
-            );
+        const startIndex = (currentPage - 1) * 10;
+        const endIndex = startIndex + 10;
+        const paginatedDrivers = filteredDrivers.slice(startIndex, endIndex);
     
-            buttons.push(
-                <button 
-                    key="prev" 
-                    id="pagination--button1"
-					className={`plan--btn ${currentPage === 1 ? "" : ""}`}
-                    disabled={currentPage === 1}
-                    onClick={() => handlePageChange(currentPage - 1)}>
-                    <FontAwesomeIcon icon={faChevronLeft} />
-                </button>
-            );
-        }
+        const locationElements = paginatedDrivers.map((driver) => (
+            <tr key={driver.id}>
+                <td>{driver.id}</td>
+                <td>{driver.first_name} {driver.last_name}</td>
+                <td>{driver.email}</td>
+                <td>{driver.contact}</td>
+                <td>{driver.facebook}</td>
+                <td>{driver.car}</td>
+                <td className="admin--table-action">
+                    <Link to={`/admin/driver/${driver.id}/edit`}>
+                        <button className="edit"><FaEdit /></button>
+                    </Link>
+                </td>
+            </tr>
+        ));
     
-        for (let page = Math.max(currentPage - 2, 1); page <= Math.min(currentPage + 2, totalPages); page++) {
-            buttons.push(
-                <button 
-                    key={page} 
-                    id='pagination--button'
-                    className={`plan--btn ${
-                        page === currentPage ? "btn-primary" : "btn-secondary"
+        useEffect(() => {
+            const fetchResults = async () => {
+                await getDrivers(currentPage, "", type);
+            };
+    
+            fetchResults();
+        }, [currentPage, type]);
+    
+        const totalPages = Math.ceil(filteredDrivers.length / 10) || 1;
+    
+        const handlePageChange = (newPage) => {
+            if (newPage >= 1 && newPage <= totalPages) {
+                setCurrentPage(newPage);
+            }
+        };
+    
+        const generatePageButtons = () => {
+            const buttons = [];
+    
+            if (drivers?.previous) {
+                buttons.push(
+                    <button
+                        key="first"
+                        id="pagination--button1"
+                        className={`plan--btn ${currentPage === 1 ? "" : ""}`}
+                        onClick={() => handlePageChange(1)}
+                        disabled={currentPage === 1}
+                    >
+                        <FontAwesomeIcon icon={faAnglesLeft} />
+                    </button>
+                );
+    
+                buttons.push(
+                    <button
+                        key="prev"
+                        id="pagination--button1"
+                        className={`plan--btn ${currentPage === 1 ? "" : ""}`}
+                        disabled={currentPage === 1}
+                        onClick={() => handlePageChange(currentPage - 1)}
+                    >
+                        <FontAwesomeIcon icon={faChevronLeft} />
+                    </button>
+                );
+            }
+    
+            for (let page = Math.max(currentPage - 2, 1); page <= Math.min(currentPage + 2, totalPages); page++) {
+                buttons.push(
+                    <button
+                        key={page}
+                        id='pagination--button'
+                        className={`plan--btn ${
+                            page === currentPage ? "btn-primary" : "btn-secondary"
                         }`}
-                    onClick={() => handlePageChange(page)} disabled={page === currentPage}>
-                    {page}
-                </button>
-            );
+                        onClick={() => handlePageChange(page)}
+                        disabled={page === currentPage}
+                    >
+                        {page}
+                    </button>
+                );
+            }
+    
+            if (drivers?.next) {
+                buttons.push(
+                    <button
+                        key="next"
+                        id="pagination--button1"
+                        className={`plan--btn ${currentPage === 1 ? "" : ""}`}
+                        disabled={currentPage === totalPages}
+                        onClick={() => handlePageChange(currentPage + 1)}
+                    >
+                        <FontAwesomeIcon icon={faChevronRight} />
+                    </button>
+                );
+    
+                buttons.push(
+                    <button
+                        key="last"
+                        id="pagination--button1"
+                        className={`plan--btn ${currentPage === 1 ? "" : ""}`}
+                        onClick={() => handlePageChange(totalPages)}
+                        disabled={currentPage === totalPages}
+                    >
+                        <FontAwesomeIcon icon={faAnglesRight} />
+                    </button>
+                );
+            }
+    
+            return buttons;
+        };
+    
+        if (loading) {
+            return <div>Loading</div>;
         }
     
-        if (driver?.next) {
-            buttons.push(
-                <button 
-                    key="next" 
-                    id="pagination--button1"
-					className={`plan--btn ${currentPage === 1 ? "" : ""}`}
-                    disabled={currentPage === totalPages}
-                    onClick={() => handlePageChange(currentPage + 1)}>
-                    <FontAwesomeIcon icon={faChevronRight} />
-                </button>
-            );
-    
-            buttons.push(
-                <button 
-                    key="last" 
-                    id="pagination--button1"
-					className={`plan--btn ${currentPage === 1 ? "" : ""}`}
-                    onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages}>
-                    <FontAwesomeIcon icon={faAnglesRight} />
-                </button>
-            );
+        if (error) {
+            return <div>Error</div>;
         }
     
-        return buttons;
-    };
-
-    if (loading) {
-        return (
-            <div>Loading</div>
-        )
-    }
-
-    if (error) {
-        return (
-            <div>Error</div>
-        )
-    }
 
     return (
         <>
@@ -145,9 +160,9 @@ function Drivers() {
                 <img className='admin--search--icon' src={searchIcon} alt="Search Icon" />
                 <input 
                     type="text"
-                    placeholder="Search for location"
+                    placeholder="Search for driver"
                     className="admin--search--bar" 
-                    onKeyDown={handleSearchChange}
+                    onChange={handleSearchChange}
                 />
                 <button 
                     className="btn search"
@@ -160,7 +175,7 @@ function Drivers() {
                     type="button"
                 >
                     <NavLink 
-                        to="/admin/location"
+                        to="/admin/driver"
                         className="link"
                     >
                         Add Driver
