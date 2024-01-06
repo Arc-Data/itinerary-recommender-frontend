@@ -29,7 +29,6 @@ const SpotDetail = ({location}) => {
 		)
 	})
 
-	
 	const displayRequiredFees = location && location.details.required_fee.map((fee, index) => {
 		return (
 			<div key={index} className="detailPage--fee span-items">
@@ -47,6 +46,12 @@ const SpotDetail = ({location}) => {
 			</div>
 		)
 	}) 
+
+	const displayTags = location && location.details.tags.map((tag, index) => {
+		return (
+			<div key={index} className="detailPage--tag">{tag}</div>
+		)
+	})
 
 	useEffect(() => {
 		getRecommendedLocations(id)

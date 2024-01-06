@@ -124,6 +124,12 @@ export default function DetailPage() {
 		}
 	};
 
+	const displayTags = location && location.details.tags.map((tag, index) => {
+		return (
+			<div key={index} className="detailPage--tag description">{tag}</div>
+		)
+	})
+
 	// GET LOCATION DATA
 	useEffect(() => {
 		getReviewData();
@@ -333,7 +339,7 @@ export default function DetailPage() {
 						<p className="detailPage--info"> <FontAwesomeIcon className='btn-icons' icon={faMoneyBills} />Fee: {location?.details.min_fee} - {location?.details.max_fee}</p>
 					</div>
 					}
-					<div className="detailPage--rating-category">
+					{/* <div className="detailPage--rating-category">
 						{location.location_type === "1" &&
 						<span className="tags">
 						{location?.details.tags.map((tag, index) => (
@@ -346,7 +352,7 @@ export default function DetailPage() {
 						))}
 						</span>
 						}
-					</div>
+					</div> */}
 				</div>
 				<button
 					className={`detailPage--bookmark ${isBookmarked ? "true" : "false"}`}
@@ -358,6 +364,12 @@ export default function DetailPage() {
 			<div className="detailPage--about">
 				<h1 className="heading2">About</h1>
 				<p>{location?.description}</p>
+				{location.location_type === "1" &&
+					<div className="detailPage--tags description">
+						<p>{displayTags}</p>
+					</div>
+				}
+				
 			</div>
 			<div className="detailPage--pictures">
 				<div className="detailPage--images">

@@ -19,15 +19,15 @@ const AddBusiness = () => {
         'longitude': 0,
         'latitude': 0,
         'type': '',
-        'maxfee': 0,
-        'minfee': 0,
         'description': ''
     })
+
+    console.log('Location Data: ', locationData)
+
     const [query, setQuery] = useState('')
     const [searchResults, setSearchResults] = useState([])
     const [tags, setTags] = useState([])
     const [image, setImage] = useState(null)
-    const [showFees, setShowFees] = useState(true)
     const [spotTags, setSpotTags] = useState([])
 
     const handleInputChange = (e) => {
@@ -37,39 +37,6 @@ const AddBusiness = () => {
             [name]: value,
         }))
     }
-
-    const handleTypeChange = (e) => {
-        const selectedType = e.target.value;
-        
-        setLocationData(prev => ({
-            ...prev,
-            type: selectedType,
-        }));
-    
-        // Add logic for latitude and longitude based on the selected type
-        if (selectedType === '1') {
-            // Tourist Spot, you may want to set some default values or leave them empty
-            setLocationData(prev => ({
-                ...prev,
-                latitude: 0,
-                longitude: 0,
-                maxfee: 0,
-                minfee: 0,
-            }));
-        } else {
-            // Restaurant/Food Establishment or Accommodation
-            setLocationData(prev => ({
-                ...prev,
-                latitude: '',
-                longitude: '',
-                maxfee: '',
-                minfee: '',
-            }));
-        }
-    
-        // Show fees only for Restaurant/Food Establishment or Accommodation
-        setShowFees(selectedType === '1');
-    };
 
     const handleTagInputChange = (e) => {
         const { value } = e.target
@@ -197,8 +164,6 @@ const AddBusiness = () => {
             locationData.longitude == 0 ||
             locationData.latitude == 0 ||
             locationData.type === ''
-            // maxfee == 0 || 
-            // minfee == 0
     
             if (value) {
                 alert("Missing inputs")
@@ -296,7 +261,7 @@ const AddBusiness = () => {
                                         name="type" 
                                         id="type" 
                                         value={locationData.type}
-                                        onChange={handleTypeChange} 
+                                        onChange={handleInputChange}
                                         className="business-type">
                                         <option value="" disabled>-- Location Type --</option>
                                         <option value="1">Tourist Spot</option>
@@ -305,7 +270,7 @@ const AddBusiness = () => {
                                     </select>
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="name">Location Name</label>
+                                    <label htmlFor="name">Name</label>
                                     <input 
                                         type="text" 
                                         name="name" 
@@ -316,7 +281,7 @@ const AddBusiness = () => {
                                         className="business-input"/>
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="address">Location Address</label>
+                                    <label htmlFor="address">Address</label>
                                     <input 
                                         type="text" 
                                         name="address" 
@@ -369,34 +334,6 @@ const AddBusiness = () => {
                                             value={locationData.description}
                                             onChange={handleInputChange}
                                             className="business-input"/>
-                                </div>
-                                <div>
-                                {showFees && (
-                                    <>
-                                    <div className="form-column-group">
-                                        <div className="form-group">
-                                            <label htmlFor="minfee">Minimum product/service fee</label>
-                                            <input 
-                                                type="number" 
-                                                name="minfee" 
-                                                id="minfee" 
-                                                value={locationData.minfee}
-                                                onChange={handleInputChange}
-                                                className="business-input"/>
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="maxfee">Maximum product/service fee</label>
-                                            <input 
-                                                type="number" 
-                                                name="maxfee" 
-                                                id="maxfee" 
-                                                value={locationData.maxfee}
-                                                onChange={handleInputChange}
-                                                className="business-input"/>
-                                        </div>
-                                    </div>
-                                    </>
-                                )}
                                 </div>
                                     <div className="form-column-group">
                                         <div className="form-group">
