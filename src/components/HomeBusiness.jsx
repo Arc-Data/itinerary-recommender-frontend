@@ -42,20 +42,23 @@ const HomeBusiness = () => {
     return (
         <div>
             <p className="heading">Owned Locations</p>
-            <div className="home--business-container">
+            
                 {locations.length > 0 ? 
-                displayLocations
-                :
-                <div className="home--business-item banner">
-                    <p className="heading4 mb15px">Want to promote your business in Cebu? Click the button below.</p>
-                    <Link to='/profile/business/add'>
-                        <div>
-                            <button className="add--business no-margin "><FontAwesomeIcon icon={faPlus} className="btn-icons"/>Add business</button>
+                    <div className="home--business-container">
+                        <div className="home--business-item">
+                            displayLocations
                         </div>
-                    </Link>
-                </div>
+                    </div>
+                    :
+                    <div className="no-business-banner">
+                        <p className="heading5 business mb15px">Want to promote your business in Cebu? Click the button below.</p>
+                        <Link to='/profile/business/add'>
+                            <div>
+                                <button className="add--business no-margin "><FontAwesomeIcon icon={faPlus} className="btn-icons"/>Add business</button>
+                            </div>
+                        </Link>
+                    </div>
                 }
-            </div>
         </div>
     )
 }

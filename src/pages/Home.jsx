@@ -160,13 +160,13 @@ const HomePage = () => {
 				</div>
 			</div>
 			:
-			<div>
-				<div>
+			<div className="home--no-trips no-padding">
+				{/* <div>
 					<p>Start planning for your trip!</p> 
 					<Link to="/create">
-					<button>Create Trip</button>
+						<button>Create Trip</button>
 					</Link>
-				</div>
+				</div> */}
 			</div>
 			}
 			<div className="recommended--locations--bookmarks">
