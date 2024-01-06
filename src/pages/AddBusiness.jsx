@@ -99,8 +99,6 @@ const AddBusiness = () => {
         }
     }
 
-    console.log("Added tags: ", tags)
-
     const createTag = async (tagName) => {
         try {
             const response = await fetch(`${backendUrl}/api/foodtag/get/?tag_name=${tagName}`, {
@@ -224,7 +222,6 @@ const AddBusiness = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log("Submits")
 
         if (!checkInvalid() && checkImageUploaded()) {
             try {
@@ -240,7 +237,6 @@ const AddBusiness = () => {
                 }
 
                 if (tags.length > 0) {
-                    console.log("Adds this")
                     formData.append("tags", JSON.stringify(tags))
                 }
 
