@@ -102,13 +102,14 @@ const Business = () => {
                         </button>
                     </Link>
                 </div>
-                <table className='business--app-table'>
+                <table className='business-requests-table'>
                     <thead>
-                        <th>Business name</th>
-                        <th>Type</th>
-                        <th>Date filed</th>
-                        <th>Status</th>
-                        {/* <th>Action</th> */}
+                        <tr>
+                            <th>Business name</th>
+                            <th>Type</th>
+                            <th>Date filed</th>
+                            <th>Status</th>
+                        </tr>
                     </thead>
                     <tbody>
                         {displayRequests}

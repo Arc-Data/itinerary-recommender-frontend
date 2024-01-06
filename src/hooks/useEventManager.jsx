@@ -30,6 +30,28 @@ const useEventManager = (authTokens) => {
             setLoading(false)
         }
     }
+
+    const getUpcomingEvents = async (id) => {
+        setLoading(true)
+        try {
+            const response = await fetch(`${backendUrl}/api/event/upcoming/`, {
+                "method": "GET",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                }
+            })
+
+            const data = await response.json()
+            setEvents(data)
+        }
+        catch(error) {
+            setError(error)
+        }
+        finally {
+            setLoading(false)
+        }
+    }
     
     const getEvent = async (id) => {
         setLoading(true)
@@ -112,6 +134,7 @@ const useEventManager = (authTokens) => {
         loading,
         error,
         getAllEvents,
+        getUpcomingEvents,
         getEvent,
         deleteEvent,
         createEvent,

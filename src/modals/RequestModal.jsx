@@ -14,6 +14,12 @@ const RequestModal = ({onClose, request, approveRequest}) => {
         onClose()
     }
 
+    const displayTags = request && request.tags.map((tag, index) => {
+		return (
+			<div key={index} className="detailPage--tag description">{tag}</div>
+		)
+	})
+
     console.log('REQUEST: ', request)
 
     return (
@@ -24,47 +30,58 @@ const RequestModal = ({onClose, request, approveRequest}) => {
                 <div className="approve--modal-container">
                     <div className="approve--modal-content">
                         <div className="form-group">
-                            <label>Owner Name:</label>
+                            <label>Owner Name</label>
                             <div className="form-group-result">
                                 {request.requester.first_name} {request.requester.last_name}
                             </div>
                         </div>
                         <div className="form-group">
-                            <label>Address:</label>
+                            <label>Address</label>
                             <div className="form-group-result">
                                 {request.details.address}
                             </div>
                         </div>
+                        <div className="form-group">
+                            <label>Phone Number</label>
+                            <div className="form-group-result">
+                                {request.details.contact}
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <label>Email</label>
+                            <div className="form-group-result">
+                                {request.requester.email}
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <label>Website</label>
+                            <div className="form-group-result">
+                                {request.details.website}
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <label>Description</label>
+                            <div className="form-group-result">
+                                {request.details.description}
+                            </div>
+                        </div>
                         <div className="form-column-group">
                             <div className="form-group">
-                                <label>Latitude:</label>
+                                <label>Latitude</label>
                                 <div className="form-group-result">
                                     {request.details.latitude}
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label>Longitude:</label>
+                                <label>Longitude</label>
                                 <div className="form-group-result">
                                     {request.details.longitude}
                                 </div>
                             </div>
                         </div>
                         <div className="form-group">
-                            <label>Phone Number:</label>
-                            <div className="form-group-result">
-                                {request.details.contact}
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <label>Email:</label>
-                            <div className="form-group-result">
-                                {request.requester.email}
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <label>Website:</label>
-                            <div className="form-group-result">
-                                {request.details.website}
+                            <div className="detailPage--tags description">
+                                {displayTags}
                             </div>
                         </div>
                     </div>

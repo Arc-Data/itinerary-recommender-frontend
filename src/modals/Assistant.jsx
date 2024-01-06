@@ -11,8 +11,6 @@ const Assistant = ({onClose, day, updateDays, getLeftOverBudget}) => {
     const { loading, status, recommendations, applyRecommendation, fetchRecommendations } = useRecommendationsManager(authTokens)
     const [selectedItem, setSelectedItem] = useState() 
 
-    console.log(getLeftOverBudget())
-
     const formatDate = (day) => {
         return dayjs(day.date).format("MMM D YYYY, dddd")
     }
@@ -72,7 +70,7 @@ const Assistant = ({onClose, day, updateDays, getLeftOverBudget}) => {
                         <p className='assistant-option'>Option C</p>
                     </div>
                         {loading ? 
-                        <div> Loading... </div>
+                        <div className="assistant--loading"> Loading... </div>
                         :
                         <div className="assistant--content-grid">
                             {displayRecommendations}

@@ -11,6 +11,7 @@ const useBusinessManager = (authTokens) => {
     const [requests, setRequests] = useState([])
     const [ownedLocations, setOwnedLocations] = useState([])
     const [items, setItems] = useState([])
+    const [item, setItem] = useState()
     
     const approveRequest = async (id) => {
         try {   
@@ -44,11 +45,14 @@ const useBusinessManager = (authTokens) => {
                 }
             })
 
+            console.log(response)
+
             const data = await response.json()
+            console.log(data)
             setOwnedLocations(data)
         } 
         catch(error) {
-            console.log("An error occured while getting owned businesses")
+            console.log("An error occured while getting owned businesses", error)
         }
         finally {
             setLoading(false)
@@ -292,6 +296,26 @@ const useBusinessManager = (authTokens) => {
         }
     }
 
+    const addFeeType = async (id, formData) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/location/${id}/fee/create/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                },
+                body: JSON.stringify(formData)
+            })
+
+            const data = await response.json()
+            const newData = [...items, data]
+            setItems(newData)
+        }
+        catch(error) {
+            console.log("Error adding fee type: ", error)
+        }
+    } 
+
     const editFeeType = async (feeId, formData) => {
         console.log(feeId, formData)
         try {
@@ -313,6 +337,26 @@ const useBusinessManager = (authTokens) => {
         }
     }
 
+    const deleteFeeType = async (id) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/fee/${id}/delete/`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                }
+            })
+
+            if (response.ok) {
+                const updatedItems = items.filter(i => id !== i.id)
+                setItems(updatedItems)
+            }
+        }
+        catch(error) {
+            console.log("An error occured while deleting fee type: ", error)
+        }
+    }
+
     const getFeeDetails = async (feeId) => {
         setLoading(true)
 
@@ -324,39 +368,82 @@ const useBusinessManager = (authTokens) => {
                     "Authorization": `Bearer ${access}`
                 }
             })
-
             const data = await response.json()
-            setItems(data)
+            setItem(data)
+            setItems(data.audience_types)
         } 
         catch (error) {
             console.log("An error occured while fetching fee types ", error)
+            setError(error)
         }
         finally {
             setLoading(false)
         }
     }
 
-    const createFeeType = async (id, formData) => {
+    const editAudienceType = async (id, formData) => {
         try {
-            const response = await fetch(`${backendUrl}/api/location/${id}/fee/create/`, {
-                "method": "POST",
-                "headers": {
+            const response = await fetch(`${backendUrl}/api/audience/${id}/edit/`, {
+                method: "PATCH",
+                headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${access}`
                 },
-                "body": JSON.stringify(formData)
+                body: JSON.stringify(formData)
             })
 
-            const data = await response.json()
-            const newItems = [...items, data]
-            setItems(newItems)
+            console.log(response)
         }
         catch (error) {
-            console.log(error)
+            console.log("Error while editing audience fee type :", error)
+        }
+    }
+
+    const deleteAudienceType = async (id) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/audience/${id}/delete/`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                }
+            })
+
+            if (response.ok) {
+                const updatedItems = items.filter(i => i.id != id)
+                setItems(updatedItems)
+            }
+        }
+        catch(error) {
+            console.log("An error occured while deleting audience type: ", error)
+        }
+    }
+
+    const addAudienceType = async (id, formData) => {
+        try {   
+            const response = await fetch(`${backendUrl}/api/fee/${id}/audience/create/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                },
+                body: JSON.stringify(formData)
+            })
+            console.log(response)
+            
+            if (response.ok) {
+                const data = await response.json()
+                const updatedItems = [...items, data]
+                setItems(updatedItems)
+            }
+        }
+        catch (error) {
+            console.log("An error occureed while adding audience type: ", error)
         }
     }
 
     return {
+        item,
         items,
         loading,
         error,
@@ -376,10 +463,14 @@ const useBusinessManager = (authTokens) => {
         createService,
         deleteService,
         getServices,
-        getFeeTypes,
+        addFeeType,
         editFeeType,
+        deleteFeeType,
+        getFeeTypes,
         getFeeDetails,
-        createFeeType,
+        addAudienceType,
+        editAudienceType,
+        deleteAudienceType,
     }
 }
 

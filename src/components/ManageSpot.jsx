@@ -9,15 +9,20 @@ const ManageSpot = ({ location, editBusiness }) => {
     const [formData, setFormData] = useState({
 		'name': location.name,
 		'address': location.address,
+        'contact': location.contact,
+        'email': location.email,
+        'website': location.website,
 		'latitude': location.latitude,
 		'longitude': location.longitude,
 		'description': location.description,
         'location_type': location.location_type,
-        'min_fee': location.min_fee,
-        'max_fee': location.max_fee,
         'opening_time': new Date().setTime(0, 0, 0),
         'closing_time': new Date().setTime(0, 0, 0)
     })
+
+    console.log('Location Data: ', location)
+    console.log('Form Data: ', formData)
+    
 
     const formatTimeToString = (time) => {
         const hours = time.getHours().toString().padStart(2, '0');
@@ -91,16 +96,16 @@ const ManageSpot = ({ location, editBusiness }) => {
             <form onSubmit={handleSubmit}>
                 <div className="admin-wrapper admin--container">
                     <div className="input--form">
-                    <p>Spot</p>
+                    <p className="heading no-margin">General Information</p>
                     <div className="input admin--container">
-                        <label htmlFor="name">Location Name</label>
+                        <label htmlFor="name">Name</label>
                         <input
                         type="text"
                         name="name"
                         value={formData.name}
                         onChange={handleChangeInput}
-                        className="styled-input"
-                        />
+                        className="business-input"
+                    />
                     </div>
                     <div className="input admin--container">
                         <label htmlFor="address">Address</label>
@@ -109,10 +114,51 @@ const ManageSpot = ({ location, editBusiness }) => {
                         name="address"
                         onChange={handleChangeInput}
                         value={formData.address}
-                        className="styled-input"
+                        className="business-input"
+                        />
+                    </div>
+                    <div className="input admin--container">
+                        <label htmlFor="contact">Phone number (Optional)</label>
+                        <input
+                        type="number"
+                        name="contact"
+                        onChange={handleChangeInput}
+                        value={formData.contact}
+                        className="business-input"
+                        />
+                    </div>
+                    <div className="input admin--container">
+                        <label htmlFor="email">Email (Optional)</label>
+                        <input
+                        type="email"
+                        name="email"
+                        onChange={handleChangeInput}
+                        value={formData.email}
+                        className="business-input"
+                        />
+                    </div>
+                    <div className="input admin--container">
+                        <label htmlFor="website">Website (Optional)</label>
+                        <input
+                        type="text"
+                        name="website"
+                        onChange={handleChangeInput}
+                        value={formData.website}
+                        className="business-input"
+                        />
+                    </div>
+                    <p className="heading business-info-label">Business Information</p>
+                    <div className="input admin--container">
+                        <label htmlFor="description">Description</label>
+                        <textarea
+                        name="description"
+                        value={formData.description}
+                        onChange={handleChangeInput}
+                        className="business-input description"
                         />
                     </div>
                     <div className="admin--container">
+                        
                         <div className="input admin--container">
                         <label htmlFor="latitude">Latitude</label>
                         <input
@@ -122,7 +168,7 @@ const ManageSpot = ({ location, editBusiness }) => {
                             step="0.000001"
                             name="latitude"
                             value={formData.latitude}
-                            className="styled-input"
+                            className="business-input"
                         />
                         </div>
                         <div className="input admin--container">
@@ -133,7 +179,7 @@ const ManageSpot = ({ location, editBusiness }) => {
                             step="0.000001"
                             name="longitude"
                             value={formData.longitude}
-                            className="styled-input"
+                            className="business-input"
                         />
                         </div>
                     </div>
@@ -148,14 +194,15 @@ const ManageSpot = ({ location, editBusiness }) => {
                             timeIntervals={15}
                             timeCaption="Time"
                             dateFormat="h:mm aa"
-                            />
+                            className="business-input"
+                        />
                         {/* <input
                             type="text"
                             onChange={handleChangeInput}
                             name="opening_time"
                             value={formData.opening_time}
                             className="styled-input"
-                            /> */}
+                        /> */}
                         </div>
                         <div className="input admin--container">
                         <label htmlFor="closing">Closing Time</label>
@@ -166,18 +213,14 @@ const ManageSpot = ({ location, editBusiness }) => {
                             timeIntervals={15}
                             timeCaption="Time"
                             dateFormat="h:mm aa"
-                            />
+                            className="business-input"
+                        />
                         </div>
                     </div>
                     }
-                    <div className="input admin--container">
-                        <label htmlFor="description">Description</label>
-                        <textarea
-                        name="description"
-                        value={formData.description}
-                        onChange={handleChangeInput}
-                        />
-                    </div>
+                    
+                    <p className="heading business-info-label">Tags</p>
+                    
                     </div>
                     <div className="image--border center admin--container">
                     <img className="edit--images" src={`${backendUrl}${location?.image}`}  />

@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import AuthContext from "../context/AuthContext"
 import useBusinessManager from "../hooks/useBusinessManager"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const Menu = () => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL;
@@ -35,11 +37,11 @@ const Menu = () => {
         return (
             <tr key={item.id}>
                 <td>
-                    <img className="searchPage--pic" src={`${backendUrl}${item.image}`} alt="" />
+                    <img className="menu--img" src={`${backendUrl}${item.image}`} alt="" />
                 </td>
                 <td>{item.item}</td>
                 <td>{item.price}</td>
-                <td><button className="delete-btn" onClick={() => handleDelete(item.id)}>Delete</button></td>
+                <td><button className="menu--delete-item" onClick={() => handleDelete(item.id)}><FontAwesomeIcon icon={faTrash} /></button></td>
             </tr>
         )
     })
@@ -102,7 +104,7 @@ const Menu = () => {
     return (
         <div>
             <div className="input--form">
-            <p>Menu</p>
+            <p className="heading no-margin">Menu</p>
             </div>
             <form method="POST" onSubmit={handleSubmit}>
                 <div className="input admin--container">
@@ -112,7 +114,7 @@ const Menu = () => {
                         name="item"
                         value={data.item}
                         onChange={handleInputChange}
-                        className="styled-input" 
+                        className="business-input" 
                     />
                 </div>
                 
@@ -123,7 +125,7 @@ const Menu = () => {
                         name="price"
                         value={data.price}
                         onChange={handleInputChange}
-                        className="styled-input" 
+                        className="business-input" 
                     />
                 </div>
                 <div className="input admin--container">
@@ -135,10 +137,10 @@ const Menu = () => {
                     />
                 </div>
             <div className="d-flexCenter mt-20px">
-                <button className="add--business font14" type="submit">Submit</button>
+                <button className="add--business" type="submit"><FontAwesomeIcon className='btn-icons' icon={faPlus} />Add</button>
             </div>
             </form>
-            <table className='business--app-table'>
+            <table className="business-table menu">
                 <thead>
                     <tr>
                         <th>Image</th>

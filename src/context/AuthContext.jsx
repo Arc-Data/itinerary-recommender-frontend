@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import jwt_decode from "jwt-decode"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const AuthContext = createContext()
 
@@ -11,14 +11,34 @@ export const AuthProvider = ({children}) => {
 
     const [authTokens, setAuthTokens] = useState(() => localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null)
     const [user, setUser] = useState(() => localStorage.getItem('authTokens') ? jwt_decode(localStorage.getItem('authTokens')) : null)
+    const [ status, setStatus ] = useState()
     const [loading, setLoading] = useState(true)
     const [preferences, setPreferences] = useState(() => localStorage.getItem('setPreferences') ? 
         JSON.parse(localStorage.getItem("setPreferences") === "true") : null)
 
     const navigate = useNavigate()
 
+    const activateUser = async (uidb64, token) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/activate/${uidb64}/${token}/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({uidb64, token})
+            })
+
+            const data = await response.json();
+            setStatus(data.message)
+        }
+        catch (error) {
+            setStatus(error)
+        }
+    }
+
     const loginUser = async (e) => {
         e.preventDefault()
+        console.log("Logging in the user", e)
         const response = await fetch(`${backendUrl}/api/token/`, {
             method:'POST',
             headers: {
@@ -29,6 +49,7 @@ export const AuthProvider = ({children}) => {
                 'password':e.target.password.value
             })
         })
+        console.log(response)
         const data = await response.json()
 
         if(response.status === 200) {
@@ -78,17 +99,41 @@ export const AuthProvider = ({children}) => {
         })
 
         if(response.status === 201) {
-            const data = await response.json()
-            alert("Successfully created user")
-            loginUser({ target: { email: { value: formData.email }, password: {value: formData.password} }, preventDefault: () => {} });
-
+            navigate('/success')
         } else if(response.status === 401) {
             console.log("401")
         } else {
-            
+                        
         }
+    }
 
-        return false;
+    const resetPassword = async (uidb64, token, password) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/reset/${uidb64}/${token}/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    'password': password,
+                })
+            })
+
+            const data = await response.json()
+
+            if (response.status === 200) {
+                console.log("Returning email: ", data.email)
+                return data.email
+            }
+
+            console.log("Something wrong happened")
+            return false
+        }
+        catch(error) {
+            console.log("An error occured while reseting password: ", error)            
+            return false
+        }
+        
     }
 
     const updateToken = async() => {
@@ -119,12 +164,60 @@ export const AuthProvider = ({children}) => {
         }
     }
 
+    const checkResetInstance = async (uidb64, token) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/reset/${uidb64}/${token}/`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            })
+
+            if (response.status == 200) {
+                return 'Valid'
+            } else {
+                return 'Invalid'
+            }
+        }   
+        catch (error) {
+            console.log("An error occured while checking reset instance. ", error)
+        }
+
+    }
+
     const logoutUser = () => {
         setAuthTokens(null)
         setUser(null)
         localStorage.removeItem('authTokens')
         localStorage.removeItem('setPreferences')
         navigate('/')
+    }
+
+    const forgotPassword = async (e) => {
+        e.preventDefault()
+        const email = e.target.email.value
+
+        try {
+            const response = await fetch(`${backendUrl}/api/forgot/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    'email': email
+                })
+            })
+
+            if (response.status == 404) {
+                setStatus(<span>That email account doesn't exist. Enter a different account or <Link to="/signup"> create a new one </Link></span>)
+                return
+            } else if (response.status == 200) {
+                setStatus(`Instructions have been sent to your email! `)
+            }
+        }
+        catch (error) {
+            console.log("An error occured while sending forgot password request. ", error)
+        }
     }
 
     const userSetPreference = () => {
@@ -137,10 +230,15 @@ export const AuthProvider = ({children}) => {
 
     const contextData = {
         user: user,
+        status: status,
         authTokens: authTokens,
+        activateUser: activateUser,
         loginUser: loginUser,    
         logoutUser: logoutUser,    
         registerUser: registerUser,
+        resetPassword: resetPassword,
+        forgotPassword: forgotPassword,
+        checkResetInstance: checkResetInstance,
         userSetPreference: userSetPreference,
         preferences: preferences,
     }

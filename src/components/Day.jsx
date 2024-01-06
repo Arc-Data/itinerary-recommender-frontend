@@ -177,6 +177,7 @@ const Day = ({ day, updateDays, removeDay, addMarker,
         setCostEstimate(costString)
     }, [locations])
 
+
     return (
         <div className="plan--itinerary">
             <div onClick={toggleOpen} className="plan--itinerary-day">
@@ -185,7 +186,7 @@ const Day = ({ day, updateDays, removeDay, addMarker,
                     <span className='heading3'>{dayjs(day.date).format("dddd, MMM D")}</span>
                 </p>
                 <div className="plan--day-settings" onClick={preventSettingsPropagation}>
-                    {day.date_status !== "soon" && !day.completed && day.itinerary_items.length > 0 && 
+                    {day.date_status !== "soon" && !day.completed && locations.length > 0 && 
                     <div className="plan--day-complete" onClick={toggleCompletionModal}><FontAwesomeIcon className="btn-icons" icon={faCheckDouble} />Mark as visited</div>
                     }
                     <div className="plan--day-ellipsis">
@@ -369,7 +370,8 @@ const Day = ({ day, updateDays, removeDay, addMarker,
                 onClose={toggleShareDetails} 
                 day={day}
                 costEstimate={costEstimate}
-                name={itineraryName}/>
+                name={itineraryName}
+                locations={locations}/>
             }
         </div>
     )

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faClose, faLocationDot, faSearch } from "@fortawesome/free-solid-svg-icons"
+import { faClose, faLocationDot, faSearch, faPlus } from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom"
 import AuthContext from "../context/AuthContext"
 import Modal from "../components/Modal"
@@ -72,7 +72,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
             setRecentlyAddedLocations(arr3)
             increaseEstimatedCost(item.details.min_cost, item.details.max_cost)
             addMarker(item.details.latitude, item.details.longitude, day.color, item.details.name, item.details.event)
-            
+            setSearchString("")
         }
         catch(error) {
             console.log("An error occured : ", error)
@@ -93,19 +93,6 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
             searchLocations(e.target.value)
         }, debounceTimeout)
     }
-
-    const addRecommendation = async (id) => {
-        handleAddLocation(id)
-        fetchNearbyRecommendations(id)
-        fetchNearbyFoodRecommendations(id)
-    }
-
-    
-    const handleAddRecommendation = async (id) => {
-        handleAddLocation(id);
-        fetchNearbyRecommendations(id);
-        fetchNearbyFoodRecommendations(id);
-    };
 
     const checkDuplicateLocation = (locationId) => {
         const status = includedLocations.some(i => {
@@ -143,10 +130,6 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
         )   
     })
 
-    const getToVisitLocations = (locations) => {
-        return locations.map(i => i.location)
-    }
-    
     useEffect(() => {
         const getBookmarks = async () => {
             try {
@@ -171,8 +154,8 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
 
     useEffect(() => {
         if (locations.length !== 0) {
-            fetchNearbyRecommendations(locations[locations.length - 1].location, getToVisitLocations(locations))
-            fetchNearbyFoodRecommendations(locations[locations.length - 1].location, getToVisitLocations(locations))
+            fetchNearbyRecommendations(day.id)
+            fetchNearbyFoodRecommendations(day.id)
         }  else {
             fetchPreferenceRecommendations()
         }
@@ -195,7 +178,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                             <p className="add-location-modal--subtext">{location.address}</p>
                             <p className="add-location-modal--subtext"><span>Opens {opening_time} - {closing_time} </span>•<span> Entrance Fee: {fee} </span></p>
                         </div>
-                        <button className="add-location-modal--add-btn" onClick={() => handleAddLocation(location.id)}>+</button>
+                        <button className="add-location-modal--add-btn" onClick={() => handleAddLocation(location.id)}><FontAwesomeIcon icon={faPlus} /></button>
                     </div>
                 )
             })
@@ -206,13 +189,13 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
 
     return (
         <Modal onClose={onClose}>
-            <div className="add-location-modal--tabs">
+            <div className="add-location-modal--tabs plan-page">
                 <div className={`${openBookmarks ? "" : "active"}` } onClick={toggleBookmarkSection}>Location</div>
                 <div className={`${openBookmarks ? "active" : ""}`} onClick={toggleBookmarkSection}>Bookmarks</div>
             </div>
             {openBookmarks ?
             <div>
-                <div className="add-location-modal--content">
+                <div className="add-location-modal--recently-added-container">
                     {displayRecentlyAdded}
                 </div>
                 <div className="add-location-modal--results">
@@ -239,31 +222,31 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                     {!searchString.length && 
                     <>
                     {locations.length === 0 ? 
-                    <p>Recommended for you</p>
+                    <p className="heading2">Recommended for you</p>
                     :
-                    <p>Recommended Nearby Locations</p>
+                    <p className="heading2">Recommended Nearby Locations</p>
                     }
-                    {recommendationsLoading ? 
+                    {recommendationsLoading  ? 
                     <div>Loading</div>
                     :
                     <RecommendationList 
                         recommendations={spotRecommendations}
-                        onAddRecommendation={handleAddRecommendation}/>
+                        onAddRecommendation={handleAddLocation}/>
                     }
                     </>
                     }
                 </div>
 
                 <div>
-                    {!searchString.length && 
+                    {!searchString.length && locations.length !== 0 && 
                     <>
-                    <p>Recommended Food Locations</p>
-                    {recommendationsLoading ? 
+                    <p className="heading2">Recommended Food Locations</p>
+                    {foodRecommendationsLoading ? 
                     <div>Loading</div>
                     :
                     <RecommendationList 
                         recommendations={foodRecommendations}
-                        onAddRecommendation={handleAddRecommendation}/>
+                        onAddRecommendation={handleAddLocation}/>
                     }
                     </>
                     }

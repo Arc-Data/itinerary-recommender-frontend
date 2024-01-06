@@ -14,7 +14,7 @@ import AddLocation from './pages/AddLocation'
 import CreateTrip from './pages/CreateTrip';
 import Login from './pages/Login'
 import Signup from './pages/Signup'
-import ForgotPassword from './pages/ForgotPassword'
+import Forgot from './pages/Forgot'
 /*Components*/
 /*Layout*/
 import BaseLayout from './layout/BaseLayout';
@@ -43,10 +43,20 @@ import Services from './components/Services';
 import Fees from './components/Fees';
 import Test from './pages/Test';
 import AssistantContact from './pages/AssistantContact';
+import AccountSettings from './pages/AccountSettings';
+import ChangePassword from './pages/ChangePassword';
+import AuthLayout from './layout/AuthLayout';
+import Activation from './pages/Activation'
+import RegisterSuccess from './pages/RegisterSuccess';
+import Reset from './pages/Reset';
 import Drivers from './pages/Drivers';
+import FeeDetails from './pages/FeeDetails';
+import HomeLayout from './layout/HomeLayout';
+import HomeEvent from './components/HomeEvent';
+import HomeBusiness from './components/HomeBusiness';
 import AddDriver from './pages/AddDriver'
 import EditDriver from './pages/EditDriver';
-	/*css*/
+/*css*/
 	
 function App() {
 	return (
@@ -54,9 +64,14 @@ function App() {
 		<AuthProvider>
 			<Routes>
 				<Route path="/" element={<LandingPage />} />
-				<Route path="/login" element={<Login />} />
-				<Route path="/signup" element={<Signup />} />
-				<Route path="/forgotpass" element={<ForgotPassword />} />
+				<Route element={<AuthLayout />}>
+					<Route path="/login" element={<Login />} />
+					<Route path="/signup" element={<Signup />} />
+					<Route path="/activate/:uidb64/:token" element={<Activation />}/>
+					<Route path="/success" element={<RegisterSuccess />} />
+					<Route path="/forgot" element={<Forgot />} />
+					<Route path="/reset/:uidb64/:token" element={<Reset />} />
+				</Route>
 
 				<Route path="/preferences" element={<Preferences/>}/>
 				<Route element={<PrivateRoutes />} >
@@ -64,7 +79,11 @@ function App() {
 					
 					<Route element={<BaseLayout />}>
 						<Route path="/location/:id" element={<Detail/>}/>
-						<Route path="/home" element={<HomePage />} />
+						<Route element={<HomeLayout />}>
+							<Route path="/home" element={<HomePage />} />
+							<Route path="/event" element={<HomeEvent />} /> 
+							<Route path="/business" element={<HomeBusiness />} /> 
+						</Route>
 						<Route path="/search" element={<SearchPage />} />
 					</Route>
 
@@ -73,13 +92,15 @@ function App() {
 						<Route path="/profile/trips" element={<Trips/>} />
 						<Route path="/profile/business" element={<Business/>} />
 						<Route path="/profile/business/add" element={<AddBusiness/>} />
+						<Route path="/profile/settings/" element={<AccountSettings />} />
+						<Route path="/profile/settings/change-password/" element={<ChangePassword />} />
 						
 						<Route path="/profile/business/:id" element={<ManageLayout />}>
-							<Route path="/profile/business/:id/" element={<BusinessOverview />} />
-							<Route path="/profile/business/:id/" element={<BusinessOverview />} />
+							<Route index element={<BusinessOverview />} />
 							<Route path="/profile/business/:id/menu" element={<Menu />}/>
 							<Route path="/profile/business/:id/services" element={<Services />}/>
 							<Route path="/profile/business/:id/fees" element={<Fees />}/>
+							<Route path="/profile/business/:id/fees/:feeId/edit" element={<FeeDetails />}/>
 							<Route path="/profile/business/:id/edit" element={<ManageBusiness />} />
 						</Route>
 						
@@ -96,8 +117,8 @@ function App() {
 
 				</Route>
 				<Route path="/admin" element={<AdminRoutes />}>
-					<Route path = "/admin/" index element={<Dashboard/>} />
-					<Route path = "/admin/users" index element={<Users users={data[0].users}/>} />
+					<Route path="/admin/" index element={<Dashboard/>} />
+					<Route path="/admin/users" index element={<Users users={data[0].users}/>} />
 					<Route path="/admin/location" element={<AddLocation/>} />
 					<Route path="/admin/locations" element={<Location/>} />
 					<Route path="/admin/driver" element={<AddDriver/>} />
@@ -110,6 +131,7 @@ function App() {
 						<Route path="/admin/location/:id/menu" element={<Menu />} />
 						<Route path="/admin/location/:id/services" element={<Services />} />
 						<Route path="/admin/location/:id/fees" element={<Fees />} />
+						<Route path="/admin/location/:id/fees/:feeId/" element={<FeeDetails />} />
 						<Route path="/admin/location/:id/edit" element={<ManageBusiness />} />
 					</Route>
 		

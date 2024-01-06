@@ -28,39 +28,19 @@ const ManageLayout = () => {
 
     return (
         <div>
-            <div className="add-location-modal--tabs">
-                <div>
-                    <NavLink to="" exact activeClassName="active">
-                        Overview
-                    </NavLink>
-                </div>
-                <div>
-                    <NavLink to="edit" activeClassName="active">
-                        Edit
-                    </NavLink>
-                </div>
-                {/* {location.location_type === "1" && 
-                <div>
-                    <NavLink to="fees" activeClassName="active">
-                        Fee
-                    </NavLink>
-                </div>
-                } */}
+            <nav className="business--page-navigation">
+                <NavLink to="." end>Overview</NavLink>
+                <NavLink to="edit">Edit</NavLink>
+                {location.location_type === "1" && 
+                    <NavLink to="fees">Fees</NavLink>
+                }
                 {location.location_type === "2" && 
-                <div>
-                    <NavLink to="menu" activeClassName="active">
-                        Menu
-                    </NavLink>
-                </div>
+                    <NavLink to="menu">Menu</NavLink>
                 }
                 {location.location_type === "3" && 
-                <div>
-                    <NavLink to="services" activeClassName="active">
-                        Services
-                    </NavLink>
-                </div>
+                    <NavLink to="services">Services</NavLink>
                 }
-            </div>
+            </nav>
             <Outlet/>
         </div>
     )

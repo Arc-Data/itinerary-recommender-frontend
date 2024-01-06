@@ -19,15 +19,15 @@ const AddBusiness = () => {
         'longitude': 0,
         'latitude': 0,
         'type': '',
-        'maxfee': 0,
-        'minfee': 0,
         'description': ''
     })
+
+    console.log('Location Data: ', locationData)
+
     const [query, setQuery] = useState('')
     const [searchResults, setSearchResults] = useState([])
     const [tags, setTags] = useState([])
     const [image, setImage] = useState(null)
-    const [showFees, setShowFees] = useState(true)
     const [spotTags, setSpotTags] = useState([])
 
     const handleInputChange = (e) => {
@@ -37,39 +37,6 @@ const AddBusiness = () => {
             [name]: value,
         }))
     }
-
-    const handleTypeChange = (e) => {
-        const selectedType = e.target.value;
-        
-        setLocationData(prev => ({
-            ...prev,
-            type: selectedType,
-        }));
-    
-        // Add logic for latitude and longitude based on the selected type
-        if (selectedType === '1') {
-            // Tourist Spot, you may want to set some default values or leave them empty
-            setLocationData(prev => ({
-                ...prev,
-                latitude: 0,
-                longitude: 0,
-                maxfee: 0,
-                minfee: 0,
-            }));
-        } else {
-            // Restaurant/Food Establishment or Accommodation
-            setLocationData(prev => ({
-                ...prev,
-                latitude: '',
-                longitude: '',
-                maxfee: '',
-                minfee: '',
-            }));
-        }
-    
-        // Show fees only for Restaurant/Food Establishment or Accommodation
-        setShowFees(selectedType === '1');
-    };
 
     const handleTagInputChange = (e) => {
         const { value } = e.target
@@ -105,8 +72,6 @@ const AddBusiness = () => {
             console.error('Error adding tag:', error)
         }
     }
-
-    console.log("Added tags: ", tags)
 
     const createTag = async (tagName) => {
         try {
@@ -197,9 +162,7 @@ const AddBusiness = () => {
             locationData.longitude == 0 ||
             locationData.latitude == 0 ||
             locationData.type === ''
-            // maxfee == 0 || 
-            // minfee == 0
-    
+
             if (value) {
                 alert("Missing inputs")
             }
@@ -233,7 +196,6 @@ const AddBusiness = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log("Submits")
 
         if (!checkInvalid() && checkImageUploaded()) {
             try {
@@ -249,7 +211,6 @@ const AddBusiness = () => {
                 }
 
                 if (tags.length > 0) {
-                    console.log("Adds this")
                     formData.append("tags", JSON.stringify(tags))
                 }
 
@@ -296,7 +257,7 @@ const AddBusiness = () => {
                                         name="type" 
                                         id="type" 
                                         value={locationData.type}
-                                        onChange={handleTypeChange} 
+                                        onChange={handleInputChange}
                                         className="business-type">
                                         <option value="" disabled>-- Location Type --</option>
                                         <option value="1">Tourist Spot</option>
@@ -305,7 +266,7 @@ const AddBusiness = () => {
                                     </select>
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="name">Location Name</label>
+                                    <label htmlFor="name">Name</label>
                                     <input 
                                         type="text" 
                                         name="name" 
@@ -316,7 +277,7 @@ const AddBusiness = () => {
                                         className="business-input"/>
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="address">Location Address</label>
+                                    <label htmlFor="address">Address</label>
                                     <input 
                                         type="text" 
                                         name="address" 
@@ -370,111 +331,82 @@ const AddBusiness = () => {
                                             onChange={handleInputChange}
                                             className="business-input"/>
                                 </div>
-                                <div>
-                                {showFees && (
-                                    <>
-                                    <div className="form-column-group">
-                                        <div className="form-group">
-                                            <label htmlFor="minfee">Minimum product/service fee</label>
-                                            <input 
-                                                type="number" 
-                                                name="minfee" 
-                                                id="minfee" 
-                                                value={locationData.minfee}
-                                                onChange={handleInputChange}
-                                                className="business-input"/>
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="maxfee">Maximum product/service fee</label>
-                                            <input 
-                                                type="number" 
-                                                name="maxfee" 
-                                                id="maxfee" 
-                                                value={locationData.maxfee}
-                                                onChange={handleInputChange}
-                                                className="business-input"/>
-                                        </div>
+                                <div className="form-column-group">
+                                    <div className="form-group">
+                                        <label htmlFor="address">Latitude</label>
+                                        <input 
+                                            type="number" 
+                                            name="latitude" 
+                                            id="latitude" 
+                                            value={locationData.latitude}
+                                            onChange={handleInputChange}
+                                            className="business-input"/>
                                     </div>
-                                    </>
-                                )}
+                                    <div className="form-group">
+                                        <label htmlFor="address">Longitude</label>
+                                        <input 
+                                            type="number" 
+                                            name="longitude" 
+                                            id="longitude" 
+                                            value={locationData.longitude}
+                                            onChange={handleInputChange}
+                                            className="business-input"/>
+                                    </div>
                                 </div>
-                                    <div className="form-column-group">
+                                <div>
+                                    <p className="visibility--coordinates">
+                                        To improve your business's visibility on the site, we require your
+                                        coordinates. Please click on the{" "}
+                                        <a
+                                            href="https://support.google.com/maps/answer/18539?hl=en&co=GENIE.Platform%3DDesktop#:~:text=Get%20the%20coordinates%20of%20a%20place&text=Right%2Dclick%20the%20place%20or,decimal%20format%20at%20the%20top."
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            How to Obtain My Coordinates
+                                        </a>{" "}
+                                        link to access instructions.
+                                    </p>
+                                </div>
+                                <div>
+                                    {
+                                        locationData.type === '2' && 
                                         <div className="form-group">
-                                            <label htmlFor="address">Latitude</label>
-                                            <input 
-                                                type="number" 
-                                                name="latitude" 
-                                                id="latitude" 
-                                                value={locationData.latitude}
-                                                onChange={handleInputChange}
-                                                className="business-input"/>
+                                        <h1 className="heading business-details">Tags</h1>
+                                            <label htmlFor="tags">Tags</label>
+                                            <div className="tags-input-container business-input">
+                                                {addedTagItem}
+                                                <input 
+                                                    type="text" 
+                                                    value={query} 
+                                                    onChange={handleTagInputChange}
+                                                    onKeyDown={handleKeyDown}
+                                                    placeholder="Add or search tags..."
+                                                    className="tags-input"
+                                                />
+                                            </div>
+                                            {tagSearchResults}
                                         </div>
-                                        <div className="form-group">
-                                            <label htmlFor="address">Longitude</label>
-                                            <input 
-                                                type="number" 
-                                                name="longitude" 
-                                                id="longitude" 
-                                                value={locationData.longitude}
-                                                onChange={handleInputChange}
-                                                className="business-input"/>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <p className="visibility--coordinates">
-                                            To improve your business's visibility on the site, we require your
-                                            coordinates. Please click on the{" "}
-                                            <a
-                                                href="https://support.google.com/maps/answer/18539?hl=en&co=GENIE.Platform%3DDesktop#:~:text=Get%20the%20coordinates%20of%20a%20place&text=Right%2Dclick%20the%20place%20or,decimal%20format%20at%20the%20top."
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                How to Obtain My Coordinates
-                                            </a>{" "}
-                                            link to access instructions.
-                                        </p>
-                                    </div>
-                                    <div>
-                                        {
-                                            locationData.type === '2' && 
-                                            <div className="form-group">
+                                    }
+                                    {
+                                        locationData.type === '1' && 
+                                        <div>
                                             <h1 className="heading business-details">Tags</h1>
-                                                <label htmlFor="tags">Tags</label>
-                                                <div className="tags-input-container business-input">
-                                                    {addedTagItem}
-                                                    <input 
-                                                     type="text" 
-                                                     value={query} 
-                                                     onChange={handleTagInputChange}
-                                                     onKeyDown={handleKeyDown}
-                                                     placeholder="Add or search tags..."
-                                                     className="tags-input"
+                                            {spotTags.map((tag, index) => (
+                                                <div key={index} className="tags-checkbox-container">
+                                                    <input
+                                                    type="checkbox"
+                                                    id={`tag-${index}`}
+                                                    name={`tag-${index}`}
+                                                    checked={tags.includes(tag.name)}
+                                                    onChange={(e) => handleSpotTagChange(e, tag.name)}
+                                                    className="tags-checkbox"
                                                     />
+                                                    <label className="tags-checkbox-label" htmlFor={`tag-${index}`}>{tag.name}</label>
                                                 </div>
-                                                {tagSearchResults}
-                                            </div>
-                                        }
-                                        {
-                                            locationData.type === '1' && 
-                                            <div>
-                                                <h1 className="heading business-details">Tags</h1>
-                                                {spotTags.map((tag, index) => (
-                                                    <div key={index} className="tags-checkbox-container">
-                                                      <input
-                                                        type="checkbox"
-                                                        id={`tag-${index}`}
-                                                        name={`tag-${index}`}
-                                                        checked={tags.includes(tag.name)}
-                                                        onChange={(e) => handleSpotTagChange(e, tag.name)}
-                                                        className="tags-checkbox"
-                                                      />
-                                                      <label className="tags-checkbox-label" htmlFor={`tag-${index}`}>{tag.name}</label>
-                                                    </div>
-                                                  ))}
-                                            </div>
-                                        }
-                                    </div>
-                        
+                                                ))}
+                                        </div>
+                                    }
+                                </div>
                                 <div className="flex jc-end mt-20px">
                                     <button className="add--business font14" >Submit</button>  
                                 </div>

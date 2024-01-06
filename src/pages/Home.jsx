@@ -109,12 +109,6 @@ const HomePage = () => {
 					</div>
 					<div className="active--trip-locations font-weight-500">{locations}</div>
 					<div className="active--trip-btns">
-						{/* <input 
-							type="checkbox" 
-							checked={selectedDays.includes(day.id)}
-							onChange={() => toggleDaySelection(day.id)}
-							className="active--trip-checkbox no-margin-top no-margin-bottom"
-						/> */}
 						<div>
 							<Link to={`/plan/${day.itinerary}`}>
 								<button className="active--trip-edit"><FontAwesomeIcon icon={faPenToSquare} /></button>
@@ -146,26 +140,7 @@ const HomePage = () => {
 	
 
 	return (
-		<div className = "home--page-content">
-			<header className="home--banner">
-				<div className="home--banner-itinerary heading2">
-					<div>
-						<p>Start creating your itinerary to Cebu!</p>
-						<Link to="/create">
-							<button className='create-itinerary-btn'><FontAwesomeIcon className='btn-icons' icon={faPenToSquare} />Create now</button>
-						</Link>
-					</div>
-					<img src="/banner-1.jpg" className="banner-img"/>
-				</div>
-				<div className="home--banner-business heading3">
-					<p>Promote your food business with CebuRoute</p>
-					<img src="/banner-2.png" className="banner-img" />
-				</div>
-				<div className="home--banner-ai heading3">
-					<p>Try our AI Recommendation Feature while building your itinerary</p>
-					<img src="/banner-3.png" className="banner-img" />
-				</div>
-			</header>
+		<div className="home--page-main-content">
 			{ days.length !== 0 && 
 			<div className="active--trips">
 				<p className="header-title heading">Active Trips</p>
@@ -177,14 +152,23 @@ const HomePage = () => {
 				</div>
 			</div>
 			}
-			{ itineraries && (
+			{itineraries.length !== 0 ? 
 			<div>
 				<p className="heading">Your trips</p>
 				<div className="trips--container">
 					{displayItineraries}
 				</div>
 			</div>
-			)}
+			:
+			<div>
+				<div>
+					<p>Start planning for your trip!</p> 
+					<Link to="/create">
+					<button>Create Trip</button>
+					</Link>
+				</div>
+			</div>
+			}
 			<div className="recommended--locations--bookmarks">
 				<div className="recommended--locations">
 					<h1 className='heading'>Recommended Locations</h1>
