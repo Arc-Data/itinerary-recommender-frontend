@@ -7,9 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ShareMap from "../components/ShareMap"
 
 
-const ShareDetails = ({onClose, day, costEstimate, name}) => {
+const ShareDetails = ({onClose, day, costEstimate, name, locations}) => {
     const { markers, getDayMarkersData } = useMarkerManager()
-    console.log(name)
 
     const exportPDF = () => {
         const input = document.querySelector("#day-trips")
@@ -22,7 +21,7 @@ const ShareDetails = ({onClose, day, costEstimate, name}) => {
             })
     }
 
-    const displayItems = day.itinerary_items.map((item, index) => {
+    const displayItems = locations.map((item, index) => {
         return (
             <div key={item.id}>
                 <div className="span-items share--location-item">
@@ -34,14 +33,14 @@ const ShareDetails = ({onClose, day, costEstimate, name}) => {
                     <p className="share--location-costs font-weight-500">Costs {item.details.min_cost} - {item.details.max_cost} PHP</p>
                     }
                 </div>
-                {index !== day.itinerary_items.length - 1 && <div className="location-divider"></div>}
+                {index !== locations.length - 1 && <div className="location-divider"></div>}
             </div>
         )
     })
 
 
     useEffect(() => {
-        getDayMarkersData(day)
+        getDayMarkersData(locations)
     }, [])
 
     return (

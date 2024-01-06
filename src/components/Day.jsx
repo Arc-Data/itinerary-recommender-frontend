@@ -370,7 +370,8 @@ const Day = ({ day, updateDays, removeDay, addMarker,
                 onClose={toggleShareDetails} 
                 day={day}
                 costEstimate={costEstimate}
-                name={itineraryName}/>
+                name={itineraryName}
+                locations={locations}/>
             }
         </div>
     )

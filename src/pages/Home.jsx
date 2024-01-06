@@ -109,12 +109,6 @@ const HomePage = () => {
 					</div>
 					<div className="active--trip-locations font-weight-500">{locations}</div>
 					<div className="active--trip-btns">
-						{/* <input 
-							type="checkbox" 
-							checked={selectedDays.includes(day.id)}
-							onChange={() => toggleDaySelection(day.id)}
-							className="active--trip-checkbox no-margin-top no-margin-bottom"
-						/> */}
 						<div>
 							<Link to={`/plan/${day.itinerary}`}>
 								<button className="active--trip-edit"><FontAwesomeIcon icon={faPenToSquare} /></button>
@@ -158,14 +152,23 @@ const HomePage = () => {
 				</div>
 			</div>
 			}
-			{ itineraries && (
+			{itineraries.length !== 0 ? 
 			<div>
 				<p className="heading">Your trips</p>
 				<div className="trips--container">
 					{displayItineraries}
 				</div>
 			</div>
-			)}
+			:
+			<div>
+				<div>
+					<p>Start planning for your trip!</p> 
+					<Link to="/create">
+					<button>Create Trip</button>
+					</Link>
+				</div>
+			</div>
+			}
 			<div className="recommended--locations--bookmarks">
 				<div className="recommended--locations">
 					<h1 className='heading'>Recommended Locations</h1>
