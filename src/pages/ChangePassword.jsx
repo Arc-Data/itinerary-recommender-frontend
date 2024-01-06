@@ -67,14 +67,14 @@ const ChangePassword = () => {
 
     return (
         <div className="register--success">
-            <p className="successfully">
+            <p className="successfully font-weight-500">
                 <FontAwesomeIcon icon={faLock} className="warning-icon mr5px" />
-                Create new Password
+                Create New Password
             </p>
             <form className="verify-text textAlign" onSubmit={handleSubmit}>
             <p className="mb15px textAlignC"> Your new password must be different from previous used passwords.</p>
                 <div className="form-input">
-                    <label htmlFor="oldPassword">Old Password</label>
+                    <label htmlFor="oldPassword">Old password</label>
                     <input
                         type="password"
                         name="oldPassword"
@@ -87,7 +87,7 @@ const ChangePassword = () => {
                 </div>
 
                 <div className="form-input">
-                    <label htmlFor="newPassword">New Password</label>
+                    <label htmlFor="newPassword">New password</label>
                     <input
                         type="password"
                         name="newPassword"
@@ -100,7 +100,7 @@ const ChangePassword = () => {
                 </div>
 
                 <div className="form-input">
-                    <label htmlFor="confirm">Confirm New Password</label>
+                    <label htmlFor="confirm">Confirm new password</label>
                     <input
                         type="password"
                         name="confirm"
@@ -112,7 +112,7 @@ const ChangePassword = () => {
                     />
                 </div>
 
-                <button className="bg-308B8C " type="submit">Reset Password</button>
+                <button className="reset-password-btn" type="submit">Reset Password</button>
             </form>
         </div>
     )

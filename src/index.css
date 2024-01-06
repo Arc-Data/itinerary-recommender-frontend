@@ -548,19 +548,24 @@ a:-webkit-any-link {
 }
 
 .successfully {
-    background-color: #308B8C;
+    background-color: #E7E7E7;
     padding: 25px;
-    color: whitesmoke;
+    color: #212529;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
 }
 
-.bg-308B8C {
+.reset-password-btn {
     background-color: #308B8C;
+    padding: 0 15px;
 }
 
 .verify-text {
-    border: 3px solid #308B8C;
+    border: 3px solid #E7E7E7;
     height: auto;
     padding: 30px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 /* CHANGE PASSWORD */
