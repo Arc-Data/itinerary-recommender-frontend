@@ -3,6 +3,8 @@ import AuthContext from '../context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapLocationDot, faLocationDot, faUsers, faHotel , faUtensils , faFileArrowDown } from '@fortawesome/free-solid-svg-icons';
 import ReactApexChart from 'react-apexcharts';
+import { faCog } from '@fortawesome/free-solid-svg-icons'; // Add this import for the cog icon
+
 
 import { useLocation, Link } from 'react-router-dom';
 
@@ -18,8 +20,12 @@ import { useLocation, Link } from 'react-router-dom';
 		const [topFoodPlace, setTopFoodPlace] = useState([]);
 		const [topBookmarks, setTopBookmarks] = useState([]);
 		const [topLocationItinerary, setTopLocationItinerary] = useState([]);
+		const [areaChartData, setAreaChartData] = useState([]);
+		const [pieChartData, setPieChartData] = useState([]);
+		const [semiDonut, setSemiDonut] = useState([]);
 		const [loading, setLoading] = useState(true); 
 		const [selectedTopList, setSelectedTopList] = useState('spots');
+		
 		
 
 	useEffect(() => {
@@ -90,8 +96,6 @@ import { useLocation, Link } from 'react-router-dom';
 		
 			const data = await response.json();
 			setTopSpots(data.top_spots);
-			console.log(data)
-			
 			} catch (error) {
 			console.error('Error fetching top spots:', error.message);
 			}
@@ -113,8 +117,6 @@ import { useLocation, Link } from 'react-router-dom';
 		
 			const data = await response.json();
 			setTopAccommodation(data.top_accommodations);
-			console.log(data)
-			
 			} catch (error) {
 			console.error('Error fetching top spots:', error.message);
 			}
@@ -175,9 +177,77 @@ import { useLocation, Link } from 'react-router-dom';
 			}
 			const data = await response.json();
 			setTopLocationItinerary(data.top_locations_itinerary);
-			console.log(data)
 			} catch (error) {
 			console.error('Error fetching top bookmarks:', error.message);
+			}
+		};
+
+
+		const fetchTagsPercent = async () => {
+			try {
+				const response = await fetch(`${backendUrl}/api/dashboard/tags-percent/`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${authTokens.access}`,
+				},
+				});
+			
+				if (!response.ok) {
+				throw new Error('Failed to fetch top bookmarks');
+				}
+				const data = await response.json();
+				setPieChartData(data.filter(tag => tag.tag !== null));
+			} catch (error) {
+				console.error('Error fetching top bookmarks:', error.message);
+			}
+		};
+
+		const fetchTopActivityPercent = async () => {
+			try {
+			  const response = await fetch(`${backendUrl}/api/dashboard/activity-percent/`, {
+				method: 'GET',
+				headers: {
+				  'Content-Type': 'application/json',
+				  'Authorization': `Bearer ${authTokens.access}`,
+				},
+			  });
+		  
+			  if (!response.ok) {
+				throw new Error('Failed to fetch top bookmarks');
+			  }
+		  
+			  const data = await response.json();
+			  setAreaChartData(data);
+		  
+			  const areaChartData = data.map(item => ({
+				x: item.activity || 'Unknown',
+				y: parseFloat(item.percentage).toFixed(2),
+			  }));
+			  setAreaChartData(areaChartData);
+			} catch (error) {
+			  console.error('Error fetching top bookmarks:', error.message);
+			}
+		  };
+
+		  const fetchVisitedSpotsTags = async () => {
+			try {
+				const response = await fetch(`${backendUrl}/api/dashboard/user-spot-tags/`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${authTokens.access}`,
+				},
+				});
+			
+				if (!response.ok) {
+				throw new Error('Failed to fetch top bookmarks');
+				}
+				const data = await response.json();
+				setSemiDonut(data);
+				console.log(data)
+			} catch (error) {
+				console.error('Error fetching top bookmarks:', error.message);
 			}
 		};
 
@@ -189,6 +259,9 @@ import { useLocation, Link } from 'react-router-dom';
 		fetchTopFoodPlaces();
 		fetchTopLocationItinerary();
 		fetchTopBookmarks();
+		fetchTagsPercent();
+		fetchTopActivityPercent();
+		fetchVisitedSpotsTags();
 	}, [backendUrl, authTokens.access]);
 
 	const preferenceColors = {
@@ -227,6 +300,44 @@ import { useLocation, Link } from 'react-router-dom';
 		  default:
 			return null;
 		}
+	  };
+
+	  const options = {
+		labels: pieChartData.map(tag => `${tag.tag} (${tag.count})`),
+		fill: {
+		  colors: ["#2D7D90", "#38A3A5", "#48B89F", "#57CC99", "#80ED99", "#A4F3B3", "#C7F9CC", "#C7F9CC", "#8e44ad", "#2c3e50", "#f1c40f", "#e67e22", "#e74c3c", "#ecf0f1", "#95a5a6", "#f39c12", "#d35400", "#c0392b", "#bdc3c7", "#7f8c8d"],
+		  opacity: 1,
+		},
+		legend: {
+		  markers: {
+			fillColors: ["#2D7D90", "#38A3A5", "#48B89F", "#57CC99", "#80ED99", "#A4F3B3", "#C7F9CC", "#C7F9CC", "#2980b9", "#8e44ad", "#2c3e50", "#f1c40f", "#e67e22", "#e74c3c", "#ecf0f1", "#95a5a6", "#f39c12", "#d35400", "#c0392b", "#bdc3c7", "#7f8c8d"],
+		  },
+		},
+	  };
+	  
+	  
+
+	  const areaChartOptions = {
+		chart: {
+		  height: '350',
+		  background: 'none',
+		  foreColor: '#333',
+		},
+		xaxis: {
+		  type: 'category',
+		},
+		fill: {
+		  colors: ['#C7F9CC'],
+		  opacity: 1,
+		},
+		dataLabels: {
+		  enabled: false,
+		},
+		tooltip: {
+		  x: {
+			format: 'yyyy-MM-dd',
+		  },
+		},
 	  };
 
 	return (
@@ -379,6 +490,63 @@ import { useLocation, Link } from 'react-router-dom';
 					</div>
 				</div>
 				<div className='User--preference-container'>
+					<div>
+						<p className="font20 font-weight-600">Activity Percentage</p>
+						<div className="dashboard--performance-container style--barGraph">
+							{areaChartData && (
+							<ReactApexChart
+								options={areaChartOptions}
+								series={[{ name: 'Percent', data: areaChartData ,  }]}
+								type="bar"
+								height={450}
+								width={620}
+							/>
+							)}
+						</div>
+					</div>
+					<div>
+					<p className="font20 font-weight-600">Tags Percentage</p>
+						<div>
+							<div className="dashboard--performance-container style--barGraph1 ">
+								{pieChartData && (
+									<ReactApexChart
+									options={options}
+									series={pieChartData.map(tag => tag.percentage)}
+									type="pie"
+									height={450}
+									width={390}
+									/>
+								)}
+							</div>
+						</div>
+						<p className="font20 font-weight-600 mt-5px">Top Visited Tags</p>
+						<div>
+							<div className="dashboard--performance-container style--barGraph1 mb--10px ">
+								{semiDonut && (
+								<ReactApexChart
+									options={{
+									labels: semiDonut.map(item => `${item.tag} (${item.count})`),
+									fill: {
+										colors: ["#2D7D90", "#38A3A5", "#48B89F", "#57CC99", "#80ED99", "#A4F3B3", "#C7F9CC", "#C7F9CC", "#8e44ad", "#2c3e50", "#f1c40f", "#e67e22", "#e74c3c", "#ecf0f1", "#95a5a6", "#f39c12", "#d35400", "#c0392b", "#bdc3c7", "#7f8c8d"],
+										opacity: 1,
+									  },
+									  legend: {
+										markers: {
+										  fillColors: ["#2D7D90", "#38A3A5", "#48B89F", "#57CC99", "#80ED99", "#A4F3B3", "#C7F9CC", "#C7F9CC", "#2980b9", "#8e44ad", "#2c3e50", "#f1c40f", "#e67e22", "#e74c3c", "#ecf0f1", "#95a5a6", "#f39c12", "#d35400", "#c0392b", "#bdc3c7", "#7f8c8d"],
+										},
+									  },
+									}}
+									series={semiDonut.map(item => item.percentage)}
+									type="pie"
+									height={450}
+									width={390}
+								/>
+								)}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className='User--preference-container'>
 					<div className='dashboard--total-container'>
 						<div className="dropdown--list-admin d-flexCenter">
 						<p className="font20 font-weight-600">Top {selectedTopList === 'spots' ? 'Spots' : selectedTopList === 'accommodation' ? 'Accommodation' : selectedTopList === 'foodPlaces' ? 'Food Places' : 'Visited'}</p>
@@ -426,7 +594,7 @@ import { useLocation, Link } from 'react-router-dom';
 						</table>
 					</div>
 					<div className='dashboard--total-container'>
-						<p className="font20 font-weight-600">Top Bookmarks</p>
+						<p className="font20 font-weight-600">Top 10 Bookmarks</p>
 						<table className="top-bookmark-table">
 							<thead>
 							<tr className='table--th1'>

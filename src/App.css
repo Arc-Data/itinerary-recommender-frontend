@@ -11,6 +11,7 @@ html, body {
   margin-left: 250px;
   padding: 50px 80px;
   width: 100%;
+  overflow: hidden;
 }
 .site-wrapper, .admin--container {
   display: flex;
@@ -261,6 +262,10 @@ select {
   margin: 40px 10px 40px 25px;
 }
 
+.pie-chart-container {
+  background-color: red;
+}
+
 .dashboard--users {
   height: 30%;
   width: 15%;
@@ -339,6 +344,12 @@ select {
   height: 450px;
 }
 
+.style--barGraph1 {
+  border: 2px solid #EFEFEF;
+  margin: 40px 5px 0 0;
+  height: auto;
+}
+
 .top-spot-table{
   width: 650px;
   max-height: 635px;
@@ -349,6 +360,12 @@ select {
  gap: 20px;
  max-height: 635px;
  margin-top: 65px;
+}
+
+.top-activity-table {
+  max-height: 405px;
+  font-size: 11px;
+  margin-top: 45px;
 }
 
 .dashboard--location-container{
