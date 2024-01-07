@@ -1241,6 +1241,9 @@ input[type="text"] {
 .detailPage--tags.description {
     margin-top: 30px;
 }
+.detailPage--tags.admin {
+    margin-top: 5px;
+}
 
 
 /* USER AND ADD REVIEW BUTTON*/

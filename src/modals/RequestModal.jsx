@@ -20,6 +20,12 @@ const RequestModal = ({onClose, request, approveRequest}) => {
 		)
 	})
 
+    const displayActivities = request && request.activity.map((activity, index) => {
+		return (
+			<div key={index} className="detailPage--tag description">{activity}</div>
+		)
+	})
+
     console.log('REQUEST: ', request)
 
     return (
@@ -80,8 +86,15 @@ const RequestModal = ({onClose, request, approveRequest}) => {
                             </div>
                         </div>
                         <div className="form-group">
-                            <div className="detailPage--tags description">
+                            <label>Tags</label>
+                            <div className="detailPage--tags admin">
                                 {displayTags}
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <label>Activities</label>
+                            <div className="detailPage--tags admin">
+                                {displayActivities}
                             </div>
                         </div>
                     </div>

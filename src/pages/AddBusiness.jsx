@@ -8,7 +8,6 @@ import ReactDatePicker from "react-datepicker";
 
 const AddBusiness = () => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
-    
     const { authTokens } = useContext(AuthContext)
     const navigate = useNavigate()
     const [locationData, setLocationData] = useState({
@@ -102,7 +101,7 @@ const AddBusiness = () => {
             } else if (locationData.type === "1") {
                 if (!activities.includes(tagName)) {
                     setActivities(prevTags => [...prevTags, tagName])
-                    // await createTag(tagName)
+                    await createTag(tagName)
                 }
             }
             setQuery('')
@@ -510,7 +509,7 @@ const AddBusiness = () => {
                                             <div>
                                                 <div className="form-group">
                                                     <h1 className="heading business-details">Activities</h1>
-                                                    <label htmlFor="activities">Activities</label>
+                                                    <label htmlFor="activities">Press enter to add</label>
                                                     <div className="tags-input-container business-input">
                                                         {addedActivityItem}
                                                         <input 

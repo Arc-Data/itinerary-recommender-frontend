@@ -45,9 +45,7 @@ const HomeBusiness = () => {
             
                 {locations.length > 0 ? 
                     <div className="home--business-container">
-                        <div className="home--business-item">
-                            {displayLocations}
-                        </div>
+                        {displayLocations}
                     </div>
                     :
                     <div className="no-business-banner">
