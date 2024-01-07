@@ -5,6 +5,8 @@ import SAMPLEIMAGE from "/images/osmenapeak.jpg";
 import Modal from "react-modal";
 import ProductModal from "../modals/ProductModal";
 import AuthContext from "../context/AuthContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 Modal.setAppElement("#root");
 
@@ -13,7 +15,7 @@ const ManageBusiness = ({ location, editBusiness }) => {
 
 	const { authTokens } = useContext(AuthContext)
 	const navigate = useNavigate()
-
+	
     const [formData, setFormData] = useState({
 		'name': location.name,
 		'address': location.address,
@@ -22,9 +24,9 @@ const ManageBusiness = ({ location, editBusiness }) => {
 		'description': location.description,
         'location_type': location.location_type,
 	})
-
-	console.log(location)
-
+	
+	const [searchResults, setSearchResults] = useState([])
+	const [ query, setQuery ] = useState('')
 	const [ tags, setTags ] = useState(location.tags)
 
 	const handleChangeInput = (e) => {
@@ -37,7 +39,79 @@ const ManageBusiness = ({ location, editBusiness }) => {
 		}))
  	}
 
+	 const handleKeyDown = (e) => {
+		if (e.key === 'Enter') {
+			e.preventDefault();
+			if (e.target.classList.contains('tags-input')) {
+				// Logic to add tags
+				addTag(query);
+			} else {
+				print("Should be here")
+				// Logic for other input fields or form submission
+				// handleSubmit();
+			}
+		}
+	};
+
+	const addTag = async (tagName) => {
+        try {
+			if (!tags.includes(tagName)) {
+				setTags(prevTags => [...prevTags, tagName])
+				await createTag(tagName)
+			}
+            setQuery('')
+        } catch (error) {
+            console.error('Error adding tag:', error)
+        }
+    }
+
+	const createTag = async (tagName) => {
+		try {
+			const response = await fetch(`${backendUrl}/api/user/business/${location.id}/edit/add_foodtags/`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${String(authTokens.access)}`
+				},
+				body: JSON.stringify({'tag': tagName})
+			})
+			console.log(response)
+			const data = await response.json()
+			console.log(data)
+			const tag = data.data.name
+			const updatedTags = [...tags, tag]
+			setTags(updatedTags)
+		}
+		catch (error) {
+			console.log("error while adding tags: ", tags)
+		}
+	}
+
+	const handleChangeTagInput = (e) => {
+		const { value } = e.target
+		setQuery(value)
+		searchTags(value)
+	}
+
+	const searchTags = async (query) => {
+        try {
+			const response = await fetch(`${backendUrl}/api/foodtag/search/?query=${query}`, {
+					"method": "GET",
+					"headers": {
+						"Content-Type": "application/json",
+						"Authorization": `Bearer ${authTokens.access}`
+					}
+			})
+			let data = await response.json()
+			const filteredTags = data.filter((tag) => !tags.includes(tag.name));
+			setSearchResults(filteredTags)
+        } catch (error) {
+	        console.error('Error searching tags:', error);
+        }
+    }
+
 	const removeTag = async (e, removedTag) => {
+		console.log("Wait why")
 		e.preventDefault()
 		try {
 			const response = await fetch(`${backendUrl}/api/user/business/${location.id}/edit/remove_foodtags/`, {
@@ -48,9 +122,7 @@ const ManageBusiness = ({ location, editBusiness }) => {
 				},
 				body: JSON.stringify({'tag': removedTag}),
 			})
-			console.log(response)
 			const data = await response.json()
-			console.log(data)
 
 		}
 		catch (error) {
@@ -63,11 +135,12 @@ const ManageBusiness = ({ location, editBusiness }) => {
 	}
 
 	const displayTags = tags && tags.map((tag, idx) => {
-		console.log(tag)
 		return (
-			<div key={idx}>
-				<div>{tag}</div>
-				<button onClick={(e) => removeTag(e, tag)}>X</button>
+			<div className="tag-item" key={idx}>
+				{tag}
+				<button className="delete-tag-button" onClick={(e) => removeTag(e, tag)}>
+					<FontAwesomeIcon icon={faCircleXmark} />
+				</button>
 			</div>
 
 		)
@@ -181,11 +254,25 @@ const ManageBusiness = ({ location, editBusiness }) => {
 				/>
 				</div>
 			</div>    
-			<button className="add--business font14" >Submit</button>
+			
+			<div className="form-group">
+				<h1 className="heading business-details">Tags</h1>
+				<label htmlFor="tags">Tags</label>
+				<div className="tags-input-container business-input">
+					{displayTags}
+					<input 
+						type="text" 
+						// value={query} 
+						onChange={handleChangeTagInput}
+						onKeyDown={handleKeyDown}
+						placeholder="Add or search tags..."
+						className="tags-input"
+					/>
+				</div>
+				{/* {tagSearchResults} */}
+			</div>
+			<button className="add--business font14">Submit</button>
 		</form>
-		<div>
-		{displayTags}
-		</div>
 
 		</div>
 	);
