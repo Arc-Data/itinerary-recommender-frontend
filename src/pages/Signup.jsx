@@ -12,6 +12,7 @@ const Signup = () => {
         'lastname': '', 
         'email': '',
         'password': '',
+        'contact': '',
         'confirm': '',
     })
     const [showPassword, setShowPassword] = useState(false)
@@ -76,6 +77,13 @@ const Signup = () => {
                     name="email" 
                     placeholder="Enter your email" 
                     value={formData.email}
+                    onChange={handleInputChange} />
+                <label>Contact</label>
+                <input 
+                    type="contact" 
+                    name="contact" 
+                    placeholder="Enter contact number" 
+                    value={formData.contact}
                     onChange={handleInputChange} />
                 <label>Password</label>
                 <input
