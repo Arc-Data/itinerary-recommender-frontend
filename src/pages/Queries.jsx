@@ -3,7 +3,9 @@ import useQueryManager from "../hooks/useQueryManager"
 import AuthContext from "../context/AuthContext"
 import dayjs from 'dayjs'
 import QueryDetails from "../modals/QueryDetails"
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+    
 const Queries = () => {
     const { authTokens } = useContext(AuthContext)
     const { contactForms, status, getContactForms, toggleAdminResponded } = useQueryManager(authTokens)
@@ -19,16 +21,21 @@ const Queries = () => {
         setSelectedForm(null)
     }
     
-    const displayQueries = filteredContactForms && filteredContactForms.map(form => {
+
+    
+     const displayQueries = filteredContactForms && filteredContactForms.map(form => {
+        const statusColor = form.admin_responded ? "#00ab41" : "#FFD228";
         return (
             <tr key={form.id}>
                 <td>{form.user.first_name} {form.user.last_name}</td>
                 <td>{form.user.email}</td>
                 <td>{form.user.contact_number}</td>
                 <td>{dayjs(form.date_created).format("MMMM D, YYYY")}</td>
-                <td>{form.admin_responded ? "Responded" : "Pending"}</td>
+                <td style={{ color: statusColor }}>{form.admin_responded ? "Responded" : "Pending"}</td>
                 <td>
-                    <button onClick={() => setSelectedForm(form)}>Details</button>
+                    <button className="queries--btn" onClick={() => setSelectedForm(form)}>
+                        <FontAwesomeIcon icon={faEye} />
+                    </button>
                 </td>
             </tr>
         )
@@ -49,19 +56,23 @@ const Queries = () => {
             <div>An error occured</div>
         )
     }
+    
 
 
     return (
         <div>
             <h1 className="heading">Queries</h1>
-            <label>
-                Show Unresponded Only
-                <input
-                    type="checkbox"
-                    checked={showUnrespondedOnly}
-                    onChange={() => setShowUnrespondedOnly(!showUnrespondedOnly)}
-                />
-            </label>
+            <div className="queries--text">
+                <div className="mt-22px mr10px">Show Unresponded Only</div>
+                <label className="toggle-switch">
+                    <input
+                        type="checkbox"
+                        checked={showUnrespondedOnly}
+                        onChange={() => setShowUnrespondedOnly(!showUnrespondedOnly)}
+                    />
+                    <span className="slider round"></span>
+                </label>
+            </div>
             <table>
                 <thead>
                     <tr>

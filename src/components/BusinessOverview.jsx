@@ -150,7 +150,7 @@ const BusinessOverview = () => {
 
     return (
         <>
-            <h1 className="heading9">Business Dashboard</h1>
+            <h1 className="heading9">Business Stats</h1>
             <div className="business--dashboard--container">
                 {location && (
                     <div className="dashboard--business-items">

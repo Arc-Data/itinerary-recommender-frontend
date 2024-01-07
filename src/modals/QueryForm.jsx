@@ -13,14 +13,16 @@ const QueryForm = ({ onClose }) => {
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-
+        e.preventDefault();
+    
         if (description.length === 0) {
-            alert("Cant leave form empty!")
-            return
+            alert("Can't leave the form empty!");
+            return;
         }
-
-        createQuery(description)
+    
+        createQuery(description);
+        alert("Query submitted successfully!"); 
+        onClose(); 
     }
 
     return (

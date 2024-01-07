@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { NavLink, useSearchParams } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import dashboard from "/images/radix-icons_dashboard.svg";
-import { FaMapMarkerAlt, FaUser, FaAngleUp, FaAngleDown, FaReceipt, FaCalendarDay, FaCar } from 'react-icons/fa'; // Import arrow icons
+import { FaMapMarkerAlt, FaUser, FaAngleUp, FaAngleDown, FaReceipt, FaCalendarDay, FaCar, FaQuestion  } from 'react-icons/fa'; 
 
 function Sidebar() {
     const { logoutUser } = useContext(AuthContext);
@@ -115,7 +115,7 @@ function Sidebar() {
                     to="queries"
                 >
                     <h4 className="users">
-                        <FaCar /> Queries
+                        <FaQuestion  /> Queries
                     </h4>
                 </NavLink>
             </div>

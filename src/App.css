@@ -259,7 +259,7 @@ select {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 10px; 
-  margin: 25px 10px 40px 25px;
+  margin: 25px 10px 40px 0;
   border-radius: 10px;
 }
 
@@ -358,14 +358,13 @@ select {
   border: 2px solid #EFEFEF;
   margin: 25px 5px 0 0;
   height: auto;
-  width: 420px;
+  width: 450px;
   border-radius: 10px;
 }
 
 .style--barGraph3 {
-  width: 1080px;
+  width: 1110px;
   margin-bottom: 20px;
-  margin-left: 30px;
 }
 
 .top-spot-table{

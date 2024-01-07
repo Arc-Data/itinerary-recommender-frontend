@@ -451,7 +451,7 @@ const AddBusiness = () => {
                                 }
                                 <div className="form-column-group">
                                     <div className="form-group">
-                                        <label htmlFor="address">Latitude</label>
+                                        <label htmlFor="address">Latitude <span style={{ color: 'gray', fontSize: '14px' }}>(e.g. 10.41482)</span></label>
                                         <input 
                                             type="number" 
                                             name="latitude" 
@@ -461,7 +461,7 @@ const AddBusiness = () => {
                                             className="business-input"/>
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="address">Longitude</label>
+                                        <label htmlFor="address">Longitude <span style={{ color: 'gray' , fontSize: '14px' }}>(e.g. 123.41482)</span></label>
                                         <input 
                                             type="number" 
                                             name="longitude" 
