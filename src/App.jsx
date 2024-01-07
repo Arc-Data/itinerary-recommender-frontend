@@ -56,6 +56,7 @@ import HomeEvent from './components/HomeEvent';
 import HomeBusiness from './components/HomeBusiness';
 import AddDriver from './pages/AddDriver'
 import EditDriver from './pages/EditDriver';
+import Queries from './pages/Queries';
 /*css*/
 	
 function App() {
@@ -138,6 +139,7 @@ function App() {
 					<Route path="/admin/requests" element={<Request />} />
 					<Route path="/admin/events" element={<Event />} />
 					<Route path="/admin/event" element={<AddEvent />} />
+					<Route path="/admin/queries" element={<Queries />} />
 					<Route path="/admin/download" element={<DownloadDashboard />} />
 				</Route>
 			</Routes>

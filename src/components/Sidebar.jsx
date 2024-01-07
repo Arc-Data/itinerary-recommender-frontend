@@ -110,6 +110,14 @@ function Sidebar() {
                         <FaCar /> Drivers
                     </h4>
                 </NavLink>
+                <NavLink
+                    className={({ isActive }) => isActive ? 'active14' : 'link14'}
+                    to="queries"
+                >
+                    <h4 className="users">
+                        <FaCar /> Queries
+                    </h4>
+                </NavLink>
             </div>
             <button className="btn logout" onClick={logoutUser}>
                 Logout
