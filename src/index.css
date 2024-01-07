@@ -2302,8 +2302,7 @@ input[type="text"] {
     color: #184E77;
 }
 .share--details-container {
-    padding: 50px;
-    overflow-y: scroll;
+    overflow: hidden;
 }
 .share--details-content {
     padding: 20px;

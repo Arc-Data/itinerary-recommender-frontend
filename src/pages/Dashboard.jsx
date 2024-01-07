@@ -23,6 +23,9 @@ import { useLocation, Link } from 'react-router-dom';
 		const [areaChartData, setAreaChartData] = useState([]);
 		const [pieChartData, setPieChartData] = useState([]);
 		const [semiDonut, setSemiDonut] = useState([]);
+		const [foodTagPercent, setFoodTagPercent] = useState([]);
+		const [visitedFoodTag, setVisitedFoodTag] = useState([]);
+		const [visitedSpotActivity, setVisitedSpotActivity] = useState([]);
 		const [loading, setLoading] = useState(true); 
 		const [selectedTopList, setSelectedTopList] = useState('spots');
 		
@@ -118,7 +121,7 @@ import { useLocation, Link } from 'react-router-dom';
 			const data = await response.json();
 			setTopAccommodation(data.top_accommodations);
 			} catch (error) {
-			console.error('Error fetching top spots:', error.message);
+			console.error('Error fetching top Accommodation:', error.message);
 			}
 		};
 		
@@ -158,7 +161,7 @@ import { useLocation, Link } from 'react-router-dom';
 			const data = await response.json();
 			setTopFoodPlace(data.top_food_places);
 			} catch (error) {
-			console.error('Error fetching top bookmarks:', error.message);
+			console.error('Error fetching top Food Places:', error.message);
 			}
 		};
 
@@ -178,7 +181,7 @@ import { useLocation, Link } from 'react-router-dom';
 			const data = await response.json();
 			setTopLocationItinerary(data.top_locations_itinerary);
 			} catch (error) {
-			console.error('Error fetching top bookmarks:', error.message);
+			console.error('Error fetching top Location Itinerary:', error.message);
 			}
 		};
 
@@ -199,11 +202,51 @@ import { useLocation, Link } from 'react-router-dom';
 				const data = await response.json();
 				setPieChartData(data.filter(tag => tag.tag !== null));
 			} catch (error) {
+				console.error('Error fetching Tags Percent:', error.message);
+			}
+		};
+
+		  const fetchVisitedSpotsTags = async () => {
+			try {
+				const response = await fetch(`${backendUrl}/api/dashboard/user-spot-tags/`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${authTokens.access}`,
+				},
+				});
+			
+				if (!response.ok) {
+				throw new Error('Failed to fetch top bookmarks');
+				}
+				const data = await response.json();
+				setSemiDonut(data);
+			} catch (error) {
+				console.error('Error fetching Visited Spot Tags:', error.message);
+			}
+		};
+
+		const fetchFoodTagPercent = async () => {
+			try {
+				const response = await fetch(`${backendUrl}/api/dashboard/foodtag-percent/`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${authTokens.access}`,
+				},
+				});
+			
+				if (!response.ok) {
+				throw new Error('Failed to fetch top bookmarks');
+				}
+				const data = await response.json();
+				setFoodTagPercent(data);
+			} catch (error) {
 				console.error('Error fetching top bookmarks:', error.message);
 			}
 		};
 
-		const fetchTopActivityPercent = async () => {
+		const topActivityPercent = async () => {
 			try {
 			  const response = await fetch(`${backendUrl}/api/dashboard/activity-percent/`, {
 				method: 'GET',
@@ -226,13 +269,13 @@ import { useLocation, Link } from 'react-router-dom';
 			  }));
 			  setAreaChartData(areaChartData);
 			} catch (error) {
-			  console.error('Error fetching top bookmarks:', error.message);
+			  console.error('Error fetching top Activity Percent:', error.message);
 			}
 		  };
 
-		  const fetchVisitedSpotsTags = async () => {
+		const topVisitedFoodTag = async () => {
 			try {
-				const response = await fetch(`${backendUrl}/api/dashboard/user-spot-tags/`, {
+				const response = await fetch(`${backendUrl}/api/dashboard/user-foodplace-tags/`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
@@ -244,8 +287,28 @@ import { useLocation, Link } from 'react-router-dom';
 				throw new Error('Failed to fetch top bookmarks');
 				}
 				const data = await response.json();
-				setSemiDonut(data);
+				setVisitedFoodTag(data);
 				console.log(data)
+			} catch (error) {
+				console.error('Error fetching top bookmarks:', error.message);
+			}
+		};
+
+		const topVisitedSpotActivity = async () => {
+			try {
+				const response = await fetch(`${backendUrl}/api/dashboard/user-spot-activity/`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${authTokens.access}`,
+				},
+				});
+			
+				if (!response.ok) {
+				throw new Error('Failed to fetch top bookmarks');
+				}
+				const data = await response.json();
+				setVisitedSpotActivity(data);
 			} catch (error) {
 				console.error('Error fetching top bookmarks:', error.message);
 			}
@@ -260,8 +323,11 @@ import { useLocation, Link } from 'react-router-dom';
 		fetchTopLocationItinerary();
 		fetchTopBookmarks();
 		fetchTagsPercent();
-		fetchTopActivityPercent();
 		fetchVisitedSpotsTags();
+		fetchFoodTagPercent();
+		topActivityPercent();
+		topVisitedFoodTag();
+		topVisitedSpotActivity();
 	}, [backendUrl, authTokens.access]);
 
 	const preferenceColors = {
@@ -305,18 +371,38 @@ import { useLocation, Link } from 'react-router-dom';
 	  const options = {
 		labels: pieChartData.map(tag => `${tag.tag} (${tag.count})`),
 		fill: {
-		  colors: ["#2D7D90", "#38A3A5", "#48B89F", "#57CC99", "#80ED99", "#A4F3B3", "#C7F9CC", "#C7F9CC", "#8e44ad", "#2c3e50", "#f1c40f", "#e67e22", "#e74c3c", "#ecf0f1", "#95a5a6", "#f39c12", "#d35400", "#c0392b", "#bdc3c7", "#7f8c8d"],
+		  colors: 
+		  	["#2D7D90",
+		   	"#38A3A5", "#48B89F", 
+		   	"#57CC99", "#80ED99",
+			"#A4F3B3", "#C7F9CC", 
+			"#C7F9CC", "#8e44ad", 
+			"#2c3e50", "#f1c40f", 
+			"#e67e22", "#e74c3c", 
+			"#ecf0f1", "#95a5a6", 
+			"#f39c12", "#d35400",
+			"#c0392b", "#bdc3c7",
+			"#7f8c8d"],
 		  opacity: 1,
 		},
 		legend: {
 		  markers: {
-			fillColors: ["#2D7D90", "#38A3A5", "#48B89F", "#57CC99", "#80ED99", "#A4F3B3", "#C7F9CC", "#C7F9CC", "#2980b9", "#8e44ad", "#2c3e50", "#f1c40f", "#e67e22", "#e74c3c", "#ecf0f1", "#95a5a6", "#f39c12", "#d35400", "#c0392b", "#bdc3c7", "#7f8c8d"],
+			fillColors: 
+				["#2D7D90", "#38A3A5", 
+				"#48B89F", "#57CC99", 
+				"#80ED99", "#A4F3B3", 
+				"#C7F9CC", "#C7F9CC", 
+				"#2980b9", "#8e44ad", 
+				"#2c3e50", "#f1c40f", 
+				"#e67e22", "#e74c3c",
+				"#ecf0f1", "#95a5a6", 
+				"#f39c12", "#d35400", 
+				"#c0392b", "#bdc3c7", 
+				"#7f8c8d"],
 		  },
 		},
 	  };
 	  
-	  
-
 	  const areaChartOptions = {
 		chart: {
 		  height: '350',
@@ -326,10 +412,24 @@ import { useLocation, Link } from 'react-router-dom';
 		xaxis: {
 		  type: 'category',
 		},
-		fill: {
-		  colors: ['#C7F9CC'],
-		  opacity: 1,
+		yaxis: {
+		  title: {
+			text: 'Total Percentage of Activity',
+		  },
 		},
+		fill: {
+			colors: '#82d9ca',
+			type: 'gradient',
+			gradient: {
+				shade: 'dark',
+				gradientToColors: ['#2D7D90', '#38A3A5', '#48B89F', '#57CC99'],
+			  shadeIntensity: 1,
+			  type: 'vertical',
+			  opacityFrom: 1,
+			  opacityTo: 1,
+			  stops: [0, 100, 100, 100]
+			},
+		  },
 		dataLabels: {
 		  enabled: false,
 		},
@@ -339,6 +439,7 @@ import { useLocation, Link } from 'react-router-dom';
 		  },
 		},
 	  };
+	  
 
 	return (
 		<div>
@@ -457,7 +558,6 @@ import { useLocation, Link } from 'react-router-dom';
 					<div className='dashboard--location-container'>
 					{dashboardData && (
 						<>
-						<p className="font20 font-weight-600">Location</p>
 						<div className="locations-items">
 							<div className="dashboard--items d-flexCenter height120 bordercolor1">
 								<FontAwesomeIcon icon={faLocationDot}  className="dashboard--users " style={{ color: "#57CC99"}}/>
@@ -474,7 +574,7 @@ import { useLocation, Link } from 'react-router-dom';
 									<h1 className="bold heading9 ">{dashboardData.accommodation_count}</h1>
 									<p className="mt-5px ">Total number of accommodation</p>
 								</div>
-						</div>
+							</div>
 						</div>
 						<div className="locations-items">
 							<div className="dashboard--items d-flexCenter height120 bordercolor1 ">
@@ -512,7 +612,7 @@ import { useLocation, Link } from 'react-router-dom';
 									<ReactApexChart
 									options={options}
 									series={pieChartData.map(tag => tag.percentage)}
-									type="pie"
+									type="donut"
 									height={450}
 									width={390}
 									/>
@@ -527,17 +627,28 @@ import { useLocation, Link } from 'react-router-dom';
 									options={{
 									labels: semiDonut.map(item => `${item.tag} (${item.count})`),
 									fill: {
-										colors: ["#2D7D90", "#38A3A5", "#48B89F", "#57CC99", "#80ED99", "#A4F3B3", "#C7F9CC", "#C7F9CC", "#8e44ad", "#2c3e50", "#f1c40f", "#e67e22", "#e74c3c", "#ecf0f1", "#95a5a6", "#f39c12", "#d35400", "#c0392b", "#bdc3c7", "#7f8c8d"],
+										colors: 
+											["#2D7D90", "#38A3A5", "#48B89F", "#57CC99", 
+											"#80ED99", "#A4F3B3", "#C7F9CC", "#C7F9CC", 
+											"#8e44ad", "#2c3e50", "#f1c40f", "#e67e22", 
+											"#e74c3c", "#ecf0f1", "#95a5a6", "#f39c12", 
+											"#d35400", "#c0392b", "#bdc3c7", "#7f8c8d"],
 										opacity: 1,
 									  },
 									  legend: {
 										markers: {
-										  fillColors: ["#2D7D90", "#38A3A5", "#48B89F", "#57CC99", "#80ED99", "#A4F3B3", "#C7F9CC", "#C7F9CC", "#2980b9", "#8e44ad", "#2c3e50", "#f1c40f", "#e67e22", "#e74c3c", "#ecf0f1", "#95a5a6", "#f39c12", "#d35400", "#c0392b", "#bdc3c7", "#7f8c8d"],
+										  fillColors: 
+										  	["#2D7D90", "#38A3A5", "#48B89F", "#57CC99", 
+											"#80ED99", "#A4F3B3", "#C7F9CC", "#C7F9CC", 
+											"#2980b9", "#8e44ad", "#2c3e50", "#f1c40f", 
+											"#e67e22", "#e74c3c", "#ecf0f1", "#95a5a6", 
+											"#f39c12", "#d35400", "#c0392b", "#bdc3c7", 
+											"#7f8c8d"],
 										},
 									  },
 									}}
 									series={semiDonut.map(item => item.percentage)}
-									type="pie"
+									type="donut"
 									height={450}
 									width={390}
 								/>
@@ -546,6 +657,152 @@ import { useLocation, Link } from 'react-router-dom';
 						</div>
 					</div>
 				</div>
+
+				<div className='User--preference-container'>
+					<div>
+						<p className="font20 font-weight-600">Food Tag Percentage</p>
+						<div className="dashboard--performance-container style--barGraph">
+							{foodTagPercent && (
+							<ReactApexChart
+								options={{
+								chart: {
+									type: 'bar',
+									height: 450,
+									background: 'none',
+									foreColor: '#333',
+								},
+								plotOptions: {
+									bar: {
+									horizontal: true,
+									columnWidth: '55%',
+									endingShape: 'flat',
+									},
+								},
+								dataLabels: {
+									enabled: false,
+								},
+								xaxis: {
+									categories: foodTagPercent.map(tag => tag.tag),
+									labels: {
+									formatter: function (val) {
+										return val + '%';
+									},
+									},
+								},
+								yaxis: {
+									title: {
+									text: 'Food Tag',
+									},
+									labels: {
+									formatter: function (value) {
+										return value && value.toFixed ? value.toFixed(2) + '%' : value;
+									},
+									},
+								},
+								tooltip: {
+									y: {
+									formatter: function (val) {
+										return val && val.toFixed ? val.toFixed(2) + ' count' : val;
+									},
+									},
+								},
+								fill: {
+									colors: '#82d9ca',
+									type: 'gradient',
+									gradient: {
+									  shade: 'dark',
+									  gradientToColors: ['#2D7D90', '#38A3A5', '#48B89F', '#57CC99'],
+									  shadeIntensity: 1,
+									  type: 'horizontal',
+									  opacityFrom: 1,
+									  opacityTo: 1,
+									  stops: [0, 100, 100, 100]
+									},
+								  },
+								}}
+								series={[{ data: foodTagPercent.map(tag => tag.count) }]}
+								type="bar"
+								height={450}
+								width={620}
+							/>
+							)}
+						</div>
+					</div>
+					<div>
+						<p className="font20 font-weight-600">Top Visited Spot Activity</p>
+						<div className="dashboard--performance-container style--barGraph2 ">
+							{visitedSpotActivity && (
+							<ReactApexChart
+								options={{
+								chart: {
+									background: 'none',
+									foreColor: '#333',
+								},
+								xaxis: {
+									categories: visitedSpotActivity.map(item => item.activity),
+								},
+								dataLabels: {
+									enabled: false,
+								},
+								fill: {
+									colors: '#82d9ca',
+									type: 'gradient',
+									gradient: {
+									  shade: 'dark',
+									  gradientToColors: ['#2D7D90', '#38A3A5', '#48B89F', '#57CC99'],
+									  shadeIntensity: 1,
+									  type: 'vertical',
+									  opacityFrom: 1,
+									  opacityTo: 1,
+									  stops: [0, 100, 100, 100]
+									},
+								  },
+								}}
+								series={[{ name: 'Percentage', data: visitedSpotActivity.map(item => item.percentage.toFixed(2)) }]}
+								type="bar"
+								height={450}
+								width={400}
+							/>
+							)}
+						</div>
+					</div>
+				</div>
+				<p className="font20 font-weight-600">Top Visited FoodPlace Tags</p>
+					<div className="dashboard--performance-container style--barGraph2 style--barGraph3 ">
+						{visitedFoodTag && (
+						<ReactApexChart
+							options={{
+							chart: {
+								background: 'none',
+								foreColor: '#333',
+							},
+							xaxis: {
+								categories: visitedFoodTag.map(item => item.foodtag),
+							},
+							dataLabels: {
+								enabled: false,
+							},
+							fill: {
+								colors: '#82d9ca',
+								type: 'gradient',
+								gradient: {
+								  shade: 'dark',
+								  gradientToColors: ['#2D7D90', '#38A3A5', '#48B89F', '#57CC99'],
+								  shadeIntensity: 1,
+								  type: 'vertical',
+								  opacityFrom: 1,
+								  opacityTo: 1,
+								  stops: [0, 100, 100, 100]
+								},
+							  },
+							}}
+							series={[{ name: 'Percentage', data: visitedFoodTag.map(item => item.percentage.toFixed(2)) }]}
+							type="bar"
+							height={400}
+							width={1080}
+						/>
+						)}
+					</div>
 				<div className='User--preference-container'>
 					<div className='dashboard--total-container'>
 						<div className="dropdown--list-admin d-flexCenter">
@@ -594,7 +851,7 @@ import { useLocation, Link } from 'react-router-dom';
 						</table>
 					</div>
 					<div className='dashboard--total-container'>
-						<p className="font20 font-weight-600">Top 10 Bookmarks</p>
+						<p className="font20 font-weight-600 mt-20px">Top 10 Bookmarks</p>
 						<table className="top-bookmark-table">
 							<thead>
 							<tr className='table--th1'>
