@@ -184,7 +184,6 @@ const ManageSpot = ({ location, editBusiness }) => {
                         />
                         </div>
                     </div>
-                    {location.location_type === "1" && 
                     <div className="admin--container">
                         <div className="input admin--container">
                         <label htmlFor="opening">Opening Time</label>
@@ -218,7 +217,6 @@ const ManageSpot = ({ location, editBusiness }) => {
                         />
                         </div>
                     </div>
-                    }
                     
                     <p className="heading business-info-label">Tags</p>
 
