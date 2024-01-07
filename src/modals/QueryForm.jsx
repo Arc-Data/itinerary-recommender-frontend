@@ -24,18 +24,19 @@ const QueryForm = ({ onClose }) => {
     }
 
     return (
-        <Modal onClose={onClose}>
+        <Modal onClose={onClose} >
             <form method="POST" onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="description">Query</label>
+                <div className="modal--query">
+                    <label htmlFor="description">How can we assist you with your upcoming trip?</label>
                     <textarea
                         name="description"
                         id="description"
                         value={description}
                         onChange={handleInputChange}
+                        className="business-input description query"
                     />
                 </div>
-                <button>Submit</button>
+                <button className="add--business">Submit</button>
             </form>
         </Modal>
     )

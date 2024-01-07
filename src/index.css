@@ -1972,27 +1972,40 @@ input[type="text"] {
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    background-color: #D5EFBD;background: rgba(199, 249, 204, 0.50);
+    background-color: #D5EFBD;
+    background: rgba(199, 249, 204, 0.50);
     border-radius: 10px;
     gap: 10px;
 }
-
+.modal--query {
+    display: flex;
+    flex-direction: column;
+}
+.business-input.query {
+    width: 500px;
+}
 .plan--btn-container {
     margin: 5px 0;
     display: flex;
     gap: 20px;
 }
-
 .plan--btn-list {
     display: flex;
     gap: 10px;
 }
-
 .plan--btn {
     padding: 10px 12px;
     cursor: pointer;
 }
-
+.plan--assistance-link-btn {
+    font-weight: 600;
+    text-decoration: underline;
+    color: #184E77;
+    cursor: pointer;
+}
+.plan--assistance {
+    background: #F6F6F6;
+}
 .editDeleteLoc--btn{
     color: #184E77;
     background: none;

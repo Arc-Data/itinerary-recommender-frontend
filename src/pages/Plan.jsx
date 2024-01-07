@@ -295,7 +295,7 @@ const Plan = () => {
 							</div>
 							<div className="plan--expense-form">
 								<div className="form-row">
-									<label className='plan--label' htmlFor="number_of_people">Groupsize</label>
+									<label className='plan--label' htmlFor="number_of_people">Group size</label>
 									{editable ?
 									<input 
 										type="number" 
@@ -333,7 +333,7 @@ const Plan = () => {
 								</div>
 							</div>
 							<div className='plan--cost-estimate'>
-									<p className='plan--label'>Estimated Expenses: ₱ {costEstimate}</p>
+									<p className='plan--label'>Estimated Expenses: {costEstimate}</p>
 								</div>
 						</section>
 						<section className="plan--itinerary-section">
@@ -373,9 +373,9 @@ const Plan = () => {
 							}
 							{displayDays}
 						</section>
-						<section>
-							<p onClick={toggleQueryForm}>
-								Need assistance in your upcoming trip? Send a query our way! 
+						<section className="plan--assistance">
+							<p>
+								Need assistance in your upcoming trip? <span className="plan--assistance-link-btn" onClick={toggleQueryForm}>Send a query our way! </span> 
 							</p>
 						</section>
 					</main>
