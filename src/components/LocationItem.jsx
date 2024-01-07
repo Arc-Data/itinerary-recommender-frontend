@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faClock, faLocationDot, faTrash, faMoneyBills, faCalendarDay, faCar, faRunning, faShufflefaUtensils, faHotel } from "@fortawesome/free-solid-svg-icons"
+import { faClock, faLocationDot, faTrash, faMoneyBills, faCalendarDay, faCar, faRunning, faShuffle, faUtensils, faHotel } from "@fortawesome/free-solid-svg-icons"
 import getTimeDetails from "../utils/getTimeDetails";
 import getFeeDetails from "../utils/getFeeDetails";
 import { useState } from "react";
