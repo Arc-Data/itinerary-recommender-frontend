@@ -1,6 +1,6 @@
 import Modal from "../components/Modal"
 
-const QueryDetails = ({onClose, form}) => {
+const QueryDetails = ({onClose, form, toggleAdminResponded}) => {
     console.log(form)
 
     return (
@@ -11,6 +11,8 @@ const QueryDetails = ({onClose, form}) => {
                 <p>{form.user.email}</p>
                 <p>{form.user.contact_number}</p>
                 <p>{form.query}</p>
+                <p>{form.admin_responded ? "Responded" : "Pending"}</p>
+                <button onClick={() => toggleAdminResponded(form.id)}>Toggle</button>
             </div>
         </Modal>
     )

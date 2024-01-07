@@ -25,9 +25,38 @@ const useQueryManager = (authTokens) => {
             setStatus("Done")
         }
         catch (error) {
+            console.log("An error occured while retrieving queries: ", error)
             setStatus("Error")
         }
         
+    }
+
+    const toggleAdminResponded = async (id) => {
+        console.log(id)
+        try {
+            const response = await fetch(`${backendUrl}/api/contact/${id}/toggle-response/`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                }
+            })
+
+            console.log(response)
+            if (response.ok) {
+                const updatedForms = contactForms.map(form => {
+                    if (form.id === id) {
+                        return { ...form, admin_responded: !form.admin_responded}
+                    }
+                    return form
+                })
+
+                setContactForms(updatedForms)
+            }
+        }
+        catch (error) {
+            console.log("An error occured while toggling admin respond", error)
+        }
     }
     
     return {
@@ -35,6 +64,7 @@ const useQueryManager = (authTokens) => {
         contactForms,
         status,
         getContactForms,
+        toggleAdminResponded,
     }
 }
 

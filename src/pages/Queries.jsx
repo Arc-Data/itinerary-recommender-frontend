@@ -6,7 +6,7 @@ import QueryDetails from "../modals/QueryDetails"
 
 const Queries = () => {
     const { authTokens } = useContext(AuthContext)
-    const { contactForms, status, getContactForms } = useQueryManager(authTokens)
+    const { contactForms, status, getContactForms, toggleAdminResponded } = useQueryManager(authTokens)
 
     const [showUnrespondedOnly, setShowUnrespondedOnly] = useState(false);
     const [ selectedForm, setSelectedForm ] = useState()
@@ -78,7 +78,7 @@ const Queries = () => {
                 </tbody>
             </table>
             {selectedForm && (
-                <QueryDetails onClose={closeModal} form={selectedForm} />
+                <QueryDetails onClose={closeModal} form={selectedForm} toggleAdminResponded={toggleAdminResponded}/>
             )}
         </div>
     )
