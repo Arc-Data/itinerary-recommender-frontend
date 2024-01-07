@@ -19,15 +19,20 @@ const ManageBusiness = ({ location, editBusiness }) => {
     const [formData, setFormData] = useState({
 		'name': location.name,
 		'address': location.address,
+        'contact': location.contact,
+        'email': location.email,
+        'website': location.website,
 		'latitude': location.latitude,
 		'longitude': location.longitude,
 		'description': location.description,
         'location_type': location.location_type,
+        'opening_time': new Date().setTime(0, 0, 0),
+        'closing_time': new Date().setTime(0, 0, 0),
 	})
-	
+
 	const [searchResults, setSearchResults] = useState([])
-	const [ query, setQuery ] = useState('')
-	const [ tags, setTags ] = useState(location.tags)
+	const [query, setQuery] = useState('')
+	const [tags, setTags] = useState(location.tags)
 
 	const handleChangeInput = (e) => {
 		const { name, value } = e.target
@@ -38,6 +43,12 @@ const ManageBusiness = ({ location, editBusiness }) => {
 			[name]: value
 		}))
  	}
+	
+	 const handleTagInputChange = (e) => {
+        const { value } = e.target
+        setQuery(value)
+        searchTags(value)
+    }
 
 	 const handleKeyDown = (e) => {
 		if (e.key === 'Enter') {
@@ -85,12 +96,6 @@ const ManageBusiness = ({ location, editBusiness }) => {
 		catch (error) {
 			console.log("error while adding tags: ", tags)
 		}
-	}
-
-	const handleChangeTagInput = (e) => {
-		const { value } = e.target
-		setQuery(value)
-		searchTags(value)
 	}
 
 	const searchTags = async (query) => {
@@ -146,6 +151,16 @@ const ManageBusiness = ({ location, editBusiness }) => {
 		)
 	})
 
+	const tagSearchResults = (query !== '' || query !== null) && (
+        <div className="tag-results-container">
+            {searchResults.map((tag, index) => (
+                <div key={index} className="tag-result-box" onClick={() => addTag(tag.name)}>
+                    {tag.name}
+                </div>
+            ))}
+        </div>
+    )
+
 	const handleSubmit = (e) => {
 		e.preventDefault() 
 		editBusiness(location.id, formData)
@@ -158,9 +173,9 @@ const ManageBusiness = ({ location, editBusiness }) => {
 		<form onSubmit={handleSubmit}>
 			<div className="admin-wrapper admin--container">
 				<div className="input--form">
-				<p className="heading no-margin">Food Place</p>
+				<p className="heading no-margin">General Information</p>
 				<div className="input admin--container">
-					<label htmlFor="name">Location Name</label>
+					<label htmlFor="name">Name</label>
 					<input
 					type="text"
 					name="name"
@@ -179,32 +194,71 @@ const ManageBusiness = ({ location, editBusiness }) => {
 					className="business-input"
 					/>
 				</div>
-				<div className="admin--container">
-					<div className="input admin--container">
-					<label htmlFor="latitude">Latitude</label>
-					<input
-
-						type="number"
-						onChange={handleChangeInput}
-						step="0.000001"
-						name="latitude"
-						value={formData.latitude}
-						className="business-input"
-					/>
-					</div>
-					<div className="input admin--container">
-					<label htmlFor="postalCode">Longitude</label>
-					<input
-						number="text"
-						onChange={handleChangeInput}
-						step="0.000001"
-						name="longitude"
-						value={formData.longitude}
-						className="business-input"
-					/>
-					</div>
-				</div>
-				{location.location_type === "1" && 
+				<div className="input admin--container">
+                    <label htmlFor="contact">Phone number (Optional)</label>
+                    <input
+                    type="number"
+                    name="contact"
+                    onChange={handleChangeInput}
+                    value={formData.contact}
+                    className="business-input"
+                    />
+                </div>
+				<div className="input admin--container">
+                    <label htmlFor="email">Email (Optional)</label>
+                    <input
+                    type="email"
+                    name="email"
+                    onChange={handleChangeInput}
+                    value={formData.email}
+                    className="business-input"
+                    />
+                </div>
+                <div className="input admin--container">
+                    <label htmlFor="website">Website (Optional)</label>
+                    <input
+                    type="text"
+                    name="website"
+                    onChange={handleChangeInput}
+                    value={formData.website}
+                    className="business-input"
+                    />
+                </div>
+				<p className="heading business-info-label">Business Information</p>
+                <div className="input admin--container">
+                    <label htmlFor="description">Description</label>
+                    <textarea
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChangeInput}
+                    className="business-input description"
+                    />
+                </div>
+                <div className="admin--container">
+                    
+                    <div className="input admin--container">
+                    <label htmlFor="latitude">Latitude</label>
+                    <input
+                        type="number"
+                        onChange={handleChangeInput}
+                        step="0.000001"
+                        name="latitude"
+                        value={formData.latitude}
+                        className="business-input"
+                    />
+                    </div>
+                    <div className="input admin--container">
+                    <label htmlFor="postalCode">Longitude</label>
+                    <input
+                        number="text"
+                        onChange={handleChangeInput}
+                        step="0.000001"
+                        name="longitude"
+                        value={formData.longitude}
+                        className="business-input"
+                    />
+                    </div>
+                </div>
 				<div className="admin--container">
 					<div className="input admin--container">
 					<label htmlFor="opening">Opening Time</label>
@@ -227,17 +281,22 @@ const ManageBusiness = ({ location, editBusiness }) => {
 						/>
 					</div>
 				</div>
-				}
-				<div className="input admin--container">
-					<label htmlFor="description">Description</label>
-					<textarea
-						name="description"
-						value={formData.description}
-						onChange={handleChangeInput}
-						className="business-input description"
-					/>
+				<div className="form-group">
+					<h1 className="heading business-details">Tags</h1>
+					<label htmlFor="tags">Tags</label>
+					<div className="tags-input-container business-input">
+						{displayTags}
+						<input 
+							type="text" 
+							value={query} 
+							onChange={handleTagInputChange}
+							onKeyDown={handleKeyDown}
+							placeholder="Add or search tags..."
+							className="tags-input"
+						/>
+					</div>
+					{tagSearchResults}
 				</div>
-				
 				</div>
 				<div className="image--border center admin--container">
 				<img className="edit--images" src={`${backendUrl}${location?.image}`}  />
@@ -255,22 +314,7 @@ const ManageBusiness = ({ location, editBusiness }) => {
 				</div>
 			</div>    
 			
-			<div className="form-group">
-				<h1 className="heading business-details">Tags</h1>
-				<label htmlFor="tags">Tags</label>
-				<div className="tags-input-container business-input">
-					{displayTags}
-					<input 
-						type="text" 
-						// value={query} 
-						onChange={handleChangeTagInput}
-						onKeyDown={handleKeyDown}
-						placeholder="Add or search tags..."
-						className="tags-input"
-					/>
-				</div>
-				{/* {tagSearchResults} */}
-			</div>
+			
 			<button className="add--business font14">Submit</button>
 		</form>
 
