@@ -34,13 +34,15 @@ const LocationItem = ({ location }) => {
     return (
         <div>
             {location.transport_type !== 0 && 
-            <div>
-                <FontAwesomeIcon icon={
-                    location.transport_type.name === 'Car' ? faCar : 
-                    location.transport_type.name === 'Walk' ? faRunning :
-                    faShuffle
-                } />
-                {Math.floor(location.transport_type.meters)}m</div>
+                <div className="plan--transportation">
+                    <FontAwesomeIcon icon={
+                        location.transport_type.name === 'Car' ? faCar : 
+                        location.transport_type.name === 'Walk' ? faRunning :
+                        faShuffle
+                    } className="btn-icons"/>
+                    <span>{Math.floor(location.transport_type.meters)}m</span>
+
+                </div>
             }
             <div className="plan--itinerary-item">
                 <div className="plan--item">

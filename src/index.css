@@ -1960,10 +1960,10 @@ input[type="text"] {
 }
 
 .plan--itinerary {
-    margin-top: 40px;
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
 }
 
 
@@ -1990,7 +1990,6 @@ input[type="text"] {
 
 .plan--btn {
     padding: 10px 12px;
-    border-radius: 5px;
     cursor: pointer;
 }
 
@@ -2403,19 +2402,16 @@ input[type="text"] {
     margin-left: 25px;
     color: #7C7C7C;
 }
-
 .plan--itinerary-items {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-
 .plan--itinerary-item {
     display: grid;
     grid-template-columns: 1fr 120px;
     gap: 10px;
 }
-
 .plan--itinerary-header {
     display: grid;
     grid-template-columns: 1fr auto; 
@@ -2423,7 +2419,15 @@ input[type="text"] {
     justify-content: space-between;
     align-items: center;
 }
-
+.plan--transportation {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-left: 3px dotted #CDCDCD;
+    margin-bottom: 8px;
+    margin-left: 35px;
+    color: #7C7C7C;
+}
 .calendar-info {
     display: flex;
     color: #333;
