@@ -16,6 +16,7 @@ import Error404 from "../components/Error404"
 import Error403 from "../components/Error403"
 import AccordionHeader from "./AccordionHeader"
 import getFeeDetails from "../utils/getFeeDetails"
+import QueryForm from "../modals/QueryForm"
 
 const Plan = () => {
 	const { authTokens } = useContext(AuthContext)
@@ -64,6 +65,7 @@ const Plan = () => {
 	const [isExpenseOpen, setExpenseOpen] = useState(true)
 	const [isItineraryOpen, setItineraryOpen] = useState(true)
 	const [isCalendarOpen, setCalendarOpen] = useState(false)
+	const [isQueryFormOpen, setQueryFormOpen] = useState(false)
 	const [editName, setEditName] = useState(false)
 	const [editable, setEditable] = useState(false)
 
@@ -115,6 +117,10 @@ const Plan = () => {
 
 	const toggleSettings = () => {
 		setEditable(prev => !prev)
+	}
+
+	const toggleQueryForm = () => {
+		setQueryFormOpen(prev => !prev)
 	}
 
 	const toggleCalendar = (e) => {
@@ -367,12 +373,18 @@ const Plan = () => {
 							}
 							{displayDays}
 						</section>
+						<section>
+							<p onClick={toggleQueryForm}>
+								Need assistance in your upcoming trip? Send a query our way! 
+							</p>
+						</section>
 					</main>
 				</div>
 			</div>
 			<Map markers={markers}/>
 		</div>
 		{isCalendarOpen && <DateSettings onClose={toggleCalendar} updateDays={updateCalendarDays}/>}
+		{isQueryFormOpen && <QueryForm onClose={toggleQueryForm}/>}
 		</>
     	
   	)

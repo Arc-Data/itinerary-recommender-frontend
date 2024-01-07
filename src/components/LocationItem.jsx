@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faClock, faLocationDot, faTrash, faMoneyBills, faCalendarDay,  } from "@fortawesome/free-solid-svg-icons"
+import { faClock, faLocationDot, faTrash, faMoneyBills, faCalendarDay, faCar, faRunning, faShuffle } from "@fortawesome/free-solid-svg-icons"
 import getTimeDetails from "../utils/getTimeDetails";
 import getFeeDetails from "../utils/getFeeDetails";
 import { useState } from "react";
@@ -8,6 +8,7 @@ const LocationItem = ({ location }) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
     const string = `${backendUrl}${location.details.primary_image.replace(/'/g, "\\'")}` 
     const [openEvents, setOpenEvents] = useState(false)
+    console.log(location)
 
     const toggleEvents = () => {
         setOpenEvents(prev => !prev)
@@ -32,6 +33,15 @@ const LocationItem = ({ location }) => {
 
     return (
         <div>
+            {location.transport_type !== 0 && 
+            <div>
+                <FontAwesomeIcon icon={
+                    location.transport_type.name === 'Car' ? faCar : 
+                    location.transport_type.name === 'Walk' ? faRunning :
+                    faShuffle
+                } />
+                {Math.floor(location.transport_type.meters)}m</div>
+            }
             <div className="plan--itinerary-item">
                 <div className="plan--item">
                     <FontAwesomeIcon icon={faLocationDot} className="location-icon" />

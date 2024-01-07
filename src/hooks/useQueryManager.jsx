@@ -31,6 +31,27 @@ const useQueryManager = (authTokens) => {
         
     }
 
+    const createQuery = async (query) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/contact/create/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                },
+                body: JSON.stringify({
+                    'query': query
+                })
+            })
+
+            console.log(response)
+            
+        }   
+        catch(error) {
+            console.log("An error occured while creating query: ", error)
+        }
+    }
+
     const toggleAdminResponded = async (id) => {
         console.log(id)
         try {
@@ -65,6 +86,7 @@ const useQueryManager = (authTokens) => {
         status,
         getContactForms,
         toggleAdminResponded,
+        createQuery,
     }
 }
 
