@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import useQueryManager from "../hooks/useQueryManager"
 import AuthContext from "../context/AuthContext"
 import dayjs from 'dayjs'
@@ -7,17 +7,20 @@ const Queries = () => {
     const { authTokens } = useContext(AuthContext)
     const { contactForms, status, getContactForms } = useQueryManager(authTokens)
 
+    const [showUnrespondedOnly, setShowUnrespondedOnly] = useState(false);
+
+    const filteredContactForms = showUnrespondedOnly
+        ? contactForms.filter(form => !form.admin_responded)
+        : contactForms;
     
-    console.log(contactForms)
-    
-    const displayQueries = contactForms && contactForms.map(form => {
+    const displayQueries = filteredContactForms && filteredContactForms.map(form => {
         return (
             <tr key={form.id}>
                 <td>{form.user.first_name} {form.user.last_name}</td>
                 <td>{form.user.email}</td>
                 <td>{form.user.contact_number}</td>
                 <td>{dayjs(form.date_created).format("MMMM D, YYYY")}</td>
-                <td>Something</td>
+                <td>{form.admin_responded ? "Responded" : "Pending"}</td>
                 <td>
                     <button>Details</button>
                 </td>
@@ -45,6 +48,14 @@ const Queries = () => {
     return (
         <div>
             <h1 className="heading">Queries</h1>
+            <label>
+                Show Unresponded Only
+                <input
+                    type="checkbox"
+                    checked={showUnrespondedOnly}
+                    onChange={() => setShowUnrespondedOnly(!showUnrespondedOnly)}
+                />
+            </label>
             <table>
                 <thead>
                     <tr>
