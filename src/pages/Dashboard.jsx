@@ -288,7 +288,6 @@ import { useLocation, Link } from 'react-router-dom';
 				}
 				const data = await response.json();
 				setVisitedFoodTag(data);
-				console.log(data)
 			} catch (error) {
 				console.error('Error fetching top bookmarks:', error.message);
 			}
@@ -610,11 +609,18 @@ import { useLocation, Link } from 'react-router-dom';
 							<div className="dashboard--performance-container style--barGraph1 ">
 								{pieChartData && (
 									<ReactApexChart
-									options={options}
-									series={pieChartData.map(tag => tag.percentage)}
-									type="donut"
-									height={450}
-									width={390}
+										options={{
+											...options,
+											dataLabels: {
+												formatter: function (value) {
+													return `${value.toFixed(2)}%`;
+												},
+											},
+										}}
+										series={pieChartData.map(tag => parseFloat(tag.percentage.toFixed(2)))}
+										type="donut"
+										height={450}
+										width={390}
 									/>
 								)}
 							</div>
