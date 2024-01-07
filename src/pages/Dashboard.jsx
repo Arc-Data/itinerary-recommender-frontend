@@ -329,6 +329,9 @@ import { useLocation, Link } from 'react-router-dom';
 		topVisitedSpotActivity();
 	}, [backendUrl, authTokens.access]);
 
+
+	
+
 	const preferenceColors = {
 		art: '#2D7D90',
 		activity: '#38A3A5',

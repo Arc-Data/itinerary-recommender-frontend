@@ -17,6 +17,7 @@ import {
         const [searchParams, setSearchParams] = useSearchParams();
         const [searchTerm, setSearchTerm] = useState("");
         const type = searchParams.get('type');
+        
     
         const { authTokens } = useContext(AuthContext);
         const { drivers, error, loading, getDrivers } = useDriverManager(authTokens);
@@ -37,7 +38,8 @@ import {
     
         const startIndex = (currentPage - 1) * 10;
         const endIndex = startIndex + 10;
-        const paginatedDrivers = filteredDrivers.slice(startIndex, endIndex);
+        const sortedDrivers = filteredDrivers.sort((a, b) => a.id - b.id);
+        const paginatedDrivers = sortedDrivers.slice(startIndex, endIndex);
     
         const locationElements = paginatedDrivers.map((driver) => (
             <tr key={driver.id}>

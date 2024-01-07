@@ -433,7 +433,7 @@ const AddBusiness = () => {
                                     {locationData.type === '2' && 
                                     <div className="form-group">
                                     <h1 className="heading business-details">Tags</h1>
-                                        <label htmlFor="tags">Tags</label>
+                                        <label className="heading5 font14" htmlFor="tags">Press the enter to add</label>
                                         <div className="tags-input-container business-input">
                                             {addedTagItem}
                                             <input 
@@ -441,7 +441,7 @@ const AddBusiness = () => {
                                                 value={query} 
                                                 onChange={handleTagInputChange}
                                                 onKeyDown={handleKeyDown}
-                                                placeholder="Add or search tags..."
+                                                placeholder="Add or search tags (e.g. Filipino, Fastfood)"
                                                 className="tags-input"
                                             />
                                         </div>
