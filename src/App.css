@@ -259,12 +259,14 @@ select {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 10px; 
-  margin: 40px 10px 40px 25px;
+  margin: 25px 10px 40px 25px;
+  border-radius: 10px;
 }
 
-.pie-chart-container {
-  background-color: red;
+.apexcharts-text.apexcharts-pie-label {
+  font-size: 10px;
 }
+
 
 .dashboard--users {
   height: 30%;
@@ -331,7 +333,7 @@ select {
 }
 
 .height120 {
-  height: 120px;
+  height: 127px;
 }
 
 .width120 {
@@ -341,13 +343,29 @@ select {
 .style--barGraph {
   border: 2px solid #EFEFEF;
   width: 650px;
-  height: 450px;
+  height: 470px;
 }
 
 .style--barGraph1 {
   border: 2px solid #EFEFEF;
-  margin: 40px 5px 0 0;
+  margin: 25px 5px 0 0;
+  height: 217px;
+  width: auto;
+  border-radius: 10px;
+}
+
+.style--barGraph2, .style--barGraph3 {
+  border: 2px solid #EFEFEF;
+  margin: 25px 5px 0 0;
   height: auto;
+  width: 420px;
+  border-radius: 10px;
+}
+
+.style--barGraph3 {
+  width: 1080px;
+  margin-bottom: 20px;
+  margin-left: 30px;
 }
 
 .top-spot-table{
@@ -359,7 +377,7 @@ select {
 .top-bookmark-table{
  gap: 20px;
  max-height: 635px;
- margin-top: 65px;
+ margin-top: 45px;
 }
 
 .top-activity-table {
@@ -368,12 +386,12 @@ select {
   margin-top: 45px;
 }
 
-.dashboard--location-container{
-  margin-top: -5px;
+.location--text {
+  margin-top: 20px;
 }
 
 .apexcharts-text tspan {
-  font-size: 12px;
+  font-size: 10px;
 }
 
 .bordercolor {
