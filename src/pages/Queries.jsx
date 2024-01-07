@@ -2,16 +2,22 @@ import { useContext, useEffect, useState } from "react"
 import useQueryManager from "../hooks/useQueryManager"
 import AuthContext from "../context/AuthContext"
 import dayjs from 'dayjs'
+import QueryDetails from "../modals/QueryDetails"
 
 const Queries = () => {
     const { authTokens } = useContext(AuthContext)
     const { contactForms, status, getContactForms } = useQueryManager(authTokens)
 
     const [showUnrespondedOnly, setShowUnrespondedOnly] = useState(false);
+    const [ selectedForm, setSelectedForm ] = useState()
 
     const filteredContactForms = showUnrespondedOnly
         ? contactForms.filter(form => !form.admin_responded)
         : contactForms;
+
+    const closeModal = () => {
+        setSelectedForm(null)
+    }
     
     const displayQueries = filteredContactForms && filteredContactForms.map(form => {
         return (
@@ -22,7 +28,7 @@ const Queries = () => {
                 <td>{dayjs(form.date_created).format("MMMM D, YYYY")}</td>
                 <td>{form.admin_responded ? "Responded" : "Pending"}</td>
                 <td>
-                    <button>Details</button>
+                    <button onClick={() => setSelectedForm(form)}>Details</button>
                 </td>
             </tr>
         )
@@ -71,6 +77,9 @@ const Queries = () => {
                     {displayQueries}
                 </tbody>
             </table>
+            {selectedForm && (
+                <QueryDetails onClose={closeModal} form={selectedForm} />
+            )}
         </div>
     )
 }
