@@ -4,6 +4,7 @@ import AuthContext from "../context/AuthContext"
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload, faCircleXmark, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import ReactDatePicker from "react-datepicker";
 
 const AddBusiness = () => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
@@ -18,11 +19,11 @@ const AddBusiness = () => {
         'website': '',
         'longitude': 0,
         'latitude': 0,
+        'opening_time': new Date().setTime(0, 0, 0),
+        'closing_time': new Date().setTime(0, 0, 0), 
         'type': '',
         'description': ''
     })
-
-    console.log('Location Data: ', locationData)
 
     const [query, setQuery] = useState('')
     const [searchResults, setSearchResults] = useState([])
@@ -43,6 +44,13 @@ const AddBusiness = () => {
         setQuery(value)
         searchTags(value)
     }
+
+    const formatTimeToString = (time) => {
+        const hours = time.getHours().toString().padStart(2, '0');
+        const minutes = time.getMinutes().toString().padStart(2, '0');
+        const seconds = time.getSeconds().toString().padStart(2, '0');
+        return `${hours}:${minutes}:${seconds}`;
+    };
 
     const searchTags = async (query) => {
         try {
@@ -133,6 +141,23 @@ const AddBusiness = () => {
             </button>
         </div>
     ))
+    
+    useEffect(() => {
+        if (locationData.opening_time) {
+            const [hours, minutes, seconds] = locationData.opening_time.split(":");
+            const openingTime = new Date();
+            openingTime.setHours(hours, minutes, seconds);
+            setLocationData(prev => ({ ...prev, opening_time: openingTime }));
+        }
+    
+        if (locationData.closing_time) {
+            const [hours, minutes, seconds] = locationData.closing_time.split(":");
+            const closingTime = new Date();
+            closingTime.setHours(hours, minutes, seconds);
+            setLocationData(prev => ({ ...prev, closing_time: closingTime }));
+        }
+    }, []);
+   
 
     useEffect(() => {
         const getSpotTags = async () => {
@@ -201,7 +226,14 @@ const AddBusiness = () => {
             try {
                 const formData = new FormData();
 
-                Object.entries(locationData).forEach(([key, value]) => {
+                const formattedData = {
+                    ...locationData,
+                    opening_time: formatTimeToString(new Date(locationData.opening_time)),
+                    closing_time: formatTimeToString(new Date(locationData.closing_time)),
+                };
+
+                
+                Object.entries(formattedData).forEach(([key, value]) => {
                     formData.append(key, value);
                 });
 
@@ -367,6 +399,36 @@ const AddBusiness = () => {
                                         link to access instructions.
                                     </p>
                                 </div>
+                                {locationData.type === "1" && 
+                                <div className="admin--container">
+                                    <div className="input admin--container">
+                                        <label htmlFor="opening">Opening Time</label>
+                                        <ReactDatePicker
+                                            selected={locationData.opening_time}
+                                            onChange={(date) => setLocationData({ ...locationData, opening_time: date })}                            
+                                            showTimeSelect
+                                            showTimeSelectOnly
+                                            timeIntervals={15}
+                                            timeCaption="Time"
+                                            dateFormat="h:mm aa"
+                                            className="styled-input"
+                                        />
+                                    </div>
+                                    <div className="input admin--container">
+                                        <label htmlFor="closing">Closing Time</label>
+                                        <ReactDatePicker
+                                            selected={locationData.closing_time}
+                                            onChange={(date) => setLocationData({ ...locationData, closing_time: date })}                            
+                                            showTimeSelect
+                                            showTimeSelectOnly
+                                            timeIntervals={15}
+                                            timeCaption="Time"
+                                            dateFormat="h:mm aa"
+                                            className="styled-input"
+                                        />
+                                    </div>
+                                </div>
+                                }
                                 <div>
                                     {
                                         locationData.type === '2' && 
