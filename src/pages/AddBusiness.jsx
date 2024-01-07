@@ -430,24 +430,23 @@ const AddBusiness = () => {
                                 </div>
                                 }
                                 <div>
-                                    {
-                                        locationData.type === '2' && 
-                                        <div className="form-group">
-                                        <h1 className="heading business-details">Tags</h1>
-                                            <label htmlFor="tags">Tags</label>
-                                            <div className="tags-input-container business-input">
-                                                {addedTagItem}
-                                                <input 
-                                                    type="text" 
-                                                    value={query} 
-                                                    onChange={handleTagInputChange}
-                                                    onKeyDown={handleKeyDown}
-                                                    placeholder="Add or search tags..."
-                                                    className="tags-input"
-                                                />
-                                            </div>
-                                            {tagSearchResults}
+                                    {locationData.type === '2' && 
+                                    <div className="form-group">
+                                    <h1 className="heading business-details">Tags</h1>
+                                        <label htmlFor="tags">Tags</label>
+                                        <div className="tags-input-container business-input">
+                                            {addedTagItem}
+                                            <input 
+                                                type="text" 
+                                                value={query} 
+                                                onChange={handleTagInputChange}
+                                                onKeyDown={handleKeyDown}
+                                                placeholder="Add or search tags..."
+                                                className="tags-input"
+                                            />
                                         </div>
+                                        {tagSearchResults}
+                                    </div>
                                     }
                                     {
                                         locationData.type === '1' && 

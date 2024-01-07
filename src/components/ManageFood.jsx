@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom"
 import { FaTrash, FaPencilAlt } from "react-icons/fa";
 import SAMPLEIMAGE from "/images/osmenapeak.jpg";
 import Modal from "react-modal";
 import ProductModal from "../modals/ProductModal";
+import AuthContext from "../context/AuthContext";
 
 Modal.setAppElement("#root");
 
 const ManageBusiness = ({ location, editBusiness }) => {
 	const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
 
-	
+	const { authTokens } = useContext(AuthContext)
 	const navigate = useNavigate()
 
     const [formData, setFormData] = useState({
@@ -19,10 +20,12 @@ const ManageBusiness = ({ location, editBusiness }) => {
 		'latitude': location.latitude,
 		'longitude': location.longitude,
 		'description': location.description,
-        'location_type': location.location_type
+        'location_type': location.location_type,
 	})
 
-	console.log('Location Data: ', location)
+	console.log(location)
+
+	const [ tags, setTags ] = useState(location.tags)
 
 	const handleChangeInput = (e) => {
 		const { name, value } = e.target
@@ -33,6 +36,42 @@ const ManageBusiness = ({ location, editBusiness }) => {
 			[name]: value
 		}))
  	}
+
+	const removeTag = async (e, removedTag) => {
+		e.preventDefault()
+		try {
+			const response = await fetch(`${backendUrl}/api/user/business/${location.id}/edit/remove_foodtags/`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${String(authTokens.access)}`
+				},
+				body: JSON.stringify({'tag': removedTag}),
+			})
+			console.log(response)
+			const data = await response.json()
+			console.log(data)
+
+		}
+		catch (error) {
+			console.log("Error occured while removing tags", error)
+			return 
+		}
+
+		const updatedTags = tags.filter(tag => tag != removedTag)
+		setTags(updatedTags)
+	}
+
+	const displayTags = tags && tags.map((tag, idx) => {
+		console.log(tag)
+		return (
+			<div key={idx}>
+				<div>{tag}</div>
+				<button onClick={(e) => removeTag(e, tag)}>X</button>
+			</div>
+
+		)
+	})
 
 	const handleSubmit = (e) => {
 		e.preventDefault() 
@@ -125,6 +164,7 @@ const ManageBusiness = ({ location, editBusiness }) => {
 						className="business-input description"
 					/>
 				</div>
+				
 				</div>
 				<div className="image--border center admin--container">
 				<img className="edit--images" src={`${backendUrl}${location?.image}`}  />
@@ -143,6 +183,9 @@ const ManageBusiness = ({ location, editBusiness }) => {
 			</div>    
 			<button className="add--business font14" >Submit</button>
 		</form>
+		<div>
+		{displayTags}
+		</div>
 
 		</div>
 	);
