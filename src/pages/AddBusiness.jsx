@@ -25,11 +25,14 @@ const AddBusiness = () => {
         'description': ''
     })
 
+    console.log('Location Data: ', locationData)
+
     const [query, setQuery] = useState('')
     const [searchResults, setSearchResults] = useState([])
     const [tags, setTags] = useState([])
     const [image, setImage] = useState(null)
     const [spotTags, setSpotTags] = useState([])
+    const [activities, setActivities] = useState([])
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
@@ -53,27 +56,54 @@ const AddBusiness = () => {
     };
 
     const searchTags = async (query) => {
-        try {
-          const response = await fetch(`${backendUrl}/api/foodtag/search/?query=${query}`, {
-                "method": "GET",
-                "headers": {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${authTokens.access}`
-                }
-          })
-          let data = await response.json()
-          const filteredTags = data.filter((tag) => !tags.includes(tag.name));
-          setSearchResults(filteredTags)
-        } catch (error) {
-          console.error('Error searching tags:', error);
+        if (locationData.type === "2") {
+            try {
+                const response = await fetch(`${backendUrl}/api/foodtag/search/?query=${query}`, {
+                      "method": "GET",
+                      "headers": {
+                              "Content-Type": "application/json",
+                              "Authorization": `Bearer ${authTokens.access}`
+                      }
+                })
+                let data = await response.json()
+                const filteredTags = data.filter((tag) => !tags.includes(tag.name));
+                setSearchResults(filteredTags)
+              } catch (error) {
+                console.error('Error searching tags:', error);
+            }
+        } else if (locationData.type === "1") {
+            try {
+                const response = await fetch(`${backendUrl}/api/activity/search/?query=${query}`, {
+                      "method": "GET",
+                      "headers": {
+                              "Content-Type": "application/json",
+                              "Authorization": `Bearer ${authTokens.access}`
+                      }
+                })
+                let data = await response.json()
+                const filteredActivities = data.filter((activity) => !activities.includes(activity.name));
+                setSearchResults(filteredActivities)
+              } catch (error) {
+                console.error('Error searching tags:', error);
+            }
         }
     }
 
+    console.log('Added activities: ', activities)
+    console.log('Tags: ', tags)
+
     const addTag = async (tagName) => {
         try {
-            if (!tags.includes(tagName)) {
-                setTags(prevTags => [...prevTags, tagName])
-                await createTag(tagName)
+            if (locationData.type === "2") {
+                if (!tags.includes(tagName)) {
+                    setTags(prevTags => [...prevTags, tagName])
+                    await createTag(tagName)
+                }
+            } else if (locationData.type === "1") {
+                if (!activities.includes(tagName)) {
+                    setActivities(prevTags => [...prevTags, tagName])
+                    // await createTag(tagName)
+                }
             }
             setQuery('')
         } catch (error) {
@@ -82,8 +112,16 @@ const AddBusiness = () => {
     }
 
     const createTag = async (tagName) => {
+        let url
+
+        if (locationData.type === "2") {
+            url = `${backendUrl}/api/foodtag/get/?tag_name=${tagName}`
+        } else if (locationData.type === "1") {
+            url = `${backendUrl}/api/activity/get/?tag_name=${tagName}`
+        }
+
         try {
-            const response = await fetch(`${backendUrl}/api/foodtag/get/?tag_name=${tagName}`, {
+            const response = await fetch(url, {
                 "method": "GET",
                 "headers": {
                         "Content-Type": "application/json",
@@ -104,7 +142,12 @@ const AddBusiness = () => {
 
     const removeTag = async (tagName) => {
         try {
-            setTags(tags.filter((tag) => tag !== tagName))
+            if (locationData.type === "2") {
+                setTags(tags.filter((tag) => tag !== tagName))
+            } else if (locationData.type === "1") {
+                setActivities(activities.filter((activity) => activity !== tagName))
+            }
+            
             searchTags('')
         } catch (error) {
           console.error('Error removing tag:', error)
@@ -137,6 +180,15 @@ const AddBusiness = () => {
         <div className="tag-item" key={index}>
             {tag}
             <button className="delete-tag-button" onClick={() => removeTag(tag)}>
+                <FontAwesomeIcon icon={faCircleXmark} />
+            </button>
+        </div>
+    ))
+
+    const addedActivityItem = activities.map((activity, index) => (
+        <div className="tag-item" key={index}>
+            {activity}
+            <button className="delete-tag-button" onClick={() => removeTag(activity)}>
                 <FontAwesomeIcon icon={faCircleXmark} />
             </button>
         </div>
@@ -242,8 +294,12 @@ const AddBusiness = () => {
                     formData.append("image", imageInput.files[0])
                 }
 
-                if (tags.length > 0) {
+                if (tags.length > 0 && (locationData.type === "2" || locationData.type === "1")) {
                     formData.append("tags", JSON.stringify(tags))
+                }
+
+                if (activities.length > 0 && locationData.type === "1") {
+                    formData.append("activities", JSON.stringify(activities))
                 }
 
                 const response = await fetch(`${backendUrl}/api/location/request/`, {
@@ -363,6 +419,36 @@ const AddBusiness = () => {
                                             onChange={handleInputChange}
                                             className="business-input"/>
                                 </div>
+                                {(locationData.type === "1" || locationData.type === "2") && 
+                                <div className="form-column-group">
+                                    <div className="form-group">
+                                        <label htmlFor="opening">Opening Time</label>
+                                        <ReactDatePicker
+                                            selected={locationData.opening_time}
+                                            onChange={(date) => setLocationData({ ...locationData, opening_time: date })}                            
+                                            showTimeSelect
+                                            showTimeSelectOnly
+                                            timeIntervals={15}
+                                            timeCaption="Time"
+                                            dateFormat="h:mm aa"
+                                            className="business-input"
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="closing">Closing Time</label>
+                                        <ReactDatePicker
+                                            selected={locationData.closing_time}
+                                            onChange={(date) => setLocationData({ ...locationData, closing_time: date })}                            
+                                            showTimeSelect
+                                            showTimeSelectOnly
+                                            timeIntervals={15}
+                                            timeCaption="Time"
+                                            dateFormat="h:mm aa"
+                                            className="business-input"
+                                        />
+                                    </div>
+                                </div>
+                                }
                                 <div className="form-column-group">
                                     <div className="form-group">
                                         <label htmlFor="address">Latitude</label>
@@ -399,36 +485,6 @@ const AddBusiness = () => {
                                         link to access instructions.
                                     </p>
                                 </div>
-                                {locationData.type === "1" && 
-                                <div className="admin--container">
-                                    <div className="input admin--container">
-                                        <label htmlFor="opening">Opening Time</label>
-                                        <ReactDatePicker
-                                            selected={locationData.opening_time}
-                                            onChange={(date) => setLocationData({ ...locationData, opening_time: date })}                            
-                                            showTimeSelect
-                                            showTimeSelectOnly
-                                            timeIntervals={15}
-                                            timeCaption="Time"
-                                            dateFormat="h:mm aa"
-                                            className="styled-input"
-                                        />
-                                    </div>
-                                    <div className="input admin--container">
-                                        <label htmlFor="closing">Closing Time</label>
-                                        <ReactDatePicker
-                                            selected={locationData.closing_time}
-                                            onChange={(date) => setLocationData({ ...locationData, closing_time: date })}                            
-                                            showTimeSelect
-                                            showTimeSelectOnly
-                                            timeIntervals={15}
-                                            timeCaption="Time"
-                                            dateFormat="h:mm aa"
-                                            className="styled-input"
-                                        />
-                                    </div>
-                                </div>
-                                }
                                 <div>
                                     {locationData.type === '2' && 
                                     <div className="form-group">
@@ -450,22 +506,40 @@ const AddBusiness = () => {
                                     }
                                     {
                                         locationData.type === '1' && 
-                                        <div>
-                                            <h1 className="heading business-details">Tags</h1>
-                                            {spotTags.map((tag, index) => (
-                                                <div key={index} className="tags-checkbox-container">
-                                                    <input
-                                                    type="checkbox"
-                                                    id={`tag-${index}`}
-                                                    name={`tag-${index}`}
-                                                    checked={tags.includes(tag.name)}
-                                                    onChange={(e) => handleSpotTagChange(e, tag.name)}
-                                                    className="tags-checkbox"
-                                                    />
-                                                    <label className="tags-checkbox-label" htmlFor={`tag-${index}`}>{tag.name}</label>
+                                        <>
+                                            <div>
+                                                <div className="form-group">
+                                                    <h1 className="heading business-details">Activities</h1>
+                                                    <label htmlFor="activities">Activities</label>
+                                                    <div className="tags-input-container business-input">
+                                                        {addedActivityItem}
+                                                        <input 
+                                                            type="text"
+                                                            value={query} 
+                                                            onChange={handleTagInputChange}
+                                                            onKeyDown={handleKeyDown}
+                                                            placeholder="Add or search activities (e.g., Sightseeing, Swimming)"
+                                                            className="tags-input"
+                                                        />
+                                                    </div>
+                                                    {tagSearchResults}
                                                 </div>
+                                                <h1 className="heading business-details">Tags</h1>
+                                                {spotTags.map((tag, index) => (
+                                                    <div key={index} className="tags-checkbox-container">
+                                                        <input
+                                                        type="checkbox"
+                                                        id={`tag-${index}`}
+                                                        name={`tag-${index}`}
+                                                        checked={tags.includes(tag.name)}
+                                                        onChange={(e) => handleSpotTagChange(e, tag.name)}
+                                                        className="tags-checkbox"
+                                                        />
+                                                        <label className="tags-checkbox-label" htmlFor={`tag-${index}`}>{tag.name}</label>
+                                                    </div>
                                                 ))}
-                                        </div>
+                                            </div>
+                                        </>                                       
                                     }
                                 </div>
                                 <div className="flex jc-end mt-20px">
