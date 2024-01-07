@@ -291,7 +291,7 @@ const ManageBusiness = ({ location, editBusiness }) => {
 							value={query} 
 							onChange={handleTagInputChange}
 							onKeyDown={handleKeyDown}
-							placeholder="Add or search tags..."
+							placeholder= "Add or search tags (e.g. Filipino, Fastfood)"
 							className="tags-input"
 						/>
 					</div>
