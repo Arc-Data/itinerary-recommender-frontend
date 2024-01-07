@@ -75,7 +75,7 @@ const RateDay = () => {
                 <>
                 <div className="profile--rating-header">
                     <div className="header-title">
-                        <p>{day.name}</p>
+                        <p className="heading">{day.name}</p>
                         <div className="day-number-badge">{day.day_number}</div>
                     </div>
                     <div className="header-subtitle">
@@ -90,7 +90,7 @@ const RateDay = () => {
                     <div>
                         {!day.completed ? 
                         <div className="profile--rate-modal">
-                            <p>Finished this trip? Mark it as completed.</p>
+                            <p className="heading3">Finished this trip? Mark it as completed.</p>
                             <button className="profile--rate-btn" onClick={handleMarkComplete}>
                                 <img src="/check.svg" alt="" />
                                 <p>Mark as complete</p>
@@ -116,7 +116,7 @@ const RateDay = () => {
                             </>
                             :
                             <>
-                            <p>Your Rating: {day.rating}</p>
+                            <p className="heading4">You rated this place {day.rating} star!</p>
                             </>
                             }
                             

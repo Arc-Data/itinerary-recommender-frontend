@@ -2064,6 +2064,12 @@ input[type="text"] {
     font-size: 40px;
     margin: 10px;
 }
+.location-icon.food {
+    color: #ED6A5A;
+}
+.location-icon.accommodation {
+    color: #c2d11b;
+}
 .plan--location-info > p {
     margin-bottom: 4px;
 }
@@ -2927,13 +2933,17 @@ input[type="text"] {
     font-weight: 400;
     box-shadow: 0 0 0.1em rgba(0, 0, 0, 0.1);
 }
-
+.assistant--recommendation-item.visited {
+    background-color: #D1EFEF;
+}
 .assistant--recommendation-item-title {
     font-weight: 600;
     color: #212529;
     font-size: 14px;
 }
-
+.assistant--recommendation-item-title.visited {
+    color: #1C5152;
+}
 .assistant--recommendation-item-content {
     display: flex;
     flex-direction: column;
@@ -2942,11 +2952,12 @@ input[type="text"] {
 .assistant--recommendation-item-content > :not(:first-child) {
     font-size: 13px;
 }
-
 .assistant--location-icon {
-    color:#38A3A5;
+    color:#333333;
 }
-
+.assistant--location-icon.visited {
+    color: #38A3A5;
+}
 .nearby-recommendation-item {
     border: 2px solid #E7E7E7;
     display: flex;
@@ -3188,7 +3199,7 @@ input[type="text"] {
 }
 
 .profile--rate-modal {
-    border: 1px solid #e7e7e7;
+    border: 2px solid #e7e7e7;
     padding: 40px 50px;
     display: flex;
     flex-direction: column;
