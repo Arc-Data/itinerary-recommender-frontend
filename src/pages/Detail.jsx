@@ -366,7 +366,7 @@ export default function DetailPage() {
 				<p>{location?.description}</p>
 				{(location.location_type === "1" || location.location_type === "2") &&
 					<div className="detailPage--tags description">
-						<p>{displayTags}</p>
+						<div>{displayTags}</div>
 					</div>
 				}
 				

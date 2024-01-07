@@ -55,12 +55,14 @@ const Request = () => {
             <div>
                 <table className="business-table admin-requests">
                     <thead>
-                        <td className="font">Name</td>
-                        <td className="font">Location Type</td>
-                        <td className="font">Owner</td>
-                        <td className="font">Date Filled</td>
-                        <td className="font">Status</td>
-                        <td className="font">Action</td>
+                        <tr>
+                            <th className="font">Name</th>
+                            <th className="font">Location Type</th>
+                            <th className="font">Owner</th>
+                            <th className="font">Date Filled</th>
+                            <th className="font">Status</th>
+                            <th className="font">Action</th>
+                        </tr>
                     </thead>
                     <tbody>
                         {displayRequests}
