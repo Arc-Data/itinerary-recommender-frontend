@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faClock, faLocationDot, faTrash, faMoneyBills, faCalendarDay, faCar, faRunning, faShuffle } from "@fortawesome/free-solid-svg-icons"
+import { faClock, faLocationDot, faTrash, faMoneyBills, faCalendarDay, faCar, faRunning, faShufflefaUtensils, faHotel } from "@fortawesome/free-solid-svg-icons"
 import getTimeDetails from "../utils/getTimeDetails";
 import getFeeDetails from "../utils/getFeeDetails";
 import { useState } from "react";
@@ -44,7 +44,16 @@ const LocationItem = ({ location }) => {
             }
             <div className="plan--itinerary-item">
                 <div className="plan--item">
-                    <FontAwesomeIcon icon={faLocationDot} className="location-icon" />
+                    {location.details.location_type === "1" &&
+                        <FontAwesomeIcon icon={faLocationDot} className="location-icon" />
+                    }
+                    {location.details.location_type === "2" && 
+                        <FontAwesomeIcon icon={faUtensils} className="location-icon food" />
+                    }
+                    {location.details.location_type === "3" && 
+                        <FontAwesomeIcon icon={faHotel} className="location-icon accommodation" />
+                    }
+                    
                     <div className="plan--location-details">
                         <p className="plan--location-name">{location.details.name}</p>
                         <div className="plan--location-info">

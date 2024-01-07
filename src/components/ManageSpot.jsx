@@ -17,7 +17,8 @@ const ManageSpot = ({ location, editBusiness }) => {
 		'description': location.description,
         'location_type': location.location_type,
         'opening_time': new Date().setTime(0, 0, 0),
-        'closing_time': new Date().setTime(0, 0, 0)
+        'closing_time': new Date().setTime(0, 0, 0),
+        'tags': location.tags
     })
 
     console.log('Location Data: ', location)
@@ -220,6 +221,7 @@ const ManageSpot = ({ location, editBusiness }) => {
                     }
                     
                     <p className="heading business-info-label">Tags</p>
+
                     
                     </div>
                     <div className="image--border center admin--container">
