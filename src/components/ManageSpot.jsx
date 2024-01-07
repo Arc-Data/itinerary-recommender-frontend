@@ -33,15 +33,17 @@ const ManageSpot = ({ location, editBusiness }) => {
     };
 
     useEffect(() => {
-        if (location.opening_time) {
-            const [hours, minutes, seconds] = location.opening_time.split(":");
+        if (location.schedule.opening) {
+            const [hours, minutes, seconds] = location.schedule.opening.split(":");
             const openingTime = new Date();
             openingTime.setHours(hours, minutes, seconds);
             setFormData(prev => ({ ...prev, opening_time: openingTime }));
+       
+            console.log("Doing this")
         }
     
-        if (location.closing_time) {
-            const [hours, minutes, seconds] = location.closing_time.split(":");
+        if (location.schedule.closing) {
+            const [hours, minutes, seconds] = location.schedule.closing.split(":");
             const closingTime = new Date();
             closingTime.setHours(hours, minutes, seconds);
             setFormData(prev => ({ ...prev, closing_time: closingTime }));

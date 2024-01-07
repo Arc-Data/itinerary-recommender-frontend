@@ -20,9 +20,7 @@ const Queries = () => {
     const closeModal = () => {
         setSelectedForm(null)
     }
-    
 
-    
      const displayQueries = filteredContactForms && filteredContactForms.map(form => {
         const statusColor = form.admin_responded ? "#00ab41" : "#FFD228";
         return (
