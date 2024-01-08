@@ -76,9 +76,6 @@ function AddLocation() {
         }
     }
 
-    console.log('Admin location data: ', locationData)
-    console.log('Added activities: ', activities)
-    console.log('Tags: ', tags)
 
     const addTag = async (tagName) => {
         try {
@@ -101,22 +98,22 @@ function AddLocation() {
 
     const createTag = async (tagName) => {
         let url
-
         if (locationData.type === "2") {
-            url = `${backendUrl}/api/foodtag/get/?tag_name=${tagName}`
+            console.log("This is a foodplace")
+            url = `${backendUrl}/api/foodtag/get/?query=${tagName}`
         } else if (locationData.type === "1") {
-            url = `${backendUrl}/api/activity/get/?tag_name=${tagName}`
+            url = `${backendUrl}/api/activity/get/?query=${tagName}`
         }
 
         try {
             const response = await fetch(url, {
                 "method": "GET",
                 "headers": {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${authTokens.access}`
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${authTokens.access}`
                 }
             })
-    
+            
             if (response.ok) {
                 const data = await response.json()
                 console.log('Tag created:', data)
