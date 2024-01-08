@@ -114,9 +114,9 @@ const AddBusiness = () => {
         let url
 
         if (locationData.type === "2") {
-            url = `${backendUrl}/api/foodtag/get/?tag_name=${tagName}`
+            url = `${backendUrl}/api/foodtag/get/?query=${tagName}`
         } else if (locationData.type === "1") {
-            url = `${backendUrl}/api/activity/get/?tag_name=${tagName}`
+            url = `${backendUrl}/api/activity/get/?query=${tagName}`
         }
 
         try {
