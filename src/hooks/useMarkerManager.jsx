@@ -3,14 +3,15 @@ import { useState } from "react"
 const useMarkerManager = () => {
     const [ markers, setMarkers] = useState([])
     
-    const addMarker = (latitude, longitude, color, location="", events) => {
+    const addMarker = (latitude, longitude, color, name, events) => {
 		const mapMarkers = [...markers]
+        console.log(location)
 
         mapMarkers.push({
 			lng: longitude,
 			lat: latitude,
 			color: color,
-            location: location,
+            location: name,
 		})
 
         if (events) {
@@ -87,10 +88,23 @@ const useMarkerManager = () => {
 
         return locations
     }
+    
+    const customAddMarker = (latitude, longitude, color, name) => {
+        const mapMarkers = [...markers]
+        mapMarkers.push({
+            lng: longitude,
+            lat: latitude,
+            color: color, 
+            order: name
+        })
+
+        setMarkers(mapMarkers)
+    }
 
     return {
         markers,
         addMarker,
+        customAddMarker,
         deleteMarker,
         getMarkersData,
         getDayMarkersData,

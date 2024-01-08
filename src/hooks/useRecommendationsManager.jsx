@@ -71,6 +71,8 @@ const useRecommendationsManager = (authTokens) => {
                     "Authorization": `Bearer ${access}`
                 }
             })
+
+            console.log(response)
             const data = await response.json()
             setRecommendations(data.recommendations)
         }

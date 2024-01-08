@@ -124,7 +124,7 @@ export default function DetailPage() {
 		}
 	};
 
-	const displayTags = location && location.details.tags.map((tag, index) => {
+	const displayTags = location && location.location_type !== '3' && location.details.tags.map((tag, index) => {
 		return (
 			<div key={index} className="detailPage--tag description">{tag}</div>
 		)

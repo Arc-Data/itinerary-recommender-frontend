@@ -2,13 +2,15 @@ import React, { useEffect, useRef, useState } from 'react'
 import * as maptilersdk from '@maptiler/sdk'
 import "@maptiler/sdk/dist/maptiler-sdk.css"
 
-const Map = ({markers}) => {
+const Map = ( {markers} ) => {
     const apiKey = import.meta.env.VITE_MAPTILER_API_KEY
     const mapContainer = useRef(null)
     const map = useRef(null)
     const cebu = { lng: 123.8854, lat: 10.3157 }
     const [zoom] = useState(11)
     const markerRefs = useRef([])
+
+    console.log("Map markers :", markers)
 
 	maptilersdk.config.apiKey = apiKey
 
@@ -54,8 +56,9 @@ const Map = ({markers}) => {
     }, [cebu.lng, cebu.lat, zoom])
 
     useEffect(() => {
-
+        console.log("Use effect started")
         if (markers) {
+            console.log("About to add markers to map")
             addMarkersToMap()
         }
 

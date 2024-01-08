@@ -8,7 +8,7 @@ import useMarkerManager from '../hooks/useMarkerManager'
 const EventModal = ({onClose, id}) => {
     const { authTokens } = useContext(AuthContext) 
     const { event, loading, error, getEvent } = useEventManager(authTokens)
-    const { markers, addMarker } = useMarkerManager()
+    const { markers, customAddMarker } = useMarkerManager()
 
     useEffect(() => {
         getEvent(id)
@@ -16,7 +16,8 @@ const EventModal = ({onClose, id}) => {
 
     useEffect(() => {
         if(event) {
-            addMarker(event.latitude, event.longitude, '#cccccc', event.name)
+            console.log("Adding markers")
+            customAddMarker(event.latitude, event.longitude, '#cccccc', event.name)
         }
     }, [event])    
 
@@ -40,7 +41,7 @@ const EventModal = ({onClose, id}) => {
                     <div>{event.start_date} - {event.end_date}</div>
                     <p>{event.description}</p>
                 </div>
-                <ShareMap markers={markers} center={true} />
+                <ShareMap markers={markers} center={true}/>
             </div>
         </Modal>
     )

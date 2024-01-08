@@ -12,8 +12,6 @@ function Event() {
     const [ selectedId, setSelectedId ] = useState()
     const [ openDetails, setOpenDetails ] = useState(false)
 
-    console.log("Start")
-
     const toggleDetails = () => {
         setOpenDetails(prev => !prev)
     }
@@ -38,7 +36,6 @@ function Event() {
     })
 
     useEffect(() => {
-        console.log("Use effect triggers")
         getAllEvents()
     }, [])
 
