@@ -151,9 +151,8 @@ const Day = ({ day, updateDays, removeDay, addMarker,
 
     const onSaveOrdering = async () => {
         const locations = [...itemOrdering]
-        setLocations(locations)
-
-        updateItemOrdering(locations)
+        const updatedLocations = await updateItemOrdering(locations, day.id)
+        setLocations(updatedLocations)
         toggleOrdering()
     }
 

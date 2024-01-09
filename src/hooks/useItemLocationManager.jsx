@@ -48,9 +48,9 @@ const useItemLocationManager = (authTokens) => {
         }
     }
 
-    const updateItemOrdering = async (locations) => {
+    const updateItemOrdering = async (locations, dayId) => {
         try {
-            const response = await fetch(`${backendUrl}/api/update-ordering/`, {
+            const response = await fetch(`${backendUrl}/api/update-ordering/${dayId}/`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -60,6 +60,7 @@ const useItemLocationManager = (authTokens) => {
             })
     
             const data = await response.json()
+            return data
         }
         catch (error) {
             console.log(error)
