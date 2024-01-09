@@ -5,6 +5,8 @@ import Recommendation from "../components/Recommendation"
 import useRecommendationsManager from "../hooks/useRecommendationsManager"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
+import Skeleton from 'react-loading-skeleton'
+import Spinner from "../components/Spinner"
 
 const Assistant = ({onClose, day, updateDays, getLeftOverBudget}) => {
     const { authTokens } = useContext(AuthContext)
@@ -70,7 +72,9 @@ const Assistant = ({onClose, day, updateDays, getLeftOverBudget}) => {
                         <p className='assistant-option'>Option C</p>
                     </div>
                         {loading ? 
-                        <div className="assistant--loading"> Loading... </div>
+                        <div className="assistant--loading">
+                            <Spinner />
+                        </div>
                         :
                         <div className="assistant--content-grid">
                             {displayRecommendations}
