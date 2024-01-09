@@ -261,15 +261,22 @@ const useBusinessManager = (authTokens) => {
         }
     }
 
-    const editBusiness = async (id, data) => {
+    const editBusiness = async (id, data, image) => {
+        const formData = new FormData()
+
+        if (image && image instanceof File) {
+            formData.append('image', image)
+        } 
+
+        formData.append('data', JSON.stringify(data))
+
         try {
             const response = await fetch(`${backendUrl}/api/user/business/${id}/edit/`, {
                 "method": "POST",
                 "headers": {
-                    "Content-Type": "application/json",
                     "Authorization": `Bearer ${access}`
                 },
-                "body": JSON.stringify(data)
+                "body": formData
             })
 
             console.log(response)

@@ -23,8 +23,9 @@ const ManageSpot = ({ location, editBusiness }) => {
         'closing_time': new Date().setTime(0, 0, 0),
         'tags': location.tags || []
     })
+    const [ selectedImage, setSelectedImage ] = useState(`${backendUrl}${location.image}?timestamp=${Date.now()}`)
 
-    console.log('Location Data: ', location)
+    console.log('Selected Image: ', selectedImage)
 
     const formatTimeToString = (time) => {
         const hours = time.getHours().toString().padStart(2, '0');
@@ -114,16 +115,20 @@ const ManageSpot = ({ location, editBusiness }) => {
             return;
         }
         
-        console.log(formData.opening_time)
         const data = {
             ...formData,
             "opening_time": formatTimeToString(formData.opening_time),
             "closing_time": formatTimeToString(formData.closing_time)
-        };
+        }
 
-        console.log(data)
+        const isImageChanged = e.target.elements.imgFile.files.length > 0
 
-        await editBusiness(location.id, data)
+        if (isImageChanged) {
+            await editBusiness(location.id, data, e.target.elements.imgFile.files[0])
+        } else {
+            await editBusiness(location.id, data)
+        }
+
         navigate(-1)
 	}
 
@@ -263,7 +268,7 @@ const ManageSpot = ({ location, editBusiness }) => {
                         <button className="add--business font14" >Submit</button>
                     </div>    
                     <div className="image--border center admin--container">
-                        <img className="edit--images" src={`${backendUrl}${location?.image}`}  />
+                        <img className="edit--images" src={selectedImage}  />
                         <label htmlFor="imgFile">
                             {" "}
                             <a className="choose--file">Choose file</a> to upload
@@ -274,6 +279,7 @@ const ManageSpot = ({ location, editBusiness }) => {
                             name="filename"
                             accept="image/*"
                             style={{ display: "none" }} 
+                            onChange={(e) => setSelectedImage(URL.createObjectURL(e.target.files[0]))}
                         />
                     </div>
                 </div>
