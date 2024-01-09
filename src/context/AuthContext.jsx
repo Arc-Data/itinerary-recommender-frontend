@@ -253,13 +253,15 @@ export const AuthProvider = ({children}) => {
 
     useEffect(() => {
         const checkTokenExpiryAndRefresh = async () => {
+            console.log("Checking for expiry")
             if (authTokens) {
                 const currentTimeInSeconds = Math.floor(Date.now() / 1000);
                 const decodedToken = jwt_decode(authTokens.access);
-    
+                console.log("Expiration :", decodedToken.exp)
                 // Check if the token is expired or about to expire (e.g., within the next 60 seconds)
                 if (decodedToken.exp && currentTimeInSeconds + 60 > decodedToken.exp) {
                     try {
+                        console.log("Trying to update token: ...")
                         await updateToken();
                     } catch (error) {
                         console.error('Failed to refresh token:', error);
@@ -267,7 +269,7 @@ export const AuthProvider = ({children}) => {
                         logoutUser();
                     }
                 }
-            }
+            } 
 
             setLoading(false)
         };
