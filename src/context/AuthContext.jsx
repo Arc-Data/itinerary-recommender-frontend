@@ -259,7 +259,7 @@ export const AuthProvider = ({children}) => {
                 const decodedToken = jwt_decode(authTokens.access);
                 console.log("Expiration :", decodedToken.exp)
                 // Check if the token is expired or about to expire (e.g., within the next 60 seconds)
-                if (decodedToken.exp && currentTimeInSeconds + 60 > decodedToken.exp) {
+                if (decodedToken.exp && currentTimeInSeconds + 120 > decodedToken.exp) {
                     try {
                         console.log("Trying to update token: ...")
                         await updateToken();
@@ -276,8 +276,8 @@ export const AuthProvider = ({children}) => {
         
         checkTokenExpiryAndRefresh();
         
-        const fourMinutes = 1000 * 60 * 4
-        const intervalId = setInterval(checkTokenExpiryAndRefresh, fourMinutes)
+        const eightMinutes = 1000 * 60 * 8
+        const intervalId = setInterval(checkTokenExpiryAndRefresh, eightMinutes)
 
         return () => clearInterval(intervalId)
     }, [authTokens, updateToken, logoutUser])
