@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Link, Navigate, Outlet } from 'react-router-dom';
 import AuthContext from "../context/AuthContext"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,23 +6,30 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 
 const Login = () => {
-    const { loginUser, user } = useContext(AuthContext)
+    const { loginUser, user, status, setStatus } = useContext(AuthContext)
     const [showPassword, setShowPassword] = useState(false)
 
     if (user) {
         return (user.is_staff ? <Navigate to="/admin" /> : <Navigate to="/home" />)
     }
 
+    console.log(status)
+
     const togglePasswordVisibility = () => {
         setShowPassword(prevState => !prevState)
     }
+
+    useEffect(() => {
+        setStatus('')
+    }, [])
     
     return (
         <div>
             <h2 className='heading'>Login</h2>
+            {status && <p className="login-error error">{status}</p>}
             <form className='modal-login-sign-form' onSubmit={(e) => loginUser(e)}>
                 <label>Email</label>
-                <input type="email" name="email" placeholder="Enter your email" />
+                <input type="email" name="email" placeholder="Enter your email" required/>
 
                 <label>
                 Password
@@ -31,6 +38,7 @@ const Login = () => {
                         type={showPassword ? "text" : "password"}
                         placeholder="Enter your password"
                         name="password"
+                        required
                     />
                     <button
                         type="button"

@@ -22,7 +22,6 @@ const HomePage = () => {
 
 	// GET RECOMMENDED LOCATIONS
 	const getRecommendedLocations = async () => {
-		console.log("Inside recommendations function")
 		try {
 		  const response = await fetch(
 			`${backendUrl}/api/recommendations/homepage/`,
@@ -48,7 +47,6 @@ const HomePage = () => {
 
 	// GET RECENT BOOKMARKS
 	const getRecentBookmarks = async () => {
-		console.log("Fetching Bookmarks")
 		try {
 			const response = await fetch(
 				`${backendUrl}/api/bookmarks/`,

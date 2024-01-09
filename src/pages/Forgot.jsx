@@ -1,9 +1,13 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 
 const Forgot = () => {
-    const { forgotPassword, status, loading } = useContext(AuthContext)
+    const { forgotPassword, status, loading, setStatus } = useContext(AuthContext)
+
+    useEffect(() => {
+        setStatus('')
+    }, [])
 
     return (
         <div>

@@ -38,49 +38,55 @@ export const AuthProvider = ({children}) => {
 
     const loginUser = async (e) => {
         e.preventDefault()
-        console.log("Logging in the user", e)
-        const response = await fetch(`${backendUrl}/api/token/`, {
-            method:'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body:JSON.stringify({
-                'email':e.target.email.value, 
-                'password':e.target.password.value
+        setStatus('')
+        console.log("Huh")
+
+        try {
+            const response = await fetch(`${backendUrl}/api/token/`, {
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify({
+                    'email':e.target.email.value, 
+                    'password':e.target.password.value
+                })
             })
-        })
-        console.log(response)
-        const data = await response.json()
+            const data = await response.json()
 
-        if(response.status === 200) {
-            const userData = jwt_decode(data.access)
-
-            const currentTimeInSeconds = Math.floor(Date.now() / 1000);
-            if (userData.exp && currentTimeInSeconds > userData.exp) {
-                await updateToken();
-            }
-
-            setAuthTokens(data)
-            setUser(userData)
-            setPreferences(userData.set_preferences)
-
-            localStorage.setItem('authTokens', JSON.stringify(data))
-            localStorage.setItem('setPreferences', JSON.stringify(userData.set_preferences))
-            
-            if(!userData.set_preferences) {
-                console.log("Should have done this")
-            }
-
-            if(userData.is_staff) {
-                navigate('/admin')
-            } else if (!userData.set_preferences) {
-                navigate("/preferences")
+            if(response.status === 200) {
+                const userData = jwt_decode(data.access)
+    
+                const currentTimeInSeconds = Math.floor(Date.now() / 1000);
+                if (userData.exp && currentTimeInSeconds > userData.exp) {
+                    await updateToken();
+                }
+    
+                setAuthTokens(data)
+                setUser(userData)
+                setPreferences(userData.set_preferences)
+    
+                localStorage.setItem('authTokens', JSON.stringify(data))
+                localStorage.setItem('setPreferences', JSON.stringify(userData.set_preferences))
+                
+                if(!userData.set_preferences) {
+                    console.log("Should have done this")
+                }
+    
+                if(userData.is_staff) {
+                    navigate('/admin')
+                } else if (!userData.set_preferences) {
+                    navigate("/preferences")
+                }
+                else {
+                    navigate('/home')
+                }
             }
             else {
-                navigate('/home')
+                setStatus(data.detail)
             }
-        } else {
-            alert("Something went wrong")
+        } catch (error) {
+            console.log("An error occured while logging in user: ", error)
         }
     }
 
@@ -235,6 +241,7 @@ export const AuthProvider = ({children}) => {
         authTokens: authTokens,
         activateUser: activateUser,
         loginUser: loginUser,    
+        setStatus: setStatus,
         logoutUser: logoutUser,    
         registerUser: registerUser,
         resetPassword: resetPassword,

@@ -1955,6 +1955,12 @@ input[type="text"] {
 .budget--error-message {
     font-weight: 500;
 }
+
+.login-error {
+    color: #ef233c;
+    margin-bottom: 20px;
+}
+
 .plan--cost-estimate {
     background-color: #E9E9E9;
     width: 100%;
@@ -2119,6 +2125,11 @@ input[type="text"] {
     font-weight: 600;
     color: #212529;
 }
+
+.plan--location-name:hover {
+    color: #184E77;
+}
+
 .plan--events-btn {
     padding: 10px 15px;
     font-size: 15px;

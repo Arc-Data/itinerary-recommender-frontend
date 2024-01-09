@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Link } from "react-router-dom"
 import { faClock, faLocationDot, faTrash, faMoneyBills, faCalendarDay, faCar, faRunning, faShuffle, faUtensils, faHotel } from "@fortawesome/free-solid-svg-icons"
 import getTimeDetails from "../utils/getTimeDetails";
 import getFeeDetails from "../utils/getFeeDetails";
@@ -9,7 +10,6 @@ const LocationItem = ({ location }) => {
     const string = `${backendUrl}${location.details.primary_image.replace(/'/g, "\\'")}` 
     const [openEvents, setOpenEvents] = useState(false)
     console.log(location)
-
     const toggleEvents = () => {
         setOpenEvents(prev => !prev)
     }
@@ -41,7 +41,6 @@ const LocationItem = ({ location }) => {
                         faShuffle
                     } className="btn-icons"/>
                     <span>{Math.floor(location.transport_type.meters)}m</span>
-
                 </div>
             }
             <div className="plan--itinerary-item">
@@ -57,7 +56,7 @@ const LocationItem = ({ location }) => {
                     }
                     
                     <div className="plan--location-details">
-                        <p className="plan--location-name">{location.details.name}</p>
+                        <Link to={`/location/${location.details.id}`} className="plan--location-name">{location.details.name}</Link>
                         <div className="plan--location-info">
                             {location.details.location_type === "1" &&
                                 <p>
