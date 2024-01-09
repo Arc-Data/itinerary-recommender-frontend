@@ -25,8 +25,6 @@ const ManageSpot = ({ location, editBusiness }) => {
     })
     const [ selectedImage, setSelectedImage ] = useState(`${backendUrl}${location.image}?timestamp=${Date.now()}`)
 
-    console.log('Selected Image: ', selectedImage)
-
     const formatTimeToString = (time) => {
         const hours = time.getHours().toString().padStart(2, '0');
         const minutes = time.getMinutes().toString().padStart(2, '0');
@@ -89,8 +87,6 @@ const ManageSpot = ({ location, editBusiness }) => {
 
     const handleSpotTagChange = (e, tagName) => {
         const isChecked = e.target.checked;
-        console.log(isChecked)
-        console.log("I am here")
 
         setFormData((prevData) => {
             if (isChecked) {

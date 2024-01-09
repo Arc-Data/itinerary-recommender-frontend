@@ -1,14 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom"
-import { FaTrash, FaPencilAlt } from "react-icons/fa";
-import SAMPLEIMAGE from "/images/osmenapeak.jpg";
-import Modal from "react-modal";
-import ProductModal from "../modals/ProductModal";
+import { useNavigate } from "react-router-dom"
 import AuthContext from "../context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
-
-Modal.setAppElement("#root");
+import ReactDatePicker from "react-datepicker";
 
 const ManageBusiness = ({ location, editBusiness }) => {
 	const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
@@ -30,6 +25,7 @@ const ManageBusiness = ({ location, editBusiness }) => {
         'closing_time': new Date().setTime(0, 0, 0),
 	})
 
+    const [ selectedImage, setSelectedImage ] = useState(`${backendUrl}${location.image}?timestamp=${Date.now()}`)
 	const [searchResults, setSearchResults] = useState([])
 	const [query, setQuery] = useState('')
 	const [tags, setTags] = useState(location.tags)
@@ -54,13 +50,8 @@ const ManageBusiness = ({ location, editBusiness }) => {
 		if (e.key === 'Enter') {
 			e.preventDefault();
 			if (e.target.classList.contains('tags-input')) {
-				// Logic to add tags
 				addTag(query);
-			} else {
-				print("Should be here")
-				// Logic for other input fields or form submission
-				// handleSubmit();
-			}
+			} 
 		}
 	};
 
@@ -161,11 +152,48 @@ const ManageBusiness = ({ location, editBusiness }) => {
         </div>
     )
 
-	const handleSubmit = (e) => {
+	const formatTimeToString = (time) => {
+        const hours = time.getHours().toString().padStart(2, '0');
+        const minutes = time.getMinutes().toString().padStart(2, '0');
+        const seconds = time.getSeconds().toString().padStart(2, '0');
+        return `${hours}:${minutes}:${seconds}`;
+    }
+
+	const handleSubmit = async (e) => {
 		e.preventDefault() 
-		editBusiness(location.id, formData)
+
+		const data = {
+            ...formData,
+            "opening_time": formatTimeToString(formData.opening_time),
+            "closing_time": formatTimeToString(formData.closing_time)
+        }
+
+        const isImageChanged = e.target.elements.imgFile.files.length > 0
+		
+		if (isImageChanged) {
+            await editBusiness(location.id, data, e.target.elements.imgFile.files[0])
+        } else {
+            await editBusiness(location.id, data)
+        }
+
 		navigate(-1)
 	}
+
+	useEffect(() => {
+        if (location.schedule.opening) {
+            const [hours, minutes, seconds] = location.schedule.opening.split(":");
+            const openingTime = new Date();
+            openingTime.setHours(hours, minutes, seconds);
+            setFormData(prev => ({ ...prev, opening_time: openingTime }));
+        }
+    
+        if (location.schedule.closing) {
+            const [hours, minutes, seconds] = location.schedule.closing.split(":");
+            const closingTime = new Date();
+            closingTime.setHours(hours, minutes, seconds);
+            setFormData(prev => ({ ...prev, closing_time: closingTime }));
+        }
+    }, []);
 
 
 	return (
@@ -261,23 +289,27 @@ const ManageBusiness = ({ location, editBusiness }) => {
                 </div>
 				<div className="admin--container">
 					<div className="input admin--container">
-					<label htmlFor="opening">Opening Time</label>
-					<input
-						type="text"
-						onChange={handleChangeInput}
-						name="opening_time"
-						value={formData.opening_time}
-						className="business-input"
+						<label htmlFor="opening">Opening Time</label>
+						<ReactDatePicker
+							selected={formData.opening_time}
+							onChange={(date) => setFormData({ ...formData, opening_time: date })}                            showTimeSelect
+							showTimeSelectOnly
+							timeIntervals={15}
+							timeCaption="Time"
+							dateFormat="h:mm aa"
+							className="business-input"
 						/>
 					</div>
 					<div className="input admin--container">
-					<label htmlFor="closing">Closing Time</label>
-					<input
-						type="text"
-						onChange={handleChangeInput}
-						name="closing_time"
-						value={formData.closing_time}
-						className="business-input"
+						<label htmlFor="closing">Closing Time</label>
+						<ReactDatePicker
+							selected={formData.closing_time}
+							onChange={(date) => setFormData({ ...formData, closing_time: date })}                            showTimeSelect
+							showTimeSelectOnly
+							timeIntervals={15}
+							timeCaption="Time"
+							dateFormat="h:mm aa"
+							className="business-input"
 						/>
 					</div>
 				</div>
@@ -299,7 +331,7 @@ const ManageBusiness = ({ location, editBusiness }) => {
 				</div>
 				</div>
 				<div className="image--border center admin--container">
-				<img className="edit--images" src={`${backendUrl}${location?.image}`}  />
+				<img className="edit--images" src={selectedImage}  />
 				<label htmlFor="imgFile">
 					{" "}
 					<a className="choose--file">Choose file</a> to upload
@@ -310,6 +342,7 @@ const ManageBusiness = ({ location, editBusiness }) => {
 					name="filename"
 					accept="image/*"
 					style={{ display: "none" }} 
+					onChange={(e) => setSelectedImage(URL.createObjectURL(e.target.files[0]))}
 				/>
 				</div>
 			</div>    
