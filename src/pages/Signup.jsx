@@ -59,39 +59,44 @@ const Signup = () => {
                 <div className="name-inputs">
                     <div>
                         <label>First Name</label>
-                        <input 
+                        <input
+                            required 
                             type="text" 
                             name="firstname" 
-                            placeholder="Enter your first name" 
+                            placeholder="John" 
                             value={formData.firstname}
                             onChange={handleInputChange} />
                     </div>
                     <div>
                         <label>Last Name</label>
-                        <input 
+                        <input
+                            required 
                             type="text" 
                             name="lastname" 
-                            placeholder="Enter your last name" 
+                            placeholder="Doe" 
                             value={formData.lastname}
                             onChange={handleInputChange} />
                     </div>
                 </div>
                 <label>Email</label>
-                <input 
+                <input
+                    required 
                     type="email" 
                     name="email" 
-                    placeholder="Enter your email" 
+                    placeholder="example@gmail.com" 
                     value={formData.email}
                     onChange={handleInputChange} />
-                <label>Contact</label>
-                <input 
+                <label>Contact No.</label>
+                <input
+                    required 
                     type="contact" 
                     name="contact" 
-                    placeholder="Enter contact number" 
+                    placeholder="Enter contact number. (ex: 09202750407)" 
                     value={formData.contact}
                     onChange={handleInputChange} />
                 <label>Password</label>
                 <input
+                    required
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
                     name="password"
@@ -107,6 +112,7 @@ const Signup = () => {
                 </button>
                 <label>Confirm Password</label>
                 <input
+                    required
                     type={showPassword ? "text" : "password"}
                     placeholder="Confirm your password"
                     name="confirm"
