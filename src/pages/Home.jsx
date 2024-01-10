@@ -194,10 +194,12 @@ const HomePage = () => {
 						</>
 					)}
 				</div>
+				{recommendations.length !== 0 && 
 				<div className="recommended--locations">
 					<h1 className='heading'>Recommended Food places</h1>
 					<div className="detailPage--cards">{recommendedFoodplaces}</div>
 				</div>
+				}
 			</div>
 		</div>
 	)
