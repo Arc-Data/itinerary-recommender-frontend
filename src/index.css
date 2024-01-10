@@ -2335,9 +2335,8 @@ input[type="text"] {
 }
 .share--details-container {
     overflow: hidden;
-}
-.share--details-content {
-    padding: 20px;
+    padding: 50px;
+    display: block;
 }
 .share--cebu-route {
     margin-bottom: 20px;

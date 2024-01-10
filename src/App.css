@@ -402,9 +402,14 @@ select {
 }
 
 .table--th1 > th {
-  background: #E7E7E7;
-  font-weight: 500;
+  font-weight: 800;
   height: 50px;
+  border: 1px solid black;
+}
+
+.top-spot-item > td {
+  border: 1px solid black;
+  background-color: white;
 }
 
 .heading9 {
@@ -423,5 +428,31 @@ select {
 }
 
 .top-list-dropdown-admin {
-  width: 60%;
+  width: 50%;
+}
+
+/* DOWNLOAD DASHBOARD */
+
+.reports--title {
+  font-size: 35px;
+  margin-top: 20px;
+}
+
+.share--dashboard-header {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.share--dashboard-header > p {
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.selected-month {
+  margin-top: 10px;
+}
+
+.span-items1 {
+  display: flex;
+  justify-content: flex-start;
 }
