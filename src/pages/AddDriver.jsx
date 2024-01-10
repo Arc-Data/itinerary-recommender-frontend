@@ -105,7 +105,7 @@ function AddDriver() {
     return (
         <>  
             <h1 className="heading">Add Driver</h1>
-            <h1 className='mt-20px'>Personal Information </h1>
+            <h1 className='mt-20px heading2'>Personal Information </h1>
             <br></br>  
             <form className="admin--container">
                 <div className="input--form">
@@ -117,7 +117,7 @@ function AddDriver() {
                             onChange={handleChange}
                             name="first_name"
                             value={driverData.first_name}
-                            className="styled-input" 
+                            className="business-input" 
                         />
                     </div>
                     
@@ -129,7 +129,7 @@ function AddDriver() {
                             onChange={handleChange}
                             name="last_name"
                             value={driverData.last_name}
-                            className="styled-input" 
+                            className="business-input" 
                         />
                     </div>
                     <div className="input admin--container">
@@ -140,7 +140,7 @@ function AddDriver() {
                             onChange={handleChange}
                             name="contact"
                             value={driverData.contact}
-                            className="styled-input" 
+                            className="business-input" 
                         />
                     </div>
                     <div className="input admin--container">
@@ -151,7 +151,7 @@ function AddDriver() {
                             onChange={handleChange}
                             name="email"
                             value={driverData.email}
-                            className="styled-input" 
+                            className="business-input" 
                         />
                     </div>
                     <div className="input admin--container">
@@ -162,7 +162,7 @@ function AddDriver() {
                             onChange={handleChange}
                             name="facebook"
                             value={driverData.facebook}
-                            className="styled-input" 
+                            className="business-input" 
                         />
                     </div>                  
                     
@@ -173,18 +173,18 @@ function AddDriver() {
                             onChange={handleChange}
                             name="info"
                             value={driverData.info}
-                            
+                            className='business-input description'
                         />
                     </div>
 
-                    <h1 className='mt-20px'>Car Information </h1>
+                    <h1 className='mt-20px heading2'>Car Information</h1>
                     
                     <div className="input admin--container">
                         <select
                             value={driverData.type}
                             onChange={handleChange}
                             name="type"
-                            className="styled-input" 
+                            className="business-input" 
                         >
                             <option value="">-- Car Type --</option>
                             <option value="1">Sedan</option>
@@ -200,7 +200,7 @@ function AddDriver() {
                             onChange={handleChange}
                             name="car"
                             value={driverData.car}
-                            className="styled-input" 
+                            className="business-input" 
                         />
                     </div>
                     <div className="input admin--container">
@@ -211,7 +211,7 @@ function AddDriver() {
                             onChange={handleChange}
                             name="capacity"
                             value={driverData.capacity}
-                            className="styled-input" 
+                            className="business-input" 
                         />
                     </div>
                     <div className="input admin--container">
@@ -222,7 +222,7 @@ function AddDriver() {
                             onChange={handleChange}
                             name="plate"
                             value={driverData.plate}
-                            className="styled-input" 
+                            className="business-input" 
                         />
                     </div>
                     
