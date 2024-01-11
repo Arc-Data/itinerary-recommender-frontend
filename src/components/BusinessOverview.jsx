@@ -202,7 +202,7 @@ const BusinessOverview = () => {
                     </div>
                     <div className="dashboard--chart-container">
                         {businessStats && (
-                            <ReactApexChart options={barChartOptions} series={barChartSeries} type="bar" height={400} width={550} />
+                            <ReactApexChart options={barChartOptions} series={barChartSeries} type="bar" height={400} width={400} />
                         )}
                     </div>
                 </div>
