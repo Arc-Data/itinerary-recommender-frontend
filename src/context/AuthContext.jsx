@@ -106,12 +106,10 @@ export const AuthProvider = ({children}) => {
         })
 
         if(response.status === 201) {
-            navigate('/success')
-        } else if(response.status === 401) {
-            console.log("401")
-        } else {
-                        
+            return true
         }
+
+        return false
     }
 
     const resetPassword = async (uidb64, token, password) => {

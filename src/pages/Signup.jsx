@@ -53,7 +53,7 @@ const Signup = () => {
     }
 
     return (
-        <div>
+        <div className="sign-up-container">
             <h2 className='heading'>Sign Up</h2>
             <form className='modal-login-sign-form' onSubmit={handleSubmit}>
                 <div className="name-inputs">
@@ -134,7 +134,7 @@ const Signup = () => {
                 </div>
             </form>
         </div>
-    );
+    )
 }
 
 export default Signup;
