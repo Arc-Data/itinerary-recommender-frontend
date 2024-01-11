@@ -36,6 +36,26 @@ const useRecommendationsManager = (authTokens) => {
         }
     }
 
+    const getRecommendedFoodPlaces = async () => {
+        try {
+            const response = await fetch(`${backendUrl}/api/recommendations/foodplace/`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                }
+            })
+
+            console.log(response)
+            const data = await response.json()
+            console.log(data)
+            setRecommendations(data)
+        }
+        catch (error) {
+            console.log("an error occured while fetching recommended food places: ", error)
+        } 
+    }
+
     const fetchNearbyRecommendations = async (dayId) => {
         setStatus("Loading Recommendations")
         setLoading(true)
@@ -142,6 +162,7 @@ const useRecommendationsManager = (authTokens) => {
         applyRecommendation,
         fetchRecommendations,
         fetchPreferenceRecommendations,
+        getRecommendedFoodPlaces,
         fetchNearbyRecommendations,
         fetchNearbyFoodRecommendations,
     }

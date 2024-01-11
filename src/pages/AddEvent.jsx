@@ -75,7 +75,7 @@ function AddEvent() {
                         <input
                             type="text"
                             name="name"
-                            className="styled-input"
+                            className="business-input"
                             value={formData.name}
                             onChange={handleInputChange}
                         />
@@ -86,7 +86,7 @@ function AddEvent() {
                             <input
                                 type="date"
                                 name="start_date"
-                                className="styled-input"
+                                className="business-input"
                                 value={formData.start_date}
                                 onChange={handleInputChange}
                             />
@@ -96,7 +96,7 @@ function AddEvent() {
                             <input
                                 type="date"
                                 name="end_date"
-                                className="styled-input"
+                                className="business-input"
                                 value={formData.end_date}
                                 onChange={handleInputChange}
                             />
@@ -107,7 +107,7 @@ function AddEvent() {
                         <input
                             type="text"
                             name="description"
-                            className="styled-input"
+                            className="business-input description"
                             value={formData.description}
                             onChange={handleInputChange}
                         />
@@ -119,7 +119,7 @@ function AddEvent() {
                                 type="number"
                                 step="0.000001"
                                 name="latitude"
-                                className="styled-input"
+                                className="business-input"
                                 value={formData.latitude}
                                 onChange={handleInputChange}
                             />
@@ -130,7 +130,7 @@ function AddEvent() {
                                 type="number"
                                 step="0.000001"
                                 name="longitude"
-                                className="styled-input"
+                                className="business-input"
                                 value={formData.longitude}
                                 onChange={handleInputChange}
                             />
@@ -154,7 +154,7 @@ function AddEvent() {
                         <input
                             type="text"
                             name="eventName"
-                            className="styled-input" 
+                            className="business-input" 
                         />
                     </div>
                     <div className="admin--container">
@@ -163,7 +163,7 @@ function AddEvent() {
                             <input
                                 type="date"
                                 name="startDate"
-                                className="styled-input" 
+                                className="business-input" 
                             />
                         </div>
                         <div className="input admin--container">
@@ -171,7 +171,7 @@ function AddEvent() {
                             <input
                                 type="date"
                                 name="endDate"
-                                className="styled-input" 
+                                className="business-input" 
                             />
                         </div>
                     </div>
@@ -180,7 +180,7 @@ function AddEvent() {
                         <input
                             type="text"
                             name="description"
-                            className="styled-input" 
+                            className="business-input" 
                         />
                     </div>
                     <div className="admin--container">
@@ -190,7 +190,7 @@ function AddEvent() {
                                 type="number"
                                 step="0.000001"
                                 name="latitude"
-                                className="styled-input" 
+                                className="business-input" 
                             />
                         </div>
                         <div className="input admin--container">
@@ -199,7 +199,7 @@ function AddEvent() {
                                 type="number"
                                 step="0.000001"
                                 name="longitude"
-                                className="styled-input" 
+                                className="business-input" 
                             />
                         </div>
                     </div> */}

@@ -178,7 +178,7 @@ import {
                 >
                     <NavLink 
                         to="/admin/driver"
-                        className="link"
+                        className="link font14"
                     >
                         Add Driver
                     </NavLink>

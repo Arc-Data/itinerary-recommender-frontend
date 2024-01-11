@@ -158,12 +158,12 @@ function Location() {
                     className="btn add-location"
                     type="button"
                 >
-                    <NavLink 
+                    <Link 
                         to="/admin/location"
-                        className="link"
+                        className='font14'
                     >
                         Add Location
-                    </NavLink>
+                    </Link>
                 </button>
             </div>
             <table>

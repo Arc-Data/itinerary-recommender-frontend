@@ -9,14 +9,15 @@ import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faCalendarDays, faCircleCheck } from '@fortawesome/free-regular-svg-icons';
+import useRecommendationsManager from "../hooks/useRecommendationsManager";
 
 const HomePage = () => {
 	const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
-
 	const { authTokens } = useContext(AuthContext)
 	const { itineraries, getItineraries, deleteItinerary } = useItineraryManager(authTokens)
-	const [ selectedDays, setSelectedDays ] = useState([])
 	const { days, error, loading, getActiveTrips, markDaysAsCompleted } = useDayManager(authTokens)
+	const { recommendations, getRecommendedFoodPlaces } = useRecommendationsManager(authTokens)
+	const [ selectedDays, setSelectedDays ] = useState([])
 	const [recommendedLocations, setRecommendedLocations] = useState([]);
 	const [recentBookmarks, setRecentBookmarks] = useState([]);
 
@@ -76,6 +77,7 @@ const HomePage = () => {
 		getActiveTrips();
 		getRecommendedLocations();
 		getRecentBookmarks();
+		getRecommendedFoodPlaces()
 	}, [])
 
 
@@ -130,6 +132,10 @@ const HomePage = () => {
 	const recommendedCards = recommendedLocations.map((location) => (
 		<DetailCard key={location.id} {...location} />
 	  ));
+
+	const recommendedFoodplaces = recommendations.map((location) => (
+		<DetailCard key={location.id} {...location} />
+	));
 
 	const recentBookmarkCards = recentBookmarks && recentBookmarks.map(bookmark => (
 		// <div key={bookmark.id}>Something</div>
@@ -188,6 +194,12 @@ const HomePage = () => {
 						</>
 					)}
 				</div>
+				{recommendations.length !== 0 && 
+				<div className="recommended--locations">
+					<h1 className='heading'>Recommended Food places</h1>
+					<div className="detailPage--cards">{recommendedFoodplaces}</div>
+				</div>
+				}
 			</div>
 		</div>
 	)
