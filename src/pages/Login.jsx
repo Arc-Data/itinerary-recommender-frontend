@@ -11,10 +11,6 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [ loading, setLoading ] = useState(false)
 
-    if (user) {
-        return (user.is_staff ? <Navigate to="/admin" /> : <Navigate to="/home" />)
-    }
-
     const handleLogin = async (e) => {
         e.preventDefault()
         setLoading(true)
@@ -22,14 +18,15 @@ const Login = () => {
         setLoading(false)
     }
 
-
     const togglePasswordVisibility = () => {
         setShowPassword(prevState => !prevState)
     }
 
     useEffect(() => {
-        setStatus('')
-    }, [])
+        if (user) {
+            user.is_staff ? <Navigate to="/admin" /> : <Navigate to="/home" />
+        }
+    }, [user])
     
     return (
         <div>

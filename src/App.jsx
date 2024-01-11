@@ -57,6 +57,7 @@ import HomeBusiness from './components/HomeBusiness';
 import AddDriver from './pages/AddDriver'
 import EditDriver from './pages/EditDriver';
 import Queries from './pages/Queries';
+import Verify from './pages/Verify';
 /*css*/
 	
 function App() {
@@ -71,6 +72,7 @@ function App() {
 					<Route path="/activate/:uidb64/:token" element={<Activation />}/>
 					<Route path="/success" element={<RegisterSuccess />} />
 					<Route path="/forgot" element={<Forgot />} />
+					<Route path="/verify" element={<Verify />} />
 					<Route path="/reset/:uidb64/:token" element={<Reset />} />
 				</Route>
 

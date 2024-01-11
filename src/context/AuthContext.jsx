@@ -14,9 +14,61 @@ export const AuthProvider = ({children}) => {
     const [ status, setStatus ] = useState()
     const [loading, setLoading] = useState(true)
     const [preferences, setPreferences] = useState(() => localStorage.getItem('setPreferences') ? 
-        JSON.parse(localStorage.getItem("setPreferences") === "true") : null)
-
+        JSON.parse(localStorage.getItem("setPreferences") === "true") : null
+    )
+    const [otpRequired, setOtpRequired] = useState(() => localStorage.getItem('otpRequired') ? 
+        JSON.parse(localStorage.getItem("otpRequired")) : null
+    );
+    
     const navigate = useNavigate()
+
+    const sendOTPRequest = async (access) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/generate-otp/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`
+                }
+            })
+            console.log(response)
+        }
+        catch (error) {
+            console.log("An error occured while generating OTP request :", error)
+        }
+    }
+
+    const verifyOTP = async (code) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/verify-otp/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${String(authTokens.access)}`
+                },
+                body: JSON.stringify({
+                    'code': code
+                })
+            })
+
+            console.log(response)
+            const data = await response.json()
+            setStatus(data.detail)
+
+            if (data.detail === 'Success') {
+                setOtpRequired(false)
+                localStorage.setItem("otpRequired", false)
+                
+                if (!preferences) {
+                    navigate('/preferences')
+                }
+                navigate('/home')
+            }
+        }
+        catch (error) {
+            console.log("An error occured while verifying user otp : ", error)
+        }
+    }
 
     const activateUser = async (uidb64, token) => {
         try {
@@ -39,7 +91,6 @@ export const AuthProvider = ({children}) => {
     const loginUser = async (e) => {
         e.preventDefault()
         setStatus('')
-        console.log("Huh")
 
         try {
             const response = await fetch(`${backendUrl}/api/token/`, {
@@ -61,21 +112,24 @@ export const AuthProvider = ({children}) => {
                 if (userData.exp && currentTimeInSeconds > userData.exp) {
                     await updateToken();
                 }
-    
+
                 setAuthTokens(data)
                 setUser(userData)
                 setPreferences(userData.set_preferences)
+                setOtpRequired(userData.otp_required)
     
                 localStorage.setItem('authTokens', JSON.stringify(data))
                 localStorage.setItem('setPreferences', JSON.stringify(userData.set_preferences))
-                
-                if(!userData.set_preferences) {
-                    console.log("Should have done this")
-                }
-    
+                localStorage.setItem('otpRequired', JSON.stringify(userData.otp_required))
+
                 if(userData.is_staff) {
                     navigate('/admin')
-                } else if (!userData.set_preferences) {
+                } 
+                else if (userData.otp_required) {
+                    await sendOTPRequest(data.access)
+                    navigate('/verify')
+                }
+                else if (!userData.set_preferences) {
                     navigate("/preferences")
                 }
                 else {
@@ -106,7 +160,7 @@ export const AuthProvider = ({children}) => {
         })
 
         if(response.status === 201) {
-            return true
+            navigate('/login')
         }
 
         return false
@@ -195,6 +249,7 @@ export const AuthProvider = ({children}) => {
         setUser(null)
         localStorage.removeItem('authTokens')
         localStorage.removeItem('setPreferences')
+        localStorage.removeItem('otpRequired')
         navigate('/')
     }
 
@@ -247,6 +302,9 @@ export const AuthProvider = ({children}) => {
         checkResetInstance: checkResetInstance,
         userSetPreference: userSetPreference,
         preferences: preferences,
+        otpRequired: otpRequired,
+        sendOTPRequest: sendOTPRequest,
+        verifyOTP: verifyOTP,
     }
 
     useEffect(() => {

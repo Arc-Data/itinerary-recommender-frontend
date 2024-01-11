@@ -13,7 +13,7 @@ import useRecommendationsManager from "../hooks/useRecommendationsManager";
 
 const HomePage = () => {
 	const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
-	const { authTokens } = useContext(AuthContext)
+	const { user, authTokens } = useContext(AuthContext)
 	const { itineraries, getItineraries, deleteItinerary } = useItineraryManager(authTokens)
 	const { days, error, loading, getActiveTrips, markDaysAsCompleted } = useDayManager(authTokens)
 	const { recommendations, getRecommendedFoodPlaces } = useRecommendationsManager(authTokens)
@@ -79,8 +79,6 @@ const HomePage = () => {
 		getRecentBookmarks();
 		getRecommendedFoodPlaces()
 	}, [])
-
-
 
 	const toggleDaySelection = (dayId) => {
 		const isSelected = selectedDays.includes(dayId)
