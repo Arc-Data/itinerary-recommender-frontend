@@ -111,6 +111,7 @@ const CreateTrip = () => {
                                     value={formData.budget}
                                     onChange={(e) => handleChange('budget', e.target.value)}
                                     id="budget"
+                                    min={0}
                                 />
                                 <div className='create--currency-indicator heading5 no-margin-top'>PHP</div>
                             </div>
@@ -121,7 +122,7 @@ const CreateTrip = () => {
                                 type="number"
                                 name="numberOfPeople"
                                 className='create--form-input no-margin-top no-margin-bottom'
-                                min="1"
+                                min={1}
                                 placeholder='1'
                                 value={formData.numberOfPeople}
                                 onChange={(e) => handleChange('numberOfPeople', e.target.value)}

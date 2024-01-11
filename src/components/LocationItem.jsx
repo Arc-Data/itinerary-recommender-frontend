@@ -9,7 +9,7 @@ const LocationItem = ({ location }) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
     const string = `${backendUrl}${location.details.primary_image.replace(/'/g, "\\'")}` 
     const [openEvents, setOpenEvents] = useState(false)
-    console.log(location)
+
     const toggleEvents = () => {
         setOpenEvents(prev => !prev)
     }

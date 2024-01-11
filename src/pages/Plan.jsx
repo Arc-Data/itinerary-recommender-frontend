@@ -116,6 +116,11 @@ const Plan = () => {
 	}, [editName])
 
 	const toggleSettings = () => {
+		if (editedExpenses.budget < 0) {
+			alert("Budget cant be in the negatives!")
+			return
+		}
+		
 		setEditable(prev => !prev)
 	}
 
@@ -281,16 +286,14 @@ const Plan = () => {
 						<section className="plan--expense-section">
 							<div className='span-items'>
 								<p className="heading">Expenses</p>
-								{
-									
-									editable ?
-									<button className='save-details-btn no-margin-top no-margin-bottom' onClick={handleSubmit}>
+								{editable ?
+								<button className='save-details-btn no-margin-top no-margin-bottom' onClick={handleSubmit}>
 									<FontAwesomeIcon className='save-details-icon' icon={faCheck} />
-									</button>
-									:
-									<button className='edit-details-btn no-margin-top no-margin-bottom' onClick={toggleSettings}>
+								</button>
+								:
+								<button className='edit-details-btn no-margin-top no-margin-bottom' onClick={toggleSettings}>
 									<FontAwesomeIcon className='edit-details-icon' icon={faPenToSquare} />
-									</button>
+								</button>
 								}
 							</div>
 							<div className="plan--expense-form">
@@ -315,6 +318,7 @@ const Plan = () => {
 											type="number" 
 											name="budget" 
 											id="budget"
+											min={0}
 											defaultValue={itinerary?.budget}
 											onChange={handleEditItinerary}
 										/>							
