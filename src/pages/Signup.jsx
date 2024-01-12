@@ -42,7 +42,7 @@ const Signup = () => {
         if(passwordMatch) {
             await registerUser(formData)
         } else {
-            alert("Passwords do not match")
+            setStatus("Passwords do not match")
         }
 
         setLoading(false)
@@ -55,6 +55,7 @@ const Signup = () => {
     return (
         <div className="sign-up-container">
             <h2 className='heading'>Sign Up</h2>
+            {status && <p className="login-error error">{status}</p>}
             <form className='modal-login-sign-form' onSubmit={handleSubmit}>
                 <div className="name-inputs">
                     <div>

@@ -158,8 +158,14 @@ export const AuthProvider = ({children}) => {
                 'password': formData.password
             })
         })
+        const data = await response.json()
+
+        if (data.detail) {
+            setStatus(data.detail)
+        }
 
         if(response.status === 201) {
+            setStatus('')
             navigate('/login')
         }
 
