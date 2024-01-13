@@ -175,6 +175,10 @@ a:-webkit-any-link {
 .mt-20px {
     margin-top: 20px;
 }
+.mt-30px {
+    margin-top: 30px;
+}
+
 
 .mt-5px {
     margin-top: 10px;
@@ -3615,7 +3619,7 @@ input[type="text"] {
 }
 
 .upload-btn {
-    background-color: #38A3A5;
+    background-color: #57CC99;
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
@@ -3635,7 +3639,7 @@ input[type="text"] {
 .choose-file {
     cursor: pointer;
     color: white;
-    margin-bottom: 10px;
+    margin: 0 !important;
 }
 
 .modal-overlay {

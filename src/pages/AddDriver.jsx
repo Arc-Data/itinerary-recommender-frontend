@@ -225,9 +225,6 @@ function AddDriver() {
                             className="business-input" 
                         />
                     </div>
-                    
-
-                    
                     <button
                         type="button"
                         className="btn done"

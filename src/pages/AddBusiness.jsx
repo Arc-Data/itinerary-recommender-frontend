@@ -540,36 +540,38 @@ const AddBusiness = () => {
                                             </div>
                                         </>                                       
                                     }
+
+                                <div>
+                                    <p className="heading mt-30px">Upload Image</p>
+                                    {image && (
+                                    <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px'}}>
+                                        <img
+                                            src={URL.createObjectURL(image)}
+                                            alt="Selected Image"
+                                            style={{ marginRight: '10px', maxWidth: '100px' }}
+                                        />
+                                        <p style={{ marginRight: '10px' }}>{image.name}</p>
+                                            <button onClick={() => setImage(null)}><FontAwesomeIcon className="delete--upload-img" icon={faCircleXmark} /></button>
+                                    </div>
+                                    )}
+                                    <div className="upload-btn mt-20px" onClick={handleUploadClick}>
+                                        <FontAwesomeIcon className='upload-icon btn-icons' icon={faUpload} />
+                                        <label htmlFor="imgFile" className="choose-file">
+                                            Upload image
+                                        </label>
+                                        <input
+                                            type="file"
+                                            id="imgFile"
+                                            name="filename"
+                                            accept="image/*"
+                                            style={{ "display": 'none' }}
+                                            onChange={handleImageChange}
+                                        />
+                                    </div>
+                                </div>
                                 </div>
                                 <div className="flex jc-end mt-20px">
                                     <button className="add--business font14" >Submit</button>  
-                                </div>
-                            </div>
-                            <div>
-                                {image && (
-                                <div style={{ display: 'flex', alignItems: 'center', marginRight: '5px' }}>
-                                <img
-                                    src={URL.createObjectURL(image)}
-                                    alt="Selected Image"
-                                    style={{ marginRight: '10px', maxWidth: '100px' }}
-                                />
-                                <p style={{ marginRight: '10px' }}>{image.name}</p>
-                                    <button onClick={() => setImage(null)}><FontAwesomeIcon className="delete--upload-img" icon={faCircleXmark} /></button>
-                                </div>
-                                )}
-                                <div className="upload-btn" onClick={handleUploadClick}>
-                                    <FontAwesomeIcon className='upload-icon btn-icons' icon={faUpload} />
-                                    <label htmlFor="imgFile" className="choose-file">
-                                        Upload image
-                                    </label>
-                                    <input
-                                        type="file"
-                                        id="imgFile"
-                                        name="filename"
-                                        accept="image/*"
-                                        style={{ "display": 'none' }}
-                                        onChange={handleImageChange}
-                                    />
                                 </div>
                             </div>
                         </div>
