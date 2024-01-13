@@ -24,8 +24,6 @@ const AddBusiness = () => {
         'description': ''
     })
 
-    console.log('Location Data: ', locationData)
-
     const [query, setQuery] = useState('')
     const [searchResults, setSearchResults] = useState([])
     const [tags, setTags] = useState([])
@@ -263,8 +261,8 @@ const AddBusiness = () => {
         e.stopPropagation()
     }
 
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter') {
+        const handleKeyDown = (e) => {
+            if (e.key === 'Enter') {
             e.preventDefault()
             addTag(query)
         }
@@ -495,7 +493,7 @@ const AddBusiness = () => {
                                                 type="text" 
                                                 value={query} 
                                                 onChange={handleTagInputChange}
-                                                onKeyDown={handleKeyDown}
+                                                onKeyDown={ yDown}
                                                 placeholder="Add or search tags (e.g. Filipino, Fastfood)"
                                                 className="tags-input"
                                             />
