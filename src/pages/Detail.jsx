@@ -339,20 +339,6 @@ export default function DetailPage() {
 						<p className="detailPage--info"> <FontAwesomeIcon className='btn-icons' icon={faMoneyBills} />Fee: {location?.details.min_fee} - {location?.details.max_fee}</p>
 					</div>
 					}
-					{/* <div className="detailPage--rating-category">
-						{location.location_type === "1" &&
-						<span className="tags">
-						{location?.details.tags.map((tag, index) => (
-							<span key={index} className="tag">
-							{tag}
-							{index < location?.details.tags.length - 1 && (
-								<span className="tag-separator"> • </span>
-							)}
-							</span>
-						))}
-						</span>
-						}
-					</div> */}
 				</div>
 				<button
 					className={`detailPage--bookmark ${isBookmarked ? "true" : "false"}`}
@@ -411,8 +397,6 @@ export default function DetailPage() {
 								}
 							/>
 						))}
-						{/* <span>{location?.rating_percentages.total_reviews} Reviews <span></span></span>
-						<span> <span></span>• {location?.rating_percentages.average_rating}</span> */}
 					</div>
 					<p>{location?.rating_percentages.total_reviews} reviews</p>
 				</div>

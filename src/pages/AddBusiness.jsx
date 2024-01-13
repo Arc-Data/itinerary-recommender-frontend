@@ -24,8 +24,6 @@ const AddBusiness = () => {
         'description': ''
     })
 
-    console.log('Location Data: ', locationData)
-
     const [query, setQuery] = useState('')
     const [searchResults, setSearchResults] = useState([])
     const [tags, setTags] = useState([])

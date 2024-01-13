@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactDatePicker from "react-datepicker";
 import AuthContext from "../context/AuthContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 const ManageSpot = ({ location, editBusiness }) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
@@ -9,6 +11,9 @@ const ManageSpot = ({ location, editBusiness }) => {
     const [ spotTags, setSpotTags ] = useState([])
     const { authTokens } = useContext(AuthContext)
 
+    const [query, setQuery] = useState('')
+    const [searchResults, setSearchResults] = useState([])
+    console.log(location)
     const [formData, setFormData] = useState({
 		'name': location.name,
 		'address': location.address,
@@ -21,9 +26,34 @@ const ManageSpot = ({ location, editBusiness }) => {
         'location_type': location.location_type,
         'opening_time': new Date().setTime(0, 0, 0),
         'closing_time': new Date().setTime(0, 0, 0),
-        'tags': location.tags || []
     })
+
+    const [ activities, setActivities ] = useState(location.activities)
+    console.log(activities)
     const [ selectedImage, setSelectedImage ] = useState(`${backendUrl}${location.image}?timestamp=${Date.now()}`)
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault()
+            addTag(query)
+        }
+    }
+    
+    const addedActivityItem = activities.map((activity, index) => (
+        <div className="tag-item" key={index}>
+            {activity}
+            <button className="delete-tag-button" onClick={() => removeTag(activity)}>
+                <FontAwesomeIcon icon={faCircleXmark} />
+            </button>
+        </div>
+    ))
+
+    const addTag = async (tagName) => {
+        if (!activities.includes(tagName)) {
+            setActivities(prevTags => [...prevTags, tagName])
+            await createTag(tagName)
+        }
+        setQuery('')
+    }
 
     const formatTimeToString = (time) => {
         const hours = time.getHours().toString().padStart(2, '0');
@@ -67,6 +97,29 @@ const ManageSpot = ({ location, editBusiness }) => {
 
         getSpotTags()            
     }, []);
+
+    const searchTags = async (query) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/activity/search/?query=${query}`, {
+                "method": "GET",
+                "headers": {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${authTokens.access}`
+                }
+            })
+            let data = await response.json()
+            const filteredActivities = data.filter((activity) => !activities.includes(activity.name));
+            setSearchResults(filteredActivities)
+        } catch (error) {
+            console.error('Error searching tags:', error);
+        }
+    }
+
+    const handleTagInputChange = (e) => {
+        const { value } = e.target
+        setQuery(value)
+        searchTags(value)
+    }
     
 	const handleChangeInput = (e) => {
 		const { name, value } = e.target
@@ -102,6 +155,16 @@ const ManageSpot = ({ location, editBusiness }) => {
             }
         });
     };
+
+    const tagSearchResults = (query !== '' || query !== null) && (
+        <div className="tag-results-container">
+            {searchResults.map((tag, index) => (
+                <div key={index} className="tag-result-box" onClick={() => addTag(tag.name)}>
+                    {tag.name}
+                </div>
+            ))}
+        </div>
+    )
 
 	const handleSubmit = async (e) => {
 		e.preventDefault() 
@@ -245,6 +308,22 @@ const ManageSpot = ({ location, editBusiness }) => {
                                 />
                             </div>
                         </div>
+                        <div className="form-group">
+                            <h1 className="heading business-details">Activities</h1>
+                            <label htmlFor="activities">Press enter to add</label>
+                            <div className="tags-input-container business-input">
+                                {addedActivityItem}
+                                <input 
+                                    type="text"
+                                    value={query} 
+                                    onChange={handleTagInputChange}
+                                    onKeyDown={handleKeyDown}
+                                    placeholder="Add or search activities (e.g., Sightseeing, Swimming)"
+                                    className="tags-input"
+                                />
+                            </div>
+                            {tagSearchResults}
+                        </div>
                         <div>
                             <h1 className="heading business-details">Tags</h1>
                             {spotTags.map((tag, index) => (
@@ -253,7 +332,7 @@ const ManageSpot = ({ location, editBusiness }) => {
                                 type="checkbox"
                                 id={`tag-${index}`}
                                 name={`tag-${index}`}
-                                checked={formData.tags.includes(tag.name)}
+                                checked={spotTags.includes(tag.name)}
                                 onChange={(e) => handleSpotTagChange(e, tag.name)}
                                 className="tags-checkbox"
                                 />
