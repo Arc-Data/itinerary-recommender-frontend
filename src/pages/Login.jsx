@@ -31,7 +31,7 @@ const Login = () => {
     return (
         <div>
             <h2 className='heading'>Login</h2>
-            {status && <p className="login-error error">{status}</p>}
+            {status && <p className="login-error error status">{status}!</p>}
             <form className='modal-login-sign-form' onSubmit={handleLogin}>
                 <label>Email</label>
                 <input type="email" name="email" placeholder="Enter your email" required/>

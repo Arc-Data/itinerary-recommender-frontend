@@ -78,7 +78,7 @@ const EditDriver = () => {
             <h1 className="edit--location">Edit Driver</h1>
                 <form className="admin--container">
                     <div className="input--form">
-                        <h1 className='mt-20px'>Personal Information </h1>
+                        <h1 className='mt-20px heading2'>Personal Information </h1>
                             <div className="input admin--container">
                                 <label htmlFor="first_name">First Name</label>
                                 <input
@@ -86,7 +86,7 @@ const EditDriver = () => {
                                     name="first_name"
                                     value={driver.first_name}
                                     onChange={handleChangeInput}
-                                    className="styled-input" 
+                                    className="business-input" 
                                 />
                             </div>
                             <div className="input admin--container">
@@ -96,7 +96,7 @@ const EditDriver = () => {
                                     name="last_name"
                                     value={driver.last_name}
                                     onChange={handleChangeInput}
-                                    className="styled-input" 
+                                    className="business-input" 
                                 />
                             </div>
                             <div className="input admin--container">
@@ -106,7 +106,7 @@ const EditDriver = () => {
                                     name="contact"
                                     value={driver.contact}
                                     onChange={handleChangeInput}
-                                    className="styled-input" 
+                                    className="business-input" 
                                 />
                             </div>
                             <div className="input admin--container">
@@ -116,7 +116,7 @@ const EditDriver = () => {
                                     name="email"
                                     value={driver.email}
                                     onChange={handleChangeInput}
-                                    className="styled-input" 
+                                    className="business-input" 
                                 />
                             </div>
                             <div className="input admin--container">
@@ -126,7 +126,7 @@ const EditDriver = () => {
                                     name="facebook"
                                     value={driver.facebook}
                                     onChange={handleChangeInput}
-                                    className="styled-input" 
+                                    className="business-input" 
                                 />
                             </div> 
                             <div className="input admin--container">
@@ -136,18 +136,18 @@ const EditDriver = () => {
                                     name="additional_information"
                                     value={driver.additional_information}
                                     onChange={handleChangeInput}
-                                    className="styled-input"
+                                    className="business-input"
                                 />
                             </div>
 
-                            <h1 className='mt-20px'>Car Information </h1>
+                            <h1 className='mt-20px heading2'>Car Information </h1>
 
                         <div className="input admin--container">
                             <select
                                 value={driver.car_type}
                                 onChange={handleChangeInput}
                                 name="car_type"
-                                className="styled-input" 
+                                className="business-input" 
                             >
                                 <option value="">-- Car Type --</option>
                                 <option value="1">Sedan</option>
@@ -162,7 +162,7 @@ const EditDriver = () => {
                                 onChange={handleChangeInput}
                                 name="car"
                                 value={driver.car}
-                                className="styled-input" 
+                                className="business-input" 
                             />
                         </div>
                         <div className="input admin--container">
@@ -172,7 +172,7 @@ const EditDriver = () => {
                                 onChange={handleChangeInput}
                                 name="max_capacity"
                                 value={driver.max_capacity}
-                                className="styled-input" 
+                                className="business-input" 
                             />
                         </div>
                         <div className="input admin--container">
@@ -182,7 +182,7 @@ const EditDriver = () => {
                                 onChange={handleChangeInput}
                                 name="plate_number"
                                 value={driver.plate_number}
-                                className="styled-input" 
+                                className="business-input" 
                             />
                         </div>
                     </div>

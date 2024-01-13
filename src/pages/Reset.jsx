@@ -83,13 +83,12 @@ const Reset = () => {
     }
 
     return (
-        <div className="register--success textAlign">
-            <div className="successfully heading3 "> 
-                <FontAwesomeIcon icon={faLock} className="warning-icon mr5px" />
+        <div className="">
+            <p className="heading"> 
                 Change Password
-            </div>
-            <form className="verify-text" action="POST" onSubmit={handleSubmit}>
-            <p className="mb15px"> Your new password must be different from previous used passwords.</p>
+            </p>
+            <form action="POST" onSubmit={handleSubmit}>
+            <p className="mb15px mt-15px"> Your new password must be different from previous used passwords.</p>
             <div className="form-input">
                 <label htmlFor="newPassword">New Password</label>
                 <input 
@@ -113,7 +112,7 @@ const Reset = () => {
                     className={`business-input ${formData.newPassword !== formData.confirmPassword && 'error-border'}`}
                 />
             </div>
-                <button className="bg-308B8C">Submit</button>
+                <button className="reset-password-btn button-login-sign">Submit</button>
             </form>
         </div>
     )

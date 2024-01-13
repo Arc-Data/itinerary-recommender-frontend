@@ -566,7 +566,7 @@ a:-webkit-any-link {
 }
 
 .reset-password-btn {
-    background-color: #308B8C;
+    background-color: #184E77;
     padding: 0 15px;
 }
 
@@ -4177,6 +4177,8 @@ input:checked + .slider:before {
 
 .status {
     height: 30px;
+    color: #ef233c;
+    font-weight: 500;
 }
 
 .query--message {
@@ -4197,3 +4199,4 @@ input:checked + .slider:before {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
