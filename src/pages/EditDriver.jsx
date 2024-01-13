@@ -131,12 +131,12 @@ const EditDriver = () => {
                             </div> 
                             <div className="input admin--container">
                                 <label htmlFor="additional_information">Additional Information</label>
-                                <input
+                                <textarea
                                     type="text"
                                     name="additional_information"
                                     value={driver.additional_information}
                                     onChange={handleChangeInput}
-                                    className="business-input"
+                                    className="business-input description"
                                 />
                             </div>
 
