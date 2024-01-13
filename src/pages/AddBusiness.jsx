@@ -338,12 +338,14 @@ const AddBusiness = () => {
                                 <div className="heading">General Information</div>
                                 <div className="form-group">
                                     <label htmlFor="type">Location Type</label>
-                                    <select 
-                                        name="type" 
-                                        id="type" 
-                                        value={locationData.type}
-                                        onChange={handleInputChange}
-                                        className="business-type">
+                                        <select 
+                                            name="type" 
+                                            id="type" 
+                                            value={locationData.type}
+                                            onChange={handleInputChange}
+                                            className="business-type"
+                                            required
+                                        >
                                         <option value="" disabled>-- Location Type --</option>
                                         <option value="1">Tourist Spot</option>
                                         <option value="2">Restaurant/Food Establishment</option>
@@ -359,7 +361,10 @@ const AddBusiness = () => {
                                         value={locationData.name}
                                         onChange={handleInputChange}
                                         placeholder="Enter Location Name" 
-                                        className="business-input"/>
+                                        className="business-input"
+                                        pattern="[A-Za-z]+"
+                                        required
+                                    />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="address">Address</label>
@@ -370,7 +375,10 @@ const AddBusiness = () => {
                                         value={locationData.address}
                                         onChange={handleInputChange}
                                         placeholder="Enter Location Address" 
-                                        className="business-input"/>
+                                        className="business-input"
+                                        pattern="[A-Za-z]+"
+                                        required
+                                    />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="contact">Phone Number (optional)</label>
@@ -381,7 +389,9 @@ const AddBusiness = () => {
                                         value={locationData.contact}
                                         onChange={handleInputChange}
                                         placeholder="Enter Contact Number" 
-                                        className="business-input"/>
+                                        className="business-input"
+                                        pattern="^(09|\+639)\d{9}$" 
+                                    />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="address">Email Address (optional)</label>
@@ -392,7 +402,8 @@ const AddBusiness = () => {
                                         value={locationData.email}
                                         onChange={handleInputChange}
                                         placeholder="Enter Email Address" 
-                                        className="business-input"/>
+                                        className="business-input"
+                                    />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="address">Website (optional)</label>
@@ -403,7 +414,8 @@ const AddBusiness = () => {
                                         value={locationData.website}
                                         onChange={handleInputChange}
                                         placeholder="Enter Website" 
-                                        className="business-input"/>
+                                        className="business-input"
+                                    />
                                 </div>
                                 <div className="form-group">
                                         <h1 className="heading business-details">Business Details</h1>
@@ -414,7 +426,9 @@ const AddBusiness = () => {
                                             id="description" 
                                             value={locationData.description}
                                             onChange={handleInputChange}
-                                            className="business-input"/>
+                                            className="business-input"
+                                            required
+                                        />
                                 </div>
                                 {(locationData.type === "1" || locationData.type === "2") && 
                                 <div className="form-column-group">
@@ -455,7 +469,9 @@ const AddBusiness = () => {
                                             id="latitude" 
                                             value={locationData.latitude}
                                             onChange={handleInputChange}
-                                            className="business-input"/>
+                                            className="business-input"
+                                            required
+                                        />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="address">Longitude <span style={{ color: 'gray' , fontSize: '14px' }}>(e.g. 123.41482)</span></label>
@@ -465,7 +481,9 @@ const AddBusiness = () => {
                                             id="longitude" 
                                             value={locationData.longitude}
                                             onChange={handleInputChange}
-                                            className="business-input"/>
+                                            className="business-input"
+                                            required
+                                        />
                                     </div>
                                 </div>
                                 <div>
@@ -496,6 +514,7 @@ const AddBusiness = () => {
                                                 onKeyDown={ yDown}
                                                 placeholder="Add or search tags (e.g. Filipino, Fastfood)"
                                                 className="tags-input"
+                                                required
                                             />
                                         </div>
                                         {tagSearchResults}
@@ -517,6 +536,7 @@ const AddBusiness = () => {
                                                             onKeyDown={handleKeyDown}
                                                             placeholder="Add or search activities (e.g., Sightseeing, Swimming)"
                                                             className="tags-input"
+                                                            required
                                                         />
                                                     </div>
                                                     {tagSearchResults}
@@ -525,12 +545,13 @@ const AddBusiness = () => {
                                                 {spotTags.map((tag, index) => (
                                                     <div key={index} className="tags-checkbox-container">
                                                         <input
-                                                        type="checkbox"
-                                                        id={`tag-${index}`}
-                                                        name={`tag-${index}`}
-                                                        checked={tags.includes(tag.name)}
-                                                        onChange={(e) => handleSpotTagChange(e, tag.name)}
-                                                        className="tags-checkbox"
+                                                            type="checkbox"
+                                                            id={`tag-${index}`}
+                                                            name={`tag-${index}`}
+                                                            checked={tags.includes(tag.name)}
+                                                            onChange={(e) => handleSpotTagChange(e, tag.name)}
+                                                            className="tags-checkbox"
+                                                            required
                                                         />
                                                         <label className="tags-checkbox-label" htmlFor={`tag-${index}`}>{tag.name}</label>
                                                     </div>
@@ -541,6 +562,7 @@ const AddBusiness = () => {
 
                                 <div>
                                     <p className="heading mt-30px">Upload Image</p>
+                                    <p className="mt-20px">Optimize your business impact by uploading a compelling image today – it's the key to making a lasting impression and attracting potential customers!</p>
                                     {image && (
                                     <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px'}}>
                                         <img

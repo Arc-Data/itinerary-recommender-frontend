@@ -9,7 +9,7 @@ const Color = ({onClose, day, updateDays}) => {
 
     const { updateDayColor } = useDayManager(authTokens)
 
-    const colors = ['#184E77', '#38A3A5', '#57CC99', '#80ED99', '#C7F9CC', '#5FD9F3']
+    const colors = ['#d11149', '#e62314', '#6610f2', '#257ce6', '#72ce27', '#ffb600', '#184E77']
 
     const handleSubmit = async (e) => {
         try {
@@ -32,7 +32,7 @@ const Color = ({onClose, day, updateDays}) => {
                     {colors.map((color, idx) => {
                         const style = {
                             'backgroundColor': color,
-                            'border': `${selectedColor === color ? "2px solid black" : ""} `
+                            'border': `${selectedColor === color ? "2px solid #333" : ""} `
                         }
                         
                         return (

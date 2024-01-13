@@ -34,14 +34,13 @@ const Login = () => {
             {status && <p className="login-error error status">{status}!</p>}
             <form className='modal-login-sign-form' onSubmit={handleLogin}>
                 <label>Email</label>
-                <input type="email" name="email" placeholder="Enter your email" required/>
-
+                    <input type="email" name="email" placeholder="sample@gmail.com" required/>
                 <label>
                 Password
                     <div>
                     <input
                         type={showPassword ? "text" : "password"}
-                        placeholder="Enter your password"
+                        placeholder="Password"
                         name="password"
                         required
                     />
