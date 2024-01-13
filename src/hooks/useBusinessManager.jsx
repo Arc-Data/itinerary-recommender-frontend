@@ -262,6 +262,7 @@ const useBusinessManager = (authTokens) => {
     }
 
     const editBusiness = async (id, data, image) => {
+        console.log(access)
         const formData = new FormData()
 
         if (image && image instanceof File) {
@@ -449,6 +450,40 @@ const useBusinessManager = (authTokens) => {
         }
     }
 
+    const getTag = () => {
+
+    }
+
+    const removeSpotActivity = async (location_id, activity) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/business/${location_id}/activity/remove/`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({'activity': activity})
+            })
+        }
+        catch (error) {
+            console.log("An error occured while removing activity : ", activity)
+        }   
+    }
+
+    const getOrCreateSpotActivity = async (location_id, activity) => {
+        try {
+            const response = await fetch(`${backendUrl}/api/business/${location_id}/activity/add/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({'activity': activity})
+            })
+        }
+        catch (error) {
+            console.log("An error occured while creating activity", error)
+        }
+    }
+
     return {
         item,
         items,
@@ -478,6 +513,8 @@ const useBusinessManager = (authTokens) => {
         addAudienceType,
         editAudienceType,
         deleteAudienceType,
+        getOrCreateSpotActivity,
+        removeSpotActivity,
     }
 }
 

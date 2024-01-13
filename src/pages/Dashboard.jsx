@@ -409,7 +409,7 @@ import { useLocation, Link } from 'react-router-dom';
 	  const areaChartOptions = {
 		chart: {
 		  height: '350',
-		  background: 'none',
+		  background: 'white',
 		  foreColor: '#333',
 		},
 		xaxis: {
@@ -506,7 +506,7 @@ import { useLocation, Link } from 'react-router-dom';
 									chart: {
 									type: 'bar',
 									height: '350',
-									background: 'none',
+									background: 'white',
 									foreColor: '#333',
 									},
 									xaxis: {
@@ -678,7 +678,7 @@ import { useLocation, Link } from 'react-router-dom';
 								chart: {
 									type: 'bar',
 									height: 450,
-									background: 'none',
+									background: 'white',
 									foreColor: '#333',
 								},
 								plotOptions: {
@@ -783,7 +783,7 @@ import { useLocation, Link } from 'react-router-dom';
 						<ReactApexChart
 							options={{
 							chart: {
-								background: 'none',
+								background: 'white',
 								foreColor: '#333',
 							},
 							xaxis: {

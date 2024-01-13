@@ -47,7 +47,6 @@ import AccountSettings from './pages/AccountSettings';
 import ChangePassword from './pages/ChangePassword';
 import AuthLayout from './layout/AuthLayout';
 import Activation from './pages/Activation'
-import RegisterSuccess from './pages/RegisterSuccess';
 import Reset from './pages/Reset';
 import Drivers from './pages/Drivers';
 import FeeDetails from './pages/FeeDetails';
@@ -70,15 +69,14 @@ function App() {
 					<Route path="/login" element={<Login />} />
 					<Route path="/signup" element={<Signup />} />
 					<Route path="/activate/:uidb64/:token" element={<Activation />}/>
-					<Route path="/success" element={<RegisterSuccess />} />
 					<Route path="/forgot" element={<Forgot />} />
-					<Route path="/verify" element={<Verify />} />
 					<Route path="/reset/:uidb64/:token" element={<Reset />} />
 				</Route>
 
-				<Route path="/preferences" element={<Preferences/>}/>
 				<Route element={<PrivateRoutes />} >
 					<Route path="/test" element={<Test />} />
+					<Route path="/verify" element={<Verify />} />
+					<Route path="/preferences" element={<Preferences/>}/>
 					
 					<Route element={<BaseLayout />}>
 						<Route path="/location/:id" element={<Detail/>}/>
@@ -134,7 +132,7 @@ function App() {
 						<Route path="/admin/location/:id/menu" element={<Menu />} />
 						<Route path="/admin/location/:id/services" element={<Services />} />
 						<Route path="/admin/location/:id/fees" element={<Fees />} />
-						<Route path="/admin/location/:id/fees/:feeId/" element={<FeeDetails />} />
+						<Route path="/admin/location/:id/fees/:feeId/edit" element={<FeeDetails />} />
 						<Route path="/admin/location/:id/edit" element={<ManageBusiness />} />
 					</Route>
 		
