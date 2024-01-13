@@ -11,8 +11,6 @@ const useLocationManager = (authTokens) => {
     const [recommendations, setRecommendations] = useState([])
 
     const createLocation = async (location) => {
-        console.log(location)
-        
         try {
             const response = await fetch(`${backendUrl}/api/location/create/`, {
                 "method": "POST",

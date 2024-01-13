@@ -18,9 +18,7 @@ const useQueryManager = (authTokens) => {
                 }
             })
 
-            console.log(response)
             const data = await response.json()
-            console.log(data)
             setContactForms(data)
             setStatus("Done")
         }
@@ -43,9 +41,6 @@ const useQueryManager = (authTokens) => {
                     'query': query
                 })
             })
-
-            console.log(response)
-            
         }   
         catch(error) {
             console.log("An error occured while creating query: ", error)
@@ -53,7 +48,6 @@ const useQueryManager = (authTokens) => {
     }
 
     const toggleAdminResponded = async (id) => {
-        console.log(id)
         try {
             const response = await fetch(`${backendUrl}/api/contact/${id}/toggle-response/`, {
                 method: "PATCH",
@@ -63,7 +57,6 @@ const useQueryManager = (authTokens) => {
                 }
             })
 
-            console.log(response)
             if (response.ok) {
                 const updatedForms = contactForms.map(form => {
                     if (form.id === id) {

@@ -31,7 +31,6 @@ export const AuthProvider = ({children}) => {
                     "Authorization": `Bearer ${access}`
                 }
             })
-            console.log(response)
         }
         catch (error) {
             console.log("An error occured while generating OTP request :", error)
@@ -51,7 +50,6 @@ export const AuthProvider = ({children}) => {
                 })
             })
 
-            console.log(response)
             const data = await response.json()
             setStatus(data.detail)
 
@@ -187,11 +185,9 @@ export const AuthProvider = ({children}) => {
             const data = await response.json()
 
             if (response.status === 200) {
-                console.log("Returning email: ", data.email)
                 return data.email
             }
 
-            console.log("Something wrong happened")
             return false
         }
         catch(error) {
@@ -214,13 +210,11 @@ export const AuthProvider = ({children}) => {
         const data = await response.json()
         
         if(response.status === 200) {
-            console.log("Updated token successfully")
             setAuthTokens(data)
             setUser(jwt_decode(data.access))
             localStorage.setItem('authTokens', JSON.stringify(data))
  
         } else {
-            console.log("Supposedly logs out the user")
             logoutUser()
         }
 
@@ -323,7 +317,6 @@ export const AuthProvider = ({children}) => {
                     try {
                         await updateToken();
                     } catch (error) {
-                        console.log('Failed to refresh token:', error);
                         logoutUser();
                     }
                 }

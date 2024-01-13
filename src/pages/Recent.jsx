@@ -24,7 +24,6 @@ const Recent = () => {
 
     const displayDays = days && days.map(day => {
         const locations = day.locations.join(" • ")
-        console.log(day)
 
         return (
             <div key={day.id} className="profile--ratings-item">

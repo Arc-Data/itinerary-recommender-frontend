@@ -98,7 +98,6 @@ const useDayManager = (authTokens) => {
                     "Authorization": `Bearer ${access}`
                 },
             })
-            console.log(response)
 
             const data = await response.json();
             setDay(data)
@@ -151,8 +150,6 @@ const useDayManager = (authTokens) => {
     }
 
     const markCompletionAndReset = async (id, itineraryId) => {
-        console.log("Hello")
-        
         try {
             const response = await fetch(`${backendUrl}/api/day/${id}/complete/`, {
                 method: "PATCH",
@@ -162,10 +159,7 @@ const useDayManager = (authTokens) => {
                 },
             })
 
-            console.log("Prepping")
             await getDays(itineraryId)
-            console.log("Reflected")
-
         }
         catch(error) {
             console.log("Error while marking day completion")

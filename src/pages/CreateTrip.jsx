@@ -58,7 +58,6 @@ const CreateTrip = () => {
         
             const responseData = await response.json();
         
-            console.log(responseData)
             navigate(`/plan/${responseData.id}`)
         } catch (error) {
             console.error('Error creating itinerary:', error);

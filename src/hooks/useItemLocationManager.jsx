@@ -20,7 +20,6 @@ const useItemLocationManager = (authTokens) => {
             })
 
             if (!response.ok) {
-                console.log("Itinerary Item Creation Failed")
                 return
             }
 

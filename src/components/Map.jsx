@@ -10,8 +10,6 @@ const Map = ( {markers} ) => {
     const [zoom] = useState(11)
     const markerRefs = useRef([])
 
-    console.log("Map markers :", markers)
-
 	maptilersdk.config.apiKey = apiKey
 
     const addMarkersToMap = () => {
@@ -56,9 +54,7 @@ const Map = ( {markers} ) => {
     }, [cebu.lng, cebu.lat, zoom])
 
     useEffect(() => {
-        console.log("Use effect started")
         if (markers) {
-            console.log("About to add markers to map")
             addMarkersToMap()
         }
 

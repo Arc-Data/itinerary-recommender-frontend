@@ -35,8 +35,6 @@ const HomeEvent = () => {
         )
     })
 
-    console.log(events)
-
     if (loading) {
         return (
             <div>Loading Events Data... </div>

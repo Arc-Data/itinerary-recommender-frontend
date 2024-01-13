@@ -15,7 +15,6 @@ const Test = () => {
                 }
             })
 
-            console.log(response)
         }
         catch(error) {
             console.log("An error occured while fetching test api : ", error)

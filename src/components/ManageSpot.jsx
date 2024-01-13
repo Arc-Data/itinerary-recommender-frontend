@@ -95,7 +95,6 @@ const ManageSpot = ({ location, editBusiness }) => {
     }, [query])
 
     const searchTags = async (query) => {
-        console.log("i am here")
         try {
             const response = await fetch(`${backendUrl}/api/activity/search/?query=${query}`, {
                 "method": "GET",
@@ -136,7 +135,6 @@ const ManageSpot = ({ location, editBusiness }) => {
 
     const handleSpotTagChange = (e, tagName) => {
         const isChecked = e.target.checked;
-        console.log(e, tagName, isChecked)
         setFormData((prevData) => {
             if (isChecked) {
                 return {
