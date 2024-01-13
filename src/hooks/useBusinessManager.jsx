@@ -45,10 +45,7 @@ const useBusinessManager = (authTokens) => {
                 }
             })
 
-            console.log(response)
-
             const data = await response.json()
-            console.log(data)
             setOwnedLocations(data)
         } 
         catch(error) {
@@ -61,7 +58,6 @@ const useBusinessManager = (authTokens) => {
 
     const getApprovalRequests = async () => {
         setLoading(true)
-        console.log("In here")
 
         try {
             const response = await fetch(`${backendUrl}/api/location/requests`, {
@@ -72,11 +68,7 @@ const useBusinessManager = (authTokens) => {
                 }
             })
 
-            console.log(response)
-
             const data = await response.json()
-            
-            console.log(data)
             setRequests(data)
         }
         catch (error) {
@@ -199,7 +191,6 @@ const useBusinessManager = (authTokens) => {
 
     const getAllApprovalRequests = async () => {
         setLoading(true)
-        console.log("GET requests")
 
         try {
             const response = await fetch(`${backendUrl}/api/requests/`, {
@@ -210,9 +201,7 @@ const useBusinessManager = (authTokens) => {
                 }
             })
 
-            console.log(response)
             const data = await response.json()
-            console.log(data)
             setRequests(data)
         }
         catch (error) {
@@ -262,7 +251,6 @@ const useBusinessManager = (authTokens) => {
     }
 
     const editBusiness = async (id, data, image) => {
-        console.log(access)
         const formData = new FormData()
 
         if (image && image instanceof File) {
@@ -279,8 +267,6 @@ const useBusinessManager = (authTokens) => {
                 },
                 "body": formData
             })
-
-            console.log(response)
         }
         catch(error) {
             console.log("An error occured while editing business")
@@ -325,7 +311,6 @@ const useBusinessManager = (authTokens) => {
     } 
 
     const editFeeType = async (feeId, formData) => {
-        console.log(feeId, formData)
         try {
             const response = await fetch(`${backendUrl}/api/fee/${feeId}/edit/`, {
                 "method": "PATCH",
@@ -336,7 +321,6 @@ const useBusinessManager = (authTokens) => {
                 "body": JSON.stringify(formData)
             })
 
-            console.log(response)
             const data = await response.json()
 
         }
@@ -399,8 +383,6 @@ const useBusinessManager = (authTokens) => {
                 },
                 body: JSON.stringify(formData)
             })
-
-            console.log(response)
         }
         catch (error) {
             console.log("Error while editing audience fee type :", error)
@@ -437,7 +419,6 @@ const useBusinessManager = (authTokens) => {
                 },
                 body: JSON.stringify(formData)
             })
-            console.log(response)
             
             if (response.ok) {
                 const data = await response.json()

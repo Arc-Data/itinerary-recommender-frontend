@@ -27,8 +27,6 @@ const HomeBusiness = () => {
         )
     })
 
-    console.log(locations)
-
     useEffect(() => {
         getOwnedBusinesses()
     }, [])

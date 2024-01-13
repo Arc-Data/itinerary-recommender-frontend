@@ -67,7 +67,6 @@ export default function DetailPage() {
 
 	const getLocationData = async () => {
 		const data = await getLocation(id)
-		console.log(data)
 		setBookmarked(data.is_bookmarked);
 		setImages(data.images);
 		setSelectedImage(`${backendUrl}` + data.images[0]);
@@ -112,7 +111,6 @@ export default function DetailPage() {
 			}
 
 			const data = await response.json();
-			console.log("received data", data)
 			setUserReview(data);
 			setFormData({
 				"comment": data.comment,
@@ -154,8 +152,6 @@ export default function DetailPage() {
 				body: JSON.stringify(formData),
 				}
 			);
-
-			console.log(response)
 
 			if (!response.ok) {
 				throw new Error(`Error while submitting the review: `);
@@ -258,8 +254,6 @@ export default function DetailPage() {
 					"Authorization": `Bearer ${authTokens.access}`,
 				},
 			})
-
-			console.log(response)
 
 			if (!response.ok) {
 				throw new Error("Error while updating bookmark");

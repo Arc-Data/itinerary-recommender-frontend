@@ -32,8 +32,6 @@ const DateSettings = ({onClose, updateDays}) => {
             }
 
             const data = await response.json()
-            console.log(data.message)
-
             updateDays(data.days)
         }
         catch (error){

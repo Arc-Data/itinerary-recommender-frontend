@@ -53,7 +53,6 @@ function Location() {
 
     const handleSearchChange = (e) => {
         if (e.key === 'Enter') {
-            console.log(type)
             const query = e.target.value
             setCurrentPage(1)
             getLocations(1, query, type)

@@ -5,7 +5,6 @@ const useMarkerManager = () => {
     
     const addMarker = (latitude, longitude, color, name, events) => {
 		const mapMarkers = [...markers]
-        console.log(location)
 
         mapMarkers.push({
 			lng: longitude,

@@ -44,7 +44,6 @@ const Preferences = () => {
             })
 
             if (response.ok) {
-                console.log("Triggers")
                 userSetPreference()
             }
         }

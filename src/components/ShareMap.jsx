@@ -10,8 +10,6 @@ const ShareMap = ({markers, center=false}) => {
     const [zoom] = useState(11)
     const markerRefs = useRef([])
     
-    console.log("Markers", markers)
-
     maptilersdk.config.apiKey = apiKey
 
     const addMarkersToMap = () => {
@@ -38,7 +36,6 @@ const ShareMap = ({markers, center=false}) => {
         });
 
         setTimeout(() => {
-            console.log("Fitting bounds")
             map.current.fitBounds(bounds, { padding: 60})
         }, 200)
     
@@ -48,8 +45,6 @@ const ShareMap = ({markers, center=false}) => {
         if(map.current) return;
 
         if (center && markers) {
-            console.log(markers)
-
             map.current = new maptilersdk.Map({
                 container: mapContainer.current,
                 style: maptilersdk.MapStyle.STREETS,

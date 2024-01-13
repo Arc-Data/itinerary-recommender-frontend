@@ -37,7 +37,6 @@ const Services = () => {
     }
 
     const displayServices = items && items.map(item => {
-        console.log(item)
         return (
             <tr key={item.id}>
                 <td><img className="searchPage--pic" src={`${backendUrl}${item.image}`} /></td>

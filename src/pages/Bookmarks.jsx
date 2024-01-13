@@ -9,7 +9,6 @@ const Bookmarks = () => {
 
     // GET RECENT BOOKMARKS
     const getUserBookmarks = async () => {
-        console.log("Fetching Bookmarks");
         try {
             const response = await fetch(
                 `${backendUrl}/api/bookmarks/`,
@@ -40,8 +39,6 @@ const Bookmarks = () => {
     const recentBookmarkCards = usersBookmarks && usersBookmarks.map(bookmark => (
         <UserBookmarks key={bookmark.id} {...bookmark} />
     ));
-
-    console.log(recentBookmarkCards)
 
     return (
         <div className="profile--main-content">

@@ -99,7 +99,6 @@ function AddLocation() {
     const createTag = async (tagName) => {
         let url
         if (locationData.type === "2") {
-            console.log("This is a foodplace")
             url = `${backendUrl}/api/foodtag/get/?query=${tagName}`
         } else if (locationData.type === "1") {
             url = `${backendUrl}/api/activity/get/?query=${tagName}`
@@ -116,7 +115,6 @@ function AddLocation() {
             
             if (response.ok) {
                 const data = await response.json()
-                console.log('Tag created:', data)
             } else {
                 console.error('Failed to create tag:', response.statusText)
             }

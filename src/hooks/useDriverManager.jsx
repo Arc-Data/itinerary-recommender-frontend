@@ -11,8 +11,6 @@ const useDriverManager = (authTokens) => {
   const [result, setResult] = useState(null);
 
   const createDriver = async (driver) => {
-    console.log(driver)
-    
     try {
         const response = await fetch(`${backendUrl}/api/driver/add/`, {
             "method": "POST",
@@ -24,7 +22,6 @@ const useDriverManager = (authTokens) => {
         if (!response.ok) {
           throw new Error(`Failed to create driver. Status: ${response.status}`);
         }
-        console.log(response)
         
         const data = await response.json()
         return data.id
@@ -85,7 +82,6 @@ const useDriverManager = (authTokens) => {
 
       const data = await response.json();
       setDriver(data);
-      console.log(data)
       setResult(data);
     } catch (error) {
       setError(error);

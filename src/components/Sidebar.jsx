@@ -46,7 +46,6 @@ function Sidebar() {
                     to="/admin/locations"
                     onClick={() => {
                         toggleLocationDropdown()
-                        console.log("Shouldnt this run")
                         setSearchParams({'type': 'all'})
                     }}
                 >
@@ -78,7 +77,6 @@ function Sidebar() {
                             id='locations1'
                             className={({ isActive }) => (isActive ? 'active-drp dropdown' : 'link dropdown')}
                             onClick={() => {
-                                console.log("Shouldnt this trigger")
                                 setSearchParams({ type: 'foodplace' })
                             }}
                         >

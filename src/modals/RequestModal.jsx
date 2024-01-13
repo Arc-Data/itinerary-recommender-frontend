@@ -9,8 +9,6 @@ const RequestModal = ({onClose, request, approveRequest}) => {
     const { authTokens } = useContext(AuthContext)
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
 
-    console.log(request)
-
     const handleApprove = async () => {
         approveRequest(request.id)
         onClose()
@@ -27,8 +25,6 @@ const RequestModal = ({onClose, request, approveRequest}) => {
 			<div key={index} className="detailPage--tag description">{activity}</div>
 		)
 	})
-
-    console.log('REQUEST: ', request)
 
     return (
         <Modal onClose={onClose}>

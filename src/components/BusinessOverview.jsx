@@ -114,8 +114,6 @@ const BusinessOverview = () => {
 
                 const data = await response.json();
                 setBusinessStats(data);
-                console.log(data)
-
             } catch (error) {
                 console.error('Error fetching business stats:', error.message);
             }

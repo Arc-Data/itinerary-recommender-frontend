@@ -3,8 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 const QueryDetails = ({ onClose, form, toggleAdminResponded }) => {
-    console.log(form);
-
     const statusColor = form.admin_responded ? "#00ab41" : "#FFD228";
 
     const handleDoneClick = () => {

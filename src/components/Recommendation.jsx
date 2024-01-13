@@ -22,8 +22,6 @@ const Recommendation = ({recommendation, onClick, selected}) => {
         )
     })
 
-    console.log('Recommendation data:', recommendation)
-    
     return (
         <div className={`assistant--recommendation ${selected ? "selected" : ""}` } onClick={onClick}>
             {displayItem}

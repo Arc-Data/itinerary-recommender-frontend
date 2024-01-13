@@ -46,9 +46,7 @@ const useRecommendationsManager = (authTokens) => {
                 }
             })
 
-            console.log(response)
             const data = await response.json()
-            console.log(data)
             setRecommendations(data)
         }
         catch (error) {
@@ -92,7 +90,6 @@ const useRecommendationsManager = (authTokens) => {
                 }
             })
 
-            console.log(response)
             const data = await response.json()
             setRecommendations(data.recommendations)
         }

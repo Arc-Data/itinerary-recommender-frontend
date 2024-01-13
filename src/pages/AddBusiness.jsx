@@ -86,9 +86,6 @@ const AddBusiness = () => {
         }
     }
 
-    console.log('Added activities: ', activities)
-    console.log('Tags: ', tags)
-
     const addTag = async (tagName) => {
         try {
             if (locationData.type === "2") {
@@ -128,7 +125,6 @@ const AddBusiness = () => {
     
             if (response.ok) {
                 const data = await response.json()
-                console.log('Tag created:', data)
             } else {
                 console.error('Failed to create tag:', response.statusText)
             }

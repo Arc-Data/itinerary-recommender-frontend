@@ -55,7 +55,6 @@ function AddDriver() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(driverData)
         if (validateForm() && checkImageUploaded()) {
             const formattedData = {
                 ...driverData,
@@ -73,7 +72,6 @@ function AddDriver() {
             }
     
             try {
-                console.log("wait what");
                 await createDriver(formData);
                 alert("Successfully Added");
                 navigate(`/admin/drivers`);
@@ -83,8 +81,6 @@ function AddDriver() {
         }
     };
     
-    console.log(driverData)
-
     const checkImageUploaded = () => {
         if (!image) {
             alert("Please upload an image before submitting.");

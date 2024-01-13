@@ -147,8 +147,6 @@
             setMonthlyReportData(data);
             setFrequencyLoc(data.location_frequency);
             setCompletedTripInfo(data.completed_trips_info);
-            console.log(data)
-            console.log(data)
         
           } catch (error) {
             console.error('Error fetching monthly report:', error.message);
@@ -171,7 +169,6 @@
         
           const data = await response.json();
           setUserPreference(data);
-          console.log(data)
           } catch (error) {
           console.error('Error fetching User Preference:', error.message);
           }
