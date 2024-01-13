@@ -4,16 +4,17 @@ import ReactDatePicker from "react-datepicker";
 import AuthContext from "../context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import useBusinessManager from "../hooks/useBusinessManager";
 
 const ManageSpot = ({ location, editBusiness }) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
 	const navigate = useNavigate()
-    const [ spotTags, setSpotTags ] = useState([])
+    const spotTags = ['Art', 'Activities', 'Culture', 'Entertainment', 'Historical', 'Nature', 'Religious']
     const { authTokens } = useContext(AuthContext)
+    const { getOrCreateSpotActivity, removeSpotActivity } = useBusinessManager(authTokens.access)
 
     const [query, setQuery] = useState('')
     const [searchResults, setSearchResults] = useState([])
-    console.log(location)
     const [formData, setFormData] = useState({
 		'name': location.name,
 		'address': location.address,
@@ -26,31 +27,30 @@ const ManageSpot = ({ location, editBusiness }) => {
         'location_type': location.location_type,
         'opening_time': new Date().setTime(0, 0, 0),
         'closing_time': new Date().setTime(0, 0, 0),
+        'tags': location.tags,
     })
 
     const [ activities, setActivities ] = useState(location.activities)
-    console.log(activities)
     const [ selectedImage, setSelectedImage ] = useState(`${backendUrl}${location.image}?timestamp=${Date.now()}`)
+    
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             e.preventDefault()
-            addTag(query)
+            addActivity(query)
         }
     }
-    
-    const addedActivityItem = activities.map((activity, index) => (
-        <div className="tag-item" key={index}>
-            {activity}
-            <button className="delete-tag-button" onClick={() => removeTag(activity)}>
-                <FontAwesomeIcon icon={faCircleXmark} />
-            </button>
-        </div>
-    ))
 
-    const addTag = async (tagName) => {
+    const removeActivity = async (e, name) => {
+        e.preventDefault()
+        searchTags('')
+        await removeSpotActivity(location.id, name)
+        setActivities(activities.filter(activity => activity !== name))
+    }
+
+    const addActivity = async (tagName) => {
         if (!activities.includes(tagName)) {
             setActivities(prevTags => [...prevTags, tagName])
-            await createTag(tagName)
+            await getOrCreateSpotActivity(location.id, tagName)
         }
         setQuery('')
     }
@@ -62,21 +62,14 @@ const ManageSpot = ({ location, editBusiness }) => {
         return `${hours}:${minutes}:${seconds}`;
     }
 
-    const getSpotTags = async () => {
-        try {
-            const response = await fetch(`${backendUrl}/api/tags/get/`, {
-            method: "GET",
-            headers: {
-                'Content-Type': "application/json",
-                'Authorization': `Bearer ${String(authTokens.access)}`
-            }
-            });
-            const data = await response.json();
-            setSpotTags(data)
-        } catch (error) {
-            console.error("Error fetching spot tags:", error);
-        }
-    };
+    const addedActivityItem = activities.map((activity, index) => (
+        <div className="tag-item" key={index}>
+            {activity}
+            <button className="delete-tag-button" onClick={(e) => removeActivity(e, activity)}>
+                <FontAwesomeIcon icon={faCircleXmark} />
+            </button>
+        </div>
+    ))
 
     useEffect(() => {
         if (location.schedule.opening) {
@@ -84,8 +77,6 @@ const ManageSpot = ({ location, editBusiness }) => {
             const openingTime = new Date();
             openingTime.setHours(hours, minutes, seconds);
             setFormData(prev => ({ ...prev, opening_time: openingTime }));
-       
-            console.log("Doing this")
         }
     
         if (location.schedule.closing) {
@@ -94,11 +85,17 @@ const ManageSpot = ({ location, editBusiness }) => {
             closingTime.setHours(hours, minutes, seconds);
             setFormData(prev => ({ ...prev, closing_time: closingTime }));
         }
-
-        getSpotTags()            
     }, []);
+    
+
+    useEffect(() => {
+        const delaySearch = setTimeout(() => {
+            searchTags(query)
+        }, 1000)
+    }, [query])
 
     const searchTags = async (query) => {
+        console.log("i am here")
         try {
             const response = await fetch(`${backendUrl}/api/activity/search/?query=${query}`, {
                 "method": "GET",
@@ -118,9 +115,8 @@ const ManageSpot = ({ location, editBusiness }) => {
     const handleTagInputChange = (e) => {
         const { value } = e.target
         setQuery(value)
-        searchTags(value)
     }
-    
+
 	const handleChangeInput = (e) => {
 		const { name, value } = e.target
 		
@@ -140,7 +136,7 @@ const ManageSpot = ({ location, editBusiness }) => {
 
     const handleSpotTagChange = (e, tagName) => {
         const isChecked = e.target.checked;
-
+        console.log(e, tagName, isChecked)
         setFormData((prevData) => {
             if (isChecked) {
                 return {
@@ -158,9 +154,9 @@ const ManageSpot = ({ location, editBusiness }) => {
 
     const tagSearchResults = (query !== '' || query !== null) && (
         <div className="tag-results-container">
-            {searchResults.map((tag, index) => (
-                <div key={index} className="tag-result-box" onClick={() => addTag(tag.name)}>
-                    {tag.name}
+            {searchResults.map((activity, index) => (
+                <div key={index} className="tag-result-box" onClick={() => addActivity(activity.name)}>
+                    {activity.name}
                 </div>
             ))}
         </div>
@@ -332,11 +328,11 @@ const ManageSpot = ({ location, editBusiness }) => {
                                 type="checkbox"
                                 id={`tag-${index}`}
                                 name={`tag-${index}`}
-                                checked={spotTags.includes(tag.name)}
-                                onChange={(e) => handleSpotTagChange(e, tag.name)}
+                                checked={formData.tags.includes(tag)}
+                                onChange={(e) => handleSpotTagChange(e, tag)}
                                 className="tags-checkbox"
                                 />
-                                <label className="tags-checkbox-label" htmlFor={`tag-${index}`}>{tag.name}</label>
+                                <label className="tags-checkbox-label" htmlFor={`tag-${index}`}>{tag}</label>
                             </div>
                             ))}
                         </div>
