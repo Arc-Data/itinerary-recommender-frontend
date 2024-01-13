@@ -613,7 +613,7 @@ a:-webkit-any-link {
     grid-template-columns: 1fr 1fr;
     align-items: center;
     margin-top: 15px;
-    gap: 10px;
+    gap: 15px;
 }
 
 /*View Password*/
