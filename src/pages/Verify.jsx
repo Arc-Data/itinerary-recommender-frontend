@@ -26,8 +26,8 @@ const Verify = () => {
     return (
         <div>
             <h2 className="heading">Verify if it's you</h2>
-            <p className="mb15px">An OTP (One-Time-Password) has been sent to <span className="font-weight-500">{user.email}</span>. Input the correct OTP to proceed</p>
-            {status && <p>{status}</p>}
+            <p className="mb15px">An OTP (One-Time-Password) has been sent to <span className="font-weight-500">{user.email}</span>. Input the correct OTP to proceed.</p>
+            {status && <p className="mb15px status font-weight-500">{status}!</p>}
             <form method="POST" onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="code">Code</label>
@@ -41,8 +41,8 @@ const Verify = () => {
                 {loading ? 
                 <Spinner />
                 :
-                <div className="flex-between">
-                    <button type="submit" className="reset-password-btn">Submit</button>
+                <div className="">
+                    <button type="submit" className="reset-password-btn button-login-sign">Submit</button>
                     <Link onClick={resendOtp} className="plan--assistance-link-btn">Resend OTP</Link>
                 </div>
                 }
