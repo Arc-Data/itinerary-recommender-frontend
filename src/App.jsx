@@ -134,7 +134,7 @@ function App() {
 						<Route path="/admin/location/:id/menu" element={<Menu />} />
 						<Route path="/admin/location/:id/services" element={<Services />} />
 						<Route path="/admin/location/:id/fees" element={<Fees />} />
-						<Route path="/admin/location/:id/fees/:feeId/" element={<FeeDetails />} />
+						<Route path="/admin/location/:id/fees/:feeId/edit" element={<FeeDetails />} />
 						<Route path="/admin/location/:id/edit" element={<ManageBusiness />} />
 					</Route>
 		

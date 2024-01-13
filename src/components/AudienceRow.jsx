@@ -21,6 +21,9 @@ const AudienceRow = ({ type, deleteAudienceType }) => {
 
     const handleSaveAudienceType = () => {
         editAudienceType(type.id, data)
+
+        type.name = data.name
+        type.price = data.price
         toggleEditState()
     }
 
