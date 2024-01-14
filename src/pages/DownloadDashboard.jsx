@@ -386,10 +386,10 @@
                     <option value="completedTrip">Completed Trips Info</option>
                     <option value="userpreference">User Preference</option>
                     <option value="locationItinerary">Top Frequent Location </option>
-                    <option value="spots">Top Spots</option>
+                    {/* <option value="spots">Top Spots</option>
                     <option value="accommodation">Top Accommodation</option>
                     <option value="foodPlaces">Top Food Places</option>
-                    <option value="bookmarks">Top Bookmarks</option>
+                    <option value="bookmarks">Top Bookmarks</option> */}
                   </select>
                 </div>
                 <div className="mt-20px">
