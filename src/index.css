@@ -18,6 +18,13 @@
     line-height: 1;
 }
 
+.entire-screen-loading {
+    height: 100vh;
+    width: 100%;
+    display: grid;
+    place-items: center;
+}
+
 .pending {
     background-color: #FFD700;
 }

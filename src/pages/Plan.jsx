@@ -17,6 +17,7 @@ import Error403 from "../components/Error403"
 import AccordionHeader from "./AccordionHeader"
 import getFeeDetails from "../utils/getFeeDetails"
 import QueryForm from "../modals/QueryForm"
+import Spinner from "../components/Spinner"
 
 const Plan = () => {
 	const { authTokens } = useContext(AuthContext)
@@ -68,14 +69,17 @@ const Plan = () => {
 	const [isQueryFormOpen, setQueryFormOpen] = useState(false)
 	const [editName, setEditName] = useState(false)
 	const [editable, setEditable] = useState(false)
+	const [loading, setLoading] = useState(true) 
 
 	const [costEstimate, setCostEstimate] = useState(0);
 
 	useEffect(() => {
+		setLoading(true)
 		const fetchData = async () => {
 			try {
 				await getItineraryById(id)
 				await getDays(id)
+				setLoading(false)
 			}
 			catch(error) {
 				console.log("Error while retrieving itinerary")
@@ -198,8 +202,10 @@ const Plan = () => {
 		)
 	})
 
-	if (itineraryLoading) return (
-		<div>Loading Itinerary Details</div>
+	if (loading) return (
+		<div className="entire-screen-loading">
+			<Spinner/>
+		</div>
 	)
 
 	if(itineraryError) {
@@ -225,10 +231,6 @@ const Plan = () => {
 			)
 		}
 	}
-
-	if (daysLoading) return (
-		<div>Loading Related Days Information</div>
-	)
 
 	if (daysError) return (
 		<div>{daysError}</div>
