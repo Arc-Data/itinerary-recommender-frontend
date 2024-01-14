@@ -7,6 +7,7 @@ import AuthContext from "../context/AuthContext";
 export default function SearchCard (props) {
     const { user } = useContext(AuthContext)
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+    const { authTokens } = useContext(AuthContext)
 
     return (
         <div className="searchPage--details">  
@@ -14,7 +15,7 @@ export default function SearchCard (props) {
             <Link 
                 to={`/location/${props.id}`}> <img className="searchPage--pic" 
                 src={`${backendUrl}${props.primary_image}`}  
-                onClick={async () => recordClicks(user.user_id, props.id)}
+                onClick={() => recordClicks(user.user_id, props.id, String(authTokens.access))}
                 /></Link>
             </div>
             

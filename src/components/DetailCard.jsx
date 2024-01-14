@@ -7,13 +7,14 @@ import recordClicks from "../utils/recordClicks";
 export default function DetailCard(props) {
     const { user } = useContext(AuthContext)
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+    const { authTokens } = useContext(AuthContext)
 
     return (
         <div className="detailPage--popularCard">
             <div className="card--dest-image mb15px">
                 <Link 
                     to={`/location/${props.id}`}
-                    onClick={async () => recordClicks(user.user_id, props.id)}
+                    onClick={() => recordClicks(user.user_id, props.id, String(authTokens.access))}
                 >
                     <img 
                     src={`${backendUrl}${props.primary_image}`} 
