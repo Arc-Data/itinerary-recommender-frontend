@@ -23,6 +23,10 @@ const Login = () => {
     }
 
     useEffect(() => {
+        setStatus('')
+    }, [])
+
+    useEffect(() => {
         if (user) {
             user.is_staff ? <Navigate to="/admin" /> : <Navigate to="/home" />
         }

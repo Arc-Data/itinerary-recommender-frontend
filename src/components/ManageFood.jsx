@@ -33,7 +33,6 @@ const ManageBusiness = ({ location, editBusiness }) => {
 	const handleChangeInput = (e) => {
 		const { name, value } = e.target
 
-		console.log(name, value)
 		setFormData(prev => ({
 			...prev,
 			[name]: value
@@ -77,9 +76,7 @@ const ManageBusiness = ({ location, editBusiness }) => {
 				},
 				body: JSON.stringify({'tag': tagName})
 			})
-			console.log(response)
 			const data = await response.json()
-			console.log(data)
 			const tag = data.data.name
 			const updatedTags = [...tags, tag]
 			setTags(updatedTags)
@@ -107,7 +104,6 @@ const ManageBusiness = ({ location, editBusiness }) => {
     }
 
 	const removeTag = async (e, removedTag) => {
-		console.log("Wait why")
 		e.preventDefault()
 		try {
 			const response = await fetch(`${backendUrl}/api/user/business/${location.id}/edit/remove_foodtags/`, {

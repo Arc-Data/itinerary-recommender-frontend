@@ -87,7 +87,7 @@ export const AuthProvider = ({children}) => {
     }
 
     const loginUser = async (e) => {
-        e.preventDefault()
+        e.preventDefault()        
         setStatus('')
 
         try {
@@ -143,6 +143,14 @@ export const AuthProvider = ({children}) => {
     }
 
     const registerUser = async (formData) => {
+        const strongPasswordRegex = /^(?=.*[!@#$%^&*(),.-?":{}|<>])(?=.*[A-Z])(?=.*[0-9]).{8,}$/
+        const isValidPassword = strongPasswordRegex.test(formData.password)
+
+        if (!isValidPassword) {
+            setStatus("Password must be 8 or more characters with at least one special character, one uppercase letter, and one digit.")
+            return
+        }
+
         const response = await fetch(`${backendUrl}/api/register/`, {
             method: 'POST',
             headers: {
@@ -233,9 +241,9 @@ export const AuthProvider = ({children}) => {
             })
 
             if (response.status == 200) {
-                return 'Valid'
+                return true
             } else {
-                return 'Invalid'
+                return false
             }
         }   
         catch (error) {
@@ -253,10 +261,7 @@ export const AuthProvider = ({children}) => {
         navigate('/')
     }
 
-    const forgotPassword = async (e) => {
-        e.preventDefault()
-        const email = e.target.email.value
-
+    const forgotPassword = async (email) => {
         try {
             const response = await fetch(`${backendUrl}/api/forgot/`, {
                 method: "POST",
