@@ -180,7 +180,6 @@ import { useLocation, Link } from 'react-router-dom';
 			}
 			const data = await response.json();
 			setTopLocationItinerary(data.top_locations_itinerary);
-			console.log(data)
 			} catch (error) {
 			console.error('Error fetching top Location Itinerary:', error.message);
 			}

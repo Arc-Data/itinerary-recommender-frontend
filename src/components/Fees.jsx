@@ -14,8 +14,6 @@ const Fees = () => {
     const { location, items: fees, error, loading, getBusinessDetail, createFeeType, getFeeTypes, editFeeType, addFeeType, deleteFeeType} = useBusinessManager(authTokens)
     const [ openFeeTypeModal, setOpenFeeTypeModal ] = useState(false)
 
-    console.log(fees)
-
     const toggleAddFeeTypeModal = () => {
         setOpenFeeTypeModal(prev => !prev)
     }

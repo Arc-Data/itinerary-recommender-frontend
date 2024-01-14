@@ -20,6 +20,8 @@ const AddAudienceType = ({ onClose, addAudienceType }) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         addAudienceType(feeId, data)
+
+        
     }   
 
     return (

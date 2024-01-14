@@ -358,7 +358,6 @@ const AddBusiness = () => {
                                         onChange={handleInputChange}
                                         placeholder="Enter Location Name" 
                                         className="business-input"
-                                        pattern="[A-Za-z]+"
                                         required
                                     />
                                 </div>
@@ -372,7 +371,6 @@ const AddBusiness = () => {
                                         onChange={handleInputChange}
                                         placeholder="Enter Location Address" 
                                         className="business-input"
-                                        pattern="[A-Za-z]+"
                                         required
                                     />
                                 </div>
