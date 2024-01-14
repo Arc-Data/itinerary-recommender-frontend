@@ -34,7 +34,17 @@ const Request = () => {
                 </td>
                 <td>{request.requester.first_name} {request.requester.last_name}</td>
                 <td>{dayjs(request.timestamp).format("MMMM D YYYY")}</td>
-                <td><button disabled className="request--status">For Approval</button></td>
+                <td>
+                    {
+                    request.status === "1" ? 
+                    <button disabled className="request--status pending" >For Approval</button>
+                    :
+                    request.status === "2" ? 
+                    <button disabled className="request--status approval">Approved</button>
+                    :
+                    <button disabled className="request--status reject">Rejected</button>
+                    }
+                </td>
                 <td className="admin--table-action">
                     <button className="view" onClick={() => toggleDetails(request)}>
                         <FontAwesomeIcon icon={faEye} />

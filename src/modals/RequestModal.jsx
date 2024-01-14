@@ -107,8 +107,9 @@ const RequestModal = ({onClose, request, approveRequest}) => {
                     <span>Approve</span>
                 </button>
                 <button 
-                    className="reject--BTN BTN14">
-                    <img src={() => handleApprove(3)}/>  
+                    className="reject--BTN BTN14"
+                    onClick={() => handleApprove(3)}>
+                    <img src={reject}/>  
                     <span>Reject</span>
                 </button>
             </div>

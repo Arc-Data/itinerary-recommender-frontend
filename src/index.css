@@ -18,6 +18,18 @@
     line-height: 1;
 }
 
+.pending {
+    background-color: #FFD700;
+}
+
+.approved {
+    background-color: #00FF00 ;
+}
+
+.reject {
+    background-color: #FF0000 ;
+}
+
 input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: none;
     appearance: none;
@@ -3552,7 +3564,6 @@ input[type="text"] {
 
 .request--status {
     padding: 8px;
-    background-color: #E86B6B;
     border-radius: 4px;
     cursor: unset;
     height: 20%;
