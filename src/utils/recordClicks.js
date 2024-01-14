@@ -1,40 +1,22 @@
 import { get, ref, set, update } from "firebase/database";
 import { db } from "../utils/firebase";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 
-const recordClicks = async (userId, locationId) => {
+const recordClicks = async (userId, locationId, access) => {
+    const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
     try {
-        const dbRef = ref(db, `users/${userId}`);
-        const userSnapshot = await get(dbRef);
-        
-        if(!userSnapshot.exists()) {
-            await set(dbRef, {
-                clicks: [{
-                    location: locationId,
-                    amount: 1
-                }]
-            })
-        } else {
-             // If the user exists, update the clicks
-             const userClicks = userSnapshot.val().clicks || [];
-             const existingClick = userClicks.find(click => click.location === locationId);
- 
-             if (existingClick) {
-                 // If the location already exists, increment the count
-                 existingClick.amount += 1;
-             } else {
-                 // If the location doesn't exist, add a new entry
-                 userClicks.push({
-                     location: locationId,
-                     amount: 1
-                 });
-             }
- 
-             // Update the clicks in the database using the update method
-             const updates = {};
-             updates[`/users/${userId}/clicks`] = userClicks;
- 
-             return update(ref(db), updates);
-        }
+        console.log("I am here")
+        const response = await fetch(`${backendUrl}/api/click/${locationId}/`, {
+            method: "POST",
+            headers:  {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${access}`
+            }
+        })
+
+        console.log(response)
 
     } catch (error) {
         console.log("An unexpected error has occurred while saving data to firebase", error);
