@@ -192,13 +192,23 @@
         
         const handleDownload = async () => {
           try {
-            setDownloadClicked(true);   
+            setDownloadClicked(true);
+        
+            const isLandscapeReport =
+              selectedTopList === 'spots' ||
+              selectedTopList === 'accommodation' ||
+              selectedTopList === 'bookmarks' ||
+              selectedTopList === 'userpreference' ||
+              selectedTopList === 'foodPlaces';
+        
+            const orientation = isLandscapeReport ? 'landscape' : 'portrait';
+        
             const canvas = await html2canvas(dashboardRef.current);
             const imageData = canvas.toDataURL("image/png");
-
-            const pdf = new jsPDF("portrait", "in", "a4");
+        
+            const pdf = new jsPDF(orientation, "in", "a4");
             pdf.addImage(imageData, "PNG", 0, 0, pdf.internal.pageSize.width, pdf.internal.pageSize.height);
-
+        
             pdf.save("CebuRoute_Report.pdf");
           } catch (error) {
             console.error("Error generating PDF:", error.message);
