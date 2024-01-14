@@ -32,7 +32,7 @@ export default function DetailCard(props) {
                             color={i + 1 <= props.ratings.average_rating ? "#ffc107" : "#e4e5e9"}
                         />
                     ))}
-                    <span className="tags"> • {props.ratings.average_rating} </span> {/* RATING FOR THE SPOT*/}
+                    <span className="tags"> • {props.ratings.average_rating.toFixed(2)} </span> {/* RATING FOR THE SPOT*/}
                 </div>
                 <span className="font14 tags">
                     {props.tags.map((tag, index) => (
