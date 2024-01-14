@@ -25,6 +25,11 @@ import { useLocation, Link } from 'react-router-dom';
 		const [completedTripMonth, setCompletedTripByMonth] = useState([]);
 		const [frequentLocation, setFrequentLocation] = useState([]);
 		const [selectedMonth, setSelectedMonth] = useState(1); 
+		const [topFoodPlace, setTopFoodPlace] = useState([]);
+		const [topBookmarks, setTopBookmarks] = useState([]);
+		const [topLocationItinerary, setTopLocationItinerary] = useState([]);
+		const [topSpots, setTopSpots] = useState([]);
+		const [selectedTopList, setSelectedTopList] = useState('spots');
 		
 		
 
@@ -207,12 +212,93 @@ import { useLocation, Link } from 'react-router-dom';
 			  setCompletedTripInfo(data);
 			  setCompletedTripByMonth(data.completed_trips_info);
 			  setFrequentLocation(data.location_frequency.slice(0, 20));
-			  console.log(data)
 		  
 			} catch (error) {
 			  console.error('Error fetching monthly report:', error.message);
 			}
 		  };
+
+		  const fetchTopBookmarks = async () => {
+			try {
+				const response = await fetch(`${backendUrl}/api/dashboard/top-bookmarks/`, {
+					method: 'GET',
+					headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${authTokens.access}`,
+					},
+				});
+		
+			if (!response.ok) {
+				throw new Error('Failed to fetch top bookmarks');
+			}
+			const data = await response.json();
+			setTopBookmarks(data.top_bookmarks);
+			} catch (error) {
+			console.error('Error fetching top bookmarks:', error.message);
+			}
+		};
+
+		const fetchTopSpots = async () => {
+			try {
+				const response = await fetch(`${backendUrl}/api/dashboard/top-spots/`, {
+					method: 'GET',
+					headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${authTokens.access}`,
+					},
+				});
+			
+			if (!response.ok) {
+				throw new Error('Failed to fetch top spots');
+			}
+		
+			const data = await response.json();
+			setTopSpots(data.top_spots);
+			
+			} catch (error) {
+			console.error('Error fetching top spots:', error.message);
+			}
+		};
+
+		const fetchTopFoodPlaces = async () => {
+			try {
+				const response = await fetch(`${backendUrl}/api/dashboard/top-foodplaces/`, {
+					method: 'GET',
+					headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${authTokens.access}`,
+					},
+				});
+		
+			if (!response.ok) {
+				throw new Error('Failed to fetch top bookmarks');
+			}
+			const data = await response.json();
+			setTopFoodPlace(data.top_food_places);
+			} catch (error) {
+			console.error('Error fetching top bookmarks:', error.message);
+			}
+		};
+
+		const fetchTopLocationItinerary = async () => {
+			try {
+				const response = await fetch(`${backendUrl}/api/dashboard/top-locations-itinerary/`, {
+					method: 'GET',
+					headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${authTokens.access}`,
+					},
+				});
+		
+			if (!response.ok) {
+				throw new Error('Failed to fetch top bookmarks');
+			}
+			const data = await response.json();
+			setTopLocationItinerary(data.results.top_locations_itinerary);
+			} catch (error) {
+			console.error('Error fetching top bookmarks:', error.message);
+			}
+		};
 
 
 		fetchCounts();
@@ -223,6 +309,10 @@ import { useLocation, Link } from 'react-router-dom';
 		topActivityPercent();
 		topVisitedFoodTag();
 		topVisitedSpotActivity();
+		fetchTopBookmarks();
+		fetchTopSpots();
+		fetchTopFoodPlaces();
+		fetchTopLocationItinerary();
 	}, [backendUrl, authTokens.access]);
 
 
@@ -245,8 +335,6 @@ import { useLocation, Link } from 'react-router-dom';
 		setSelectedMonth(parseInt(event.target.value, 10));
 	  };
 
-
-	
 
 	const preferenceColors = {
 		art: '#2D7D90',
@@ -329,6 +417,33 @@ import { useLocation, Link } from 'react-router-dom';
 			format: 'yyyy-MM-dd',
 		  },
 		},
+	  };
+
+	  const handleTopListChange = (event) => {
+		setSelectedTopList(event.target.value);
+	  };
+
+	  const tableHeaders = () => {
+		switch (selectedTopList) {
+		  case 'spots':
+		  case 'foodPlaces':
+			return (
+			  <tr className='table--th1'>
+				<th>Name</th>
+				<th>Average Rating</th>
+				<th>Total Reviews</th>
+			  </tr>
+			);
+		  case 'locationItinerary':
+			return (
+			  <tr className='table--th1'>
+				<th>Name</th>
+				<th>Total Occurrences</th>
+			  </tr>
+			);
+		  default:
+			return null;
+		}
 	  };
 
 	  
@@ -744,6 +859,65 @@ import { useLocation, Link } from 'react-router-dom';
 							/>
 							)}
 						</div>
+					</div>
+				</div>
+				<div className='User--preference-container'>
+					<div className='dashboard--total-container'>
+						<div className="dropdown--list-admin d-flexCenter">
+						<p className="font20 font-weight-600">Top {selectedTopList === 'spots' ? 'Spots' : selectedTopList === '' ? '' : selectedTopList === 'foodPlaces' ? 'Food Places' : 'Visited'}</p>
+							<div className="top-list-dropdown-admin">
+								<select id="topList" value={selectedTopList} onChange={handleTopListChange}>
+									<option value="spots">Top Spots</option>
+									<option value="foodPlaces">Top Food Places</option>
+									<option value="locationItinerary">Top Visited </option>
+								</select>
+							</div>
+						</div>
+						<table className="top-spot-table">
+							<thead>{tableHeaders()}
+							</thead>
+							<tbody>
+							{selectedTopList === 'spots' && topSpots && topSpots.map((spot, index) => (
+								<tr key={index} className="top-spot-item">
+									<td>{spot.name}</td>
+									<td>{spot.average_rating}</td>
+									<td>{spot.total_reviews}</td>
+								</tr>
+								))}
+							{selectedTopList === 'foodPlaces' && topFoodPlace && topFoodPlace.map((foodPlace, index) => (
+								<tr key={index} className="top-spot-item">
+									<td>{foodPlace.name}</td>
+									<td>{foodPlace.average_rating}</td>
+									<td>{foodPlace.total_reviews}</td>
+								</tr>
+								))}
+							{selectedTopList === 'locationItinerary' && topLocationItinerary && topLocationItinerary.map ((itineraries, index) => (
+								<tr key={index} className='top-spot-item'>
+									<td>{itineraries.name}</td>
+									<td>{itineraries.total_occurrences}</td>
+								</tr>
+							))}
+							</tbody>
+						</table>
+					</div>
+					<div className='dashboard--total-container'>
+						<p className="font20 font-weight-600">Top Bookmarks</p>
+						<table className="top-bookmark-table">
+							<thead>
+							<tr className='table--th1'>
+								<th>Name</th>
+								<th>Bookmark Count</th>
+							</tr>
+							</thead>
+							<tbody>
+							{topBookmarks.map((bookmark, index) => (
+								<tr key={index} className="top-spot-item">
+								<td>{bookmark.location_name}</td>
+								<td>{bookmark.bookmark_count}</td>
+								</tr>
+							))}
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
