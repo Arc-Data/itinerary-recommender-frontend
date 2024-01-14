@@ -1081,7 +1081,7 @@ input[type="text"] {
 .detailPage--cards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
+    gap: 15px;
     margin-top: 30px;
 }
 
@@ -2227,30 +2227,28 @@ input[type="text"] {
 
 .recommended--locations {
     position: relative;
-    margin-right: 50px;
-    margin-left: 50px;
 }
 
 .pagination-location {
     position: absolute;
     top: 35%; 
-    transform: translateY(-50%);
 }
 
 .leftSpot {
     position: absolute;
-    left: -35px;
+    left: -15px;
 }
 
 .rightSpot {
     position: absolute;
-    left: 820px;
+    left: 910px;
 }
 
 .arrow-button1 {
     background-color: #38A3A5;
     padding: 8px;
     height: auto;
+    border-radius: 3px !important;
 }
 
 .recent--bookmarks {
@@ -4283,3 +4281,6 @@ input:checked + .slider:before {
     100% { transform: rotate(360deg); }
 }
 
+.detailPage--cards-container {
+    margin: 20px;
+}

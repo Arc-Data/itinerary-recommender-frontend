@@ -220,7 +220,10 @@ const HomePage = () => {
 			<div className="recommended--locations--bookmarks">
 				<div className="recommended--locations">
 					<h1 className='heading'>Recommended Locations</h1>
-					<div className="detailPage--cards">{recommendedCards}</div>
+					<div className="detailPage--cards-container">
+						<div className="detailPage--cards">{recommendedCards}</div>
+					</div>
+					
 					{totalRecommendedLocations > itemsPerPage && (
 						<div className="pagination-location">
 						<button onClick={() => handlePagination("prev")} className="arrow-button1 leftSpot ">
@@ -250,8 +253,10 @@ const HomePage = () => {
 				</div>
 				{recommendations.length !== 0 && 
 				<div className="recommended--locations">
-					<h1 className='heading'>Recommended Food places</h1>
-					<div className="detailPage--cards">{recommendedFoodplaces}</div>
+					<h1 className='heading mt-30px'>Recommended Food places</h1>
+					<div className="detailPage--cards-container">
+						<div className="detailPage--cards">{recommendedFoodplaces}</div>
+					</div>
 					{totalRecommendedFoodPlaces > itemsPerPage && (
 						<div className="pagination-location">
 						<button onClick={() => handleFoodPagination("prev")} className="arrow-button1 leftSpot">
