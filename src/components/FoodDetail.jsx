@@ -21,7 +21,6 @@ const FoodDetail = ({isOwnedByUser}) => {
 
             const data = await response.json()
             setFoodItems(data)
-            console.log(data)
         }
         catch(error) {
             console.log("Error occurred while fetching food items!")

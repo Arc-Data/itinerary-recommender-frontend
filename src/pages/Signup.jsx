@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Link, Navigate } from 'react-router-dom';
 import AuthContext from "../context/AuthContext"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -51,6 +51,10 @@ const Signup = () => {
     const togglePasswordVisibility = () => {
         setShowPassword(prevState => !prevState)
     }
+
+    useEffect(() => {
+        setStatus('')
+    }, [])
 
     return (
         <div className="sign-up-container">
