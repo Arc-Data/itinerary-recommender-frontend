@@ -20,13 +20,6 @@ const Business = () => {
     const displayBusiness = ownedLocations && ownedLocations.map(owned => {
         return (
             <div className="business--owned" key={owned.id}>
-                {/* <div>
-                    <img 
-                        src={`${backendUrl}${owned.primary_image}`} 
-                        alt="Location" 
-                        className="business--image"
-                    />
-                </div> */}
                 <div className="info">
                     <p className="title">{owned.name}</p>
                     <p className="address">{owned.address}</p>
@@ -62,16 +55,16 @@ const Business = () => {
                 </td>
                 <td>{dayjs(request.timestamp).format("MMMM D YYYY")}</td>
                 <td>
-                    <button disabled className="request--status">
-                        For Approval
-                    </button>
+                    {
+                    request.status === "1" ? 
+                    <button disabled className="request--status pending">For Approval</button>
+                    :
+                    request.status === "2" ? 
+                    <button disabled className="request--status approval">Approved</button>
+                    :
+                    <button disabled className="request--status reject">Rejected</button>
+                    }
                 </td>
-                {/* <td>
-                    <div className="view--manage1">
-                        <div className="mr5px"><FaEdit/></div>
-                        <p className="view--manage">View</p>
-                    </div>
-                </td> */}
             </tr>
         )   
     })
