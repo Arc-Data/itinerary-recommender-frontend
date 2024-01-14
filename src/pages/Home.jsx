@@ -8,8 +8,10 @@ import useDayManager from "../hooks/useDayManager";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faCalendarDays, faCircleCheck } from '@fortawesome/free-regular-svg-icons';
+import { faPenToSquare, faCalendarDays, faCircleCheck} from '@fortawesome/free-regular-svg-icons';
+import { faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import useRecommendationsManager from "../hooks/useRecommendationsManager";
+
 
 const HomePage = () => {
 	const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
@@ -20,6 +22,7 @@ const HomePage = () => {
 	const [ selectedDays, setSelectedDays ] = useState([])
 	const [recommendedLocations, setRecommendedLocations] = useState([]);
 	const [recentBookmarks, setRecentBookmarks] = useState([]);
+	
 
 	// GET RECOMMENDED LOCATIONS
 	const getRecommendedLocations = async () => {
@@ -121,19 +124,62 @@ const HomePage = () => {
 		})
 	}
 
+	const itemsPerPage = 4;
+	const [currentPage, setCurrentPage] = useState(1);
+	const totalRecommendedLocations = recommendedLocations.length;
+	const totalPages = Math.ceil(totalRecommendedLocations / itemsPerPage);
+
+	const handlePagination = (direction) => {
+		if (direction === "prev" && currentPage > 1) {
+		  setCurrentPage((prev) => prev - 1);
+		} else if (direction === "next" && currentPage < totalPages) {
+		  setCurrentPage((prev) => prev + 1);
+		}
+	  };
+	
+	  const startIdx = (currentPage - 1) * itemsPerPage;
+	  const endIdx = startIdx + itemsPerPage;
+	  const currentRecommendedLocations = recommendedLocations.slice(
+		startIdx,
+		endIdx
+	  );
+	
+	const recommendedCards = currentRecommendedLocations.map((location) => (
+	<DetailCard key={location.id} {...location} />
+	));
+
+
+
+
+	const [currentFoodPage, setCurrentFoodPage] = useState(1);
+	const totalRecommendedFoodPlaces = recommendations.length;
+	const totalFoodPages = Math.ceil(totalRecommendedFoodPlaces / itemsPerPage);
+	
+	const handleFoodPagination = (direction) => {
+	  if (direction === "prev" && currentFoodPage > 1) {
+		setCurrentFoodPage((prev) => prev - 1);
+	  } else if (direction === "next" && currentFoodPage < totalFoodPages) {
+		setCurrentFoodPage((prev) => prev + 1);
+	  }
+	};
+	
+	const startFoodIdx = (currentFoodPage - 1) * itemsPerPage;
+	const endFoodIdx = startFoodIdx + itemsPerPage;
+	const currentRecommendedFoodPlaces = recommendations.slice(
+	  startFoodIdx,
+	  endFoodIdx
+	);
+	
+	const recommendedFoodplaces = currentRecommendedFoodPlaces.map((location) => (
+	  <DetailCard key={location.id} {...location} />
+	));
+
+
 	const displayItineraries = itineraries && itineraries.map(itinerary => {
 		return (
 			<Itinerary key={itinerary.id} itinerary={itinerary} handleDelete={deleteItinerary}/>
 		)
 	})
-
-	const recommendedCards = recommendedLocations.map((location) => (
-		<DetailCard key={location.id} {...location} />
-	  ));
-
-	const recommendedFoodplaces = recommendations.map((location) => (
-		<DetailCard key={location.id} {...location} />
-	));
 
 	const recentBookmarkCards = recentBookmarks && recentBookmarks.map(bookmark => (
 		// <div key={bookmark.id}>Something</div>
@@ -175,6 +221,16 @@ const HomePage = () => {
 				<div className="recommended--locations">
 					<h1 className='heading'>Recommended Locations</h1>
 					<div className="detailPage--cards">{recommendedCards}</div>
+					{totalRecommendedLocations > itemsPerPage && (
+						<div className="pagination-location">
+						<button onClick={() => handlePagination("prev")} className="arrow-button1 leftSpot ">
+							<FontAwesomeIcon icon={faChevronLeft} style={{ fontSize: '12px' }}/>
+						</button>
+						<button onClick={() => handlePagination("next")} className="arrow-button1 rightSpot">
+							<FontAwesomeIcon icon={faChevronRight} style={{ fontSize: '12px' }}/>
+						</button>
+						</div>
+					)}
 				</div>
 				<div className="recent--bookmarks">
 					<h1 className='heading4'>Recent Bookmarks</h1>
@@ -196,6 +252,16 @@ const HomePage = () => {
 				<div className="recommended--locations">
 					<h1 className='heading'>Recommended Food places</h1>
 					<div className="detailPage--cards">{recommendedFoodplaces}</div>
+					{totalRecommendedFoodPlaces > itemsPerPage && (
+						<div className="pagination-location">
+						<button onClick={() => handleFoodPagination("prev")} className="arrow-button1 leftSpot">
+							<FontAwesomeIcon icon={faChevronLeft} style={{ fontSize: '12px' }} />
+						</button>
+						<button onClick={() => handleFoodPagination("next")} className="arrow-button1 rightSpot">
+							<FontAwesomeIcon icon={faChevronRight} style={{ fontSize: '12px' }} />
+						</button>
+						</div>
+					)}
 				</div>
 				}
 			</div>
