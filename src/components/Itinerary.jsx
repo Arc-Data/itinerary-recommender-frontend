@@ -26,7 +26,11 @@ const Itinerary = ({itinerary, handleDelete}) => {
             <div className="itinerary--image-container">
                 <Link to ={`/plan/${itinerary.id}`}>
                     <img 
-                        src={`${backendUrl}${itinerary.image}`} 
+                        src={
+                            itinerary.image 
+                                ? `${backendUrl}${itinerary.image}` 
+                                : '/DefaultLocationImage.jpg'              
+                        } 
                         height={240}
                         width={270}
                         className="itinerary--image"
