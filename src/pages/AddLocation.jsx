@@ -321,7 +321,8 @@ function AddLocation() {
 
     return (
         <>
-            <h1 className="heading">Add Location</h1>
+            <h1 className="heading mb15px">Add Location</h1>
+            <p className='heading2 mb15px'>General Information</p>
             <form className="admin--container">
                 <div className="input--form">
                     <select
@@ -329,6 +330,7 @@ function AddLocation() {
                         onChange={handleChange}
                         name="type"
                         className="business-input" 
+                        required
                     >
                         <option value="">-- Location Type --</option>
                         <option value="1">Spot</option>
@@ -345,6 +347,8 @@ function AddLocation() {
                             name="name"
                             value={locationData.name}
                             className="business-input" 
+                            pattern="[A-Za-z]+"
+                            required
                         />
                     </div>
                     
@@ -357,6 +361,7 @@ function AddLocation() {
                             name="address"
                             value={locationData.address}
                             className="business-input" 
+                            required
                         />
                     </div>
                     <div className="input admin--container">
@@ -368,6 +373,7 @@ function AddLocation() {
                             name="contact"
                             value={locationData.contact}
                             className="business-input" 
+                            pattern="^(09|\+639)\d{9}$" 
                         />
                     </div>
                     <div className="input admin--container">
@@ -392,6 +398,8 @@ function AddLocation() {
                             className="business-input" 
                         />
                     </div>
+                    
+                    <p className='heading2 mb15px no-margin-left'>Business Information</p>
                     <div className="admin--container">
                         <div className="input admin--container">
                             <label htmlFor="opening">Opening Time</label>
@@ -428,6 +436,7 @@ function AddLocation() {
                             name="description"
                             value={locationData.description}
                             className='business-input description'
+                            required
                         />
                     </div>
                     <div className="admin--container">
@@ -440,6 +449,7 @@ function AddLocation() {
                                 name="latitude"
                                 value={locationData.latitude}
                                 className="business-input" 
+                                required
                             />
                         </div>
                         <div className="input admin--container">
@@ -451,6 +461,7 @@ function AddLocation() {
                                 name="longitude"
                                 value={locationData.longitude}
                                 className="business-input" 
+                                required
                             />
                         </div>
                     </div>
@@ -482,6 +493,7 @@ function AddLocation() {
                                     onKeyDown={handleKeyDown}
                                     placeholder="Add or search tags (e.g. Filipino, Fastfood)"
                                     className="tags-input"
+                                    required
                                 />
                             </div>
                             {tagSearchResults}
@@ -503,6 +515,7 @@ function AddLocation() {
                                             onKeyDown={handleKeyDown}
                                             placeholder="Add or search activities (e.g., Sightseeing, Swimming)"
                                             className="tags-input"
+                                            required
                                         />
                                     </div>
                                     {tagSearchResults}
@@ -511,12 +524,13 @@ function AddLocation() {
                                 {spotTags.map((tag, index) => (
                                     <div key={index} className="tags-checkbox-container">
                                         <input
-                                        type="checkbox"
-                                        id={`tag-${index}`}
-                                        name={`tag-${index}`}
-                                        checked={tags.includes(tag.name)}
-                                        onChange={(e) => handleSpotTagChange(e, tag.name)}
-                                        className="tags-checkbox"
+                                            type="checkbox"
+                                            id={`tag-${index}`}
+                                            name={`tag-${index}`}
+                                            checked={tags.includes(tag.name)}
+                                            onChange={(e) => handleSpotTagChange(e, tag.name)}
+                                            className="tags-checkbox"
+                                            required
                                         />
                                         <label className="tags-checkbox-label" htmlFor={`tag-${index}`}>{tag.name}</label>
                                     </div>
@@ -524,40 +538,42 @@ function AddLocation() {
                             </div>
                         </>                                       
                     }
+                    <div>
+                    <p className='heading business-details'>Upload Image</p>
+                    {image && (
+                        <div style={{ display: 'flex', alignItems: 'center', marginRight: '5px' }}>
+                        <img
+                            src={URL.createObjectURL(image)}
+                            alt="Selected Image"
+                            style={{ marginRight: '10px', maxWidth: '100px' }}
+                        />
+                        <p style={{ marginRight: '10px' }}>{image.name}</p>
+                            <button onClick={() => setImage(null)}><FontAwesomeIcon className="delete--upload-img" icon={faCircleXmark} /></button>
+                        </div>
+                        )}
+                        <div className="upload-btn" onClick={handleUploadClick}>
+                            <FontAwesomeIcon className='upload-icon btn-icons' icon={faUpload} />
+                            <label htmlFor="imgFile" className="choose-file">
+                                Upload image
+                            </label>
+                            <input
+                                type="file"
+                                id="imgFile"
+                                name="filename"
+                                accept="image/*"
+                                style={{ "display": 'none' }}
+                                onChange={handleImageChange}
+                            />
+                        </div>
+                    </div>
+
                     <button
                         type="button"
                         className="btn done"
                         onClick={handleSubmit}
                     >
-                        Upload
+                        Submit
                     </button>
-                </div>
-                <div>
-                    {image && (
-                    <div style={{ display: 'flex', alignItems: 'center', marginRight: '5px' }}>
-                    <img
-                        src={URL.createObjectURL(image)}
-                        alt="Selected Image"
-                        style={{ marginRight: '10px', maxWidth: '100px' }}
-                    />
-                    <p style={{ marginRight: '10px' }}>{image.name}</p>
-                        <button onClick={() => setImage(null)}><FontAwesomeIcon className="delete--upload-img" icon={faCircleXmark} /></button>
-                    </div>
-                    )}
-                    <div className="upload-btn" onClick={handleUploadClick}>
-                        <FontAwesomeIcon className='upload-icon btn-icons' icon={faUpload} />
-                        <label htmlFor="imgFile" className="choose-file">
-                            Upload image
-                        </label>
-                        <input
-                            type="file"
-                            id="imgFile"
-                            name="filename"
-                            accept="image/*"
-                            style={{ "display": 'none' }}
-                            onChange={handleImageChange}
-                        />
-                    </div>
                 </div>
             </form>
         </>

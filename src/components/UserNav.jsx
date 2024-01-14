@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import AuthContext from '../context/AuthContext';
 import { Link, createSearchParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faPlus, faStar, faBuilding, faBookmark, faRightFromBracket, faLock } from '@fortawesome/free-solid-svg-icons';
 
 const UserNav = () => {
     const [dropdown, setDropdown] = useState(false);
@@ -53,17 +53,38 @@ New trip</button>
                         {dropdown && 
                         <div className="user--dropdown-content">
                             <Link to="/profile/trips">
-                                <div className='user--profile-menu'>
-                                    <div className='user--profile'>
-                                        <p>{letter}</p>
-                                    </div>
-                                    <div>
-                                        <p className='user--full_name font-weight-600'>{full_name}</p>
-                                        <p className='user--email'>{email}</p>
-                                    </div>
+                                <div className='profile--section'>
+						            <p className='profile--icon'>{user.full_name[0].toUpperCase()}</p>
+						            <p className="profile--name">{user.full_name.toUpperCase()}</p>
+						            <p className="profile--email">{user.email}</p>
+					            </div>
+                            </Link>
+                            <Link to="/profile/rate">
+                                <div className="dropdown--options">
+                                    <FontAwesomeIcon icon={faStar} className="btn-icons"/>
+                                    <p className='font-weight-500'>Rate Trips</p>
                                 </div>
                             </Link>
-                            <div className="user--logout">
+                            <Link to="/profile/business">
+                                <div className="dropdown--options">
+                                    <FontAwesomeIcon icon={faBuilding} className='btn-icons'/>
+                                    <p className='font-weight-500'>Manage Business</p>
+                                </div>
+                            </Link>
+                            <Link to="/profile/bookmark">
+                                <div className="dropdown--options">
+                                    <FontAwesomeIcon icon={faBookmark} className='btn-icons'/>
+                                    <p className='font-weight-500'>Bookmarks</p>
+                                </div>
+                            </Link>
+                            <Link to="/profile/settings/change-password/">
+                                <div className="dropdown--options">
+                                    <FontAwesomeIcon icon={faLock} className='btn-icons'/>
+                                    <p className='font-weight-500'>Change Password</p>
+                                </div>
+                            </Link>
+                            <div className="dropdown--options">
+                                <FontAwesomeIcon icon={faRightFromBracket} className='btn-icons'/>
                                 <p className='font-weight-500' onClick={logoutUser}>Sign out</p>
                             </div>
                         </div>

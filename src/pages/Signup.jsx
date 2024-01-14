@@ -70,7 +70,9 @@ const Signup = () => {
                             name="firstname" 
                             placeholder="John" 
                             value={formData.firstname}
-                            onChange={handleInputChange} />
+                            onChange={handleInputChange}
+                            pattern="[A-Za-z]+"
+                        />
                     </div>
                     <div>
                         <label>Last Name</label>
@@ -80,29 +82,40 @@ const Signup = () => {
                             name="lastname" 
                             placeholder="Doe" 
                             value={formData.lastname}
-                            onChange={handleInputChange} />
+                            onChange={handleInputChange}
+                            pattern="[A-Za-z]+"
+                        />
                     </div>
                 </div>
-                <label>Email</label>
-                <input
-                    required 
-                    type="email" 
-                    name="email" 
-                    placeholder="example@gmail.com" 
-                    value={formData.email}
-                    onChange={handleInputChange} />
-                <label>Contact No.</label>
-                <input
-                    type="contact" 
-                    name="contact" 
-                    placeholder="Enter contact number. (ex: 09202750407)" 
-                    value={formData.contact}
-                    onChange={handleInputChange} />
+                <div className="name-inputs no-margin-top">
+                    <div>
+                        <label>Email</label>
+                        <input
+                            required 
+                            type="email" 
+                            name="email" 
+                            placeholder="sample@gmail.com" 
+                            value={formData.email}
+                            onChange={handleInputChange} 
+                        />
+                    </div>
+                    <div>
+                        <label>Phone Number</label>
+                        <input
+                            type="contact" 
+                            name="contact" 
+                            placeholder="09601234567" 
+                            value={formData.contact}
+                            onChange={handleInputChange}
+                            pattern="^(09|\+639)\d{9}$" 
+                        />
+                    </div>
+                </div>
                 <label>Password</label>
                 <input
                     required
                     type={showPassword ? "text" : "password"}
-                    placeholder="Enter your password"
+                    placeholder="Password"
                     name="password"
                     value={formData.password}
                     onChange={handleInputChange}
@@ -118,7 +131,7 @@ const Signup = () => {
                 <input
                     required
                     type={showPassword ? "text" : "password"}
-                    placeholder="Confirm your password"
+                    placeholder="Confirm password"
                     name="confirm"
                     value={formData.confirm}
                     onChange={handleInputChange} />

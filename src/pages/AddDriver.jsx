@@ -113,7 +113,9 @@ function AddDriver() {
                             onChange={handleChange}
                             name="first_name"
                             value={driverData.first_name}
-                            className="business-input" 
+                            className="business-input"
+                            pattern="[A-Za-z]+"
+                            required 
                         />
                     </div>
                     
@@ -126,6 +128,8 @@ function AddDriver() {
                             name="last_name"
                             value={driverData.last_name}
                             className="business-input" 
+                            pattern="[A-Za-z]+"
+                            required
                         />
                     </div>
                     <div className="input admin--container">
@@ -137,6 +141,8 @@ function AddDriver() {
                             name="contact"
                             value={driverData.contact}
                             className="business-input" 
+                            pattern="^(09|\+639)\d{9}$" 
+                            required
                         />
                     </div>
                     <div className="input admin--container">
@@ -148,6 +154,7 @@ function AddDriver() {
                             name="email"
                             value={driverData.email}
                             className="business-input" 
+                            required
                         />
                     </div>
                     <div className="input admin--container">
@@ -170,6 +177,7 @@ function AddDriver() {
                             name="info"
                             value={driverData.info}
                             className='business-input description'
+                            required
                         />
                     </div>
 
@@ -181,6 +189,7 @@ function AddDriver() {
                             onChange={handleChange}
                             name="type"
                             className="business-input" 
+                            required
                         >
                             <option value="">-- Car Type --</option>
                             <option value="1">Sedan</option>
@@ -196,7 +205,8 @@ function AddDriver() {
                             onChange={handleChange}
                             name="car"
                             value={driverData.car}
-                            className="business-input" 
+                            className="business-input"
+                            required 
                         />
                     </div>
                     <div className="input admin--container">
@@ -208,6 +218,7 @@ function AddDriver() {
                             name="capacity"
                             value={driverData.capacity}
                             className="business-input" 
+                            required
                         />
                     </div>
                     <div className="input admin--container">
@@ -219,11 +230,38 @@ function AddDriver() {
                             name="plate"
                             value={driverData.plate}
                             className="business-input" 
+                            required
                         />
                     </div>
-                    
-
-                    
+                    <div>
+                        <p className="heading2 mt-20px">Upload Image</p>
+                        <p className="mt-20px">Optimize your business impact by uploading a compelling image today – it's the key to making a lasting impression and attracting potential customers!</p>
+                        {image && (
+                        <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px' }}>
+                        <img
+                            src={URL.createObjectURL(image)}
+                            alt="Selected Image"
+                            style={{ marginRight: '10px', maxWidth: '100px' }}
+                        />
+                        <p style={{ marginRight: '10px' }}>{image.name}</p>
+                            <button onClick={() => setImage(null)}><FontAwesomeIcon className="delete--upload-img" icon={faCircleXmark} /></button>
+                        </div>
+                        )}
+                        <div className="upload-btn" onClick={handleUploadClick}>
+                            <FontAwesomeIcon className='upload-icon btn-icons' icon={faUpload} />
+                            <label htmlFor="imgFile" className="choose-file">
+                                Upload image
+                            </label>
+                            <input
+                                type="file"
+                                id="imgFile"
+                                name="filename"
+                                accept="image/*"
+                                style={{ "display": 'none' }}
+                                onChange={handleImageChange}
+                            />
+                        </div>
+                    </div>
                     <button
                         type="button"
                         className="btn done"
@@ -231,33 +269,6 @@ function AddDriver() {
                     >
                         Upload
                     </button>
-                </div>
-                <div>
-                    {image && (
-                    <div style={{ display: 'flex', alignItems: 'center', marginRight: '5px' }}>
-                    <img
-                        src={URL.createObjectURL(image)}
-                        alt="Selected Image"
-                        style={{ marginRight: '10px', maxWidth: '100px' }}
-                    />
-                    <p style={{ marginRight: '10px' }}>{image.name}</p>
-                        <button onClick={() => setImage(null)}><FontAwesomeIcon className="delete--upload-img" icon={faCircleXmark} /></button>
-                    </div>
-                    )}
-                    <div className="upload-btn" onClick={handleUploadClick}>
-                        <FontAwesomeIcon className='upload-icon btn-icons' icon={faUpload} />
-                        <label htmlFor="imgFile" className="choose-file">
-                            Upload image
-                        </label>
-                        <input
-                            type="file"
-                            id="imgFile"
-                            name="filename"
-                            accept="image/*"
-                            style={{ "display": 'none' }}
-                            onChange={handleImageChange}
-                        />
-                    </div>
                 </div>
             </form>
         </>
