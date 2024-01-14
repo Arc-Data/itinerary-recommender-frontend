@@ -3161,7 +3161,7 @@ input[type="text"] {
     margin-top: 50px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
 }
 .profile--link.active-link{
     background-color: #333;
@@ -3172,7 +3172,7 @@ input[type="text"] {
 }
 .profile--links-section a,
 .profile--links-section p {
-  font-size: 18px;
+  font-size: 16px;
 }
 .profile--main-content {
     max-width: 1200px;
