@@ -9,8 +9,8 @@ const RequestModal = ({onClose, request, approveRequest}) => {
     const { authTokens } = useContext(AuthContext)
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
 
-    const handleApprove = async () => {
-        approveRequest(request.id)
+    const handleApprove = async (status) => {
+        await approveRequest(request.id, status)
         onClose()
     }
 
@@ -102,15 +102,15 @@ const RequestModal = ({onClose, request, approveRequest}) => {
             <div className="d-flexCenter">
                 <button 
                     className="approve--BTN BTN14" 
-                    onClick={handleApprove}>
+                    onClick={() => handleApprove(2)}>
                     <img src={approve}/> 
                     <span>Approve</span>
                 </button>
-                {/* <button 
+                <button 
                     className="reject--BTN BTN14">
-                    <img src={reject}/>  
+                    <img src={() => handleApprove(3)}/>  
                     <span>Reject</span>
-                </button> */}
+                </button>
             </div>
         </Modal>
     )

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 /*Components*/
+import Spinner from '../components/Spinner'
 import SearchCard from '../components/SearchCard';
 /*Data*/
 import { useSearchParams } from 'react-router-dom';
@@ -40,7 +41,7 @@ const SearchPage = () => {
             {loading ? 
             <div className='searchPage--container'>
                 <div>
-                    <Skeleton height={200} count={20} color="#3498db" highlightColor={"#f5f5f5"} baseColor='#fff'/>
+                    <Spinner />
                 </div>
             </div>
             :
@@ -49,25 +50,25 @@ const SearchPage = () => {
                 <p className="searchPage--result">{locations ? locations.length : "0"} of {locations ? locations.length : "0"} Results</p>
                 <div className="searchPage--navbar">
                     <div
-                        onClick={() => { setSearchParams(''); setActiveTab(''); }}
+                        onClick={() => { searchParams.set('type', ''); setActiveTab(''); }}
                         className={activeTab === '' ? 'active' : ''}
                     >
                         All Results
                     </div>
                     <div
-                        onClick={() => { setSearchParams('spot'); setActiveTab('spot'); }}
+                        onClick={() => { searchParams.set('type', 'spot'); setActiveTab('spot'); }}
                         className={activeTab === 'spot' ? 'active' : ''}
                     >
                         Destination
                     </div>
                     <div
-                        onClick={() => { setSearchParams('accommodation'); setActiveTab('accommodation'); }}
+                        onClick={() => { searchParams.set('type', 'accommodation'); setActiveTab('accommodation'); }}
                         className={activeTab === 'accommodation' ? 'active' : ''}
                     >
                         Accommodation
                     </div>
                     <div
-                        onClick={() => { setSearchParams('foodplace'); setActiveTab('foodplace'); }}
+                        onClick={() => { setSearchParams('type', 'foodplace'); setActiveTab('foodplace'); }}
                         className={activeTab === 'foodplace' ? 'active' : ''}
                     >
                         Foodplace

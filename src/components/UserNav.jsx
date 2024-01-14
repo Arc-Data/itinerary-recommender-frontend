@@ -12,6 +12,7 @@ const UserNav = () => {
     const email = user.email;
     const full_name = user.full_name.toUpperCase();
     const navigate = useNavigate()
+    const query = searchParams.get('query')
     const type = searchParams.get('type')
 
     const toggleDropdown = () => {

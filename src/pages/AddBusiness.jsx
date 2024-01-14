@@ -530,7 +530,6 @@ const AddBusiness = () => {
                                                             onKeyDown={handleKeyDown}
                                                             placeholder="Add or search activities (e.g., Sightseeing, Swimming)"
                                                             className="tags-input"
-                                                            required
                                                         />
                                                     </div>
                                                     {tagSearchResults}
@@ -545,7 +544,6 @@ const AddBusiness = () => {
                                                             checked={tags.includes(tag.name)}
                                                             onChange={(e) => handleSpotTagChange(e, tag.name)}
                                                             className="tags-checkbox"
-                                                            required
                                                         />
                                                         <label className="tags-checkbox-label" htmlFor={`tag-${index}`}>{tag.name}</label>
                                                     </div>

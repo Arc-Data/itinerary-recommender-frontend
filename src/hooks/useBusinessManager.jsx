@@ -13,14 +13,15 @@ const useBusinessManager = (authTokens) => {
     const [items, setItems] = useState([])
     const [item, setItem] = useState()
     
-    const approveRequest = async (id) => {
+    const approveRequest = async (id, status) => {
         try {   
             const response = await fetch(`${backendUrl}/api/request/${id}/approve/`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type":"application/json",
                     "Authorization": `Bearer ${access}`
-                }
+                },
+                body: JSON.stringify(status)
             })
 
             if (response.ok) {
