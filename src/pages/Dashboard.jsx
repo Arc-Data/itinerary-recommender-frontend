@@ -429,9 +429,9 @@ import { useLocation, Link } from 'react-router-dom';
 		  case 'foodPlaces':
 			return (
 			  <tr className='table--th1'>
-				<th>Name</th>
-				<th>Average Rating</th>
-				<th>Total Reviews</th>
+				<th>Location Name</th>
+				<th>Average Star Rating</th>
+				<th>Total Reviews of user </th>
 			  </tr>
 			);
 		  case 'locationItinerary':
