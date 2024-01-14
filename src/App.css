@@ -354,7 +354,7 @@ select {
   border-radius: 10px;
 }
 
-.style--barGraph2, .style--barGraph3 {
+.style--barGraph2 {
   border: 2px solid #EFEFEF;
   margin: 25px 5px 0 0;
   height: auto;
@@ -362,10 +362,6 @@ select {
   border-radius: 10px;
 }
 
-.style--barGraph3 {
-  width: 1110px;
-  margin-bottom: 20px;
-}
 
 .top-spot-table{
   width: 650px;
@@ -438,6 +434,10 @@ select {
   margin-top: 20px;
 }
 
+.reports--date {
+  font-size: 28px;
+}
+
 .share--dashboard-header {
   margin: 0 auto;
   text-align: center;
@@ -455,4 +455,9 @@ select {
 .span-items1 {
   display: flex;
   justify-content: flex-start;
+}
+
+.completedTrip {
+  width: 50%;
+  margin: 10px auto;
 }
