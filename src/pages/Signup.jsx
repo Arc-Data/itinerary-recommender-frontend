@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Link, Navigate } from 'react-router-dom';
 import AuthContext from "../context/AuthContext"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -52,6 +52,10 @@ const Signup = () => {
         setShowPassword(prevState => !prevState)
     }
 
+    useEffect(() => {
+        setStatus('')
+    }, [])
+
     return (
         <div className="sign-up-container">
             <h2 className='heading'>Sign Up</h2>
@@ -89,7 +93,6 @@ const Signup = () => {
                     onChange={handleInputChange} />
                 <label>Contact No.</label>
                 <input
-                    required 
                     type="contact" 
                     name="contact" 
                     placeholder="Enter contact number. (ex: 09202750407)" 
