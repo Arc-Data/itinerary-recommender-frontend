@@ -236,7 +236,7 @@
                 return (
                     <tr className='table--th1'>
                       <th>Location Name</th>
-                      <th>Overall Frequency of Every Spots</th>
+                      <th>Visitor Frequency</th>
                     </tr>
                 );
               case 'bookmarks': 
@@ -318,10 +318,10 @@
               case 'locationItinerary':
                 return (
                   <>
-                    <h1 className="reports--title">Most Frequent Itinerary Report </h1>
+                    <h1 className="reports--title"> Visitor Frequency Report </h1>
                     <p className='reports--date font-weight-500'> ({formattedSelectedMonth}) </p>
                     <div className="completedTrip">
-                      The information displayed below pertains to the top 20 most frequent locations in the month of {months.find((m) => m.value === selectedMonth)?.label || ''}. The report provides the frequency of every spots.
+                      The information displayed below pertains to the top 20 most frequent locations in the month of {months.find((m) => m.value === selectedMonth)?.label || ''}. The report provides how frequent tourists visit these locations.
                     </div>
                   </>
                 );
