@@ -196,7 +196,7 @@
             const canvas = await html2canvas(dashboardRef.current);
             const imageData = canvas.toDataURL("image/png");
 
-            const pdf = new jsPDF("portrait", "in", "letter");
+            const pdf = new jsPDF("portrait", "in", "a4");
             pdf.addImage(imageData, "PNG", 0, 0, pdf.internal.pageSize.width, pdf.internal.pageSize.height);
 
             pdf.save("CebuRoute_Report.pdf");
