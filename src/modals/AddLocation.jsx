@@ -9,6 +9,7 @@ import getFeeDetails from "../utils/getFeeDetails"
 import useItemLocationManager from "../hooks/useItemLocationManager"
 import useRecommendationsManager from "../hooks/useRecommendationsManager"
 import RecommendationList from "../components/RecommendationList"
+import Spinner from "../components/Spinner"
 
 const AddLocation = ({onClose, locations, setLocations, day, includedLocations, setIncludedLocations, addMarker, deleteMarker, increaseEstimatedCost, decreaseEstimatedCost}) => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
@@ -227,7 +228,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                     <p className="heading2">Recommended Nearby Locations</p>
                     }
                     {recommendationsLoading  ? 
-                    <div>Loading</div>
+                    <Spinner />
                     :
                     <RecommendationList 
                         recommendations={spotRecommendations}
@@ -242,7 +243,7 @@ const AddLocation = ({onClose, locations, setLocations, day, includedLocations, 
                     <>
                     <p className="heading2">Recommended Food Locations</p>
                     {foodRecommendationsLoading ? 
-                    <div>Loading</div>
+                    <Spinner />
                     :
                     <RecommendationList 
                         recommendations={foodRecommendations}
