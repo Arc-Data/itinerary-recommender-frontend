@@ -6,6 +6,7 @@ import { faExclamationTriangle, faLock } from '@fortawesome/free-solid-svg-icons
 const ChangePassword = () => {
     const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
     const { authTokens } = useContext(AuthContext)
+    const [ status, setStatus ] = useState('')
 
     const [formData, setFormData] = useState({
         'oldPassword': '',
@@ -23,15 +24,20 @@ const ChangePassword = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setStatus('')
+        const strongPasswordRegex = /^(?=.*[!@#$%^&*(),.-?":{}|<>])(?=.*[A-Z])(?=.*[0-9]).{8,}$/
+        const isValidPassword = strongPasswordRegex.test(formData.newPassword)
+        console.log(formData.oldPassword, formData.newPassword)
 
         if (!formData.newPassword || !formData.confirm || !formData.oldPassword) {
-            alert("Missing input fields")
+            setStatus("Missing input fields")
+            return 
+        } else if (formData.newPassword !== formData.confirm) {
+            setStatus("Password and confirmation does not match");
+            return 
+        } else if (!isValidPassword) {
+            setStatus("New Password must be 8 or more characters with at least one special character, one uppercase letter, and one digit.")
             return
-        }
-
-        if (formData.newPassword !== formData.confirm) {
-            alert("newPassword password and confirmation do not match");
-            return;
         }
         
         try {
@@ -47,12 +53,19 @@ const ChangePassword = () => {
                 })
             })
 
-            if (response.status === 400) {
-                alert("Incorrect oldPassword Password")
-                return
-            }
+            console.log(response)
+            const data = await response.json()
+            console.log(data)
 
-            alert("Password Changed")
+            if (response.status === 400) {
+                setStatus(data.detail)
+                return
+            } else if (!response.ok) {
+                setStatus("An error occured")
+                return 
+            } 
+
+            setStatus('Change Password Success')
             setFormData({
                 'oldPassword': '',
                 'newPassword': '',
@@ -72,10 +85,12 @@ const ChangePassword = () => {
                 Create New Password
             </p>
             <form className="verify-text textAlign" onSubmit={handleSubmit}>
-            <p className="mb15px textAlignC"> Your new password must be different from previous used passwords.</p>
+                <p className="mb15px textAlignC"> Your new password must be different from previous used passwords.</p>
+                {status && <p className="login-error error">{status}</p>  }
                 <div className="form-input">
                     <label htmlFor="oldPassword">Old password</label>
                     <input
+                        required
                         type="password"
                         name="oldPassword"
                         placeholder="Enter Old Password"
@@ -89,6 +104,7 @@ const ChangePassword = () => {
                 <div className="form-input">
                     <label htmlFor="newPassword">New password</label>
                     <input
+                        required
                         type="password"
                         name="newPassword"
                         placeholder="Enter New Password"
@@ -102,6 +118,7 @@ const ChangePassword = () => {
                 <div className="form-input">
                     <label htmlFor="confirm">Confirm new password</label>
                     <input
+                        required
                         type="password"
                         name="confirm"
                         placeholder="Confirm Password"

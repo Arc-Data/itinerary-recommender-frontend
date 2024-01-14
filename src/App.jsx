@@ -71,11 +71,11 @@ function App() {
 					<Route path="/activate/:uidb64/:token" element={<Activation />}/>
 					<Route path="/forgot" element={<Forgot />} />
 					<Route path="/reset/:uidb64/:token" element={<Reset />} />
+					<Route path="/verify" element={<Verify />} />
 				</Route>
 
 				<Route element={<PrivateRoutes />} >
 					<Route path="/test" element={<Test />} />
-					<Route path="/verify" element={<Verify />} />
 					<Route path="/preferences" element={<Preferences/>}/>
 					
 					<Route element={<BaseLayout />}>
