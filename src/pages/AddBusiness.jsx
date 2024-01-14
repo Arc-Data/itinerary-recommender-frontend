@@ -505,7 +505,7 @@ const AddBusiness = () => {
                                                 type="text" 
                                                 value={query} 
                                                 onChange={handleTagInputChange}
-                                                onKeyDown={ yDown}
+                                                onKeyDown={handleKeyDown}
                                                 placeholder="Add or search tags (e.g. Filipino, Fastfood)"
                                                 className="tags-input"
                                             />
