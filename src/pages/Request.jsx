@@ -37,7 +37,7 @@ const Request = () => {
                 <td>
                     {
                     request.status === "1" ? 
-                    <button disabled className="request--status pending" >For Approval</button>
+                    <button disabled className="request--status pending">For Approval</button>
                     :
                     request.status === "2" ? 
                     <button disabled className="request--status approval">Approved</button>
