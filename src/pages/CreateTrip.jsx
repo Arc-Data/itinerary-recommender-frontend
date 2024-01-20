@@ -114,6 +114,8 @@ const CreateTrip = () => {
                                 />
                                 <div className='create--currency-indicator heading5 no-margin-top'>PHP</div>
                             </div>
+                            <p className='searchPage--result font13'>Please note that the transportation fee is not incorporated in the provided cost estimate.
+                            Any associated transportation costs will be discussed separately.</p>
                         </div>
                         <div className='form-row'>
                             <label htmlFor="numberOfPeople" className='create--form-label'>Group size</label>

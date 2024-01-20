@@ -1477,7 +1477,6 @@ input[type="text"] {
 
 .searchPage--result{
     color: gray;
-    font-size: 16px;
     margin-bottom: 10px;
 }
 
@@ -4300,8 +4299,4 @@ input:checked + .slider:before {
     top: 8%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
-  
-  .toast {
-    margin-top: 0; /* Adjust as needed */
   }
