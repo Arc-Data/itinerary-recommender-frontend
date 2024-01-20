@@ -4291,3 +4291,17 @@ input:checked + .slider:before {
 .detailPage--cards-container {
     margin: 20px;
 }
+
+/* Toastify Alert */
+
+.toast-container {
+    width: 25%;
+    position: fixed;
+    top: 8%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .toast {
+    margin-top: 0; /* Adjust as needed */
+  }
