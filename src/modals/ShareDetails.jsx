@@ -12,25 +12,54 @@ const ShareDetails = ({onClose, day, costEstimate, name, locations}) => {
     const { markers, getDayMarkersData } = useMarkerManager()
 
     const exportPDF = () => {
-        const input = document.querySelector("#day-trips")
         const container = document.querySelector(".share--details-container");
-        
-        container.style.overflow = "visible"
-
-        html2canvas(input, {logging: true, letterRendering: 1, useCORS: true})
+        const contentToCapture = document.querySelector("#day-trips");
+    
+        container.style.overflow = "visible";
+    
+        html2canvas(contentToCapture, { logging: true, letterRendering: 1, useCORS: true })
             .then(canvas => {
                 container.style.overflow = "auto";
-
-                const imgData = canvas.toDataURL('image/png')
-                const pdf = new jsPDF()
-                pdf.addImage(imgData, 'JPEG', 0, 0)
-                pdf.save('download.pdf')
-            })
-    }
-
+    
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF();
+    
+                const pdfWidth = pdf.internal.pageSize.width;
+                const pdfHeight = pdf.internal.pageSize.height;
+    
+                let yPos = 0;
+                const tolerance = 1; 
+    
+                while (true) {
+                    if (yPos > 0) {
+                        pdf.addPage();
+                    }
+    
+                    const remainingHeight = contentToCapture.offsetHeight - yPos;
+                    const pageHeight = Math.min(pdfHeight, remainingHeight);
+    
+                    if (remainingHeight <= tolerance) {
+                        break;  
+                    }
+    
+                    const aspectRatio = canvas.width / canvas.height;
+                    const pageWidth = pageHeight * aspectRatio;
+    
+                    pdf.addImage(imgData, 'JPEG', 0, -yPos, pageWidth, pageHeight, null, 'FAST');
+                    yPos += pageHeight;
+                }
+    
+                pdf.save('download.pdf');
+            });
+    };
+    
+    
+    
+    
     const displayItems = locations.map((item, index) => {
         const fee = getFeeDetails(item.details.min_cost, item.details.max_cost)
         const icon = item.details.location_type === "1" ? faLocationDot : faUtensils
+
         return (
             <div key={item.id}>
                 <div>
