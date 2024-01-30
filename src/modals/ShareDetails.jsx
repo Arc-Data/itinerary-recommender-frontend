@@ -10,10 +10,18 @@ import ShareMap from "../components/ShareMap"
 const ShareDetails = ({onClose, day, costEstimate, name, locations}) => {
     const { markers, getDayMarkersData } = useMarkerManager()
 
+    console.log(locations)
+
     const exportPDF = () => {
         const input = document.querySelector("#day-trips")
+        const container = document.querySelector(".share--details-container");
+        
+        container.style.overflow = "visible"
+
         html2canvas(input, {logging: true, letterRendering: 1, useCORS: true})
             .then(canvas => {
+                container.style.overflow = "auto";
+
                 const imgData = canvas.toDataURL('image/png')
                 const pdf = new jsPDF()
                 pdf.addImage(imgData, 'JPEG', 0, 0)
@@ -24,16 +32,48 @@ const ShareDetails = ({onClose, day, costEstimate, name, locations}) => {
     const displayItems = locations.map((item, index) => {
         return (
             <div key={item.id}>
-                <div className="span-items share--location-item">
-                    <p className="share--location-name">
-                        <FontAwesomeIcon className="btn-icons" icon={faLocationDot} />
-                        {item.details.name}
-                    </p>
-                    {item.details.min_cost !== 0 && item.details.max_cost !== 0 && 
-                    <p className="share--location-costs font-weight-500">Costs {item.details.min_cost} - {item.details.max_cost} PHP</p>
-                    }
+                <div>
+                    <div className="span-items share--location-item">
+                        <p className="share--location-name">
+                            <FontAwesomeIcon className="btn-icons" icon={faLocationDot} />
+                            {item.details.name}
+                        </p>
+                        {item.details.min_cost !== 0 && item.details.max_cost !== 0 && 
+                        <p className="share--location-costs font-weight-500">Costs {item.details.min_cost} - {item.details.max_cost} PHP</p>
+                        }
+                    </div>
+                    <div className={`share--expenses-breakdown ${index !== locations.length - 1 ? "timeline" : ""}`}>
+                        { item.details.location_type == "1" &&  
+                        <div>
+                            {item.expense_details.required_expenses.length !== 0 &&
+                            <div>
+                                <p>Required Expenses</p>
+                                <div className="share--expenses-container">
+                                    { item.expense_details.required_expenses.map(expense => {
+                                        return expense.audience_types.map(audience => {
+                                            console.log(expense.name, audience.name)
+                                            return (
+                                                <div className="share--expense-detail">
+                                                    <p>{expense.name} ({audience.name})</p>
+                                                    <p>{audience.price}</p>    
+                                                </div>
+                                            )
+                                        })
+                                    })
+                                    }
+                                </div>
+                            </div>
+                            }
+                            {item.expense_details.optional_expenses.length !== 0 &&
+                            <div>
+                                <p>Optional Expenses</p>
+                            </div>
+                            }
+
+                        </div>
+                        }
+                    </div>
                 </div>
-                {index !== locations.length - 1 && <div className="location-divider"></div>}
             </div>
         )
     })
