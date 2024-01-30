@@ -50,7 +50,7 @@ const ShareDetails = ({onClose, day, costEstimate, name, locations}) => {
                             <div>
                                 <p>Required Expenses</p>
                                 <div className="share--expenses-container">
-                                    { item.expense_details.required_expenses.map(expense => {
+                                    {item.expense_details.required_expenses.map(expense => {
                                         return expense.audience_types.map(audience => {
                                             return (
                                                 <div className="share--expense-detail" key={audience.id}>
@@ -59,14 +59,25 @@ const ShareDetails = ({onClose, day, costEstimate, name, locations}) => {
                                                 </div>
                                             )
                                         })
-                                    })
-                                    }
+                                    })}
                                 </div>
-                            </div>
-                            }
-                            {item.expense_details.optional_expenses.length !== 0 &&
-                            <div>
-                                <p>Optional Expenses</p>
+                                {item.expense_details.optional_expenses.length !== 0 &&
+                                <div>
+                                    <p>Optional Expenses</p>
+                                    <div className="share--expenses-container">
+                                    {item.expense_details.optional_expenses.map(expense => {
+                                        return expense.audience_types.map(audience => {
+                                            return (
+                                                <div className="share--expense-detail" key={audience.id}>
+                                                    <p>{expense.name} ({audience.name})</p>
+                                                    <p>{audience.price}</p>    
+                                                </div>
+                                            )
+                                        })
+                                    })}
+                                    </div>
+                                </div>
+                                }
                             </div>
                             }
 
