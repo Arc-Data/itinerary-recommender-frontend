@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import useMarkerManager from "../hooks/useMarkerManager"
 import html2canvas from "html2canvas"
 import jsPDF from "jspdf"
-import { faLocationDot, faFileArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot, faFileArrowDown, faUtensils } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ShareMap from "../components/ShareMap"
 import getFeeDetails from "../utils/getFeeDetails";
@@ -30,13 +30,13 @@ const ShareDetails = ({onClose, day, costEstimate, name, locations}) => {
 
     const displayItems = locations.map((item, index) => {
         const fee = getFeeDetails(item.details.min_cost, item.details.max_cost)
-
+        const icon = item.details.location_type === "1" ? faLocationDot : faUtensils
         return (
             <div key={item.id}>
                 <div>
                     <div className="span-items share--location-item">
                         <p className="share--location-name">
-                            <FontAwesomeIcon className="btn-icons" icon={faLocationDot} />
+                            <FontAwesomeIcon className="btn-icons" icon={icon} />
                             {item.details.name}
                         </p>
                         <p className="share--location-costs font-weight-500">
@@ -80,8 +80,10 @@ const ShareDetails = ({onClose, day, costEstimate, name, locations}) => {
                                 }
                             </div>
                             }
-
                         </div>
+                        }
+                        {item.details.location_type == "2" &&
+                        <div>Estimated Food Expenses : {getFeeDetails(item.details.min_cost, item.details.max_cost)}</div>
                         }
                     </div>
                 </div>
