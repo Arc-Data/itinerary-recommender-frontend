@@ -11,6 +11,8 @@ import {
 	FaArrowLeft,
 	FaArrowRight,
 	} from "react-icons/fa";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import AuthContext from "../context/AuthContext";
 import timeToNow from "../utils/timeToNow";
 import SpotDetail from "../components/SpotDetail";
@@ -57,6 +59,14 @@ export default function DetailPage() {
 		comment: "",
 		rating: 0,
 	});
+	const badWords = 
+	["Putangina", "Tangina", "Gago", "Tay Dana", 
+	"Fuck You", "Fuckyou", "Bitch", "Crap", "Asshole",
+	"Fuck", "Bullshit", "Shit", "Son of a bitch", "Bastard",
+	"Tanay Damo", "Puke", "Pepe", "Titi", "Leche", "Punyeta",
+	"Putang", "Ina mo", "Tae", "Kupal", "Ulol" , "Pukinginamo"
+	,"inamo" ,"bobo" ,"b0b0", "B1tch", "Puki", "Pukinang ina", 
+	"Sh1t", "PutanginaM0"];
 
 	const handleReviewChange = (name, value) => {
 		setFormData((prev) => ({
@@ -87,7 +97,7 @@ export default function DetailPage() {
 
 		const locationData = await response.json();
 		setReviewData(locationData.results);
-		setTotalPages(Math.ceil(locationData.count / 5)); // Assuming 5 reviews per page
+		setTotalPages(Math.ceil(locationData.count / 5)); 
 	};
 
 	// GET REVIEW OF USER
@@ -141,27 +151,39 @@ export default function DetailPage() {
 	// SUBMIT REVIEW
 	const submitReview = async () => {
 		try {
-			const response = await fetch(
-				`${backendUrl}/api/location/${id}/reviews/create/`,
-				{
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					"Authorization": `Bearer ${authTokens.access}`,
-				},
-				body: JSON.stringify(formData),
-				}
-			);
-
-			if (!response.ok) {
-				throw new Error(`Error while submitting the review: `);
+		  // Check for inappropriate words
+		  const hasBadWords = badWords.some(word => formData.comment.toLowerCase().includes(word.toLowerCase()));
+	  
+		  if (hasBadWords) {
+			// Show an error message or handle appropriately
+			toast.error("Your review contains inappropriate words. Please edit and try again.");
+			return;
+		  }
+	  
+		  const response = await fetch(
+			`${backendUrl}/api/location/${id}/reviews/create/`,
+			{
+			  method: "POST",
+			  headers: {
+				"Content-Type": "application/json",
+				"Authorization": `Bearer ${authTokens.access}`,
+			  },
+			  body: JSON.stringify(formData),
 			}
-			const data = await response.json();
-			setUserReview(data)
+		  );
+	  
+		  if (!response.ok) {
+			throw new Error(`Error while submitting the review: `);
+		  }
+	  
+		  const data = await response.json();
+		  setUserReview(data);
+		  toast.success("Review submitted successfully!");
 		} catch (error) {
-			console.error("Error while submitting the review: ", error);
+		  console.error("Error while submitting the review: ", error);
 		}
-	};
+	  };
+	
 
 	const handleSubmit = () => {
 		if (userReview) {
@@ -173,48 +195,54 @@ export default function DetailPage() {
 
 	// EDIT REVIEW
 	const handleEditReview = () => {
-		if(dropdownOpen) {
-			setDropdownOpen(false)
+		if (dropdownOpen) {
+			setDropdownOpen(false);
 		}
-
-		setEditMode(prev => !prev);
+	
+		setEditMode((prev) => !prev);
 	};
-
+	
 	if (loading) {
-		return (<div>Please wait</div>)
+		return <div>Please wait</div>;
 	}
-
-
+	
 	const editReview = async () => {
 		try {
-			const response = await fetch(
-				`${backendUrl}/api/location/${id}/reviews/edit/`,
-				{
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-					"Authorization": `Bearer ${authTokens.access}`,
-				},
-				body: JSON.stringify(formData),
-				}
-			);
-
-			if (!response.ok) {
-				throw new Error(`Error while updating the review: ${errorData.detail}`);
-			}
-			
-			const data = await response.json();
-			setUserReview(data)
-			setFormData({
-				"rating": data.rating,
-				"comment": data.comment,
-			})
-
-			setEditMode(false);
+		  // Check for inappropriate words
+		  const hasBadWords = badWords.some(word => formData.comment.toLowerCase().includes(word.toLowerCase()));
+	  
+		  if (hasBadWords) {
+			// Show an alert for inappropriate words
+			toast.error("Your review contains inappropriate words. Please edit and try again.");
+			return;
+		  }
+	  
+		  const response = await fetch(`${backendUrl}/api/location/${id}/reviews/edit/`, {
+			method: "PUT",
+			headers: {
+			  "Content-Type": "application/json",
+			  "Authorization": `Bearer ${authTokens.access}`,
+			},
+			body: JSON.stringify(formData),
+		  });
+	  
+		  if (!response.ok) {
+			throw new Error(`Error while updating the review: ${errorData.detail}`);
+		  }
+	  
+		  const data = await response.json();
+		  setUserReview(data);
+		  setFormData({
+			rating: data.rating,
+			comment: data.comment,
+		  });
+	  
+		  setEditMode(false);
+		  toast.success("Review updated successfully!");
 		} catch (error) {
-			console.error("Error while updating the review: ", error);
+		  console.error("Error while updating the review: ", error);
 		}
-	};
+	  };
 
 	// DELETE REVIEW 
 	const deleteReview = async () => {
@@ -320,6 +348,9 @@ export default function DetailPage() {
 
 	return (
 		<div className="detailPage">
+			 <ToastContainer
+				className="toast-container"
+			/>
 			<div className="detailPage--text">
 				<div className="detailPage--address-time">
 					<h1 className="detailPage--title heading6">{location?.name}</h1>

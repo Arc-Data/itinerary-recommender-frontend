@@ -15,7 +15,7 @@ const RecommendationList = ({ recommendations, onAddRecommendation} ) => {
                         {recommendation.distance && 
                         <p>{Math.floor(recommendation.distance)}m</p>
                         }
-                        <p className="rating">Rating: {recommendation.ratings.average_rating}</p>
+                        <p className="rating">Rating: {recommendation.ratings.average_rating.toFixed(2)}</p>
                     </div>
                     <button onClick={() => onAddRecommendation(recommendation.id)} className='add-location-modal--add-btn'><FontAwesomeIcon icon={faPlus} /></button>
             </div> ) 

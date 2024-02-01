@@ -71,8 +71,8 @@ const Signup = () => {
                             placeholder="John" 
                             value={formData.firstname}
                             onChange={handleInputChange}
-                            pattern="[A-Za-z]+"
-                        />
+                            pattern="[A-Za-z]+([A-Za-z ]*)"
+                            />
                     </div>
                     <div>
                         <label>Last Name</label>
@@ -83,8 +83,8 @@ const Signup = () => {
                             placeholder="Doe" 
                             value={formData.lastname}
                             onChange={handleInputChange}
-                            pattern="[A-Za-z]+"
-                        />
+                            pattern="[A-Za-z]+([A-Za-z ]*)"
+                            />
                     </div>
                 </div>
                 <div className="name-inputs no-margin-top">

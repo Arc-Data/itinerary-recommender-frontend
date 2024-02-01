@@ -68,7 +68,7 @@ const SearchPage = () => {
                         Accommodation
                     </div>
                     <div
-                        onClick={() => { setSearchParams('type', 'foodplace'); setActiveTab('foodplace'); }}
+                        onClick={() => { searchParams.set('type', 'foodplace'); setActiveTab('foodplace'); }}
                         className={activeTab === 'foodplace' ? 'active' : ''}
                     >
                         Foodplace

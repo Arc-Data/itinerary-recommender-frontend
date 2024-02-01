@@ -11,12 +11,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faCalendarDays, faCircleCheck} from '@fortawesome/free-regular-svg-icons';
 import { faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import useRecommendationsManager from "../hooks/useRecommendationsManager";
+import Spinner from "../components/Spinner";
 
 
 const HomePage = () => {
 	const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
 	const { user, authTokens } = useContext(AuthContext)
 	const { itineraries, getItineraries, deleteItinerary } = useItineraryManager(authTokens)
+	const [ spotLoading, setSpotLoading ] = useState(false)
 	const { days, error, loading, getActiveTrips, markDaysAsCompleted } = useDayManager(authTokens)
 	const { recommendations, getRecommendedFoodPlaces } = useRecommendationsManager(authTokens)
 	const [ selectedDays, setSelectedDays ] = useState([])
@@ -26,6 +28,7 @@ const HomePage = () => {
 
 	// GET RECOMMENDED LOCATIONS
 	const getRecommendedLocations = async () => {
+		setSpotLoading(true)
 		try {
 		  const response = await fetch(
 			`${backendUrl}/api/recommendations/homepage/`,
@@ -47,6 +50,8 @@ const HomePage = () => {
 		} catch (error) {
 		  console.error("Error while fetching recommended locations data: ", error);
 		}
+
+		setSpotLoading(false)
 	  };
 
 	// GET RECENT BOOKMARKS
@@ -218,6 +223,7 @@ const HomePage = () => {
 			</div>
 			}
 			<div className="recommended--locations--bookmarks">
+				{spotLoading ? <Spinner/> : 
 				<div className="recommended--locations">
 					<h1 className='heading'>Recommended Locations</h1>
 					<div className="detailPage--cards-container">
@@ -235,6 +241,7 @@ const HomePage = () => {
 						</div>
 					)}
 				</div>
+				}
 				<div className="recent--bookmarks">
 					<h1 className='heading4'>Recent Bookmarks</h1>
 					{recentBookmarks.length > 0 ? (

@@ -366,11 +366,10 @@ select {
 .top-spot-table{
   width: 650px;
   max-height: 635px;
-  margin: 20px 10px 0 25px;
+  margin: 0 5px 0 5px;
 }
 
 .top-bookmark-table{
- gap: 20px;
  max-height: 635px;
  margin-top: 45px;
 }
