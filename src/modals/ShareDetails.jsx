@@ -77,29 +77,29 @@ const ShareDetails = ({onClose, day, costEstimate, name, locations}) => {
                         <div>
                             {item.expense_details.required_expenses.length !== 0 &&
                             <div>
-                                <p>Required Expenses</p>
-                                <div className="share--expenses-container">
+                                <p className="share--expenses-header">Required Expenses</p>
+                                <div>
                                     {item.expense_details.required_expenses.map(expense => {
                                         return expense.audience_types.map(audience => {
                                             return (
                                                 <div className="share--expense-detail" key={audience.id}>
                                                     <p>{expense.name} ({audience.name})</p>
-                                                    <p>{audience.price}</p>    
+                                                    <p className="font-weight-500">{audience.price} PHP</p>    
                                                 </div>
                                             )
                                         })
                                     })}
                                 </div>
                                 {item.expense_details.optional_expenses.length !== 0 &&
-                                <div>
-                                    <p>Optional Expenses</p>
-                                    <div className="share--expenses-container">
+                                <div className="optional-expenses-container">
+                                    <p className="share--expenses-header optional">Optional Expenses</p>
+                                    <div>
                                     {item.expense_details.optional_expenses.map(expense => {
                                         return expense.audience_types.map(audience => {
                                             return (
                                                 <div className="share--expense-detail" key={audience.id}>
                                                     <p>{expense.name} ({audience.name})</p>
-                                                    <p>{audience.price}</p>    
+                                                    <p className="font-weight-500">{audience.price}</p>    
                                                 </div>
                                             )
                                         })
@@ -112,7 +112,8 @@ const ShareDetails = ({onClose, day, costEstimate, name, locations}) => {
                         </div>
                         }
                         {item.details.location_type == "2" &&
-                        <div>Estimated Food Expenses : {getFeeDetails(item.details.min_cost, item.details.max_cost)}</div>
+                            <div className="share--expense-detail">
+                                <p>Estimated Food Expenses: {getFeeDetails(item.details.min_cost, item.details.max_cost)}</p></div>
                         }
                     </div>
                 </div>
@@ -135,9 +136,8 @@ const ShareDetails = ({onClose, day, costEstimate, name, locations}) => {
                         <button data-html2canvas-ignore="true" onClick={exportPDF} className="share--details-download-btn"><FontAwesomeIcon className="btn-icons" icon={faFileArrowDown} />Download</button>
                     </div>
                     <div className="share--details-header">
-                        <p>Itinerary name: {name}</p>
-                        <p>Day number: {day.order}</p>
-                        <p>Total estimated cost: {costEstimate}</p>
+                        <p>Itinerary name<span>{name} (Day {day.order})</span></p>
+                        <p>Total estimated cost<span>{costEstimate}</span></p>
                     </div>
                     <div className="share--details-content">
                         {displayItems}

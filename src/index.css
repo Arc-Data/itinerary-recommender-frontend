@@ -2405,15 +2405,22 @@ input[type="text"] {
 }
 .share--details-header {
     background-color: #E7E7E7;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 15px 20px;
+    border-radius: 3px;
+    margin-bottom: 10px;
 }
 .share--details-header > p {
+    display: flex;
+    justify-content: space-between;
+}
+.share--details-header > p:not(:last-child) {
     margin-bottom: 5px;
-    font-size: 15px;
-    font-weight: 500;
+}
+.share--details-header > p > span {
+    font-weight: 600;
     color: #184E77;
 }
+
 .share--details-container {
     overflow: auto;
     padding: 50px;
@@ -2430,6 +2437,11 @@ input[type="text"] {
 .share--location-name {
     color: #308B8C;
     font-weight: 600;
+    font-size: 15px;
+}
+.share--expenses-header {
+    font-weight: 500;
+    margin-bottom: 10px;
     font-size: 14px;
 }
 .location-divider {
@@ -2440,8 +2452,8 @@ input[type="text"] {
 }
 
 .share--expenses-breakdown {
-    margin: 4px;
-    padding: 12px;
+    margin: 5px;
+    padding-left: 15px;
 }
 
 .share--expenses-container {
@@ -2454,6 +2466,17 @@ input[type="text"] {
     display: flex;
     justify-content: space-between;
 }
+.share--expense-detail > p {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+.optional-expenses-container {
+    border-top: 1px solid #E7E7E7;
+    margin-top: 10px;
+}
+.share--expenses-header.optional {
+    margin-top: 10px;
+}
 
 .timeline { 
     border-left: 4px dotted #308B8C;
@@ -2463,7 +2486,7 @@ input[type="text"] {
     padding: 5px 10px;
     background-color: #B5E48C;
     color: #184E77;
-    font-size: 12px;
+    font-size: 13px;
     border-radius: 3px;
 }
 .share--details-download-btn {
@@ -4320,4 +4343,8 @@ input:checked + .slider:before {
     top: 8%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+  .signup--birthday {
+    display: flex;
+    flex-direction: column;
   }

@@ -4,6 +4,7 @@ import AuthContext from "../context/AuthContext"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import Spinner from "../components/Spinner";
+import ReactDatePicker from 'react-datepicker'
 
 const Signup = () => {
     const { registerUser, user, status, setStatus } = useContext(AuthContext)
@@ -15,9 +16,12 @@ const Signup = () => {
         'password': '',
         'contact': '',
         'confirm': '',
+        'birthdate': ''
     })
     const [ loading, setLoading ] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
+
+    console.log(formData)
     
     if(user) {
         return (user.is_staff ? <Navigate to="/admin" /> : <Navigate to="/home" />)
@@ -87,18 +91,16 @@ const Signup = () => {
                             />
                     </div>
                 </div>
+                <label>Email</label>
+                    <input
+                        required 
+                        type="email" 
+                        name="email" 
+                        placeholder="sample@gmail.com" 
+                        value={formData.email}
+                        onChange={handleInputChange} 
+                    />
                 <div className="name-inputs no-margin-top">
-                    <div>
-                        <label>Email</label>
-                        <input
-                            required 
-                            type="email" 
-                            name="email" 
-                            placeholder="sample@gmail.com" 
-                            value={formData.email}
-                            onChange={handleInputChange} 
-                        />
-                    </div>
                     <div>
                         <label>Phone Number</label>
                         <input
@@ -108,6 +110,15 @@ const Signup = () => {
                             value={formData.contact}
                             onChange={handleInputChange}
                             pattern="^(09|\+639)\d{9}$" 
+                        />
+                    </div>
+                    <div className="signup--birthday">
+                        <label className="no-margin">Birthday</label>
+                        <ReactDatePicker
+                            selected={formData.birthdate}
+                            onChange={(date) => setFormData({ ...formData, birthdate: date })}
+                            dateFormat="MMMM d, yyyy"
+                            placeholderText="October 10, 2001"
                         />
                     </div>
                 </div>
